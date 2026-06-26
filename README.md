@@ -3,9 +3,9 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1B365D?style=flat-square&labelColor=F7FBFF" alt="MIT License"></a>
-  <a href="ROADMAP.md"><img src="https://img.shields.io/badge/lessons-316%20(189+127%20planned)-2F80ED?style=flat-square&labelColor=F7FBFF" alt="316 lessons"></a>
-  <a href="#contents"><img src="https://img.shields.io/badge/phases-20-2F80ED?style=flat-square&labelColor=F7FBFF" alt="20 phases"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2A1A2E?style=flat-square&labelColor=FFF7EC" alt="MIT License"></a>
+  <a href="ROADMAP.md"><img src="https://img.shields.io/badge/lessons-307-E0792F?style=flat-square&labelColor=FFF7EC" alt="307 lessons"></a>
+  <a href="#contents"><img src="https://img.shields.io/badge/phases-20-E0792F?style=flat-square&labelColor=FFF7EC" alt="20 phases"></a>
 </p>
 
 <p align="center"><sub>by <b>Ritesh Rana</b> &nbsp;·&nbsp; <a href="mailto:contact@riteshrana.engineer">contact@riteshrana.engineer</a></sub></p>
@@ -14,7 +14,7 @@
 
 Computer networks are layered systems with measurable behavior: signals, frames, packets, segments, names, requests, keys, timers, queues, and failures. This curriculum turns the supplied open networking material into a deep, packet-first course you can read, trace, build, and debug.
 
-316 lessons (189 core + 127 planned expansions). 20 phases. ~345 hours. Every lesson ships a reusable artifact: a trace annotation, runbook, diagram, script, or study prompt.
+307 lessons across 20 phases, all complete. ~345 hours. Every lesson ships a reusable artifact: a trace annotation, runbook, diagram, script, or study prompt.
 
 ## How This Works
 
