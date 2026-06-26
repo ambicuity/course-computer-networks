@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-08-network-security.md`](../../../../chapters/chapter-08-network-security.md) sections `8.2.5`, `8.3.1`.
+Source material: `chapters/chapter-08-network-security.md` sections `8.2.5`, `8.3.1`.
 
 Before leaving the subject of symmetric-key cryptography, it is worth at least
 mentioning four developments in cryptanalysis. The first development is dif-

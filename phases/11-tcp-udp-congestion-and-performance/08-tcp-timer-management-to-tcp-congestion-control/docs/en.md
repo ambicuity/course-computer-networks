@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-06-the-transport-layer.md`](../../../../chapters/chapter-06-the-transport-layer.md) sections `6.5.9`, `6.5.10`.
+Source material: `chapters/chapter-06-the-transport-layer.md` sections `6.5.9`, `6.5.10`.
 
 TCP uses multiple timers (at least conceptually) to do its work. The most im-
 portant of these is the RTO (Retransmission TimeOut). When a segment is

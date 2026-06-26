@@ -142,4 +142,4 @@ Start with `outputs/prompt-integrated-services.md`.
 - RFC 2212 — Specification of Guaranteed Quality of Service
 - RFC 2211 — Specification of the Controlled-Load Network Element Service
 - Tanenbaum & Wetherall, *Computer Networks*, 5th ed., Chapter 5, §5.4.5–5.4.6
-- The full source chapter: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md)
+- The full source chapter: `chapters/chapter-05-the-network-layer.md`

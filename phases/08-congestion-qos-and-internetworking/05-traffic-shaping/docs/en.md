@@ -84,7 +84,7 @@ A traffic contract is parameterized by `(R, B)` for a single bucket, or `(R1, B1
 
 `code/main.py` implements both buckets as stdlib Python classes and runs a burst through each, plus a WFQ scheduler over three weighted flows. Run it and read the trace: you will see the leaky bucket emit at a constant rate while the token bucket emits the initial burst at line rate and then cuts back.
 
-1. Read the source slice in [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md) around the leaky/token bucket figures (Fig. 5-28, 5-29) and the WFQ finish-time formula.
+1. Read the source slice in `chapters/chapter-05-the-network-layer.md` around the leaky/token bucket figures (Fig. 5-28, 5-29) and the WFQ finish-time formula.
 2. Run `python3 code/main.py` and confirm the token-bucket burst length matches `S = B / (M - R)`.
 3. Modify `BURST_BYTES` or `TOKEN_RATE` and predict the new burst length before you re-run.
 4. Capture a shaped flow with `tcpdump` or Wireshark and compare the inter-packet spacing to the simulator output.
@@ -133,7 +133,7 @@ Start from [`outputs/prompt-traffic-shaping.md`](../outputs/prompt-traffic-shapi
 
 ## Further Reading
 
-- [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md) — Sec. 5.4.2 (Leaky and Token Buckets), 5.4.3 (Packet Scheduling / WFQ), 5.4.4 (DiffServ).
+- `chapters/chapter-05-the-network-layer.md` — Sec. 5.4.2 (Leaky and Token Buckets), 5.4.3 (Packet Scheduling / WFQ), 5.4.4 (DiffServ).
 - RFC 2697 — *A Single Rate Three Color Marker* (policer spec).
 - RFC 2698 — *A Two Rate Three Color Marker* (dual-token-bucket peak-rate policer).
 - RFC 2597 — *Assured Forwarding PHB Group* (the four-priority × three-drop grid).

@@ -24,7 +24,7 @@ This is the daily reality of unguided transmission: the medium is invisible, sha
 
 ## The Concept
 
-Source: [`chapters/chapter-02-the-physical-layer.md`](../../../../chapters/chapter-02-the-physical-layer.md) — Radio, Microwave, and Infrared Transmission, plus the spectrum-politics and ISM/U-NII material that frames them.
+Source: `chapters/chapter-02-the-physical-layer.md` — Radio, Microwave, and Infrared Transmission, plus the spectrum-politics and ISM/U-NII material that frames them.
 
 As you climb the electromagnetic spectrum from long-wave radio toward visible light, the waves behave **more and more like light and less and less like radio**: they stop bending around obstacles, start travelling in straight lines, refuse to pass through walls, and become easier to focus into a tight beam. That single trend explains almost everything below. The diagram in [`assets/radio-transmission-to-infrared-transmission.svg`](../assets/radio-transmission-to-infrared-transmission.svg) lays the three bands on one frequency axis with their propagation modes.
 

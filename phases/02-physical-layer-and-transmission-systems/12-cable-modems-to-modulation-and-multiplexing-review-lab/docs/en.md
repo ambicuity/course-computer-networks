@@ -24,7 +24,7 @@ To diagnose this you must reason quantitatively about the physical layer: how ma
 
 ## The Concept
 
-Source material: [`chapters/chapter-02-the-physical-layer.md`](../../../../chapters/chapter-02-the-physical-layer.md), Sections **2.8.4 (Cable Modems)** and **2.8.5 (downstream/upstream allocation)**, built on the modulation and multiplexing foundations in **2.5**.
+Source material: `chapters/chapter-02-the-physical-layer.md`, Sections **2.8.4 (Cable Modems)** and **2.8.5 (downstream/upstream allocation)**, built on the modulation and multiplexing foundations in **2.5**.
 
 A DOCSIS plant is a **Hybrid Fiber Coax (HFC)** tree: fiber from the CMTS (formerly "headend") to a fiber node, then coax to up to ~100 homes per node. It is a shared bus, so the entire problem is *how many modems share one wire without colliding* — and the answer is a stack of multiplexing techniques layered together. The SVG ([`assets/cable-modems-to-modulation-and-multiplexing-review-lab.svg`](../assets/cable-modems-to-modulation-and-multiplexing-review-lab.svg)) shows the channel plan, the constellation ladder, and the upstream minislot timeline together.
 

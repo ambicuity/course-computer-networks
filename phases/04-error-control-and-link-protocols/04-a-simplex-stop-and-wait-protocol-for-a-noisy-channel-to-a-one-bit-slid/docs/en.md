@@ -24,7 +24,7 @@ The link uses a hand-rolled stop-and-wait scheme: A sends a frame, starts a time
 
 ## The Concept
 
-Source: [`chapters/chapter-03-the-data-link-layer.md`](../../../../chapters/chapter-03-the-data-link-layer.md), the Elementary Data Link Protocols and Sliding Window Protocols sections (Tanenbaum & Wetherall, *Computer Networks*, 5/6e, §3.3.3 and §3.4.1).
+Source: `chapters/chapter-03-the-data-link-layer.md`, the Elementary Data Link Protocols and Sliding Window Protocols sections (Tanenbaum & Wetherall, *Computer Networks*, 5/6e, §3.3.3 and §3.4.1).
 
 ### Why a timer alone is not enough
 

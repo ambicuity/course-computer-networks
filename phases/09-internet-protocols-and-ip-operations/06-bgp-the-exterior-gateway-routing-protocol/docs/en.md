@@ -21,7 +21,7 @@ A regional ISP s NOC gets a call: traffic bound for a sibling AS reaches the des
 
 ## The Concept
 
-Source material: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md), section 5.6.7. The protocol reference is RFC 4271; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/bgp-the-exterior-gateway-routing-protocol.svg`](../assets/bgp-the-exterior-gateway-routing-protocol.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
+Source material: `chapters/chapter-05-the-network-layer.md`, section 5.6.7. The protocol reference is RFC 4271; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/bgp-the-exterior-gateway-routing-protocol.svg`](../assets/bgp-the-exterior-gateway-routing-protocol.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
 
 ### Why this layer exists
 

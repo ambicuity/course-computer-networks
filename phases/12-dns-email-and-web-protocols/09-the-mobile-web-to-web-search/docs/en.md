@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-07-the-application-layer.md`](../../../../chapters/chapter-07-the-application-layer.md) sections `7.3.5`, `7.3.6`.
+Source material: `chapters/chapter-07-the-application-layer.md` sections `7.3.5`, `7.3.6`.
 
 The Web is used from most every type of computer, and that includes mobile
 phones. Browsing the Web over a wireless network while mobile can be very use-

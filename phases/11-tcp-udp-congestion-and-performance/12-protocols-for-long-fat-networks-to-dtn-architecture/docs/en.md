@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-06-the-transport-layer.md`](../../../../chapters/chapter-06-the-transport-layer.md) sections `6.6.6`, `6.7.1`.
+Source material: `chapters/chapter-06-the-transport-layer.md` sections `6.6.6`, `6.7.1`.
 
 Since the 1990s, there have been gigabit networks that transmit data over
 large distances. Because of the combination of a fast network, or ''fat pipe,'' and

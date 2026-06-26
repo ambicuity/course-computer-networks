@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-06-the-transport-layer.md`](../../../../chapters/chapter-06-the-transport-layer.md) sections `6.5.7`, `6.5.8`.
+Source material: `chapters/chapter-06-the-transport-layer.md` sections `6.5.7`, `6.5.8`.
 
 The steps required to establish and release connections can be represented in a
 finite state machine with the 11 states listed in Fig. 6-38. In each state, certain

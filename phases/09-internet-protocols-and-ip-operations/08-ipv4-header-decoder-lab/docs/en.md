@@ -21,7 +21,7 @@ A NOC analyst pastes a 20-byte IP header hex string from a tcpdump capture: `45 
 
 ## The Concept
 
-Source material: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md), section 5.6.1. The protocol reference is RFC 791; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/ipv4-header-decoder-lab.svg`](../assets/ipv4-header-decoder-lab.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
+Source material: `chapters/chapter-05-the-network-layer.md`, section 5.6.1. The protocol reference is RFC 791; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/ipv4-header-decoder-lab.svg`](../assets/ipv4-header-decoder-lab.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
 
 ### Why this layer exists
 

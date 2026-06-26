@@ -21,7 +21,7 @@ A university is allocated 128.208.0.0/16. The CS department wants half of it, EE
 
 ## The Concept
 
-Source material: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md), section 5.6.2-5.6.3. The protocol reference is RFC 950, RFC 4632; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/subnetting-and-cidr-drill.svg`](../assets/subnetting-and-cidr-drill.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
+Source material: `chapters/chapter-05-the-network-layer.md`, section 5.6.2-5.6.3. The protocol reference is RFC 950, RFC 4632; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/subnetting-and-cidr-drill.svg`](../assets/subnetting-and-cidr-drill.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
 
 ### Why this layer exists
 

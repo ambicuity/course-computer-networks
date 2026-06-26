@@ -22,7 +22,7 @@ Chord is one answer. It turns the index into a hash table spread across a ring o
 
 ## The Concept
 
-Source material: [`chapters/chapter-07-the-application-layer.md`](../../../../chapters/chapter-07-the-application-layer.md) section `7.5.4` (Peer-to-Peer Networks, DHTs / Chord).
+Source material: `chapters/chapter-07-the-application-layer.md` section `7.5.4` (Peer-to-Peer Networks, DHTs / Chord).
 
 A Chord DHT consists of `n` participating nodes. Each node and each content key is mapped to an `m`-bit identifier using a hash function (Chord uses SHA-1, giving `m = 160`; the source illustrates with `m = 5`). Identifiers are arranged in ascending order into a ring modulo `2^m`.
 

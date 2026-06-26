@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-08-network-security.md`](../../../../chapters/chapter-08-network-security.md) sections `8.7.1`, `8.7.2`.
+Source material: `chapters/chapter-08-network-security.md` sections `8.7.1`, `8.7.2`.
 
 For our first authentication protocol, we will assume that Alice and Bob al-
 ready share a secret key, K . This shared key might have been agreed upon on

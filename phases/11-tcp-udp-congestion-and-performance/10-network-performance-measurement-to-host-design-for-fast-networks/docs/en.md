@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-06-the-transport-layer.md`](../../../../chapters/chapter-06-the-transport-layer.md) sections `6.6.2`, `6.6.3`.
+Source material: `chapters/chapter-06-the-transport-layer.md` sections `6.6.2`, `6.6.3`.
 
 When a network performs poorly, its users often complain to the folks running
 it, demanding improvements. To improve the performance, the operators must

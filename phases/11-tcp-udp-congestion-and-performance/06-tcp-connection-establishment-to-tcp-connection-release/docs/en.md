@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-06-the-transport-layer.md`](../../../../chapters/chapter-06-the-transport-layer.md) sections `6.5.5`, `6.5.6`.
+Source material: `chapters/chapter-06-the-transport-layer.md` sections `6.5.5`, `6.5.6`.
 
 Connections are established in TCP by means of the three-way handshake dis-
 cussed in Sec. 6.2.2. To establish a connection, one side, say, the server, pas-

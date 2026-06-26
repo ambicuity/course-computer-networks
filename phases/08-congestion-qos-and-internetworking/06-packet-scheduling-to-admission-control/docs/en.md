@@ -24,7 +24,7 @@ The question is not "how fast is the link?" — it is "who goes next, and is the
 
 ## The Concept
 
-Source: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md) §5.4.3 (packet scheduling) and §5.4.4 (admission control).
+Source: `chapters/chapter-05-the-network-layer.md` §5.4.3 (packet scheduling) and §5.4.4 (admission control).
 
 ### FIFO (First-In First-Out)
 

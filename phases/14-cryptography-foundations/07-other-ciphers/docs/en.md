@@ -20,7 +20,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-08-network-security.md`](../../../../chapters/chapter-08-network-security.md) section `8.2.4`.
+Source material: `chapters/chapter-08-network-security.md` section `8.2.4`.
 
 AES (Rijndael) and DES are the best-known symmetric-key cryptographic al-
 gorithms, and the standard industry choices, if only for liability reasons. (No one

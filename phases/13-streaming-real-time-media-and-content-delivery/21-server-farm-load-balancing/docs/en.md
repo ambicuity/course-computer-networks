@@ -22,7 +22,7 @@ Server Farm Load Balancing matters because the front end that distributes reques
 
 ## The Concept
 
-Source material: [`chapters/chapter-07-the-application-layer.md`](../../../../chapters/chapter-07-the-application-layer.md) section `7.5.2` (Server Farms).
+Source material: `chapters/chapter-07-the-application-layer.md` section `7.5.2` (Server Farms).
 
 A server farm is a cluster of machines that together present a single Web site. A front end, usually a link-layer switch or an IP router, accepts all incoming traffic addressed to one virtual IP and sprays requests across the pool. The front end is a middlebox: it inspects network, transport, or application headers and uses them in nonstandard ways to choose a backend server. All packets of one request must land on the same server, or TCP state is lost.
 

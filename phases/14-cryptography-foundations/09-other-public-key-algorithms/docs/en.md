@@ -20,7 +20,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-08-network-security.md`](../../../../chapters/chapter-08-network-security.md) section `8.3.2`.
+Source material: `chapters/chapter-08-network-security.md` section `8.3.2`.
 
 Although RSA is widely used, it is by no means the only public-key algorithm
 known. The first public-key algorithm was the knapsack algorithm (Merkle and

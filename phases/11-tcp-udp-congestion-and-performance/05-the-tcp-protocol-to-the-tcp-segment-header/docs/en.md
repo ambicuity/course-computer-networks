@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-06-the-transport-layer.md`](../../../../chapters/chapter-06-the-transport-layer.md) sections `6.5.3`, `6.5.4`.
+Source material: `chapters/chapter-06-the-transport-layer.md` sections `6.5.3`, `6.5.4`.
 
 In this section, we will give a general overview of the TCP protocol. In the
 next one, we will go over the protocol header, field by field.

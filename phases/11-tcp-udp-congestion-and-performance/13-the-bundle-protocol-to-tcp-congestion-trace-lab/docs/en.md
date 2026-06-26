@@ -20,7 +20,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-06-the-transport-layer.md`](../../../../chapters/chapter-06-the-transport-layer.md) section `6.7.2`.
+Source material: `chapters/chapter-06-the-transport-layer.md` section `6.7.2`.
 
 To take a closer look at the operation of DTNs, we will now look at the IETF
 protocols. DTNs are an emerging kind of network, and experimental DTNs have

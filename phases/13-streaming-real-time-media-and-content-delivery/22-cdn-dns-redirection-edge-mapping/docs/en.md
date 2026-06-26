@@ -22,7 +22,7 @@ Content Delivery Networks solve this by placing copies of content at many locati
 
 ## The Concept
 
-Source material: [`chapters/chapter-07-the-application-layer.md`](../../../../chapters/chapter-07-the-application-layer.md) section `7.5.3` (Content Delivery Networks).
+Source material: `chapters/chapter-07-the-application-layer.md` section `7.5.3` (Content Delivery Networks).
 
 A CDN replicates content from an origin server to a set of edge nodes distributed across network regions. Clients fetch pages from the nearest edge node rather than the origin, so the round-trip time is short, TCP slow-start ramps up faster, and each network segment carries the page at most once. Three client-direction strategies are discussed:
 

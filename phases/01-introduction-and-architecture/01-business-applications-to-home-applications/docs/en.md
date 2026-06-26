@@ -24,7 +24,7 @@ Both tickets are really *one* architectural question — which interaction model
 
 ## The Concept
 
-Source material: [`chapters/chapter-01-introduction.md`](../../../../chapters/chapter-01-introduction.md), sections "Business Applications" and "Home Applications".
+Source material: `chapters/chapter-01-introduction.md`, sections "Business Applications" and "Home Applications".
 
 ### Why connect at all: resource sharing and the two goals
 

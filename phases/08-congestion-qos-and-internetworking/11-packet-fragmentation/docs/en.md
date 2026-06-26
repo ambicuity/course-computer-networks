@@ -24,7 +24,7 @@ This is a **PMTUD black hole**: fragmentation was moved out of the network to im
 
 ## The Concept
 
-Source material: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md) section `5.5.5`. The SVG diagrams the fragmentation of a 1500-byte packet; `code/main.py` is a stdlib-only fragmentation and reassembly simulator you can check against Wireshark.
+Source material: `chapters/chapter-05-the-network-layer.md` section `5.5.5`. The SVG diagrams the fragmentation of a 1500-byte packet; `code/main.py` is a stdlib-only fragmentation and reassembly simulator you can check against Wireshark.
 
 ### Why fragmentation exists
 

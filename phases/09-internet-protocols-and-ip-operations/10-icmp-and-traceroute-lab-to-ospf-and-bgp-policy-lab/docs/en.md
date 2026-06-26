@@ -21,7 +21,7 @@ A new ops engineer s first lab kit: a Linux router, three virtual interfaces, an
 
 ## The Concept
 
-Source material: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md), section 5.6.4-5.6.7. The protocol reference is RFC 792, RFC 2328, RFC 4271; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/icmp-and-traceroute-lab-to-ospf-and-bgp-policy-lab.svg`](../assets/icmp-and-traceroute-lab-to-ospf-and-bgp-policy-lab.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
+Source material: `chapters/chapter-05-the-network-layer.md`, section 5.6.4-5.6.7. The protocol reference is RFC 792, RFC 2328, RFC 4271; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/icmp-and-traceroute-lab-to-ospf-and-bgp-policy-lab.svg`](../assets/icmp-and-traceroute-lab-to-ospf-and-bgp-policy-lab.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
 
 ### Why this layer exists
 

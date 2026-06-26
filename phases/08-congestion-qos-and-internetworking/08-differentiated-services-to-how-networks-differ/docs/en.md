@@ -23,7 +23,7 @@ Operators needed a QoS model that (a) requires **no per-flow state in the core**
 
 ## The Concept
 
-Source: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md) §5.4.6 (Differentiated Services) and §5.5 (Internetworking — how networks differ).
+Source: `chapters/chapter-05-the-network-layer.md` §5.4.6 (Differentiated Services) and §5.5 (Internetworking — how networks differ).
 
 ### DiffServ architecture: edge vs core
 

@@ -23,7 +23,7 @@ Both symptoms are the same MAC-sublayer bug: a contention/allocation mechanism w
 
 ## The Concept
 
-Source material: [`chapters/chapter-04-the-medium-access-control-sublayer.md`](../../../../chapters/chapter-04-the-medium-access-control-sublayer.md), sections 4.6.5 (Bluetooth Link Layers), 4.6.6 (Bluetooth Frame Structure), and 4.7.1–4.7.4 (EPC Gen 2). See [`assets/the-bluetooth-link-layers-to-epc-gen-2-architecture.svg`](../assets/the-bluetooth-link-layers-to-epc-gen-2-architecture.svg) for the piconet slot timeline and the inventory message exchange side by side.
+Source material: `chapters/chapter-04-the-medium-access-control-sublayer.md`, sections 4.6.5 (Bluetooth Link Layers), 4.6.6 (Bluetooth Frame Structure), and 4.7.1–4.7.4 (EPC Gen 2). See [`assets/the-bluetooth-link-layers-to-epc-gen-2-architecture.svg`](../assets/the-bluetooth-link-layers-to-epc-gen-2-architecture.svg) for the piconet slot timeline and the inventory message exchange side by side.
 
 ### The piconet is a centralized TDM system
 

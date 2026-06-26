@@ -23,7 +23,7 @@ The same confusion runs the other way: a developer builds a file-transfer featur
 
 ## The Concept
 
-The source for this lesson is [`chapters/chapter-01-introduction.md`](../../../../chapters/chapter-01-introduction.md), the subsections on connection-oriented versus connectionless service, service primitives, and the relationship of services to protocols.
+The source for this lesson is `chapters/chapter-01-introduction.md`, the subsections on connection-oriented versus connectionless service, service primitives, and the relationship of services to protocols.
 
 ### Two service models: the tube and the post
 

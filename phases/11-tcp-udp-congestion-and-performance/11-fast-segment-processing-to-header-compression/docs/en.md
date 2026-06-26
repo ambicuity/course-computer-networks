@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-06-the-transport-layer.md`](../../../../chapters/chapter-06-the-transport-layer.md) sections `6.6.4`, `6.6.5`.
+Source material: `chapters/chapter-06-the-transport-layer.md` sections `6.6.4`, `6.6.5`.
 
 Now that we have covered general rules, we will look at some specific meth-
 ods for speeding up segment processing. For more information, see Clark et al.

@@ -23,7 +23,7 @@ The same wall shows up everywhere. A 3 kHz analog phone channel cannot carry a c
 
 ## The Concept
 
-Source: [`chapters/chapter-02-the-physical-layer.md`](../../../../chapters/chapter-02-the-physical-layer.md), sections 2.1.1 (Fourier Analysis), 2.1.2 (Bandwidth-Limited Signals), 2.1.3 (The Maximum Data Rate of a Channel).
+Source: `chapters/chapter-02-the-physical-layer.md`, sections 2.1.1 (Fourier Analysis), 2.1.2 (Bandwidth-Limited Signals), 2.1.3 (The Maximum Data Rate of a Channel).
 
 ### Fourier analysis: a square pulse is a sum of sines
 

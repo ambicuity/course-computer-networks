@@ -20,7 +20,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-08-network-security.md`](../../../../chapters/chapter-08-network-security.md) section `8.7.3`.
+Source material: `chapters/chapter-08-network-security.md` section `8.7.3`.
 
 Setting up a shared secret with a stranger almost worked, but not quite. On
 the other hand, it probably was not worth doing in the first place (sour grapes at-

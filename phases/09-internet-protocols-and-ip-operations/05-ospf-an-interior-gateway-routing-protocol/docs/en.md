@@ -21,7 +21,7 @@ A four-site enterprise has routers R1-R4 connected as a square plus a diagonal R
 
 ## The Concept
 
-Source material: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md), section 5.6.6. The protocol reference is RFC 2328; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/ospf-an-interior-gateway-routing-protocol.svg`](../assets/ospf-an-interior-gateway-routing-protocol.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
+Source material: `chapters/chapter-05-the-network-layer.md`, section 5.6.6. The protocol reference is RFC 2328; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/ospf-an-interior-gateway-routing-protocol.svg`](../assets/ospf-an-interior-gateway-routing-protocol.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
 
 ### Why this layer exists
 

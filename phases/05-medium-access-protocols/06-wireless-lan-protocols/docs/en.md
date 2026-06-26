@@ -23,7 +23,7 @@ Neither scanner can hear the other — they are 60 m apart and their radios reac
 
 ## The Concept
 
-Source: [`chapters/chapter-04-the-medium-access-control-sublayer.md`](../../../../chapters/chapter-04-the-medium-access-control-sublayer.md), the Wireless LAN Protocols section. A wireless LAN is a broadcast channel where a cell — an access point plus the stations in radio range — shares a single channel offering up to 600 Mbps. The wired assumption "if one station sends, every station hears it" does not hold on air, and almost every wireless MAC complication flows from that.
+Source: `chapters/chapter-04-the-medium-access-control-sublayer.md`, the Wireless LAN Protocols section. A wireless LAN is a broadcast channel where a cell — an access point plus the stations in radio range — shares a single channel offering up to 600 Mbps. The wired assumption "if one station sends, every station hears it" does not hold on air, and almost every wireless MAC complication flows from that.
 
 ### Why collision detection is impossible on radio
 

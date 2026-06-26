@@ -23,7 +23,7 @@ All three symptoms point at the Internet's control protocols: ICMP (and its repu
 
 ## The Concept
 
-Source material: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md), sections 5.6.4 (Internet Control Protocols) and 5.6.5 (Label Switching and MPLS). [`code/main.py`](../code/main.py) encodes/decodes ICMP messages and simulates an MPLS label stack across a three-LSR path; the SVG diagrams ICMP and label-swapping side by side.
+Source material: `chapters/chapter-05-the-network-layer.md`, sections 5.6.4 (Internet Control Protocols) and 5.6.5 (Label Switching and MPLS). [`code/main.py`](../code/main.py) encodes/decodes ICMP messages and simulates an MPLS label stack across a three-LSR path; the SVG diagrams ICMP and label-swapping side by side.
 
 ### ICMP — the Internet's error and probe channel
 

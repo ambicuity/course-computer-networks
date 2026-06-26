@@ -18,7 +18,7 @@ Computer networks are layered systems with measurable behavior: signals, frames,
 
 ## How This Works
 
-The source material has been converted into chapter Markdown under [`chapters/`](chapters/). The course wraps that material in the same style as the AI Engineering course: many focused lessons, consistent folders, `docs/en.md`, `quiz.json`, runnable starters for build-heavy topics, and one reusable output artifact per lesson.
+The course is organized as many focused lessons with consistent folders: each lesson has `docs/en.md`, `quiz.json`, a runnable starter for build-heavy topics, and one reusable output artifact.
 
 Each lesson follows the same loop:
 
@@ -30,27 +30,52 @@ Each lesson follows the same loop:
 
 ## The Shape of the Curriculum
 
+Phases form a prerequisite tree, not a single line — after the data-link core (Phase 3) the path branches across link, network, transport, and application tracks, then converges on security and the capstones. The interactive version lives at [`site/prereqs.html`](site/prereqs.html).
+
 ```mermaid
 flowchart TB
-  P0["Phase 0 - Networking Lab & Foundations"] --> P1["Phase 1 - Introduction & Network Architecture"]
-  P1["Phase 1 - Introduction & Network Architecture"] --> P2["Phase 2 - Physical Layer & Transmission Systems"]
-  P2["Phase 2 - Physical Layer & Transmission Systems"] --> P3["Phase 3 - Data Link Foundations"]
-  P3["Phase 3 - Data Link Foundations"] --> P4["Phase 4 - Error Control & Link Protocols"]
-  P4["Phase 4 - Error Control & Link Protocols"] --> P5["Phase 5 - Medium Access Protocols"]
-  P5["Phase 5 - Medium Access Protocols"] --> P6["Phase 6 - Ethernet, Wireless LANs & Switching"]
-  P6["Phase 6 - Ethernet, Wireless LANs & Switching"] --> P7["Phase 7 - Network Layer Design & Routing"]
-  P7["Phase 7 - Network Layer Design & Routing"] --> P8["Phase 8 - Congestion, QoS & Internetworking"]
-  P8["Phase 8 - Congestion, QoS & Internetworking"] --> P9["Phase 9 - Internet Protocols & IP Operations"]
-  P9["Phase 9 - Internet Protocols & IP Operations"] --> P10["Phase 10 - Transport Services & Protocol Mechanics"]
-  P10["Phase 10 - Transport Services & Protocol Mechanics"] --> P11["Phase 11 - TCP, UDP, Congestion & Performance"]
-  P11["Phase 11 - TCP, UDP, Congestion & Performance"] --> P12["Phase 12 - DNS, Email & Web Protocols"]
-  P12["Phase 12 - DNS, Email & Web Protocols"] --> P13["Phase 13 - Streaming, Real-Time Media & Content Delivery"]
-  P13["Phase 13 - Streaming, Real-Time Media & Content Delivery"] --> P14["Phase 14 - Cryptography Foundations"]
-  P14["Phase 14 - Cryptography Foundations"] --> P15["Phase 15 - Keys, Signatures & Authentication"]
-  P15["Phase 15 - Keys, Signatures & Authentication"] --> P16["Phase 16 - Secure Communication & Web Security"]
-  P16["Phase 16 - Secure Communication & Web Security"] --> P17["Phase 17 - Integrated Troubleshooting Labs"]
-  P17["Phase 17 - Integrated Troubleshooting Labs"] --> P18["Phase 18 - Design & Production Network Labs"]
-  P18["Phase 18 - Design & Production Network Labs"] --> P19["Phase 19 - Capstone Projects"]
+  P0["0 · Networking Lab & Foundations"]
+  P1["1 · Introduction & Network Architecture"]
+  P2["2 · Physical Layer & Transmission Systems"]
+  P3["3 · Data Link Foundations"]
+  P4["4 · Error Control & Link Protocols"]
+  P5["5 · Medium Access Protocols"]
+  P6["6 · Ethernet, Wireless LANs & Switching"]
+  P7["7 · Network Layer Design & Routing"]
+  P8["8 · Congestion, QoS & Internetworking"]
+  P9["9 · Internet Protocols & IP Operations"]
+  P10["10 · Transport Services & Protocol Mechanics"]
+  P11["11 · TCP, UDP, Congestion & Performance"]
+  P12["12 · DNS, Email & Web Protocols"]
+  P13["13 · Streaming, Real-Time Media & Content Delivery"]
+  P14["14 · Cryptography Foundations"]
+  P15["15 · Keys, Signatures & Authentication"]
+  P16["16 · Secure Communication & Web Security"]
+  P17["17 · Integrated Troubleshooting Labs"]
+  P18["18 · Design & Production Network Labs"]
+  P19["19 · Capstone Projects"]
+
+  P0 --> P1 --> P2 --> P3
+  P3 --> P4
+  P3 --> P5
+  P3 --> P6
+  P3 --> P7
+  P3 --> P9
+  P3 --> P8
+  P7 --> P8
+  P7 --> P10 --> P11
+  P4 --> P12
+  P6 --> P12
+  P11 --> P12
+  P11 --> P13 --> P14
+  P11 --> P14
+  P14 --> P15 --> P16
+  P11 --> P17
+  P10 --> P18
+  P14 --> P19
+  P15 --> P19
+  P16 --> P19
+  P17 --> P19
 ```
 
 ## Getting Started
@@ -537,11 +562,6 @@ python phases/00-networking-lab-and-foundations/01-network-lab-environment/code/
 | 17 | [Multilayer Incident Postmortem from Traffic and Logs](phases/19-capstone-projects/17-multilayer-incident-postmortem-from-traffic-and-logs/) | Capstone | — |
 
 </details>
-
-## Source Material
-
-- [`open-source-computer-networks.md`](open-source-computer-networks.md) - full extracted Markdown
-- [`chapters/`](chapters/) - chapter-level Markdown splits
 
 ## License
 

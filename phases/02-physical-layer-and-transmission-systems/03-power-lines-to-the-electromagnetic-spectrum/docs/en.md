@@ -30,7 +30,7 @@ To diagnose this you need to think in the same terms the spectrum forces on ever
 
 ## The Concept
 
-Source: [`chapters/chapter-02-the-physical-layer.md`](../../../../chapters/chapter-02-the-physical-layer.md), Power Lines and The Electromagnetic Spectrum.
+Source: `chapters/chapter-02-the-physical-layer.md`, Power Lines and The Electromagnetic Spectrum.
 
 ### Why the mains is a hostile channel
 

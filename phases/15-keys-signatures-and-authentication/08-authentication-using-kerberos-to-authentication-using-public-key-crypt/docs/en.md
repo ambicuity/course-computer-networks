@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-08-network-security.md`](../../../../chapters/chapter-08-network-security.md) sections `8.7.4`, `8.7.5`.
+Source material: `chapters/chapter-08-network-security.md` sections `8.7.4`, `8.7.5`.
 
 An authentication protocol used in many real systems (including Windows
 2000 and later versions) is Kerberos, which is based on a variant of Needham-

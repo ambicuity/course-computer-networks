@@ -24,7 +24,7 @@ This is the signature of a **duplex mismatch**: one end autonegotiated to half d
 
 ## The Concept
 
-Source: [`chapters/chapter-04-the-medium-access-control-sublayer.md`](../../../../chapters/chapter-04-the-medium-access-control-sublayer.md), sections 4.3.3–4.3.5.
+Source: `chapters/chapter-04-the-medium-access-control-sublayer.md`, sections 4.3.3–4.3.5.
 
 ### Why there is a contention interval at all
 

@@ -23,7 +23,7 @@ To diagnose this you cannot stay at the IP layer. You have to think in terms of 
 
 ## The Concept
 
-Source material: [`chapters/chapter-04-the-medium-access-control-sublayer.md`](../../../../chapters/chapter-04-the-medium-access-control-sublayer.md), sections 4.5.2–4.5.5. The architecture and protocol-stack diagram is reproduced in [`assets/services-to-the-802-16-architecture-and-protocol-stack.svg`](../assets/services-to-the-802-16-architecture-and-protocol-stack.svg).
+Source material: `chapters/chapter-04-the-medium-access-control-sublayer.md`, sections 4.5.2–4.5.5. The architecture and protocol-stack diagram is reproduced in [`assets/services-to-the-802-16-architecture-and-protocol-stack.svg`](../assets/services-to-the-802-16-architecture-and-protocol-stack.svg).
 
 ### The architecture: base stations own everything
 

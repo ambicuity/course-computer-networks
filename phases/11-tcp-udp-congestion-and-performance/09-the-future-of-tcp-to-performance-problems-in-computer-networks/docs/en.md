@@ -21,7 +21,7 @@ This lesson keeps the AI Engineering course rhythm but applies it to networking:
 
 ## The Concept
 
-Source material: [`chapters/chapter-06-the-transport-layer.md`](../../../../chapters/chapter-06-the-transport-layer.md) sections `6.5.11`, `6.6.1`.
+Source material: `chapters/chapter-06-the-transport-layer.md` sections `6.5.11`, `6.6.1`.
 
 As the workhorse of the Internet, TCP has been used for many applications
 and extended over time to give good performance over a wide range of networks.

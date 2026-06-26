@@ -21,7 +21,7 @@ Two simultaneous incidents seem unrelated. A campus video on-demand stream consu
 
 ## The Concept
 
-Source material: [`chapters/chapter-05-the-network-layer.md`](../../../../chapters/chapter-05-the-network-layer.md), section 5.6.8-5.6.9. The protocol reference is RFC 3376, RFC 3344; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/internet-multicasting-to-mobile-ip.svg`](../assets/internet-multicasting-to-mobile-ip.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
+Source material: `chapters/chapter-05-the-network-layer.md`, section 5.6.8-5.6.9. The protocol reference is RFC 3376, RFC 3344; the runnable model is [`code/main.py`](../code/main.py). The SVG diagram ([`assets/internet-multicasting-to-mobile-ip.svg`](../assets/internet-multicasting-to-mobile-ip.svg)) shows the byte layout, the state machine, or the topology that this lesson centers on — work through it before reading the prose below.
 
 ### Why this layer exists
 
