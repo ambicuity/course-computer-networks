@@ -563,6 +563,17 @@ python phases/00-networking-lab-and-foundations/01-network-lab-environment/code/
 
 </details>
 
+## Contributing
+
+| Goal | Read |
+|---|---|
+| Contribute a lesson or fix | [CONTRIBUTING.md](CONTRIBUTING.md) |
+| Fork for your team or school | [FORKING.md](FORKING.md) |
+| Lesson template | [LESSON_TEMPLATE.md](LESSON_TEMPLATE.md) |
+| Track progress | [ROADMAP.md](ROADMAP.md) |
+| Glossary | [glossary/terms.md](glossary/terms.md) |
+| Code of conduct | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) |
+
 ## License
 
 Course scaffolding is MIT licensed. Source text rights follow the source PDF/materials you supplied.
