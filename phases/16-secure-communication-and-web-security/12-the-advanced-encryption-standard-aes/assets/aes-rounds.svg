@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="ui-monospace, Menlo, monospace">
+  <rect width="1100" height="720" fill="#FFF7EC"/>
+  <text x="550" y="40" text-anchor="middle" font-size="24" font-weight="700" fill="#2A1A2E">AES-128: 10 Rounds of SubBytes, ShiftRows, MixColumns, AddRoundKey</text>
+  <text x="550" y="62" text-anchor="middle" font-size="12" fill="#2A1A2E">FIPS 197 (2001) — Rijndael by Daemen and Rijmen</text>
+
+  <!-- State grid -->
+  <g transform="translate(40,90)">
+    <rect width="200" height="220" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="100" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">State (4x4 bytes)</text>
+    <g transform="translate(20,40)">
+      <rect x="0"   y="0"  width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="40"  y="0"  width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="80"  y="0"  width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="120" y="0"  width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="0"   y="40" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="40"  y="40" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="80"  y="40" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="120" y="40" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="0"   y="80" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="40"  y="80" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="80"  y="80" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="120" y="80" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="0"   y="120" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="40"  y="120" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="80"  y="120" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="120" y="120" width="36" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="18"  y="22"  text-anchor="middle" font-size="11" fill="#2A1A2E">s0,0</text>
+      <text x="58"  y="22"  text-anchor="middle" font-size="11" fill="#2A1A2E">s1,0</text>
+      <text x="98"  y="22"  text-anchor="middle" font-size="11" fill="#2A1A2E">s2,0</text>
+      <text x="138" y="22"  text-anchor="middle" font-size="11" fill="#2A1A2E">s3,0</text>
+      <text x="18"  y="62"  text-anchor="middle" font-size="11" fill="#2A1A2E">s0,1</text>
+      <text x="58"  y="62"  text-anchor="middle" font-size="11" fill="#2A1A2E">s1,1</text>
+      <text x="98"  y="62"  text-anchor="middle" font-size="11" fill="#2A1A2E">s2,1</text>
+      <text x="138" y="62"  text-anchor="middle" font-size="11" fill="#2A1A2E">s3,1</text>
+      <text x="18"  y="102" text-anchor="middle" font-size="11" fill="#2A1A2E">s0,2</text>
+      <text x="58"  y="102" text-anchor="middle" font-size="11" fill="#2A1A2E">s1,2</text>
+      <text x="98"  y="102" text-anchor="middle" font-size="11" fill="#2A1A2E">s2,2</text>
+      <text x="138" y="102" text-anchor="middle" font-size="11" fill="#2A1A2E">s3,2</text>
+      <text x="18"  y="142" text-anchor="middle" font-size="11" fill="#2A1A2E">s0,3</text>
+      <text x="58"  y="142" text-anchor="middle" font-size="11" fill="#2A1A2E">s1,3</text>
+      <text x="98"  y="142" text-anchor="middle" font-size="11" fill="#2A1A2E">s2,3</text>
+      <text x="138" y="142" text-anchor="middle" font-size="11" fill="#2A1A2E">s3,3</text>
+    </g>
+    <text x="100" y="200" text-anchor="middle" font-size="11" fill="#2A1A2E">column-major fill</text>
+  </g>
+
+  <!-- Round operations -->
+  <g transform="translate(280,90)">
+    <text x="0" y="22" font-size="14" font-weight="700" fill="#E2557A">Per round</text>
+    <g transform="translate(0,40)">
+      <rect x="0" y="0" width="200" height="40" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+      <text x="100" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">SubBytes(state)</text>
+      <text x="100" y="36" text-anchor="middle" font-size="10" fill="#2A1A2E">S-box: b' = A * b^-1 + 0x63</text>
+      <rect x="0" y="50" width="200" height="40" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+      <text x="100" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">ShiftRows(state)</text>
+      <text x="100" y="86" text-anchor="middle" font-size="10" fill="#2A1A2E">rotate row i left by i bytes</text>
+      <rect x="0" y="100" width="200" height="40" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+      <text x="100" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">MixColumns(state)</text>
+      <text x="100" y="136" text-anchor="middle" font-size="10" fill="#2A1A2E">[02 03 01 01;...] in GF(2^8)</text>
+      <rect x="0" y="150" width="200" height="40" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+      <text x="100" y="174" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">AddRoundKey(state, rk[i])</text>
+      <text x="100" y="186" text-anchor="middle" font-size="10" fill="#2A1A2E">XOR with round key</text>
+    </g>
+  </g>
+
+  <!-- Round structure timeline -->
+  <g transform="translate(520,90)">
+    <text x="0" y="22" font-size="14" font-weight="700" fill="#E2557A">Round structure (10 rounds for AES-128)</text>
+    <g transform="translate(0,40)">
+      <rect x="0" y="0" width="540" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="270" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">AddRoundKey (rk[0])</text>
+      <rect x="0" y="34" width="540" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="270" y="54" text-anchor="middle" font-size="11" fill="#2A1A2E">SubBytes</text>
+      <rect x="0" y="68" width="540" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="270" y="88" text-anchor="middle" font-size="11" fill="#2A1A2E">ShiftRows</text>
+      <rect x="0" y="102" width="540" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="270" y="122" text-anchor="middle" font-size="11" fill="#2A1A2E">MixColumns</text>
+      <rect x="0" y="136" width="540" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="270" y="156" text-anchor="middle" font-size="11" font-weight="700" fill="#FFF7EC">AddRoundKey (rk[1])</text>
+      <text x="0" y="190" font-size="10" fill="#2A1A2E">repeats for rounds 2..9 (skip MixColumns on round 10)</text>
+    </g>
+  </g>
+
+  <!-- S-box and MixColumns matrix -->
+  <g transform="translate(40,340)">
+    <rect width="320" height="170" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="160" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">AES S-box (first row, hex)</text>
+    <g transform="translate(20,40)">
+      <text x="0"  y="14" font-size="11" fill="#2A1A2E">63 7C 77 7B F2 6B 6F C5 30 01 67 2B FE D7 AB 76</text>
+      <text x="0"  y="34" font-size="11" fill="#2A1A2E">CA 82 C9 7D FA 59 47 F0 AD D4 A2 AF 9C A4 72 C0</text>
+      <text x="0"  y="54" font-size="11" fill="#2A1A2E">B7 FD 93 26 36 3F F7 CC 34 A5 E5 F1 71 D8 31 15</text>
+      <text x="0"  y="74" font-size="11" fill="#2A1A2E">04 C7 23 C3 18 96 05 9A 07 12 80 E2 EB 27 B2 75</text>
+    </g>
+    <text x="14" y="148" font-size="11" fill="#2A1A2E">S(0) = 0x63 (no fixed points, no anti-fixed points)</text>
+  </g>
+
+  <g transform="translate(380,340)">
+    <rect width="240" height="170" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="120" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">MixColumns matrix (GF(2^8))</text>
+    <g transform="translate(40,40)" font-size="11" fill="#2A1A2E">
+      <text x="0"  y="20" text-anchor="middle">02</text>
+      <text x="36" y="20" text-anchor="middle">03</text>
+      <text x="72" y="20" text-anchor="middle">01</text>
+      <text x="108" y="20" text-anchor="middle">01</text>
+      <text x="0"  y="50" text-anchor="middle">01</text>
+      <text x="36" y="50" text-anchor="middle">02</text>
+      <text x="72" y="50" text-anchor="middle">03</text>
+      <text x="108" y="50" text-anchor="middle">01</text>
+      <text x="0"  y="80" text-anchor="middle">01</text>
+      <text x="36" y="80" text-anchor="middle">01</text>
+      <text x="72" y="80" text-anchor="middle">02</text>
+      <text x="108" y="80" text-anchor="middle">03</text>
+      <text x="0"  y="110" text-anchor="middle">03</text>
+      <text x="36" y="110" text-anchor="middle">01</text>
+      <text x="72" y="110" text-anchor="middle">01</text>
+      <text x="108" y="110" text-anchor="middle">02</text>
+    </g>
+    <text x="120" y="158" text-anchor="middle" font-size="11" fill="#2A1A2E">branch number 5 (max for 4x4 byte)</text>
+  </g>
+
+  <g transform="translate(640,340)">
+    <rect width="420" height="170" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="210" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">Key schedule (AES-128)</text>
+    <g transform="translate(20,40)" font-size="11" fill="#2A1A2E">
+      <text x="0" y="14">w[0..3] = key (4 x 32-bit words)</text>
+      <text x="0" y="34">for i in 4..43:</text>
+      <text x="20" y="50">if i mod 4 == 0:</text>
+      <text x="40" y="66">w[i] = w[i-4] XOR SubWord(RotWord(w[i-1])) XOR Rcon[i/4]</text>
+      <text x="20" y="86">else: w[i] = w[i-4] XOR w[i-1]</text>
+      <text x="0" y="106">Rcon[j] = [02^(j-1), 0, 0, 0] in GF(2^8)</text>
+      <text x="0" y="126">11 round keys, 16 bytes each (176 bytes total)</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(40,540)">
+    <rect width="1020" height="150" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="510" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">FIPS 197 Appendix B test vector</text>
+    <text x="20" y="50" font-size="12" fill="#2A1A2E">Plaintext:  3243f6a8885a308d313198a2e0370734</text>
+    <text x="20" y="70" font-size="12" fill="#2A1A2E">Key:        2b7e151628aed2a6abf7158809cf4f3c</text>
+    <text x="20" y="90" font-size="12" fill="#2A1A2E">Ciphertext: 3925841d02dc09fbdc118597196a0b32</text>
+    <text x="20" y="118" font-size="11" fill="#2A1A2E">Best published attack: biclique (Bogdanov et al., ASIACRYPT 2011),</text>
+    <text x="20" y="134" font-size="11" fill="#2A1A2E">2^126.1 for AES-128 (2x faster than brute force, not a practical break).</text>
+  </g>
+</svg>

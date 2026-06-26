@@ -1,0 +1,35 @@
+[
+  {
+    "question": "How does differential cryptanalysis recover key bits?",
+    "options": [
+      "A. By brute-forcing the entire key space",
+      "B. By encrypting pairs of plaintexts with a fixed input difference, observing the output difference distribution, and scoring candidate subkeys against a precomputed DDT (chapter §8.2.5)",
+      "C. By measuring the power consumed during encryption",
+      "D. By exploiting the parity bits in the DES key"
+    ],
+    "answer": 1,
+    "explanation": "Differential cryptanalysis picks a fixed plaintext XOR, encrypts many pairs, observes that some output XORs occur with high probability, and uses a Difference Distribution Table to score each candidate subkey. Biham and Shamir (1990) recovered DES keys with 2^47 chosen plaintexts."
+  },
+  {
+    "question": "How many known plaintexts does Matsui's linear cryptanalysis need to break DES?",
+    "options": [
+      "A. 2^14",
+      "B. 2^43 (approximately 8.8 trillion blocks)",
+      "C. 2^56 (the full key space)",
+      "D. 1 plaintext"
+    ],
+    "answer": 1,
+    "explanation": "Matsui (1993) found a linear approximation of DES with bias 2^-21 and used the piling-up lemma to combine four such approximations into one with bias ~2^-42. The reciprocal of the squared bias (1/(2^-42)^2 = 2^43) is the number of known plaintexts needed to distinguish the biased relation from random."
+  },
+  {
+    "question": "Which of these is NOT a side-channel attack?",
+    "options": [
+      "A. Power analysis via the chip's supply current",
+      "B. Timing analysis via high-resolution clocks",
+      "C. A chosen-ciphertext attack that exploits algebraic relations in the cipher",
+      "D. Cache-timing attacks via Spectre-class speculative execution"
+    ],
+    "answer": 2,
+    "explanation": "Power, timing, and cache-timing are all side channels: they observe a physical or microarchitectural property of the implementation. A chosen-ciphertext attack that exploits algebraic relations is a mathematical attack on the algorithm, not a side channel. The chapter (§8.2.5) lists the first three as cryptanalytic developments distinct from mathematical breaks."
+  }
+]

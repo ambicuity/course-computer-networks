@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520">
+  <rect width="800" height="520" fill="#FFF7EC"/>
+  <style>
+    text{font-family:Inter,Helvetica,Arial,sans-serif;fill:#2A1A2E}
+    .mono{font-family:'SF Mono',Consolas,monospace}
+    .small{font-size:12px}
+    .med{font-size:14px}
+    .big{font-size:16px;font-weight:600}
+    .title{font-size:18px;font-weight:700}
+    .line{stroke:#2A1A2E;stroke-width:1.5;fill:none}
+    .berry{fill:#E2557A}
+    .berryline{stroke:#E2557A;stroke-width:2;fill:none}
+  </style>
+  <text x="400" y="32" text-anchor="middle" class="title">Substitution Cipher: Key Space vs Frequency Analysis</text>
+
+  <!-- Key space bar -->
+  <text x="200" y="70" text-anchor="middle" class="big">Key Space</text>
+  <rect x="60" y="90" width="280" height="30" fill="#E2557A" opacity="0.3"/>
+  <text x="200" y="110" text-anchor="middle" class="mono small">Caesar: 26 keys</text>
+  <rect x="60" y="130" width="280" height="60" fill="#E2557A" opacity="0.6"/>
+  <text x="200" y="160" text-anchor="middle" class="mono small" fill="#FFF7EC">Monoalphabetic: 26! = 4 x 10^26 keys</text>
+  <text x="200" y="180" text-anchor="middle" class="mono small" fill="#FFF7EC">Brute force: 10,000 yrs (1M chips @ 1ns)</text>
+
+  <!-- Frequency bars -->
+  <text x="600" y="70" text-anchor="middle" class="big">English Letter Frequency</text>
+  <text x="430" y="98" class="mono small">e</text><rect x="450" y="88" width="180" height="14" fill="#E2557A"/>
+  <text x="430" y="116" class="mono small">t</text><rect x="450" y="106" width="130" height="14" fill="#E2557A" opacity="0.85"/>
+  <text x="430" y="134" class="mono small">a</text><rect x="450" y="124" width="116" height="14" fill="#E2557A" opacity="0.75"/>
+  <text x="430" y="152" class="mono small">o</text><rect x="450" y="142" width="106" height="14" fill="#E2557A" opacity="0.7"/>
+  <text x="430" y="170" class="mono small">i</text><rect x="450" y="160" width="100" height="14" fill="#E2557A" opacity="0.65"/>
+  <text x="430" y="188" class="mono small">n</text><rect x="450" y="178" width="96" height="14" fill="#E2557A" opacity="0.6"/>
+  <text x="430" y="206" class="mono small">s</text><rect x="450" y="196" width="90" height="14" fill="#E2557A" opacity="0.55"/>
+  <text x="430" y="224" class="mono small">h</text><rect x="450" y="214" width="86" height="14" fill="#E2557A" opacity="0.5"/>
+  <text x="640" y="100" class="mono small">12.7%</text>
+  <text x="640" y="118" class="mono small">9.1%</text>
+  <text x="640" y="136" class="mono small">8.2%</text>
+
+  <!-- Attack flow -->
+  <text x="400" y="270" text-anchor="middle" class="big">Frequency Analysis Attack Flow</text>
+  <rect x="40" y="290" width="140" height="34" rx="6" class="line"/>
+  <text x="110" y="312" text-anchor="middle" class="small">1. Rank ciphertext letters</text>
+  <rect x="220" y="290" width="140" height="34" rx="6" class="line"/>
+  <text x="290" y="312" text-anchor="middle" class="small">2. Map top -> e, next -> t</text>
+  <rect x="400" y="290" width="140" height="34" rx="6" class="line"/>
+  <text x="470" y="312" text-anchor="middle" class="small">3. Find tXe -> X=h</text>
+  <rect x="580" y="290" width="140" height="34" rx="6" class="line"/>
+  <text x="650" y="312" text-anchor="middle" class="small">4. thYt -> Y=a</text>
+  <path d="M180 307 L220 307" class="berryline" marker-end="url(#ab)"/>
+  <path d="M360 307 L400 307" class="berryline" marker-end="url(#ab)"/>
+  <path d="M540 307 L580 307" class="berryline" marker-end="url(#ab)"/>
+
+  <rect x="40" y="340" width="140" height="34" rx="6" class="line"/>
+  <text x="110" y="362" text-anchor="middle" class="small">5. aZW -> "and"</text>
+  <rect x="220" y="340" width="140" height="34" rx="6" class="line"/>
+  <text x="290" y="362" text-anchor="middle" class="small">6. Fill key incrementally</text>
+  <rect x="400" y="340" width="140" height="34" rx="6" class="line"/>
+  <text x="470" y="362" text-anchor="middle" class="small">7. Probable word check</text>
+  <rect x="580" y="340" width="140" height="34" rx="6" fill="#E2557A"/>
+  <text x="650" y="362" text-anchor="middle" class="small" fill="#FFF7EC">8. Key recovered</text>
+  <path d="M180 357 L220 357" class="berryline" marker-end="url(#ab)"/>
+  <path d="M360 357 L400 357" class="berryline" marker-end="url(#ab)"/>
+  <path d="M540 357 L580 357" class="berryline" marker-end="url(#ab)"/>
+
+  <!-- Probable word -->
+  <text x="400" y="420" text-anchor="middle" class="big">Probable Word: "financial"</text>
+  <text x="400" y="445" text-anchor="middle" class="mono small">f i n a n c i a l  (repeated 'i' at positions 2 and 6; 'a' at 3 and 7)</text>
+  <text x="400" y="465" text-anchor="middle" class="mono small">Match this pattern in ciphertext -> anchor the key</text>
+  <text x="400" y="500" text-anchor="middle" class="small">26! keys defeats brute force, but statistics defeat the cipher</text>
+
+  <defs>
+    <marker id="ab" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

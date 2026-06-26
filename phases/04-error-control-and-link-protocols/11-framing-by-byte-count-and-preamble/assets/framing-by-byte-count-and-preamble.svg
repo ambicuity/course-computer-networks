@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="40" y="42" fill="#2A1A2E" font-size="22" font-weight="700">Framing: byte count vs preamble-plus-length</text>
+  <text x="40" y="64" fill="#2A1A2E" font-size="13" opacity="0.7">A single bit flip in a pure count field desynchronizes the receiver; a findable preamble recovers it.</text>
+
+  <!-- ===== Panel A: Byte count, clean ===== -->
+  <text x="40" y="100" fill="#E2557A" font-size="14" font-weight="700">A. Byte count — clean stream (Fig. 3-3a)</text>
+
+  <!-- frame boxes: count|payload ... count 5 | 4 payload ; count 5 | 4 payload -->
+  <g font-size="12" text-anchor="middle">
+    <!-- Frame 1: count 5 + 4 bytes -->
+    <rect x="40"  y="112" width="28" height="34" fill="#E2557A"/><text x="54"  y="133" fill="#FFF7EC" font-weight="700">5</text>
+    <rect x="68"  y="112" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="82"  y="133" fill="#2A1A2E">1</text>
+    <rect x="96"  y="112" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="110" y="133" fill="#2A1A2E">2</text>
+    <rect x="124" y="112" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="138" y="133" fill="#2A1A2E">3</text>
+    <rect x="152" y="112" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="166" y="133" fill="#2A1A2E">4</text>
+    <!-- Frame 2: count 5 + 4 bytes -->
+    <rect x="180" y="112" width="28" height="34" fill="#E2557A"/><text x="194" y="133" fill="#FFF7EC" font-weight="700">5</text>
+    <rect x="208" y="112" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="222" y="133" fill="#2A1A2E">5</text>
+    <rect x="236" y="112" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="250" y="133" fill="#2A1A2E">6</text>
+    <rect x="264" y="112" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="278" y="133" fill="#2A1A2E">7</text>
+    <rect x="292" y="112" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="306" y="133" fill="#2A1A2E">8</text>
+  </g>
+  <text x="110" y="162" fill="#2A1A2E" font-size="11" text-anchor="middle">Frame 1 (5 B)</text>
+  <text x="250" y="162" fill="#2A1A2E" font-size="11" text-anchor="middle">Frame 2 (5 B)</text>
+  <text x="40" y="184" fill="#2A1A2E" font-size="12">Receiver reads count, consumes exactly that many bytes → aligned. ✓</text>
+
+  <!-- ===== Panel B: Byte count, error ===== -->
+  <text x="40" y="220" fill="#E2557A" font-size="14" font-weight="700">B. Byte count — one bit flip: 5 → 7 (Fig. 3-3b)</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="40"  y="232" width="28" height="34" fill="#E2557A"/><text x="54"  y="253" fill="#FFF7EC" font-weight="700">5</text>
+    <rect x="68"  y="232" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="82"  y="253" fill="#2A1A2E">1</text>
+    <rect x="96"  y="232" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="110" y="253" fill="#2A1A2E">2</text>
+    <rect x="124" y="232" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="138" y="253" fill="#2A1A2E">3</text>
+    <rect x="152" y="232" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="166" y="253" fill="#2A1A2E">4</text>
+    <!-- Frame 2 count flipped to 7 -->
+    <rect x="180" y="232" width="28" height="34" fill="#2A1A2E"/><text x="194" y="253" fill="#E2557A" font-weight="700">7</text>
+    <rect x="208" y="232" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="222" y="253" fill="#2A1A2E">5</text>
+    <rect x="236" y="232" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="250" y="253" fill="#2A1A2E">6</text>
+    <rect x="264" y="232" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="278" y="253" fill="#2A1A2E">7</text>
+    <rect x="292" y="232" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="306" y="253" fill="#2A1A2E">8</text>
+    <!-- next bytes misread as counts -->
+    <rect x="320" y="232" width="28" height="34" fill="#E2557A" opacity="0.5"/><text x="334" y="253" fill="#2A1A2E">9</text>
+    <rect x="348" y="232" width="28" height="34" fill="#FFF7EC" stroke="#2A1A2E" opacity="0.5"/><text x="362" y="253" fill="#2A1A2E">8</text>
+  </g>
+  <!-- misalignment bracket -->
+  <path d="M 208 274 L 208 282 L 348 282 L 348 274" fill="none" stroke="#E2557A" stroke-width="2"/>
+  <text x="278" y="298" fill="#E2557A" font-size="11" text-anchor="middle">parser eats 2 extra bytes → reads payload as next count</text>
+  <text x="40" y="320" fill="#2A1A2E" font-size="12">Checksum flags the bad frame, but receiver cannot find the next start. Desync. ✗</text>
+
+  <!-- ===== Panel C: Ethernet preamble + length ===== -->
+  <text x="460" y="100" fill="#E2557A" font-size="14" font-weight="700">C. Ethernet — preamble + length (recoverable)</text>
+
+  <g font-size="11" text-anchor="middle">
+    <!-- Preamble 7 bytes -->
+    <rect x="460" y="112" width="98" height="34" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="509" y="127" fill="#2A1A2E" font-weight="700">Preamble</text>
+    <text x="509" y="141" fill="#2A1A2E" opacity="0.7">55 ×7</text>
+    <!-- SFD -->
+    <rect x="558" y="112" width="34" height="34" fill="#E2557A"/><text x="575" y="133" fill="#FFF7EC" font-weight="700">D5</text>
+    <text x="575" y="160" fill="#2A1A2E" font-size="10">SFD</text>
+    <!-- DA SA -->
+    <rect x="592" y="112" width="48" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="616" y="133" fill="#2A1A2E">DA</text>
+    <rect x="640" y="112" width="48" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="664" y="133" fill="#2A1A2E">SA</text>
+    <!-- Length -->
+    <rect x="688" y="112" width="42" height="34" fill="#E2557A"/><text x="709" y="127" fill="#FFF7EC" font-weight="700">Len</text><text x="709" y="141" fill="#FFF7EC" opacity="0.85">≤1500</text>
+    <!-- Payload -->
+    <rect x="730" y="112" width="86" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="773" y="133" fill="#2A1A2E">Payload</text>
+    <!-- FCS -->
+    <rect x="816" y="112" width="34" height="34" fill="#2A1A2E"/><text x="833" y="133" fill="#FFF7EC" font-weight="700">FCS</text>
+  </g>
+  <text x="509" y="160" fill="#2A1A2E" font-size="10" text-anchor="middle">7 B sync</text>
+  <text x="709" y="160" fill="#2A1A2E" font-size="10" text-anchor="middle">byte count</text>
+  <text x="773" y="160" fill="#2A1A2E" font-size="10" text-anchor="middle">46–1500 B</text>
+  <text x="833" y="160" fill="#2A1A2E" font-size="10" text-anchor="middle">CRC-32</text>
+
+  <!-- recovery flow -->
+  <text x="460" y="200" fill="#2A1A2E" font-size="13" font-weight="600">If the Len field is corrupted:</text>
+  <g font-size="12">
+    <rect x="460" y="214" width="170" height="30" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/><text x="545" y="234" fill="#2A1A2E" text-anchor="middle">CRC catches the bad frame</text>
+    <path d="M 630 229 L 660 229" stroke="#E2557A" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="664" y="214" width="186" height="30" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/><text x="757" y="234" fill="#2A1A2E" text-anchor="middle">scan for next 55×7…D5</text>
+  </g>
+  <g font-size="12">
+    <path d="M 757 244 L 757 268" stroke="#E2557A" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="620" y="272" width="230" height="30" rx="6" fill="#E2557A"/><text x="735" y="292" fill="#FFF7EC" text-anchor="middle" font-weight="700">re-align → resume parsing ✓</text>
+  </g>
+
+  <!-- ===== Comparison legend ===== -->
+  <text x="40" y="360" fill="#E2557A" font-size="14" font-weight="700">D. Why the hybrid wins</text>
+  <g font-size="12">
+    <rect x="40" y="378" width="380" height="150" rx="8" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="56" y="402" fill="#2A1A2E" font-weight="700">Byte count alone</text>
+    <text x="56" y="424" fill="#2A1A2E">• cheapest: 1 length field, no stuffing</text>
+    <text x="56" y="446" fill="#2A1A2E">• count corrupt → permanent misalignment</text>
+    <text x="56" y="468" fill="#2A1A2E">• retransmission cannot help (no anchor)</text>
+    <text x="56" y="490" fill="#E2557A" font-weight="700">→ never used by itself</text>
+
+    <rect x="460" y="378" width="380" height="150" rx="8" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="476" y="402" fill="#2A1A2E" font-weight="700">Preamble + length (Ethernet, 802.11)</text>
+    <text x="476" y="424" fill="#2A1A2E">• preamble: clock/AGC settle + findable anchor</text>
+    <text x="476" y="446" fill="#2A1A2E">• SFD byte-aligns; Length locates frame end</text>
+    <text x="476" y="468" fill="#2A1A2E">• lost frame → scan for next preamble</text>
+    <text x="476" y="490" fill="#2A1A2E" font-weight="700">→ recoverable; used by every real LAN</text>
+  </g>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

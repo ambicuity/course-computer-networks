@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="820" height="480" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold">WiMAX / IEEE 802.16 — TDD Frame &amp; OFDM PHY</text>
+    <text x="410" y="50" text-anchor="middle" font-size="11" font-weight="bold">IEEE 802.16-2004 (fixed) · 802.16e-2005 (mobile) · 256-OFDM PHY · 4 service classes</text>
+  </g>
+
+  <!-- TDD frame timeline -->
+  <g>
+    <rect x="40" y="80" width="740" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="100" font-size="13" font-weight="bold" fill="#2A1A2E">5 ms TDD frame (DL/UL subframe split, typical 35/65)</text>
+    <line x1="60" y1="130" x2="780" y2="130" stroke="#2A1A2E" stroke-width="1.5"/>
+
+    <rect x="60" y="115" width="60" height="30" fill="#E2557A"/>
+    <text x="90" y="135" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">Preamble</text>
+    <rect x="120" y="115" width="60" height="30" fill="#E2557A" opacity="0.7"/>
+    <text x="150" y="135" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">FCH</text>
+    <rect x="180" y="115" width="120" height="30" fill="#E2557A" opacity="0.6"/>
+    <text x="240" y="135" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">DL-MAP / UL-MAP</text>
+    <rect x="300" y="115" width="200" height="30" fill="#E2557A" opacity="0.4"/>
+    <text x="400" y="135" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">DL burst  (data, SS#1..#N)</text>
+    <rect x="500" y="115" width="20" height="30" fill="#2A1A2E"/>
+    <text x="510" y="135" text-anchor="middle" font-size="9" font-weight="bold" fill="#FFF7EC">TTG</text>
+    <rect x="520" y="115" width="200" height="30" fill="#2A1A2E" opacity="0.6"/>
+    <text x="620" y="135" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">UL burst  (ranging, BW-req, data)</text>
+    <rect x="720" y="115" width="20" height="30" fill="#2A1A2E"/>
+    <text x="730" y="135" text-anchor="middle" font-size="9" font-weight="bold" fill="#FFF7EC">RTG</text>
+
+    <text x="60" y="170" font-size="10" fill="#2A1A2E">DL-MAP/UL-MAP = broadcast messages telling each SS its burst slot, modulation, and code (QPSK-1/2, 16-QAM-3/4, 64-QAM-5/6).</text>
+    <text x="60" y="186" font-size="10" fill="#2A1A2E">TTG = Tx/Rx Transition Gap · RTG = Rx/Tx Transition Gap</text>
+    <text x="60" y="202" font-size="10" fill="#2A1A2E">Frame duration 5 ms typical · 1-200 OFDM symbols · 256-point FFT</text>
+    <text x="60" y="220" font-size="10" fill="#2A1A2E">Burst profiles adapt per SS — adaptive modulation &amp; coding (AMC) per link direction</text>
+    <text x="60" y="240" font-size="10" fill="#2A1A2E">Bandwidth request (BW-REQ) uses CDMA codes in the initial ranging region</text>
+  </g>
+
+  <!-- 4 service classes -->
+  <g>
+    <rect x="40" y="280" width="740" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="300" font-size="13" font-weight="bold" fill="#2A1A2E">Service classes &amp; grants (QoS)</text>
+
+    <g fill="#2A1A2E" font-size="11">
+      <text x="60" y="324" font-weight="bold">Class</text>
+      <text x="200" y="324" font-weight="bold">Use</text>
+      <text x="380" y="324" font-weight="bold">Grant mode</text>
+      <text x="600" y="324" font-weight="bold">Jitter</text>
+      <line x1="40" y1="332" x2="780" y2="332" stroke="#2A1A2E" stroke-width="0.5"/>
+
+      <text x="60" y="352">UGS</text>
+      <text x="200" y="352">CBR (VoIP, T1)</text>
+      <text x="380" y="352">unsolicited, fixed rate</text>
+      <text x="600" y="352">lowest</text>
+
+      <text x="60" y="376">rtPS</text>
+      <text x="200" y="376">VBR w/ deadline (MPEG)</text>
+      <text x="380" y="376">polled, periodic</text>
+      <text x="600" y="376">low</text>
+
+      <text x="60" y="400">nrtPS</text>
+      <text x="200" y="400">file transfer</text>
+      <text x="380" y="400">polled at lower rate</text>
+      <text x="600" y="400">medium</text>
+
+      <text x="60" y="424">BE</text>
+      <text x="200" y="424">best effort</text>
+      <text x="380" y="424">contention-based</text>
+      <text x="600" y="424">best effort</text>
+    </g>
+    <text x="60" y="450" font-size="10" fill="#E2557A" font-weight="bold">Each connection identified by a 16-bit CID; service flow carries QoS params</text>
+  </g>
+</svg>

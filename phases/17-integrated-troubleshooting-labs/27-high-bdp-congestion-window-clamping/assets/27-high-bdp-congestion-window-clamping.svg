@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">High-BDP cwnd Clamping</text>
+  <text x="40" y="68" class="sub">1 Gbps x 200 ms RTT: BDP=25 MB, cwnd clamped at 30 segments by tcp_wmem=4MB</text>
+
+  <rect x="40" y="120" width="200" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="148" text-anchor="middle" class="node">Sender (FRA)</text>
+  <text x="140" y="170" text-anchor="middle" class="mono">cwnd:30  ssthresh:21</text>
+  <text x="140" y="190" text-anchor="middle" class="label">tcp_wmem max=4MB</text>
+
+  <rect x="320" y="100" width="280" height="160" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="460" y="128" text-anchor="middle" class="node accent">High-BDP Link</text>
+  <text x="460" y="150" text-anchor="middle" class="mono accent">1 Gbps, 200 ms RTT</text>
+  <text x="460" y="170" text-anchor="middle" class="mono">BDP = 25 MB</text>
+  <text x="460" y="190" text-anchor="middle" class="label">target cwnd: 17,000 segments</text>
+  <text x="460" y="216" text-anchor="middle" class="label accent">observed cwnd: 30 segments (43 KB)</text>
+  <text x="460" y="240" text-anchor="middle" class="label">throughput: 250 Mbps (25% of capacity)</text>
+
+  <rect x="680" y="120" width="200" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="780" y="148" text-anchor="middle" class="node">Receiver (SIN)</text>
+  <text x="780" y="170" text-anchor="middle" class="mono">tcp_rmem max=4MB</text>
+  <text x="780" y="190" text-anchor="middle" class="label">window scale=8</text>
+
+  <line x1="240" y1="170" x2="320" y2="170" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <line x1="600" y1="180" x2="680" y2="170" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+
+  <rect x="40" y="300" width="840" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="328" class="node">ss -ti (sender socket state)</text>
+  <text x="60" y="358" class="mono">ESTAB  0  64512  10.0.0.5:443  10.0.0.6:54321</text>
+  <text x="60" y="378" class="mono">  skmem:(r0,rb374000,t0,tb46000,f0,w0,o0,bl0,d0)</text>
+  <text x="60" y="398" class="mono accent">  cwnd:30  rtt:200/50  mss:1460  ssthresh:21  bytes_sent:1.2GB</text>
+
+  <text x="60" y="436" class="node">Fix (four sysctls)</text>
+  <text x="60" y="458" class="mono">  sysctl -w net.ipv4.tcp_wmem='4096 87380 67108864'     # send buffer max=64MB</text>
+  <text x="60" y="478" class="mono">  sysctl -w net.ipv4.tcp_rmem='4096 87380 67108864'     # receive buffer max=64MB</text>
+  <text x="60" y="498" class="mono">  sysctl -w net.ipv4.tcp_slow_start_after_idle=0        # don't collapse cwnd</text>
+  <text x="60" y="518" class="mono">  ip route change default via 10.0.0.1 dev eth0 initcwnd 32   # bigger initial cwnd</text>
+</svg>

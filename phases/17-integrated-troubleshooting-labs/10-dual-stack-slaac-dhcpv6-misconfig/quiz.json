@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "In a Router Advertisement, what does the M flag control?",
+      "options": [
+        "Whether hosts use multicast for ND",
+        "Whether hosts obtain addresses via stateful DHCPv6",
+        "Whether the prefix is on-link",
+        "Whether IPv4 is disabled"
+      ],
+      "correct": 1,
+      "explanation": "M=1 tells hosts to request addresses from a stateful DHCPv6 server; M=0 with A=1 enables SLAAC."
+    },
+    {
+      "stage": "post",
+      "question": "Some hosts on a dual-stack VLAN reach IPv6-only services and some do not. First place to look:",
+      "options": [
+        "The DHCPv4 lease scope",
+        "Compare the RA-advertised prefix against the DHCPv6 pool prefix",
+        "The 802.1Q tag on the trunk",
+        "The NTP server stratum"
+      ],
+      "correct": 1,
+      "explanation": "If the RA prefix and the DHCPv6 lease prefix differ and only one is routed, hosts that picked the unrouted prefix fail intermittently."
+    },
+    {
+      "stage": "post",
+      "question": "RFC 6724 source-address selection matters here because:",
+      "options": [
+        "It picks the IPv4 address over IPv6",
+        "When a host holds addresses from two prefixes it may select the unrouted one for an IPv6 destination",
+        "It disables SLAAC when DHCPv6 is present",
+        "It rewrites the RA flags"
+      ],
+      "correct": 1,
+      "explanation": "RFC 6724 ranks candidate sources by prefix match against the destination; an unrouted prefix can be selected if it appears to match better."
+    }
+  ]
+}

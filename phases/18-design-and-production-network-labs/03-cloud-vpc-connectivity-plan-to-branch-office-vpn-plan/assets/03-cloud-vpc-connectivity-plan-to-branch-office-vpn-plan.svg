@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700" font-family="ui-sans-serif, system-ui, sans-serif">
+  <rect width="1000" height="700" fill="#FFF7EC"/>
+  <rect x="20" y="20" width="960" height="660" fill="none" stroke="#2A1A2E" stroke-width="2" rx="12"/>
+
+  <text x="40" y="58" font-size="22" font-weight="700" fill="#2A1A2E">Cloud VPC + Branch VPN Topology</text>
+  <text x="40" y="82" font-size="13" fill="#2A1A2E">AWS Transit Gateway hub-and-spoke · IPsec IKEv2 / AES-256-GCM · BGP over VPN with BFD 50ms×3 · RFC 6996 private ASNs</text>
+
+  <!-- Internet / DX -->
+  <rect x="100" y="110" width="200" height="50" fill="#FFE9D6" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="200" y="140" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Internet / Direct Connect</text>
+
+  <rect x="700" y="110" width="200" height="50" fill="#FFE9D6" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="800" y="140" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Branch Offices (24×)</text>
+
+  <!-- On-prem DC -->
+  <rect x="60" y="200" width="280" height="90" fill="#FCD3D8" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="200" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">On-Premises Datacenter</text>
+  <text x="200" y="245" text-anchor="middle" font-size="10" fill="#2A1A2E">10.10.0.0/16 · ASN 64599 · BFD 50ms×3</text>
+  <text x="200" y="263" text-anchor="middle" font-size="10" fill="#2A1A2E">Edge: Cisco ASR1002-HX (HA pair)</text>
+  <text x="200" y="279" text-anchor="middle" font-size="10" fill="#2A1A2E">Internal: AD, file, payroll, DNS</text>
+
+  <line x1="200" y1="160" x2="200" y2="200" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="800" y1="160" x2="200" y2="200" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="800" y1="160" x2="800" y2="200" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- Branch stack -->
+  <rect x="700" y="200" width="200" height="90" fill="#F7F0E1" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="800" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Branch Router (HA pair)</text>
+  <text x="800" y="245" text-anchor="middle" font-size="10" fill="#2A1A2E">10.100.x.0/24 · ASN 64612</text>
+  <text x="800" y="263" text-anchor="middle" font-size="10" fill="#2A1A2E">2× IPsec tunnels (IKEv2)</text>
+  <text x="800" y="279" text-anchor="middle" font-size="10" fill="#2A1A2E">MSS clamp 1360</text>
+
+  <!-- AWS Transit Gateway hub -->
+  <rect x="380" y="200" width="240" height="80" fill="#FFD6BC" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+  <text x="500" y="225" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">AWS Transit Gateway</text>
+  <text x="500" y="245" text-anchor="middle" font-size="10" fill="#2A1A2E">us-east-1 · ASN 64512 · 50 Gbps/VPC</text>
+  <text x="500" y="263" text-anchor="middle" font-size="10" fill="#2A1A2E">5,000 attachments · route table</text>
+
+  <line x1="340" y1="245" x2="380" y2="240" stroke="#E2557A" stroke-width="2"/>
+  <line x1="620" y1="240" x2="700" y2="245" stroke="#E2557A" stroke-width="2"/>
+
+  <!-- VPCs -->
+  <rect x="80" y="340" width="220" height="220" fill="#FFE9D6" stroke="#2A1A2E" stroke-width="1.5" rx="8"/>
+  <text x="190" y="362" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">VPC: prod (10.50.0.0/16)</text>
+  <text x="190" y="378" text-anchor="middle" font-size="9" fill="#2A1A2E">3 AZs · /20 per AZ · ASN 64550</text>
+  <g>
+    <rect x="100" y="395" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="140" y="412" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">public</text>
+    <text x="140" y="425" text-anchor="middle" font-size="8" fill="#2A1A2E">10.50.0.0/24</text>
+
+    <rect x="200" y="395" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="240" y="412" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">app</text>
+    <text x="240" y="425" text-anchor="middle" font-size="8" fill="#2A1A2E">10.50.10.0/24</text>
+
+    <rect x="100" y="450" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="140" y="467" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">db</text>
+    <text x="140" y="480" text-anchor="middle" font-size="8" fill="#2A1A2E">10.50.20.0/24</text>
+
+    <rect x="200" y="450" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="240" y="467" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">cache</text>
+    <text x="240" y="480" text-anchor="middle" font-size="8" fill="#2A1A2E">10.50.30.0/24</text>
+  </g>
+  <text x="190" y="525" text-anchor="middle" font-size="10" fill="#E2557A">NAT GW · IGW · EFS · KMS</text>
+  <text x="190" y="545" text-anchor="middle" font-size="10" fill="#2A1A2E">Route 53 Resolver endpoint</text>
+
+  <rect x="320" y="340" width="220" height="220" fill="#FFE9D6" stroke="#2A1A2E" stroke-width="1.5" rx="8"/>
+  <text x="430" y="362" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">VPC: staging (10.51.0.0/16)</text>
+  <text x="430" y="378" text-anchor="middle" font-size="9" fill="#2A1A2E">3 AZs · /20 per AZ · ASN 64551</text>
+  <g>
+    <rect x="340" y="395" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="380" y="412" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">public</text>
+    <text x="380" y="425" text-anchor="middle" font-size="8" fill="#2A1A2E">10.51.0.0/24</text>
+
+    <rect x="440" y="395" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="480" y="412" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">app</text>
+    <text x="480" y="425" text-anchor="middle" font-size="8" fill="#2A1A2E">10.51.10.0/24</text>
+
+    <rect x="340" y="450" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="380" y="467" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">db</text>
+    <text x="380" y="480" text-anchor="middle" font-size="8" fill="#2A1A2E">10.51.20.0/24</text>
+  </g>
+  <text x="430" y="525" text-anchor="middle" font-size="10" fill="#2A1A2E">CI runners · ephemeral envs</text>
+
+  <rect x="560" y="340" width="220" height="220" fill="#FFE9D6" stroke="#2A1A2E" stroke-width="1.5" rx="8"/>
+  <text x="670" y="362" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">VPC: shared-services (10.52.0.0/16)</text>
+  <text x="670" y="378" text-anchor="middle" font-size="9" fill="#2A1A2E">2 AZs · /22 per AZ · ASN 64552</text>
+  <g>
+    <rect x="580" y="395" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="620" y="412" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">AD</text>
+    <text x="620" y="425" text-anchor="middle" font-size="8" fill="#2A1A2E">10.52.0.0/24</text>
+
+    <rect x="680" y="395" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="720" y="412" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">DNS</text>
+    <text x="720" y="425" text-anchor="middle" font-size="8" fill="#2A1A2E">10.52.1.0/24</text>
+
+    <rect x="580" y="450" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="620" y="467" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">NTP</text>
+    <text x="620" y="480" text-anchor="middle" font-size="8" fill="#2A1A2E">10.52.2.0/24</text>
+
+    <rect x="680" y="450" width="80" height="40" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="720" y="467" text-anchor="middle" font-size="9" font-weight="700" fill="#2A1A2E">R53</text>
+    <text x="720" y="480" text-anchor="middle" font-size="8" fill="#2A1A2E">10.52.3.0/24</text>
+  </g>
+  <text x="670" y="525" text-anchor="middle" font-size="10" fill="#2A1A2E">Transit VIF · R53 Resolver endpoints</text>
+  <text x="670" y="545" text-anchor="middle" font-size="10" fill="#2A1A2E">AD connector · central logging</text>
+
+  <!-- TGW to VPCs -->
+  <line x1="450" y1="280" x2="190" y2="340" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="500" y1="280" x2="430" y2="340" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="550" y1="280" x2="670" y2="340" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- Footer -->
+  <text x="40" y="600" font-size="11" font-weight="700" fill="#2A1A2E">Tunnels:</text>
+  <text x="120" y="600" font-size="10" fill="#2A1A2E">2× per VPC (active/active) · 2× per branch (primary/backup) · MTU 1,400 · MSS 1,360</text>
+  <text x="40" y="618" font-size="11" font-weight="700" fill="#2A1A2E">Failover:</text>
+  <text x="120" y="618" font-size="10" fill="#2A1A2E">BFD 50ms×3 → BGP reconvergence &lt; 1s · DPD 10s × 30s timeout</text>
+  <text x="40" y="636" font-size="11" font-weight="700" fill="#2A1A2E">DNS:</text>
+  <text x="120" y="636" font-size="10" fill="#2A1A2E">Route 53 Resolver inbound (on-prem → AWS) + outbound (AWS → on-prem) · split-horizon</text>
+  <text x="40" y="654" font-size="11" font-weight="700" fill="#2A1A2E">Cost:</text>
+  <text x="120" y="654" font-size="10" fill="#2A1A2E">VPN ≈ $1,728/mo · Direct Connect ≈ $216/mo + egress · SD-WAN ≈ $8,000/mo at 24 branches</text>
+</svg>

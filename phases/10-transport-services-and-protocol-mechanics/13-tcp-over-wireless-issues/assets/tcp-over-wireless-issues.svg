@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="820" height="480" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold">TCP over Wireless — Why loss ≠ congestion</text>
+    <text x="410" y="50" text-anchor="middle" font-size="11" font-weight="bold">I-TCP, Snooping TCP, and modern ECN/QUIC/BBR mitigations</text>
+  </g>
+
+  <!-- TCP cwnd sawtooth: wired vs wireless -->
+  <g>
+    <rect x="40" y="80" width="380" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="100" font-size="12" font-weight="bold" fill="#2A1A2E">cwnd over time (qualitative)</text>
+
+    <line x1="60" y1="240" x2="400" y2="240" stroke="#2A1A2E" stroke-width="1"/>
+    <line x1="60" y1="100" x2="60" y2="240" stroke="#2A1A2E" stroke-width="1"/>
+
+    <!-- wired sawtooth -->
+    <polyline points="60,235 80,230 100,225 120,200 140,200 160,170 180,170 200,140 220,140 240,110 260,110 280,160 300,160 320,130 340,130 360,100 380,100 400,150"
+              fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="280" y="170" font-size="9" fill="#2A1A2E" font-weight="bold">wired: gentle sawtooth</text>
+
+    <text x="60" y="252" font-size="9" fill="#2A1A2E">time</text>
+  </g>
+
+  <!-- Wireless sawtooth with frequent collapses -->
+  <g>
+    <rect x="430" y="80" width="350" height="180" fill="none" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="605" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">wireless: many cwnd collapses</text>
+    <line x1="450" y1="240" x2="760" y2="240" stroke="#2A1A2E" stroke-width="1"/>
+    <line x1="450" y1="100" x2="450" y2="240" stroke="#2A1A2E" stroke-width="1"/>
+
+    <polyline points="450,235 460,200 470,225 480,180 490,210 500,170 510,205 520,165 530,200 540,160 550,195 560,150 570,190 580,140 590,180 600,130 610,170 620,125 630,165 640,120 650,160 660,115 670,155 680,110 690,150 700,105 710,145 720,100 730,140 740,95 750,135 760,90"
+              fill="none" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="540" y="190" font-size="9" fill="#E2557A" font-weight="bold">frequent MD due to noise, not congestion</text>
+  </g>
+
+  <!-- Solutions -->
+  <g>
+    <rect x="40" y="280" width="740" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="300" font-size="12" font-weight="bold" fill="#2A1A2E">Solutions</text>
+
+    <g fill="#2A1A2E" font-size="10">
+      <text x="60" y="324" font-weight="bold">Split-connection (I-TCP, Bakne-Badrinath 1995):</text>
+      <text x="60" y="340">BS terminates TCP twice. Wired side hidden from wireless loss. Breaks end-to-end semantics.</text>
+
+      <text x="60" y="364" font-weight="bold">Snooping TCP (Balakrishnan 1995):</text>
+      <text x="60" y="380">BS caches unACKed data, locally retransmits over wireless on loss. End-to-end preserved.</text>
+
+      <text x="60" y="404" font-weight="bold">Modern:</text>
+      <text x="60" y="420">802.11 MAC layer ARQ retries → losses rare; ECN marks congestion; BBR/QUIC are rate-based and tolerate random loss.</text>
+
+      <text x="60" y="444" font-weight="bold">Snoop + ELN + L2 ARQ</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Which RFC defines the X.509 v3 certificate format used on the Internet today?",
+    "options": [
+      "A. RFC 5246 (TLS 1.2)",
+      "B. RFC 5280 (PKIX Certificate and CRL Profile)",
+      "C. RFC 8017 (PKCS#1 v2.2)",
+      "D. RFC 6960 (OCSP)"
+    ],
+    "answer": 1,
+    "explanation": "RFC 5280 is the IETF profile of ITU-T X.509; it defines the v3 Certificate structure, the path validation algorithm in §6, and CRL handling. RFC 5246 carries certificates inside TLS but does not define their format; RFC 8017 covers RSA padding; RFC 6960 covers OCSP requests/responses."
+  },
+  {
+    "question": "In RFC 5280 path validation, which step catches an expired certificate?",
+    "options": [
+      "A. Signature verification (step 1)",
+      "B. Validity period check against the current time (step 2)",
+      "C. Issuer/Subject chaining (step 3)",
+      "D. Revocation check via CRL or OCSP (step 5)"
+    ],
+    "answer": 1,
+    "explanation": "Step 2 of the RFC 5280 §6 algorithm checks that the current time falls within each certificate's notBefore..notAfter window. Expired intermediates are still cryptographically valid (the signature may still verify), but path validation refuses the chain because of the validity check."
+  },
+  {
+    "question": "What is the role of the Basic Constraints extension (CA:TRUE) in a CA certificate?",
+    "options": [
+      "A. It binds the certificate's public key to a hostname",
+      "B. It enables the certificate to sign other certificates, with optional pathLenConstraint bounding how many intermediates can sit below it",
+      "C. It specifies the CRL distribution point URL",
+      "D. It selects which signature algorithm the issuer must use"
+    ],
+    "answer": 1,
+    "explanation": "Basic Constraints CA:TRUE marks the certificate as a CA that may issue other certificates; pathLenConstraint (RFC 5280 §4.2.1.9) limits the maximum number of non-self-issued intermediates that may follow it. Without CA:TRUE, a path validator rejects the certificate as a CA."
+  }
+]

@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">Recursive vs Iterative Query Resolution</text>
+  <text x="40" y="68" class="sub">Stub uses RD=1 to a recursive resolver; resolver uses RD=0 walking the namespace.</text>
+
+  <!-- Stub resolver -->
+  <rect x="40" y="100" width="140" height="80" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="110" y="124" text-anchor="middle" class="node">flits.cs.vu.nl</text>
+  <text x="110" y="146" text-anchor="middle" class="mono">stub resolver</text>
+  <text x="110" y="166" text-anchor="middle" class="label">RD=1, asks local</text>
+
+  <!-- Local resolver (recursive) -->
+  <rect x="220" y="100" width="160" height="80" rx="8" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="300" y="124" text-anchor="middle" class="node accent">local resolver</text>
+  <text x="300" y="146" text-anchor="middle" class="mono">recursive</text>
+  <text x="300" y="166" text-anchor="middle" class="label">caches TTLs, does the walk</text>
+
+  <!-- Root -->
+  <rect x="420" y="40" width="160" height="80" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="500" y="64" text-anchor="middle" class="node">a.root-servers.net</text>
+  <text x="500" y="86" text-anchor="middle" class="mono">RD=0, RA=0</text>
+  <text x="500" y="106" text-anchor="middle" class="label">returns NS for .edu</text>
+
+  <!-- TLD edu -->
+  <rect x="420" y="140" width="160" height="80" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="500" y="164" text-anchor="middle" class="node">a.edu-servers.net</text>
+  <text x="500" y="186" text-anchor="middle" class="mono">RD=0, RA=0</text>
+  <text x="500" y="206" text-anchor="middle" class="label">returns NS for washington.edu</text>
+
+  <!-- Washington zone -->
+  <rect x="420" y="240" width="160" height="80" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="500" y="264" text-anchor="middle" class="node">ns1.washington.edu</text>
+  <text x="500" y="286" text-anchor="middle" class="mono">RD=0, RA=0</text>
+  <text x="500" y="306" text-anchor="middle" class="label">returns NS for cs.washington.edu</text>
+
+  <!-- cs washington -->
+  <rect x="420" y="340" width="160" height="80" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="500" y="364" text-anchor="middle" class="node">star.cs.washington.edu</text>
+  <text x="500" y="386" text-anchor="middle" class="mono">AA=1</text>
+  <text x="500" y="406" text-anchor="middle" class="label">authoritative A record</text>
+
+  <!-- Arrows: stub to local (recursive) -->
+  <line x1="180" y1="140" x2="220" y2="140" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="220,140 213,136 213,144" fill="#E2557A"/>
+  <text x="200" y="132" text-anchor="middle" class="label accent">recursive Q</text>
+
+  <!-- Local to root -->
+  <line x1="380" y1="120" x2="420" y2="80" stroke="#2A1A2E" stroke-width="1.6"/>
+  <polygon points="420,80 413,80 416,88" fill="#2A1A2E"/>
+  <text x="385" y="92" class="label">Q</text>
+
+  <!-- Local to TLD -->
+  <line x1="380" y1="135" x2="420" y2="170" stroke="#2A1A2E" stroke-width="1.6"/>
+  <polygon points="420,170 414,166 414,174" fill="#2A1A2E"/>
+  <text x="385" y="170" class="label">Q</text>
+
+  <!-- Local to wash -->
+  <line x1="380" y1="150" x2="420" y2="270" stroke="#2A1A2E" stroke-width="1.6"/>
+  <polygon points="420,270 413,266 413,274" fill="#2A1A2E"/>
+  <text x="385" y="220" class="label">Q</text>
+
+  <!-- Local to cs -->
+  <line x1="380" y1="170" x2="420" y2="370" stroke="#2A1A2E" stroke-width="1.6"/>
+  <polygon points="420,370 413,366 413,374" fill="#2A1A2E"/>
+  <text x="385" y="300" class="label">Q</text>
+
+  <!-- Step log panel -->
+  <rect x="620" y="40" width="280" height="380" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="640" y="62" class="node">Step log (cold cache)</text>
+  <text x="640" y="86" class="mono">1  stub        --RD=1--&gt; local</text>
+  <text x="640" y="104" class="mono">2  local       --RD=0--&gt; root</text>
+  <text x="640" y="122" class="mono">3  root        --NS .edu--&gt; local</text>
+  <text x="640" y="140" class="mono">4  local       --RD=0--&gt; a.edu-servers.net</text>
+  <text x="640" y="158" class="mono">5  edu NS      --NS washington.edu--&gt; local</text>
+  <text x="640" y="176" class="mono">6  local       --RD=0--&gt; ns1.washington.edu</text>
+  <text x="640" y="194" class="mono">7  wash NS     --NS cs.washington.edu--&gt; local</text>
+  <text x="640" y="212" class="mono">8  local       --RD=0--&gt; star.cs.washington.edu</text>
+  <text x="640" y="230" class="mono">9  cs NS       --A 128.208.3.82--&gt; local</text>
+  <text x="640" y="248" class="mono">10 local       --A 128.208.3.82--&gt; flits</text>
+
+  <text x="640" y="280" class="node accent">Caching after step 10</text>
+  <text x="640" y="298" class="mono">NS .edu            ttl 172800s</text>
+  <text x="640" y="314" class="mono">NS washington.edu  ttl 86400s</text>
+  <text x="640" y="330" class="mono">NS cs.washington   ttl 86400s</text>
+  <text x="640" y="346" class="mono">A  robot.cs.wash.  ttl 300s</text>
+  <text x="640" y="362" class="mono">glue A for star    ttl 86400s</text>
+  <text x="640" y="386" class="label">Cold: 5 UDP RTTs. Warm (same A): 0 RTTs.</text>
+  <text x="640" y="402" class="label">Warm (different A in cs.wash): 2 RTTs.</text>
+
+  <!-- Footnote -->
+  <rect x="40" y="460" width="860" height="80" rx="8" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="60" y="484" class="node">Why roots and TLDs refuse recursion</text>
+  <text x="60" y="506" class="mono">Operational policy (RFC 1035 &#167;6): root and TLD servers return referrals only, with RA=0.</text>
+  <text x="60" y="524" class="mono">Concentrating recursion at the network edge keeps root QPS predictable and bounded.</text>
+</svg>

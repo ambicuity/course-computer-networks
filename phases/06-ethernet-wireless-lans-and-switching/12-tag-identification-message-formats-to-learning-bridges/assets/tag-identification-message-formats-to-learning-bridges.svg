@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 640" width="860" height="640">
+  <rect x="0" y="0" width="860" height="640" fill="#FFF7EC"/>
+  <style>
+    .t  { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .m  { font-family: ui-monospace, monospace; fill: #2A1A2E; }
+    .lbl{ font-family: Inter, sans-serif; fill: #2A1A2E; font-size: 12px; }
+    .ttl{ font-family: Inter, sans-serif; fill: #2A1A2E; font-size: 19px; font-weight: 700; }
+    .sub{ font-family: Inter, sans-serif; fill: #2A1A2E; font-size: 13px; font-weight: 600; }
+    .acc{ fill: #E2557A; }
+  </style>
+  <text x="30" y="36" class="ttl">Tag Identification (EPC Gen 2 Query) &#8594; Learning Bridges</text>
+  <text x="30" y="68" class="sub">1. Query command &#8212; 22-bit reader-to-tag message (Fig. 4-40)</text>
+  <g class="m" font-size="12" text-anchor="middle">
+    <rect x="30"  y="80" width="138" height="40" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="99"  y="104" fill="#FFF7EC">Command 1000</text>
+    <rect x="168" y="80" width="34"  height="40" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="185" y="104">DR</text>
+    <rect x="202" y="80" width="69"  height="40" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="236" y="104">M</text>
+    <rect x="271" y="80" width="34"  height="40" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="288" y="104">TR</text>
+    <rect x="305" y="80" width="69"  height="40" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="339" y="104">Sel</text>
+    <rect x="374" y="80" width="69"  height="40" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="408" y="104">Session</text>
+    <rect x="443" y="80" width="34"  height="40" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="460" y="104">Tgt</text>
+    <rect x="477" y="80" width="138" height="40" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="546" y="104" fill="#FFF7EC">Q (slots)</text>
+    <rect x="615" y="80" width="173" height="40" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="701" y="104">CRC-5</text>
+  </g>
+  <g class="lbl" text-anchor="middle" font-size="11">
+    <text x="99"  y="134">4</text>
+    <text x="185" y="134">1</text>
+    <text x="236" y="134">2</text>
+    <text x="288" y="134">1</text>
+    <text x="339" y="134">2</text>
+    <text x="408" y="134">2</text>
+    <text x="460" y="134">1</text>
+    <text x="546" y="134">4</text>
+    <text x="701" y="134">5  (bits)</text>
+  </g>
+  <text x="99"  y="156" class="lbl" text-anchor="middle" fill="#E2557A">physical params: DR M TR</text>
+  <text x="408" y="156" class="lbl" text-anchor="middle">tag selection: Sel Session Target</text>
+  <text x="546" y="156" class="lbl" text-anchor="middle" fill="#E2557A">2^Q slots, 0..2^Q-1</text>
+  <text x="30" y="196" class="sub">2. Slotted-ALOHA inventory &#8212; reader tunes Q via QAdjust</text>
+  <g font-family="ui-monospace, monospace" font-size="11" text-anchor="middle">
+    <rect x="30"  y="208" width="60" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="60"  y="230">empty</text>
+    <rect x="92"  y="208" width="60" height="34" fill="#E2557A" stroke="#2A1A2E"/><text x="122" y="230" fill="#FFF7EC">RN16 ok</text>
+    <rect x="154" y="208" width="60" height="34" fill="#FFF7EC" stroke="#2A1A2E" stroke-dasharray="4 3"/><text x="184" y="230">collide</text>
+    <rect x="216" y="208" width="60" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="246" y="230">empty</text>
+    <rect x="278" y="208" width="60" height="34" fill="#E2557A" stroke="#2A1A2E"/><text x="308" y="230" fill="#FFF7EC">RN16 ok</text>
+    <rect x="340" y="208" width="60" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="370" y="230">empty</text>
+    <rect x="402" y="208" width="60" height="34" fill="#FFF7EC" stroke="#2A1A2E" stroke-dasharray="4 3"/><text x="432" y="230">collide</text>
+    <rect x="464" y="208" width="60" height="34" fill="#E2557A" stroke="#2A1A2E"/><text x="494" y="230" fill="#FFF7EC">RN16 ok</text>
+  </g>
+  <text x="30"  y="262" class="lbl">slot 0 &#8594; slot 2^Q-1 &#160;&#160;&#160; single &#8594; ACK &#8594; EPC read &#160;|&#160; too many collide: Q&#8593; &#160;|&#160; too many empty: Q&#8595;</text>
+  <line x1="30" y1="288" x2="830" y2="288" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="30" y="318" class="sub">3. Learning bridge &#8212; backward learning (source MAC &#8594; ingress port), IEEE 802.1D</text>
+  <rect x="330" y="350" width="200" height="150" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="430" y="376" class="t" font-size="15" font-weight="700" text-anchor="middle">Bridge B1</text>
+  <text x="430" y="396" class="lbl" text-anchor="middle">promiscuous mode</text>
+  <text x="350" y="420" class="m" font-size="12">MAC  port</text>
+  <text x="350" y="438" class="m" font-size="12">A  &#8594; 1</text>
+  <text x="350" y="456" class="m" font-size="12">C  &#8594; 3</text>
+  <text x="350" y="474" class="m" font-size="12">D  &#8594; 4</text>
+  <text x="350" y="492" class="lbl" fill="#E2557A">age &gt; 300s &#8594; purge</text>
+  <g class="m" font-size="12" text-anchor="middle">
+    <rect x="60"  y="360" width="60" height="34" fill="#E2557A" stroke="#2A1A2E"/><text x="90"  y="382" fill="#FFF7EC">A</text>
+    <rect x="60"  y="440" width="60" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="90"  y="462">C</text>
+    <rect x="700" y="360" width="60" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="730" y="382">D</text>
+    <rect x="700" y="440" width="60" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="730" y="462">E/F (hub)</text>
+  </g>
+  <line x1="120" y1="377" x2="330" y2="400" stroke="#2A1A2E"/><text x="210" y="382" class="lbl">port 1</text>
+  <line x1="120" y1="457" x2="330" y2="430" stroke="#2A1A2E"/><text x="210" y="450" class="lbl">port 3</text>
+  <line x1="530" y1="400" x2="700" y2="377" stroke="#2A1A2E"/><text x="600" y="382" class="lbl">port 4</text>
+  <line x1="530" y1="430" x2="700" y2="457" stroke="#2A1A2E"/><text x="600" y="450" class="lbl">port 2</text>
+  <text x="30" y="540" class="sub">Forwarding rule (per incoming frame):</text>
+  <text x="30" y="562" class="lbl"><tspan class="m">1.</tspan> dst port == src port &#8594; <tspan fill="#E2557A" font-weight="700">DISCARD</tspan> (already correct side)</text>
+  <text x="30" y="582" class="lbl"><tspan class="m">2.</tspan> dst port known &amp; &#8800; src port &#8594; <tspan fill="#E2557A" font-weight="700">FORWARD</tspan> on that one port</text>
+  <text x="30" y="602" class="lbl"><tspan class="m">3.</tspan> dst port unknown &#8594; <tspan fill="#E2557A" font-weight="700">FLOOD</tspan> on all ports except ingress</text>
+  <text x="30" y="624" class="lbl">Cut-through: forward after 6-byte dst MAC arrives &#160;|&#160; Store-and-forward: wait for FCS, drop bad frames</text>
+</svg>

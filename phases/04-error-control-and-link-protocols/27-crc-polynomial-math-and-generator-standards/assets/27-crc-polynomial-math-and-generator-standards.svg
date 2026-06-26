@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 540" width="820" height="540">
+  <rect width="820" height="540" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="410" y="36" font-family="Inter, sans-serif" font-size="16" font-weight="700"
+        fill="#2A1A2E" text-anchor="middle">CRC Polynomial Arithmetic — Modulo-2 Division (Tanenbaum Fig 3-9)</text>
+
+  <!-- ── SECTION 1: Bit-string to polynomial mapping ── -->
+  <text x="20" y="68" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">Step 0  Represent frame as polynomial</text>
+
+  <!-- Frame bits with labels -->
+  <g font-family="monospace" font-size="14" fill="#2A1A2E">
+    <!-- bit boxes -->
+    <rect x="20"  y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="58"  y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="96"  y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="134" y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="172" y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="210" y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="248" y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="286" y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="324" y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="362" y="76" width="34" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+
+    <!-- bit values -->
+    <text x="37"  y="96" text-anchor="middle" font-weight="700" fill="#E2557A">1</text>
+    <text x="75"  y="96" text-anchor="middle" font-weight="700" fill="#E2557A">1</text>
+    <text x="113" y="96" text-anchor="middle" fill="#2A1A2E">0</text>
+    <text x="151" y="96" text-anchor="middle" font-weight="700" fill="#E2557A">1</text>
+    <text x="189" y="96" text-anchor="middle" fill="#2A1A2E">0</text>
+    <text x="227" y="96" text-anchor="middle" font-weight="700" fill="#E2557A">1</text>
+    <text x="265" y="96" text-anchor="middle" font-weight="700" fill="#E2557A">1</text>
+    <text x="303" y="96" text-anchor="middle" font-weight="700" fill="#E2557A">1</text>
+    <text x="341" y="96" text-anchor="middle" font-weight="700" fill="#E2557A">1</text>
+    <text x="379" y="96" text-anchor="middle" font-weight="700" fill="#E2557A">1</text>
+
+    <!-- exponent labels -->
+    <text x="37"  y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x⁹</text>
+    <text x="75"  y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x⁸</text>
+    <text x="113" y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x⁷</text>
+    <text x="151" y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x⁶</text>
+    <text x="189" y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x⁵</text>
+    <text x="227" y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x⁴</text>
+    <text x="265" y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x³</text>
+    <text x="303" y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x²</text>
+    <text x="341" y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x¹</text>
+    <text x="379" y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">x⁰</text>
+  </g>
+
+  <text x="420" y="96" font-family="monospace" font-size="13" fill="#2A1A2E">→  M(x) = x⁹+x⁸+x⁶+x⁴+x³+x²+x+1</text>
+
+  <!-- ── SECTION 2: CRC computation pipeline ── -->
+  <text x="20" y="148" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">CRC Computation Pipeline</text>
+
+  <!-- Step 1 box -->
+  <rect x="20" y="158" width="180" height="58" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="110" y="177" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#E2557A" text-anchor="middle">Step 1  Pad</text>
+  <text x="110" y="193" font-family="monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">Append r=4 zero bits</text>
+  <text x="110" y="208" font-family="monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">→ x⁴·M(x)  (14 bits)</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="200" y1="187" x2="228" y2="187" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 2 box -->
+  <rect x="228" y="158" width="180" height="58" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="318" y="177" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#E2557A" text-anchor="middle">Step 2  Divide mod-2</text>
+  <text x="318" y="193" font-family="monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">x⁴·M(x) ÷ G(x)</text>
+  <text x="318" y="208" font-family="monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">G(x)=x⁴+x+1</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="408" y1="187" x2="436" y2="187" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Step 3 box -->
+  <rect x="436" y="158" width="180" height="58" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="526" y="177" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#E2557A" text-anchor="middle">Step 3  Subtract (XOR)</text>
+  <text x="526" y="193" font-family="monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">Replace zeros with</text>
+  <text x="526" y="208" font-family="monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">remainder R(x)</text>
+
+  <!-- Arrow 3→T -->
+  <line x1="616" y1="187" x2="644" y2="187" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Output box T(x) -->
+  <rect x="644" y="158" width="156" height="58" rx="6" fill="#E2557A" fill-opacity="0.12" stroke="#E2557A" stroke-width="2"/>
+  <text x="722" y="177" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#E2557A" text-anchor="middle">T(x) transmitted</text>
+  <text x="722" y="193" font-family="monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">1101011111 | 0010</text>
+  <text x="722" y="208" font-family="monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">14 bits  T(x)÷G(x)=0</text>
+
+  <!-- ── SECTION 3: XOR long division detail ── -->
+  <text x="20" y="242" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">Modulo-2 Long Division Detail  (first 4 steps shown)</text>
+
+  <g font-family="monospace" font-size="12" fill="#2A1A2E">
+    <!-- dividend row -->
+    <text x="60" y="264">1 1 0 1 0 1 1 1 1 1 0 0 0 0</text>
+    <!-- divisor annotation -->
+    <text x="400" y="264" font-size="11" fill="#888">← x⁴·M(x)  14 bits</text>
+    <text x="20" y="264" font-size="11" fill="#888">÷</text>
+    <text x="60" y="280" fill="#E2557A">1 0 0 1 1</text>
+    <text x="200" y="280" font-size="11" fill="#888">← G(x) = x⁴+x+1</text>
+
+    <line x1="55" y1="284" x2="430" y2="284" stroke="#2A1A2E" stroke-width="1"/>
+
+    <!-- step 1: 11010 XOR 10011 -->
+    <text x="60" y="300">1 0 0 1 1</text>
+    <text x="400" y="300" font-size="10" fill="#888">11010 XOR 10011 = 01001</text>
+    <text x="20" y="300" font-size="10" fill="#888">↓1</text>
+
+    <!-- step 2: 10011 XOR 10011 -->
+    <text x="76" y="316">1 0 0 1 1</text>
+    <text x="400" y="316" font-size="10" fill="#888">drop 0, use 10011</text>
+    <text x="20" y="316" font-size="10" fill="#888">↓2</text>
+
+    <!-- ellipsis -->
+    <text x="60" y="332" fill="#888">. . . (10 more steps) . . .</text>
+
+    <!-- final remainder -->
+    <line x1="55" y1="336" x2="430" y2="336" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="60" y="352" fill="#E2557A" font-weight="700">0 0 1 0</text>
+    <text x="140" y="352" font-size="11" fill="#888">← Remainder R(x) = x¹  →  appended as CRC</text>
+  </g>
+
+  <!-- XOR addition rule callout -->
+  <rect x="490" y="240" width="310" height="110" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="645" y="258" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#2A1A2E" text-anchor="middle">Modulo-2 Arithmetic Rules</text>
+  <text x="502" y="276" font-family="monospace" font-size="11" fill="#2A1A2E">0 + 0 = 0   1 + 0 = 1</text>
+  <text x="502" y="292" font-family="monospace" font-size="11" fill="#2A1A2E">0 + 1 = 1   1 + 1 = 0  (XOR)</text>
+  <text x="502" y="308" font-family="monospace" font-size="11" fill="#2A1A2E">Addition = Subtraction = XOR</text>
+  <text x="502" y="324" font-family="monospace" font-size="11" fill="#2A1A2E">No carry, no borrow</text>
+  <text x="502" y="340" font-family="monospace" font-size="11" fill="#2A1A2E">Arithmetic over GF(2)</text>
+
+  <!-- ── SECTION 4: Error detection guarantees ── -->
+  <text x="20" y="386" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">Error Detection Guarantees (degree-r generator)</text>
+
+  <g font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">
+    <rect x="20"  y="394" width="380" height="24" rx="3" fill="#E2557A" fill-opacity="0.10" stroke="#E2557A" stroke-width="1"/>
+    <text x="28"  y="410">All single-bit errors detected  (G(x) has 2+ terms)</text>
+
+    <rect x="20"  y="420" width="380" height="24" rx="3" fill="#E2557A" fill-opacity="0.08" stroke="#E2557A" stroke-width="1"/>
+    <text x="28"  y="436">All double-bit errors  (G(x) not divisible by x, prime factor)</text>
+
+    <rect x="20"  y="446" width="380" height="24" rx="3" fill="#E2557A" fill-opacity="0.06" stroke="#E2557A" stroke-width="1"/>
+    <text x="28"  y="462">Odd-bit errors  (include x+1 as factor of G(x))</text>
+
+    <rect x="20"  y="472" width="380" height="24" rx="3" fill="#E2557A" fill-opacity="0.14" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="28"  y="488" font-weight="600">ALL burst errors of length ≤ r bits  (key theorem)</text>
+
+    <rect x="20"  y="498" width="380" height="24" rx="3" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="28"  y="514" fill="#888">Burst length r+1: missed with prob ½^(r-1)</text>
+  </g>
+
+  <!-- ── SECTION 5: Standards comparison table ── -->
+  <text x="430" y="386" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">Standard Polynomials</text>
+
+  <rect x="430" y="394" width="370" height="128" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <g font-family="Inter, sans-serif" font-size="10.5" fill="#2A1A2E">
+    <!-- header -->
+    <rect x="430" y="394" width="370" height="20" rx="6" fill="#2A1A2E"/>
+    <text x="440" y="408" fill="#FFF7EC" font-weight="700">Name</text>
+    <text x="570" y="408" fill="#FFF7EC" font-weight="700">r</text>
+    <text x="600" y="408" fill="#FFF7EC" font-weight="700">HD</text>
+    <text x="628" y="408" fill="#FFF7EC" font-weight="700">Used in</text>
+
+    <text x="440" y="426">CRC-16-CCITT</text>      <text x="570" y="426">16</text>  <text x="600" y="426">4</text>  <text x="628" y="426">HDLC, X.25, Bluetooth</text>
+    <text x="440" y="444">CRC-16-IBM</text>         <text x="570" y="444">16</text>  <text x="600" y="444">4</text>  <text x="628" y="444">BISYNC, USB bulk</text>
+    <text x="440" y="462" fill="#E2557A" font-weight="600">CRC-32-IEEE</text>   <text x="570" y="462">32</text>  <text x="600" y="462">4</text>  <text x="628" y="462">Ethernet, 802.11, ZIP</text>
+    <text x="440" y="480" fill="#E2557A" font-weight="600">CRC-32C</text>       <text x="570" y="480">32</text>  <text x="600" y="480">6</text>  <text x="628" y="480">iSCSI(RFC 3720), SCTP</text>
+    <text x="440" y="498">CRC-32K (Koopman)</text>  <text x="570" y="498">32</text>  <text x="600" y="498">6</text>  <text x="628" y="498">Research / storage</text>
+    <text x="440" y="516" fill="#888">HD = Hamming distance (min # of bit flips needed to mask undetected error)</text>
+  </g>
+
+  <!-- Receiver verify flow -->
+  <text x="20" y="540" font-family="Inter, sans-serif" font-size="10" fill="#888">Receiver: divide T(x)+E(x) by G(x) → if remainder ≠ 0, error detected; if 0, either clean or undetected error</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

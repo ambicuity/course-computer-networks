@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <rect width="800" height="500" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; font-family: monospace; font-size: 11px; }
+    .accent { fill: #E2557A; font-family: monospace; font-size: 11px; font-weight: bold; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.5; }
+    .box-accent { fill: #FFFFFF; stroke: #E2557A; stroke-width: 2; }
+    .box-master { fill: #E2557A; stroke: #2A1A2E; stroke-width: 1.5; }
+    .line { stroke: #2A1A2E; stroke-width: 1.5; }
+    .line-dash { stroke: #2A1A2E; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .label { fill: #2A1A2E; font-family: monospace; font-size: 10px; }
+  </style>
+
+  <text x="400" y="25" class="accent" text-anchor="middle" font-size="14">VRRPv3 - SUB-SECOND FIRST-HOP REDUNDANCY</text>
+
+  <!-- Two routers -->
+  <rect x="100" y="80" width="160" height="80" class="box-master"/>
+  <text x="180" y="105" class="ink" text-anchor="middle" fill="#FFF7EC">DIST-A</text>
+  <text x="180" y="120" class="label" text-anchor="middle" fill="#FFF7EC">Cisco Cat 9300</text>
+  <text x="180" y="135" class="label" text-anchor="middle" fill="#FFF7EC">pri 110 - MASTER</text>
+  <text x="180" y="148" class="label" text-anchor="middle" fill="#FFF7EC">skew 0.57ms</text>
+
+  <rect x="540" y="80" width="160" height="80" class="box"/>
+  <text x="620" y="105" class="ink" text-anchor="middle">DIST-B</text>
+  <text x="620" y="120" class="label" text-anchor="middle">Cisco Cat 9300</text>
+  <text x="620" y="135" class="label" text-anchor="middle">pri 105 - BACKUP</text>
+  <text x="620" y="148" class="label" text-anchor="middle">skew 0.59ms</text>
+
+  <!-- VIP / VMAC in middle -->
+  <rect x="320" y="80" width="160" height="80" class="box-accent"/>
+  <text x="400" y="105" class="accent" text-anchor="middle">VIP 10.10.1.1</text>
+  <text x="400" y="125" class="label" text-anchor="middle">vMAC 0000.5E00.0101</text>
+  <text x="400" y="142" class="label" text-anchor="middle">VRID 1</text>
+  <text x="400" y="155" class="label" text-anchor="middle">IPv4 + IPv6 dual-stack</text>
+
+  <!-- ARP lines -->
+  <line x1="260" y1="100" x2="320" y2="100" class="line"/>
+  <text x="290" y="95" class="label" text-anchor="middle">ARP reply</text>
+  <line x1="480" y1="100" x2="540" y2="100" class="line-dash"/>
+  <text x="510" y="95" class="label" text-anchor="middle">VRRP adv</text>
+
+  <!-- BFD between routers -->
+  <line x1="260" y1="150" x2="540" y2="150" class="line"/>
+  <text x="400" y="146" class="label" text-anchor="middle">BFD 50ms x 3 (150ms detection)</text>
+
+  <!-- Hosts -->
+  <rect x="100" y="240" width="600" height="60" class="box"/>
+  <text x="400" y="260" class="ink" text-anchor="middle">HOSTS (200 on VLAN 10, default gw 10.10.1.1)</text>
+  <text x="400" y="280" class="label" text-anchor="middle">HL7 / EHR / PACS clients</text>
+  <text x="400" y="293" class="label" text-anchor="middle">ARP cache: 10.10.1.1 is 0000.5E00.0101</text>
+
+  <line x1="180" y1="160" x2="180" y2="240" class="line"/>
+  <line x1="620" y1="160" x2="620" y2="240" class="line-dash"/>
+
+  <!-- State machine -->
+  <rect x="40" y="320" width="720" height="160" class="box"/>
+  <text x="400" y="340" class="accent" text-anchor="middle">VRRP STATE MACHINE</text>
+
+  <rect x="80" y="360" width="120" height="50" class="box"/>
+  <text x="140" y="380" class="ink" text-anchor="middle">Initialize</text>
+  <text x="140" y="395" class="label" text-anchor="middle">just booted</text>
+
+  <rect x="240" y="360" width="120" height="50" class="box"/>
+  <text x="300" y="380" class="ink" text-anchor="middle">Backup</text>
+  <text x="300" y="395" class="label" text-anchor="middle">listening for adv</text>
+
+  <rect x="400" y="360" width="120" height="50" class="box-master"/>
+  <text x="460" y="380" class="ink" text-anchor="middle" fill="#FFF7EC">Master</text>
+  <text x="460" y="395" class="label" text-anchor="middle" fill="#FFF7EC">forwarding traffic</text>
+
+  <rect x="560" y="360" width="180" height="50" class="box"/>
+  <text x="650" y="380" class="ink" text-anchor="middle">hold timeout</text>
+  <text x="650" y="395" class="label" text-anchor="middle">3x hello or BFD</text>
+
+  <!-- Arrows -->
+  <line x1="200" y1="385" x2="240" y2="385" class="line"/>
+  <line x1="360" y1="385" x2="400" y2="385" class="line"/>
+  <line x1="520" y1="385" x2="560" y2="385" class="line"/>
+  <line x1="560" y1="380" x2="520" y2="380" class="line"/>
+  <line x1="240" y1="380" x2="200" y2="380" class="line"/>
+  <line x1="400" y1="380" x2="360" y2="380" class="line"/>
+
+  <text x="220" y="425" class="label">no adv</text>
+  <text x="380" y="425" class="label">win election</text>
+  <text x="540" y="425" class="label">master down</text>
+  <text x="80" y="425" class="label">startup</text>
+
+  <text x="60" y="465" class="label">hello 100ms / hold 300ms / BFD 50ms x 3 / FIB 50ms = failover 200ms total</text>
+</svg>

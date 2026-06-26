@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A DNSSEC chain is broken at the DS to DNSKEY step. The child's DNSKEY RRset has a KSK with key_tag 67890. The parent's DS has key_tag 12345. What is wrong?",
+      "options": [
+        "A. The child's RRSIG is expired",
+        "B. The parent has not yet published the new DS for the rolled KSK; the chain is broken at parent to child",
+        "C. The child is using algorithm 13 (ECDSA) which the parent does not support",
+        "D. The ZSK is wrong"
+      ],
+      "answer": 1,
+      "explanation": "When the child rolls the KSK but the parent has not published the new DS, the resolver finds the new KSK in the child's DNSKEY RRset but no matching DS in the parent. The DS to DNSKEY step fails and the zone is marked bogus. The fix is to publish the new DS in the parent and wait for the parent TTL before retiring the old DS (RFC 7583)."
+    },
+    {
+      "question": "During an algorithm rollover from RSASHA256 (8) to ECDSA P-256 (13), what must the parent publish?",
+      "options": [
+        "A. A single DS for the new algorithm's KSK",
+        "B. DS records for BOTH the old and new algorithm's KSKs, so resolvers that support only one algorithm can still validate during the transition",
+        "C. No DS records (algorithms are inferred)",
+        "D. A NSEC3 record"
+      ],
+      "answer": 1,
+      "explanation": "RFC 6781 sec. 4.1.2 specifies that during an algorithm rollover, the parent must hold DS records for both the old and new algorithms. A resolver that supports only RSASHA256 can still validate via the old DS; one that supports only ECDSA P-256 can validate via the new DS. After the transition, the old DS is retired."
+    },
+    {
+      "question": "What does a validating resolver return when the DNSSEC chain is broken?",
+      "options": [
+        "A. NOERROR with the answer but no AD flag",
+        "B. SERVFAIL (the answer is marked bogus and not returned)",
+        "C. NXDOMAIN",
+        "D. FORMERR"
+      ],
+      "answer": 1,
+      "explanation": "RFC 4033 sec. 5 defines the four DNSSEC validation outcomes: Secure, Insecure, Bogus, Indeterminate. When the chain is broken (Bogus), the resolver returns SERVFAIL to the client and does not return the answer, because the answer cannot be authenticated."
+    }
+  ]
+}

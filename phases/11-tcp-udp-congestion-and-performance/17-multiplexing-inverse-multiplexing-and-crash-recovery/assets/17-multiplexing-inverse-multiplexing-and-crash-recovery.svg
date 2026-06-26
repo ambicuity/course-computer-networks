@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" width="920" height="600">
+  <rect width="920" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .small { font-size: 11px; fill: #6b5560; }
+    .accent { fill: #E2557A; }
+  </style>
+
+  <text x="40" y="40" class="title">Multiplexing, Inverse Multiplexing, Crash Recovery</text>
+  <text x="40" y="60" class="sub">Tanenbaum Fig. 6-17 and Fig. 6-18 -- the 5-tuple, SCTP/MPTCP, and the 8x6 matrix</text>
+
+  <!-- Multiplexing panel -->
+  <rect x="40" y="90" width="400" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="118" class="node">Multiplexing (Fig. 6-17a)</text>
+  <text x="60" y="136" class="small">many TSAPs onto one NSAP</text>
+
+  <!-- sockets -->
+  <rect x="60" y="155" width="100" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="110" y="173" text-anchor="middle" class="mono">socket A</text>
+  <rect x="60" y="195" width="100" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="110" y="213" text-anchor="middle" class="mono">socket B</text>
+  <rect x="60" y="235" width="100" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="110" y="253" text-anchor="middle" class="mono">socket C</text>
+
+  <text x="180" y="173" class="mono">:51000 -&gt; :80</text>
+  <text x="180" y="213" class="mono">:51001 -&gt; :80</text>
+  <text x="180" y="253" class="mono">:55000 -&gt; :22</text>
+
+  <text x="60" y="290" class="small">kernel demuxes by 5-tuple (proto, src_ip, src_port, dst_ip, dst_port)</text>
+
+  <!-- Inverse multiplexing panel -->
+  <rect x="480" y="90" width="400" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="500" y="118" class="node">Inverse Multiplexing (Fig. 6-17b, SCTP/MPTCP)</text>
+  <text x="500" y="136" class="small">one logical connection over many NSAPs</text>
+
+  <rect x="500" y="155" width="360" height="28" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="520" y="173" class="mono">Sender: round-robin seq 0,1,2,3,4,5,6,7,8 over paths 1,2,3</text>
+  <rect x="500" y="195" width="360" height="28" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="520" y="213" class="mono">Path 1 (RTT 5ms), Path 2 (RTT 12ms), Path 3 (RTT 7ms)</text>
+  <rect x="500" y="235" width="360" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="520" y="253" class="mono">Receiver: heap-ordered reassembly buffer delivers in-order</text>
+
+  <text x="500" y="290" class="small">SCTP (RFC 4960) = primary+failover; MPTCP (RFC 8684) = use all paths</text>
+
+  <!-- Crash recovery matrix -->
+  <rect x="40" y="330" width="840" height="240" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="60" y="356" class="node accent">Crash Recovery Matrix  (Tanenbaum Fig. 6-18)</text>
+  <text x="60" y="374" class="small">8 (server x client) strategies, 6 event orderings. Every cell has a LOST or DUP.</text>
+
+  <text x="60" y="400" class="mono">Client strategy   |  AC(W)  AWC   C(AW)  C(WA)  WAC   WC(A)</text>
+  <text x="60" y="418" class="mono">-----------------+------------------------------------------------</text>
+  <text x="60" y="436" class="mono">ack-first, always  |  OK     DUP   OK     OK     DUP   DUP</text>
+  <text x="60" y="454" class="mono">ack-first, never   |  LOST   OK    LOST   LOST   OK    OK</text>
+  <text x="60" y="472" class="mono">ack-first, in S0   |  OK     DUP   LOST   LOST   DUP   OK</text>
+  <text x="60" y="490" class="mono">ack-first, in S1   |  LOST   OK    OK     OK     OK    DUP</text>
+  <text x="60" y="508" class="mono">write-first, all   |  OK     DUP   OK     OK     DUP   DUP</text>
+  <text x="60" y="526" class="mono">write-first, never |  LOST   OK    LOST   LOST   OK    OK</text>
+  <text x="60" y="544" class="mono">write-first, in S0 |  OK     DUP   LOST   LOST   DUP   OK</text>
+  <text x="60" y="562" class="mono">write-first, in S1 |  LOST   OK    OK     OK     OK    DUP</text>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+  <text x="440" y="34" text-anchor="middle" fill="#2A1A2E" font-size="20" font-weight="700">SONET STS-1 Frame — 90 columns × 9 rows, 810 bytes / 125 µs</text>
+  <text x="440" y="56" text-anchor="middle" fill="#2A1A2E" font-size="13">3 overhead columns (SOH+LOH) · 87 payload columns (SPE) · floating pointer (H1/H2)</text>
+
+  <!-- Frame 1 -->
+  <text x="30" y="92" fill="#2A1A2E" font-size="13" font-weight="600">Frame N</text>
+  <rect x="30" y="100" width="396" height="252" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+  <!-- Section overhead block (rows 1-3) -->
+  <rect x="30" y="100" width="84" height="84" fill="#E2557A" fill-opacity="0.18" stroke="#E2557A"/>
+  <text x="72" y="146" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="600">Section OH</text>
+  <text x="72" y="160" text-anchor="middle" fill="#2A1A2E" font-size="10">A1 A2 C1 · B1 · D1-3</text>
+  <!-- Line overhead block (rows 4-9) -->
+  <rect x="30" y="184" width="84" height="168" fill="#E2557A" fill-opacity="0.32" stroke="#E2557A"/>
+  <text x="72" y="262" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="600">Line OH</text>
+  <text x="72" y="276" text-anchor="middle" fill="#2A1A2E" font-size="10">H1 H2 H3 · B2 · K1 K2</text>
+  <!-- Pointer callout -->
+  <line x1="30" y1="196" x2="14" y2="196" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="10" y="200" text-anchor="end" fill="#E2557A" font-size="10" font-weight="700">H1/H2 ptr</text>
+
+  <!-- Payload area -->
+  <rect x="114" y="100" width="312" height="252" fill="#2A1A2E" fill-opacity="0.06" stroke="#2A1A2E" stroke-width="1"/>
+  <!-- Path overhead column (col 4 = first payload column) -->
+  <rect x="114" y="100" width="15" height="252" fill="#2A1A2E" fill-opacity="0.22" stroke="#2A1A2E"/>
+  <text x="121.5" y="372" text-anchor="middle" fill="#2A1A2E" font-size="10">POH</text>
+  <text x="270" y="372" text-anchor="middle" fill="#2A1A2E" font-size="11">87 SPE columns (payload + path OH)</text>
+
+  <!-- row ticks -->
+  <g fill="#2A1A2E" font-size="9">
+    <text x="432" y="116">row 1</text>
+    <text x="432" y="148">2</text>
+    <text x="432" y="196">4 (H1/H2/H3)</text>
+    <text x="432" y="352">9</text>
+  </g>
+
+  <!-- Frame 2 -->
+  <text x="450" y="92" fill="#2A1A2E" font-size="13" font-weight="600">Frame N+1</text>
+  <rect x="450" y="100" width="396" height="252" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+  <rect x="450" y="100" width="84" height="84" fill="#E2557A" fill-opacity="0.18" stroke="#E2557A"/>
+  <rect x="450" y="184" width="84" height="168" fill="#E2557A" fill-opacity="0.32" stroke="#E2557A"/>
+  <rect x="534" y="100" width="15" height="252" fill="#2A1A2E" fill-opacity="0.22" stroke="#2A1A2E"/>
+  <rect x="534" y="100" width="312" height="252" fill="#2A1A2E" fill-opacity="0.06" stroke="#2A1A2E" stroke-width="1"/>
+
+  <!-- Floating SPE spanning both frames: starts mid-payload of frame N, wraps into N+1 -->
+  <path d="M 250 100 L 426 100 L 426 352 L 250 352 Z" fill="#E2557A" fill-opacity="0.16" stroke="#E2557A" stroke-dasharray="4 3"/>
+  <path d="M 114 100 L 220 100 L 220 352 L 114 352 Z" fill="#E2557A" fill-opacity="0.16" stroke="#E2557A" stroke-dasharray="4 3" transform="translate(420 0)"/>
+  <text x="338" y="118" text-anchor="middle" fill="#2A1A2E" font-size="10" font-weight="700">SPE continues →</text>
+  <text x="338" y="132" text-anchor="middle" fill="#2A1A2E" font-size="10">spans frame boundary</text>
+  <text x="774" y="118" text-anchor="middle" fill="#2A1A2E" font-size="10" font-weight="700">← SPE tail</text>
+
+  <!-- Arrow showing wrap -->
+  <path d="M 426 226 C 470 226, 490 226, 534 226" fill="none" stroke="#E2557A" stroke-width="2" marker-end="url(#ah)"/>
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <!-- Rate budget box -->
+  <rect x="30" y="402" width="820" height="142" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="44" y="424" fill="#2A1A2E" font-size="13" font-weight="700">Rate budget (8000 frames/s)</text>
+  <g fill="#2A1A2E" font-size="12">
+    <text x="44" y="448">810 B × 8 b × 8000 = 51.840 Mbps gross</text>
+    <text x="44" y="470">− 27 B transport OH (SOH+LOH) = 1.728 Mbps</text>
+    <text x="44" y="492">= 50.112 Mbps SPE</text>
+    <text x="44" y="514">− 9 B path OH (POH) = 0.576 Mbps → 49.536 Mbps user payload</text>
+  </g>
+  <g fill="#2A1A2E" font-size="12">
+    <text x="470" y="448">Section: A1/A2 framing, B1 BIP-8, D1-D3 datacomm, E1 orderwire</text>
+    <text x="470" y="470">Line: H1/H2/H3 pointer, B2 BIP-8, K1/K2 APS, D4-D12 datacomm</text>
+    <text x="470" y="492">Path: J1 trace, B3 BIP-8, C2 signal label, G1 REI, H4 multiframe</text>
+    <text x="470" y="514">Pointer 0..782 lets SPE float &amp; justify across frame boundaries</text>
+  </g>
+</svg>

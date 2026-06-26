@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600">
+  <rect width="880" height="600" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; }
+    .berry { fill: #E2557A; }
+    .stroke-ink { stroke: #2A1A2E; fill: none; }
+    .stroke-berry { stroke: #E2557A; fill: none; }
+    text { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 12px; fill: #6a5a6e; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 11px; }
+    .h { font-size: 13px; font-weight: 700; }
+  </style>
+
+  <text x="40" y="44" class="title">Simplex Stop-and-Wait — timing &amp; failure modes</text>
+  <text x="40" y="64" class="sub">Sender (left) and Receiver (right) exchange DATA and ACK frames; shaded arrows show the two failure points Protocol 3 must handle.</text>
+
+  <!-- axes / hosts -->
+  <line x1="180" y1="90" x2="180" y2="560" class="stroke-ink" stroke-width="2"/>
+  <line x1="700" y1="90" x2="700" y2="560" class="stroke-ink" stroke-width="2"/>
+  <text x="150" y="84" class="h" text-anchor="end">SENDER</text>
+  <text x="730" y="84" class="h">RECEIVER</text>
+
+  <!-- Scenario A: normal -->
+  <text x="40" y="118" class="h">A. Normal exchange (Protocol 3)</text>
+
+  <line x1="180" y1="140" x2="700" y2="180" class="stroke-ink" stroke-width="1.5"/>
+  <polygon points="700,180 690,174 690,186" class="ink"/>
+  <text x="440" y="150" class="mono" text-anchor="middle">DATA seq=0</text>
+
+  <line x1="700" y1="220" x2="180" y2="260" class="stroke-ink" stroke-width="1.5"/>
+  <polygon points="180,260 190,254 190,266" class="ink"/>
+  <text x="440" y="230" class="mono" text-anchor="middle">ACK seq=0</text>
+
+  <line x1="180" y1="300" x2="700" y2="340" class="stroke-ink" stroke-width="1.5"/>
+  <polygon points="700,340 690,334 690,346" class="ink"/>
+  <text x="440" y="310" class="mono" text-anchor="middle">DATA seq=1</text>
+
+  <!-- Scenario B: lost ACK -->
+  <text x="40" y="378" class="h">B. Lost ACK — naive timer-only (no seq): DUPLICATE delivered</text>
+
+  <line x1="180" y1="400" x2="700" y2="430" class="stroke-ink" stroke-width="1.5"/>
+  <polygon points="700,430 690,424 690,436" class="ink"/>
+  <text x="440" y="410" class="mono" text-anchor="middle">DATA seq=0</text>
+
+  <line x1="700" y1="450" x2="430" y2="470" class="stroke-berry" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="560" y="448" class="mono berry" text-anchor="middle">ACK seq=0  ✗ LOST</text>
+
+  <text x="120" y="478" class="mono berry">timeout → resend</text>
+
+  <line x1="180" y1="492" x2="700" y2="522" class="stroke-berry" stroke-width="2"/>
+  <polygon points="700,522 690,516 690,528" class="berry"/>
+  <text x="440" y="502" class="mono berry" text-anchor="middle">DATA seq=0 (retransmit)</text>
+
+  <text x="730" y="520" class="mono berry">deliver AGAIN ✗</text>
+  <text x="730" y="536" class="sub">(duplicate — silent corruption)</text>
+
+  <!-- Scenario C: with seq -->
+  <text x="40" y="552" class="h">C. Same lost ACK, with 1-bit seq: duplicate DISCARDED, re-ACK sent ✓</text>
+  <text x="40" y="576" class="sub">Receiver expects seq=1; the retransmit carries seq=0 → mismatch → discard, re-ACK, no delivery.</text>
+
+  <!-- Legend -->
+  <g transform="translate(40,576)">
+  </g>
+</svg>

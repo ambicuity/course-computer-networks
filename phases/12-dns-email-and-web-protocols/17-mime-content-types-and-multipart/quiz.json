@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Which MIME header is the opt-in flag that tells a user agent to switch into MIME mode?",
+    "options": [
+      "A. Content-Type:",
+      "B. MIME-Version: 1.0",
+      "C. Content-Transfer-Encoding:",
+      "D. Content-Description:"
+    ],
+    "answer": 1,
+    "explanation": "MIME-Version: 1.0 is the version tag. A user agent that sees it switches into MIME mode; a message without it is assumed to be plain RFC 5322 ASCII."
+  },
+  {
+    "question": "Which Content-Transfer-Encoding produces safe 7-bit ASCII output for arbitrary binary data?",
+    "options": [
+      "A. 7bit",
+      "B. 8bit",
+      "C. quoted-printable",
+      "D. base64"
+    ],
+    "answer": 3,
+    "explanation": "Base64 (RFC 4648 §4) packs 6 bits per character into the 7-bit-safe A-Za-z0-9+/ alphabet. It is the standard way to ship arbitrary binary through a 7-bit-clean transport. quoted-printable is more compact for mostly-ASCII text but expands binary data."
+  },
+  {
+    "question": "A multipart/alternative message has three parts in order: text/plain, text/html, application/pdf. According to RFC 2046, what does this ordering tell the user agent?",
+    "options": [
+      "A. The parts are equal options; the user must pick one",
+      "B. The parts should be displayed from least to most expressive so a non-MIME UA can still read the first",
+      "C. The parts should be displayed from most to least expressive so a modern UA can show the best first",
+      "D. The order is irrelevant for multipart/alternative"
+    ],
+    "answer": 1,
+    "explanation": "RFC 2046 §5.1.4 specifies that multipart/alternative parts should be ordered from least faithful / most universal to most faithful / least universal, so that a pre-MIME user agent still sees the text/plain version."
+  }
+]

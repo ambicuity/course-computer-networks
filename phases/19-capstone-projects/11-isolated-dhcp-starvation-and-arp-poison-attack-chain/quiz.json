@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What are the four messages in a DHCP DORA exchange?",
+      "options": [
+        "Data, Offer, Reply, Acknowledge",
+        "Discover, Offer, Request, Acknowledge",
+        "Drop, Open, Route, Accept",
+        "Discover, Open, Receive, Assign"
+      ],
+      "correct": 1,
+      "explanation": "DHCP DORA: Discover (client broadcasts), Offer (server proposes IP), Request (client confirms), Acknowledge (server finalizes the lease)."
+    },
+    {
+      "stage": "post",
+      "question": "How does DHCP starvation exhaust the server's address pool?",
+      "options": [
+        "By sending very large packets",
+        "By flooding Discover messages with forged client MAC addresses until all pool addresses are allocated",
+        "By crashing the DHCP server",
+        "By changing the subnet mask"
+      ],
+      "correct": 1,
+      "explanation": "The attacker sends many Discover messages, each with a unique forged MAC, causing the server to allocate addresses until the pool is exhausted, denying service to legitimate clients."
+    },
+    {
+      "stage": "post",
+      "question": "What is a gratuitous ARP reply and how is it used in ARP poisoning?",
+      "options": [
+        "An ARP reply sent in response to a request",
+        "An unsolicited ARP reply that updates the recipient's cache, used to map the gateway IP to the attacker's MAC",
+        "A type of ICMP message",
+        "An encrypted ARP packet"
+      ],
+      "correct": 1,
+      "explanation": "A gratuitous ARP is an ARP reply sent without a preceding request. Attackers use it to overwrite victims' ARP cache entries, redirecting traffic through the attacker."
+    },
+    {
+      "stage": "post",
+      "question": "How does DHCP snooping prevent the starvation attack?",
+      "options": [
+        "It encrypts all DHCP messages",
+        "It marks only trusted ports (connected to the DHCP server) as allowed to send Offers/Acks, and rate-limits Discovers on untrusted ports",
+        "It disables DHCP entirely",
+        "It changes the client MAC addresses"
+      ],
+      "correct": 1,
+      "explanation": "DHCP snooping treats only the server-facing port as trusted. Untrusted ports cannot send Offers/Acks, and Discovers are rate-limited, preventing forged MAC flooding."
+    },
+    {
+      "stage": "post",
+      "question": "How does Dynamic ARP Inspection (DAI) prevent ARP poisoning?",
+      "options": [
+        "It encrypts ARP packets",
+        "It validates ARP replies against the DHCP snooping binding table and drops mismatches",
+        "It disables ARP entirely",
+        "It sends all traffic through a proxy"
+      ],
+      "correct": 1,
+      "explanation": "DAI checks each ARP reply's IP-MAC pair against the DHCP snooping binding table. If the pair doesn't match a known binding, the ARP reply is dropped, preventing cache poisoning."
+    }
+  ]
+}

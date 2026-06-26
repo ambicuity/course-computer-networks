@@ -1,0 +1,278 @@
+{
+  "generated": "2026-06-25",
+  "broken_chain": {
+    "host": "compliance-vault.example.com",
+    "port": 443,
+    "scan_time": "2026-06-25",
+    "tls_version": "TLSv1.3",
+    "cipher_suite": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      {
+        "role": "leaf",
+        "subject": "CN=compliance-vault.example.com",
+        "issuer": "CN=R3, O=Let's Encrypt, C=US",
+        "not_before": "2026-01-15",
+        "not_after": "2026-04-15",
+        "serial": "03F2B4B9E3D5C1A827F6E4A210BC97D5",
+        "sig_alg": "sha256WithRSAEncryption",
+        "key_type": "RSA",
+        "key_bits": 2048,
+        "san": [
+          "compliance-vault.example.com",
+          "www.compliance-vault.example.com"
+        ],
+        "is_ca": false,
+        "path_len": -1,
+        "key_usage": [
+          "Digital Signature",
+          "Key Encipherment"
+        ],
+        "ext_key_usage": [
+          "TLS Web Server Authentication",
+          "TLS Web Client Authentication"
+        ],
+        "ocsp_url": "http://r3.o.lencr.org",
+        "ca_issuer_url": "http://r3.i.lencr.org/",
+        "crl_dp": [],
+        "fingerprint_sha256": "2A:BC:7D:F5:8E:1C:9A:43:2E:65:B8:F0:C4:D2:74:A5:B6:E3:12:87:9F:5A:31:4D:77:C8:E6:A0:3B:25:9E:81"
+      },
+      {
+        "role": "intermediate",
+        "subject": "CN=R3, O=Let's Encrypt, C=US",
+        "issuer": "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+        "not_before": "2020-09-04",
+        "not_after": "2025-09-15",
+        "serial": "00912B084ACF0C18A753F6D62E25A75F5A",
+        "sig_alg": "sha256WithRSAEncryption",
+        "key_type": "RSA",
+        "key_bits": 2048,
+        "san": [],
+        "is_ca": true,
+        "path_len": 0,
+        "key_usage": [
+          "Digital Signature",
+          "Certificate Sign",
+          "CRL Sign"
+        ],
+        "ext_key_usage": [
+          "TLS Web Server Authentication",
+          "TLS Web Client Authentication"
+        ],
+        "ocsp_url": "http://x1.c.lencr.org",
+        "ca_issuer_url": "http://x1.i.lencr.org/",
+        "crl_dp": [
+          "http://x1.c.lencr.org/clrl.crl"
+        ],
+        "fingerprint_sha256": "67:AD:D1:16:6B:02:0A:E6:1B:0F:7A:18:C3:19:0C:E7:AE:13:B5:28:88:22:48:79:43:E7:27:23:14:36:97:91"
+      },
+      {
+        "role": "root",
+        "subject": "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+        "issuer": "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+        "not_before": "2015-06-04",
+        "not_after": "2035-06-04",
+        "serial": "8210CFB0D240E3591C142132696741F9",
+        "sig_alg": "sha256WithRSAEncryption",
+        "key_type": "RSA",
+        "key_bits": 4096,
+        "san": [],
+        "is_ca": true,
+        "path_len": -1,
+        "key_usage": [
+          "Certificate Sign",
+          "CRL Sign"
+        ],
+        "ext_key_usage": [],
+        "ocsp_url": "",
+        "ca_issuer_url": "",
+        "crl_dp": [],
+        "fingerprint_sha256": "96:BC:EC:06:26:49:76:F3:74:60:77:9A:CF:28:C5:A7:CF:E8:A3:C0:AA:E1:1A:8F:FC:EE:05:C0:BD:DF:08:C6"
+      }
+    ],
+    "chain_result": {
+      "valid": false,
+      "issues": [
+        {
+          "severity": "ERROR",
+          "code": "CERT_EXPIRED",
+          "cert": "CN=compliance-vault.example.com",
+          "detail": "expired 71 day(s) ago (notAfter=2026-04-15)"
+        },
+        {
+          "severity": "ERROR",
+          "code": "CERT_EXPIRED",
+          "cert": "CN=R3, O=Let's Encrypt, C=US",
+          "detail": "expired 283 day(s) ago (notAfter=2025-09-15)"
+        }
+      ]
+    },
+    "ocsp": [
+      {
+        "cert_subject": "CN=compliance-vault.example.com",
+        "status": "good",
+        "produced_at": "2026-06-25",
+        "this_update": "2026-06-25",
+        "next_update": "2026-07-02",
+        "revocation_time": null,
+        "revocation_reason": null
+      },
+      {
+        "cert_subject": "CN=R3, O=Let's Encrypt, C=US",
+        "status": "good",
+        "produced_at": "2026-06-25",
+        "this_update": "2026-06-25",
+        "next_update": "2026-07-02",
+        "revocation_time": null,
+        "revocation_reason": null
+      },
+      {
+        "cert_subject": "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+        "status": "good",
+        "produced_at": "2026-06-25",
+        "this_update": "2026-06-25",
+        "next_update": "2026-07-02",
+        "revocation_time": null,
+        "revocation_reason": null
+      }
+    ],
+    "summary_issues": [
+      "[ERROR] CERT_EXPIRED: expired 71 day(s) ago (notAfter=2026-04-15)",
+      "[ERROR] CERT_EXPIRED: expired 283 day(s) ago (notAfter=2025-09-15)"
+    ],
+    "recommendations": [
+      "URGENT: leaf certificate expired 71d ago \u2014 run: certbot renew --cert-name compliance-vault.example.com",
+      "Replace expired intermediate 'CN=R3, O=Let's Encrypt, C=US' \u2014 update ssl_certificate_chain / fullchain.pem with current CA bundle"
+    ]
+  },
+  "fixed_chain": {
+    "host": "compliance-vault.example.com",
+    "port": 443,
+    "scan_time": "2026-06-25",
+    "tls_version": "TLSv1.3",
+    "cipher_suite": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      {
+        "role": "leaf",
+        "subject": "CN=compliance-vault.example.com",
+        "issuer": "CN=R10, O=Let's Encrypt, C=US",
+        "not_before": "2026-06-01",
+        "not_after": "2026-08-30",
+        "serial": "04F3B5C0E4D6D2B938F7F5B321CD08E6",
+        "sig_alg": "sha256WithRSAEncryption",
+        "key_type": "RSA",
+        "key_bits": 2048,
+        "san": [
+          "compliance-vault.example.com",
+          "www.compliance-vault.example.com"
+        ],
+        "is_ca": false,
+        "path_len": -1,
+        "key_usage": [
+          "Digital Signature",
+          "Key Encipherment"
+        ],
+        "ext_key_usage": [
+          "TLS Web Server Authentication",
+          "TLS Web Client Authentication"
+        ],
+        "ocsp_url": "http://r10.o.lencr.org",
+        "ca_issuer_url": "http://r10.i.lencr.org/",
+        "crl_dp": [],
+        "fingerprint_sha256": "3B:CD:8E:F6:9F:2D:0A:54:3F:76:C9:E1:D3:85:B7:C6:A4:23:98:0F:6B:42:5E:88:D9:F7:B1:4C:36:A0:9F:92"
+      },
+      {
+        "role": "intermediate",
+        "subject": "CN=R10, O=Let's Encrypt, C=US",
+        "issuer": "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+        "not_before": "2024-03-13",
+        "not_after": "2027-03-12",
+        "serial": "00A71E2D5D9A0C3B87F4D2E6C51A9B8F0D",
+        "sig_alg": "sha256WithRSAEncryption",
+        "key_type": "RSA",
+        "key_bits": 2048,
+        "san": [],
+        "is_ca": true,
+        "path_len": 0,
+        "key_usage": [
+          "Digital Signature",
+          "Certificate Sign",
+          "CRL Sign"
+        ],
+        "ext_key_usage": [
+          "TLS Web Server Authentication",
+          "TLS Web Client Authentication"
+        ],
+        "ocsp_url": "http://x1.c.lencr.org",
+        "ca_issuer_url": "http://x1.i.lencr.org/",
+        "crl_dp": [
+          "http://x1.c.lencr.org/clrl.crl"
+        ],
+        "fingerprint_sha256": "4A:BC:7D:F5:8E:1C:9A:43:2E:65:B8:F0:C4:D2:74:A5:B6:E3:12:87:9F:5A:31:4D:77:C8:E6:A0:3B:25:9E:82"
+      },
+      {
+        "role": "root",
+        "subject": "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+        "issuer": "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+        "not_before": "2015-06-04",
+        "not_after": "2035-06-04",
+        "serial": "8210CFB0D240E3591C142132696741F9",
+        "sig_alg": "sha256WithRSAEncryption",
+        "key_type": "RSA",
+        "key_bits": 4096,
+        "san": [],
+        "is_ca": true,
+        "path_len": -1,
+        "key_usage": [
+          "Certificate Sign",
+          "CRL Sign"
+        ],
+        "ext_key_usage": [],
+        "ocsp_url": "",
+        "ca_issuer_url": "",
+        "crl_dp": [],
+        "fingerprint_sha256": "96:BC:EC:06:26:49:76:F3:74:60:77:9A:CF:28:C5:A7:CF:E8:A3:C0:AA:E1:1A:8F:FC:EE:05:C0:BD:DF:08:C6"
+      }
+    ],
+    "chain_result": {
+      "valid": true,
+      "issues": []
+    },
+    "ocsp": [
+      {
+        "cert_subject": "CN=compliance-vault.example.com",
+        "status": "good",
+        "produced_at": "2026-06-25",
+        "this_update": "2026-06-25",
+        "next_update": "2026-07-02",
+        "revocation_time": null,
+        "revocation_reason": null
+      },
+      {
+        "cert_subject": "CN=R10, O=Let's Encrypt, C=US",
+        "status": "good",
+        "produced_at": "2026-06-25",
+        "this_update": "2026-06-25",
+        "next_update": "2026-07-02",
+        "revocation_time": null,
+        "revocation_reason": null
+      },
+      {
+        "cert_subject": "CN=ISRG Root X1, O=Internet Security Research Group, C=US",
+        "status": "good",
+        "produced_at": "2026-06-25",
+        "this_update": "2026-06-25",
+        "next_update": "2026-07-02",
+        "revocation_time": null,
+        "revocation_reason": null
+      }
+    ],
+    "summary_issues": [],
+    "recommendations": [
+      "Enable OCSP stapling: NGINX: ssl_stapling on; ssl_stapling_verify on; resolver 8.8.8.8; HAProxy: ssl ocsp-update on; Apache: SSLUseStapling On",
+      "Set up 30-day expiry alerting via Prometheus blackbox_exporter (see outputs/monitoring.yml)"
+    ]
+  },
+  "chain_building_rules_rfc": "RFC 8446 \u00a74.4.2",
+  "ocsp_rfc": "RFC 6960",
+  "must_staple_rfc": "RFC 7633"
+}

@@ -1,0 +1,287 @@
+# Email Message Transfer and Final Delivery
+
+> **SMTP** (Simple Mail Transfer Protocol, RFC 5321) is the ASCII command/response protocol that carries mail between **MTAs on TCP port 25**. The four-line conversation — `HELO/EHLO`, `MAIL FROM`, `RCPT TO`, `DATA`, terminated by a single dot — returns numeric replies: `220` service ready, `250` OK, `354` start mail input, `221` closing. SMTP only handles 7-bit ASCII, so binary payloads ride as **base64** or **quoted-printable** content-transfer-encodings inside the RFC 5322 body. To overcome its limitations (no auth, no binary, no encryption), RFC 5321 mandates an extension mechanism: clients send `EHLO`, servers advertise extensions like **AUTH** (RFC 4954), **STARTTLS** (RFC 3207), **SIZE**, **CHUNKING**, **8BITMIME**, **BINARYMIME** (RFC 3030), and **UTF8SMTP**. Final delivery splits between **POP3** (port 110, RFC 1939, download-and-delete) and **IMAP4** (port 143, RFC 3501, server-stored). Routing uses DNS **MX** records to find the receiving MTA, then **A/AAAA** for its address, with **fallback** to A when MX is absent.
+
+**Type:** Build
+**Languages:** SMTP, IMAP4, Python (RFC 5321 client simulator)
+**Prerequisites:** Phase 12 Lesson 03 (architecture), Lesson 02 (MX records)
+**Time:** ~120 minutes
+
+## Learning Objectives
+
+- Hold an SMTP conversation: send `HELO`/`EHLO`, `MAIL FROM`, `RCPT TO`, `DATA`, `.`, `QUIT`, and interpret the 220/250/354/221 numeric replies.
+- Articulate why SMTP alone is insufficient and how each ESMTP extension (AUTH, STARTTLS, SIZE, 8BITMIME, CHUNKING) addresses a specific limitation.
+- Walk a message from the sender's MSA to the recipient's mailbox, distinguishing three transfer paths: direct MTA-to-MTA, mailing-list expansion, and address forwarding.
+- Compare POP3 and IMAP4 for final delivery, including the implications for offline access, multi-device sync, and server-side search.
+- Use `dig MX` and `dig A` to plan a real-world mail transfer and diagnose misrouting.
+
+## The Problem
+
+A user composes a message with a 2 MB PDF attachment in Apple Mail on a MacBook. The message has to traverse three SMTP hops (sender -> ISP -> recipient ISP -> recipient mailbox), survive servers that strip or rewrite headers, end up base64-encoded because the original PDF is binary, and finish in an IMAP mailbox the user can read from a phone on the subway. SMTP is the lingua franca that ties all of this together, but its bare-bones design (7-bit ASCII, no auth, no encryption) has been extended repeatedly to keep up with modern requirements. You must master both the core protocol and the extension mechanism.
+
+## The Concept
+
+### The four-line SMTP core
+
+RFC 5321 defines SMTP as a series of four-character ASCII commands issued by the **client** (sending MTA) and read by the **server** (receiving MTA). The conversation flows as in Figure 7-15 of the textbook:
+
+```text
+S: 220 mail.example.org ESMTP Postfix
+C: EHLO sender.example.com
+S: 250-mail.example.org
+S: 250-PIPELINING
+S: 250-SIZE 10485760
+S: 250-STARTTLS
+S: 250-ENHANCEDSTATUSCODES
+S: 250-8BITMIME
+S: 250 AUTH PLAIN LOGIN
+C: AUTH PLAIN
+S: 334
+C: AGFkbWluQGV4YW1wbGUuY29tAG15c2VjcmV0
+S: 235 2.7.0 Authentication successful
+C: MAIL FROM:<alice@cs.example.org> SIZE=2048576
+S: 250 2.1.0 Ok
+C: RCPT TO:<bob@ee.example.com>
+S: 250 2.1.5 Ok
+C: DATA
+S: 354 End data with <CR><LF>.<CR><LF>
+C: From: Alice <alice@cs.example.org>
+C: To: Bob <bob@ee.example.com>
+C: Subject: Quarterly report
+C: ...
+C: .
+S: 250 2.0.0 Ok: queued as 9F2C1402A1
+C: QUIT
+S: 221 2.0.0 Bye
+```
+
+Key observations:
+
+- **Server speaks first** with `220`. Without that banner the client should release the connection and retry.
+- The first command from the client is `HELO` (legacy) or `EHLO` (extended). If `EHLO` is rejected, the server is a vanilla SMTP server; the client should fall back to `HELO`.
+- `RCPT TO` may be repeated for multiple recipients. Each is individually accepted or rejected; the message can still be sent to the others.
+- The body of the message (RFC 5322 content) is sent as a single block after `DATA`. A line containing only `.` ends the data. If the body itself contains a leading-dot line, SMTP transparently doubles the leading dot (dot-stuffing).
+- Reply codes are three digits: `2xx` success, `3xx` more input needed, `4xx` transient failure (retry), `5xx` permanent failure (give up). Enhanced codes (RFC 2034) add a 3-digit subject/detail, e.g. `2.1.5 Ok`.
+
+### SMTP reply code groups
+
+| Code | Meaning | Examples |
+|------|---------|----------|
+| 1xx | Informative — server agrees to handle request | `100` continue |
+| 2xx | Success | `250` Ok; `354` start input |
+| 3xx | Intermediate success | `334` waiting for AUTH data |
+| 4xx | Transient failure — try again later | `421` service not available; `451` aborted |
+| 5xx | Permanent failure | `550` user not found; `553` mailbox name invalid |
+
+A bounce (delivery failure notice) is generated by the receiving MTA when the final delivery fails. The bounce is itself an SMTP transaction with an empty `MAIL FROM:<>` envelope sender, so that bounces to bounces do not generate bounce-ception.
+
+### The two SMTP use cases: submission vs. transfer
+
+The textbook distinguishes two distinct uses of SMTP:
+
+| Use case | Port | Direction | Auth required? | Content checks? |
+|----------|------|-----------|---------------|------------------|
+| **Mail submission** (UA -> MSA) | 587 | Inbound to MSA | Yes (AUTH) | Some servers reformat headers, fix From:, etc. |
+| **Message transfer** (MTA -> MTA) | 25 | Either direction | Historically no (open relay); today SPF/DKIM/DMARC | Mostly pass-through |
+
+RFC 6409 makes port 587 the canonical submission port, with `AUTH` mandatory. This stops botnets from laundering spam through arbitrary MTAs. Port 25 is reserved for MTA-to-MTA relay. Many ISPs now block outbound port 25 from residential IPs specifically to keep infected machines from acting as open relays.
+
+### ESMTP extensions — RFC 5321 mandatory mechanism
+
+When a client sends `EHLO` instead of `HELO`, the server replies with a list of extensions it supports, one per line in the `250-` prefix. The client then uses whichever extensions both sides support:
+
+| Extension keyword | RFC | Function |
+|-------------------|-----|----------|
+| `AUTH` | 4954 | Client authentication (PLAIN, LOGIN, CRAM-MD5, SCRAM-*) |
+| `STARTTLS` | 3207 | Upgrade to TLS on the same port |
+| `SIZE` | 1870 | Advertise maximum message size in bytes |
+| `8BITMIME` | 6152 | Carry 8-bit clean text bodies |
+| `BINARYMIME` | 3030 | Carry binary body without MIME encoding |
+| `CHUNKING` | 3030 | Send large message in chunks with `BDAT` instead of `DATA` |
+| `ENHANCEDSTATUSCODES` | 2034 | `250 2.1.5 Ok` style replies |
+| `PIPELINING` | 2920 | Client may send multiple commands without waiting |
+| `UTF8SMTP` | 6531 | UTF-8 in envelope addresses (EAI) |
+| `DSN` | 3461 | Delivery Status Notifications |
+
+Each extension is a separate RFC. To be a complete modern SMTP client, a UA must implement `EHLO`, `STARTTLS`, `AUTH`, and at minimum one of `8BITMIME`/`BINARYMIME`.
+
+### Message transfer across the wire
+
+For `alice@cs.example.org` sending to `bob@ee.example.com`:
+
+1. Alice's UA submits to its MSA on port 587 with AUTH (submission step).
+2. The MSA looks up `MX` for `ee.example.com`, getting `[10 mail.ee.example.com]`.
+3. The MSA looks up `A` for `mail.ee.example.com`, getting `203.0.113.50`.
+4. The MSA opens a TCP connection to `203.0.113.50:25`.
+5. Standard SMTP dialog: EHLO, MAIL FROM, RCPT TO, DATA, ., QUIT.
+6. The receiving MTA accepts the message, runs it through spam/antivirus scanners, then delivers to Bob's mailbox.
+
+For a mailing list, step 5 is replaced by an **expansion step**: the receiving MTA looks up the list members and emits one SMTP transaction per member, fanning the message out across the network.
+
+For an address forwarder, the receiving MTA rewrites the local delivery into a fresh SMTP transaction to the next-hop MTA, often with an updated `Received:` header.
+
+### MX lookup and fallback
+
+DNS is essential. The detailed resolution path:
+
+```text
+alice@cs.example.org -> MSA -> dig MX ee.example.com
+                            -> mail.ee.example.com. 10
+                            -> dig A mail.ee.example.com
+                            -> 203.0.113.50
+                            -> TCP :25 -> SMTP
+```
+
+If no MX exists for the domain, RFC 5321 specifies **fallback to the A record** of the bare domain (`ee.example.com`). This is convenient but easily abused, so most modern MX records include an explicit MX preference of `0` and a hostname with A record.
+
+### Final delivery — POP3
+
+POP3 (RFC 1939) is the simpler of the two mailbox access protocols. The conversation:
+
+```text
+S: +OK POP3 server ready
+C: USER bob
+S: +OK
+C: PASS hunter2
+S: +OK
+C: STAT
+S: +OK 3 14203   ; 3 messages, 14203 octets
+C: LIST
+S: +OK 3 messages
+S: 1 1024
+S: 2 8192
+S: 3 4987
+S: .
+C: RETR 1
+S: +OK 1024 octets
+S: <message 1>
+S: .
+C: DELE 1
+S: +OK message 1 deleted
+C: QUIT
+S: +OK bye
+```
+
+By default POP3 **downloads and deletes** — once the UA closes the session, the messages are gone from the server. This is fine for one device, painful for many. The `TOP` command allows header-only retrieval. POP3 has no concept of folders or flags.
+
+### Final delivery — IMAP4
+
+IMAP4 (RFC 3501) is designed for the modern multi-device world. The conversation:
+
+```text
+S: * OK [CAPABILITY IMAP4rev1 STARTTLS LOGINDISABLED] ready
+C: A001 CAPABILITY
+S: * CAPABILITY IMAP4rev1 AUTH=PLAIN
+S: A001 OK CAPABILITY completed
+C: A002 LOGIN bob hunter2
+S: A002 OK [CAPABILITY ...] logged in
+C: A003 SELECT INBOX
+S: * 12 EXISTS
+S: * 0 RECENT
+S: A003 OK [READ-WRITE] SELECT completed
+C: A004 UID SEARCH SUBJECT "Quarterly"
+S: * SEARCH 7 11
+S: A004 OK SEARCH completed
+C: A005 UID FETCH 7 (BODY.PEEK[HEADER] BODY[1])
+S: * 7 FETCH ...
+S: A005 OK FETCH completed
+C: A006 LOGOUT
+S: * BYE
+S: A006 OK LOGOUT completed
+```
+
+Key IMAP4 capabilities:
+
+| Command | Purpose |
+|---------|---------|
+| `SELECT` / `EXAMINE` | Open a folder (read-only or read-write) |
+| `LIST` / `LSUB` | Enumerate folders |
+| `CREATE` / `DELETE` / `RENAME` | Manage folders |
+| `STATUS` | Get message count, recent, unseen |
+| `FETCH` | Download messages or partial bodies |
+| `SEARCH` | Server-side full-text search |
+| `STORE` | Set flags (\Seen, \Answered, \Flagged, \Deleted) |
+| `EXPUNGE` | Remove messages flagged \Deleted |
+| `UID` | Run a command using unique identifiers instead of sequence numbers |
+| `APPEND` | Add a message to a folder (used by submission MTAs) |
+| `COPY` | Copy a message between folders |
+| `IDLE` | Push notification when new mail arrives |
+
+IMAP stores mail on the server, supports multiple folders, allows server-side search, and enables multiple UAs to share a single mailbox state.
+
+### Putting the path together
+
+```text
+[UA] submit :587+AUTH -> [MSA] -> MX lookup -> [A lookup] -> TCP :25 -> SMTP -> [MTA]
+                                                                                  |
+                                                                                  v
+                                                                       IMAP/POP3 -> [mailbox]
+                                                                                  |
+                                                                                  v
+                                                                               [UA]
+```
+
+## Build It
+
+1. Run `python3 code/main.py` to walk through an SMTP dialogue line by line, then an IMAP4 SELECT/FETCH.
+2. Use `dig MX cs.vu.nl +short` and `dig A zephyr.cs.vu.nl +short` to confirm the two DNS steps in real life.
+3. With permission of your own mail server, run `swaks --to bob@your-domain --from alice@your-domain` and watch the SMTP trace.
+4. Inspect `assets/smtp-imap-flow.svg` for the visual protocol state machines.
+
+## Use It
+
+| Task | Tool | What Good Looks Like |
+|------|------|----------------------|
+| Check server capabilities | `telnet mail.example.com 25` then `EHLO test` | List of `250-` extension lines |
+| Trace SMTP traffic | `tcpdump -i any -nn -s0 -w smtp.pcap port 25` | Captured commands and replies |
+| Diagnose bounce | Read `MAIL FROM:<>` empty envelope, plus 5xx code | Indicates permanent rejection |
+| Test IMAP search | `openssl s_client -connect imap.example.com:993` then `A UID SEARCH SUBJECT foo` | Numeric UID list |
+| Validate MX | `dig MX +short example.com` | At least one preference number |
+
+## Ship It
+
+Build an SMTP client simulator under `outputs/` that prints the four-line conversation step by step, validates reply codes, and logs extensions offered by the server. Start with [`outputs/prompt-message-transfer-final-delivery.md`](../outputs/prompt-message-transfer-final-delivery.md).
+
+## Exercises
+
+1. A client sends `HELO` instead of `EHLO`. The server replies `250 OK`. List the ESMTP extensions the client now knows are available. How does it discover them?
+2. The server replies `421 4.7.0 Try again later`. What category of failure is this, and what should the client do?
+3. The recipient domain has no MX record. The sender's MTA then issues `A` for the bare domain. What would a misconfigured `A` record point to that would still cause the message to fail?
+4. The conversation reaches `DATA`, and the client sends a single dot line `.` as the body. Why does the server report `554 message too small` or accept it?
+5. An IMAP UA wants to know if new mail has arrived. Compare `IDLE` (RFC 2177) with polling every 60 seconds. What are the tradeoffs?
+6. The same server reports both `STARTTLS` and `AUTH PLAIN`. Why is it dangerous to send `AUTH PLAIN` before `STARTTLS`?
+
+## Key Terms
+
+| Term | Plain English | Technical meaning |
+|------|---------------|-------------------|
+| SMTP | "mail transfer protocol" | RFC 5321, ASCII commands on TCP :25 |
+| ESMTP | "extended SMTP" | SMTP with EHLO/extension mechanism |
+| Submission | "UA hands off the message" | Port 587 + AUTH, RFC 6409 |
+| HELO / EHLO | "identify yourself" | First client command; EHLO enables extensions |
+| MAIL FROM | "envelope sender" | SMTP reverse-path, used for bounces |
+| RCPT TO | "envelope recipient" | SMTP forward-path; can repeat |
+| DATA | "here comes the body" | Server replies 354, body ends with single dot |
+| STARTTLS | "upgrade to TLS" | RFC 3207; opportunistic encryption |
+| AUTH | "prove who you are" | RFC 4954; PLAIN, LOGIN, CRAM-MD5, SCRAM |
+| MX record | "where mail goes" | DNS record listing receiving MTAs |
+| POP3 | "download mail" | Port 110, simple mailbox access |
+| IMAP4 | "mail stays on server" | Port 143, full mailbox sync |
+| IDLE | "push notification" | IMAP4 extension for server-pushed new-mail alerts |
+| Open relay | "anyone can send" | Misconfigured MTA accepting third-party relay |
+
+## Further Reading
+
+- RFC 5321 — Simple Mail Transfer Protocol
+- RFC 6409 — Message Submission for Mail
+- RFC 3207 — SMTP Service Extension for Secure SMTP over TLS
+- RFC 4954 — SMTP Service Extension for Authentication
+- RFC 2034 — SMTP Service Extension for Returning Enhanced Error Codes
+- RFC 2920 — SMTP Service Extension for Command Pipelining
+- RFC 3030 — SMTP Service Extensions for Transmission of Large and Binary Messages
+- RFC 3461 — Delivery Status Notifications
+- RFC 3501 — IMAP version 4rev1
+- RFC 1939 — POP3
+- RFC 2177 — IMAP4 IDLE command
+- RFC 6152 — 8BITMIME
+- Tanenbaum & Wetherall, *Computer Networks*, 5th ed., Chapter 7, Sections 7.2.4 to 7.2.5

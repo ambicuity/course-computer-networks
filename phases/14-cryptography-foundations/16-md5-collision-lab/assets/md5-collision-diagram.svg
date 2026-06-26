@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <text x="450" y="44" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#2A1A2E">MD5 Chosen-Prefix Collision: The Tenure-Letter Swindle</text>
+  <text x="450" y="72" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#2A1A2E">RFC 1321, 128-bit digest, broken since 2004 (Wang) / 2009 chosen-prefix (Stevens).</text>
+
+  <!-- Two parallel messages -->
+  <rect x="60" y="120" width="380" height="220" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="250" y="146" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2A1A2E">Document A</text>
+  <text x="80" y="172" font-family="monospace" font-size="11" fill="#2A1A2E">"I recommend Prof. X for tenure. She</text>
+  <text x="80" y="190" font-family="monospace" font-size="11" fill="#2A1A2E"> has shown extraordinary scholarship</text>
+  <text x="80" y="208" font-family="monospace" font-size="11" fill="#2A1A2E"> and is a wonderful colleague."</text>
+  <text x="80" y="240" font-family="monospace" font-size="11" fill="#E2557A">[CHOICE: 256 bytes of A-prefixed junk]</text>
+  <text x="80" y="258" font-family="monospace" font-size="11" fill="#E2557A">[... padding to align block ...]</text>
+  <text x="80" y="276" font-family="monospace" font-size="11" fill="#2A1A2E">       |</text>
+  <text x="80" y="294" font-family="monospace" font-size="11" fill="#2A1A2E">       v</text>
+  <text x="80" y="316" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#2A1A2E">MD5(A) = 5d4...c1</text>
+
+  <rect x="460" y="120" width="380" height="220" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="650" y="146" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2A1A2E">Document B</text>
+  <text x="480" y="172" font-family="monospace" font-size="11" fill="#2A1A2E">"I do NOT recommend Prof. X. Her</text>
+  <text x="480" y="190" font-family="monospace" font-size="11" fill="#2A1A2E"> scholarship is unoriginal and she</text>
+  <text x="480" y="208" font-family="monospace" font-size="11" fill="#2A1A2E"> alienates collaborators."</text>
+  <text x="480" y="240" font-family="monospace" font-size="11" fill="#E2557A">[CHOICE: 256 bytes of B-prefixed junk]</text>
+  <text x="480" y="258" font-family="monospace" font-size="11" fill="#E2557A">[... padding to align block ...]</text>
+  <text x="480" y="276" font-family="monospace" font-size="11" fill="#2A1A2E">       |</text>
+  <text x="480" y="294" font-family="monospace" font-size="11" fill="#2A1A2E">       v</text>
+  <text x="480" y="316" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#2A1A2E">MD5(B) = 5d4...c1   (SAME!)</text>
+
+  <!-- HashClash in middle -->
+  <rect x="320" y="380" width="260" height="100" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="406" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#FFF7EC">HashClash (Stevens 2009)</text>
+  <text x="450" y="430" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">Chosen-prefix collision finder</text>
+  <text x="450" y="450" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">~2^39 MD5 calls (~1 hour on GPU)</text>
+  <text x="450" y="468" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">Forges identical digest for any 2 prefixes</text>
+
+  <!-- Arrows up from HashClash to each doc -->
+  <line x1="380" y1="380" x2="250" y2="340" stroke="#E2557A" stroke-width="2"/>
+  <line x1="520" y1="380" x2="650" y2="340" stroke="#E2557A" stroke-width="2"/>
+
+  <text x="450" y="510" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">Lesson 13-15: digests, SHA-1 compression, birthday bound.</text>
+  <text x="450" y="528" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#E2557A">Production guidance: SHA-256 or SHA-3-256. MD5 must NOT be used for signatures.</text>
+</svg>

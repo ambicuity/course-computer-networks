@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 620" width="920" height="620">
+  <rect width="920" height="620" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 14px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="40" class="title">TLS 1.3: 1-RTT handshake + AEAD record layer (RFC 8446)</text>
+  <text x="40" y="62" class="sub">Every byte of the handshake is hashed into a transcript; both sides sign the transcript; the AEAD key is derived from ECDHE + HKDF.</text>
+
+  <!-- Client / Server swim lanes -->
+  <rect x="60" y="100" width="160" height="50" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="130" text-anchor="middle" class="node">Client</text>
+
+  <rect x="700" y="100" width="160" height="50" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="780" y="130" text-anchor="middle" class="node">Server</text>
+
+  <!-- ClientHello -->
+  <line x1="220" y1="190" x2="700" y2="190" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="695,185 705,190 695,195" fill="#2A1A2E"/>
+  <text x="240" y="184" class="mono">1. ClientHello (key_share, supported_versions, sig_algs)</text>
+
+  <!-- ServerHello + server flight -->
+  <line x1="700" y1="240" x2="220" y2="240" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="225,235 215,240 225,245" fill="#2A1A2E"/>
+  <text x="240" y="234" class="mono">2. ServerHello (selected cipher + server key_share)</text>
+  <text x="240" y="252" class="label">server flight: EncryptedExtensions | Certificate | CertificateVerify | Finished</text>
+
+  <!-- Client Finished -->
+  <line x1="220" y1="310" x2="700" y2="310" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="695,305 705,310 695,315" fill="#2A1A2E"/>
+  <text x="240" y="304" class="mono">3. [client CertificateVerify if mTLS]</text>
+  <text x="240" y="322" class="mono">4. Finished (HMAC over transcript)</text>
+
+  <!-- Application data -->
+  <line x1="220" y1="360" x2="700" y2="360" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="695,355 705,360 695,365" fill="#2A1A2E"/>
+  <line x1="700" y1="385" x2="220" y2="385" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="225,380 215,385 225,390" fill="#2A1A2E"/>
+  <text x="240" y="378" class="mono">5. application data (AES-GCM / ChaCha20-Poly1305)</text>
+
+  <!-- Record layer box -->
+  <rect x="60" y="420" width="800" height="50" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="80" y="445" class="node">Record layer (RFC 8446 §5):</text>
+  <text x="240" y="445" class="mono">content_type (1) | version (2: 0x0303) | length (2) | fragment (&lt;= 2^14+256)</text>
+
+  <!-- Cipher suite panel -->
+  <rect x="60" y="485" width="800" height="115" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="80" y="510" class="node">TLS 1.3 cipher suites (IANA registry)</text>
+
+  <text x="80" y="532" class="mono">0x1301  TLS_AES_128_GCM_SHA256           AES-128-GCM      SHA-256</text>
+  <text x="80" y="550" class="mono">0x1302  TLS_AES_256_GCM_SHA384           AES-256-GCM      SHA-384</text>
+  <text x="80" y="568" class="mono">0x1303  TLS_CHACHA20_POLY1305_SHA256     ChaCha20-Poly1305 SHA-256</text>
+  <text x="80" y="586" class="mono">0x1304  TLS_AES_128_CCM_SHA256           AES-128-CCM      SHA-256</text>
+
+  <!-- Key schedule reminder -->
+  <rect x="500" y="485" width="360" height="115" rx="10" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="520" y="510" class="node accent">HKDF key schedule</text>
+  <text x="520" y="532" class="mono accent">1. early_secret = HKDF-Extract(PSK)</text>
+  <text x="520" y="550" class="mono accent">2. handshake_secret = HKDF-Extract(ECDHE)</text>
+  <text x="520" y="568" class="mono accent">3. client/server_handshake_traffic_secret</text>
+  <text x="520" y="586" class="mono accent">4. master_secret -> application keys</text>
+</svg>

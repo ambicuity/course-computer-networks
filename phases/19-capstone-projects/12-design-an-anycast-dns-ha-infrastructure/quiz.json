@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is anycast and how does it differ from unicast for DNS?",
+      "options": [
+        "Anycast sends to all nodes simultaneously; unicast sends to one",
+        "The same VIP is advertised from multiple nodes via BGP; the network routes each client to the nearest node, unlike unicast which has a single server",
+        "Anycast is a DNS protocol extension",
+        "Anycast requires IPv6"
+      ],
+      "correct": 1,
+      "explanation": "Anycast uses BGP to advertise the same VIP from multiple locations. The routing protocol naturally directs each client to the nearest node, providing redundancy and lower latency."
+    },
+    {
+      "stage": "post",
+      "question": "How does anycast DNS achieve faster failover than unicast DNS?",
+      "options": [
+        "Anycast uses faster DNS protocols",
+        "When a node fails, its BGP route is withdrawn and traffic reroutes to the next-nearest node within BGP convergence time (sub-second), vs. 5+ seconds for unicast client-side timeout",
+        "Anycast does not need failover",
+        "Unicast is actually faster"
+      ],
+      "correct": 1,
+      "explanation": "Anycast failover is driven by BGP route withdrawal (sub-second convergence), while unicast failover depends on client-side DNS resolver timeouts (typically 5 seconds per configured server)."
+    },
+    {
+      "stage": "post",
+      "question": "What role does the health check play in anycast DNS failover?",
+      "options": [
+        "It encrypts DNS queries",
+        "It periodically tests the local DNS service; after consecutive failures, it triggers BGP route withdrawal",
+        "It monitors CPU usage",
+        "It replaces BGP"
+      ],
+      "correct": 1,
+      "explanation": "Each node runs a local health check (e.g., DNS query every 5 seconds). After N consecutive failures, the node withdraws its BGP route, causing traffic to reroute to healthy nodes."
+    },
+    {
+      "stage": "post",
+      "question": "What is ECMP and how does it affect anycast DNS load distribution?",
+      "options": [
+        "ECMP is a DNS record type",
+        "Equal-Cost Multi-Path: when multiple routes to the VIP have the same AS-path length, traffic is distributed across them",
+        "ECMP prevents failover",
+        "ECMP only works with TCP"
+      ],
+      "correct": 1,
+      "explanation": "ECMP distributes traffic across multiple paths with equal cost (same AS-path length). In anycast DNS, this means clients with equal-cost paths to two nodes have their traffic split between them."
+    },
+    {
+      "stage": "post",
+      "question": "Why is anycast DNS more available than unicast DNS?",
+      "options": [
+        "Anycast uses better hardware",
+        "Anycast provides N-1 redundancy: any single node can fail and the service remains available via the other nodes",
+        "Anycast encrypts queries",
+        "Anycast is faster to configure"
+      ],
+      "correct": 1,
+      "explanation": "With N anycast nodes, the failure of any one node is absorbed by the remaining N-1 nodes. Unicast has a single point of failure: if the server goes down, all clients lose DNS."
+    }
+  ]
+}

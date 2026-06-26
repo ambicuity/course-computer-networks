@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <rect width="800" height="560" fill="#FFF7EC"/>
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="40" font-size="22" font-weight="700">Sliding Window + Credit-Based Flow Control</text>
+    <text x="32" y="62" font-size="13" fill="#7A5478">Tanenbaum 6.2.4, Fig. 6-16 — 4-bit seq space, dynamic buffer allocation</text>
+  </g>
+
+  <!-- Sliding window visualization -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="100" font-size="14" font-weight="700">Sender sliding window (W=8 over 16-value seq space)</text>
+
+    <line x1="60" y1="130" x2="700" y2="130" stroke="#2A1A2E" stroke-width="1"/>
+    <line x1="60" y1="170" x2="700" y2="170" stroke="#2A1A2E" stroke-width="1"/>
+
+    <!-- 16 ticks -->
+    <g font-size="10" fill="#2A1A2E">
+      <line x1="60" y1="130" x2="60" y2="170" stroke="#2A1A2E"/>
+      <text x="55" y="190">0</text>
+      <line x1="103" y1="130" x2="103" y2="170" stroke="#2A1A2E"/>
+      <text x="98" y="190">1</text>
+      <line x1="146" y1="130" x2="146" y2="170" stroke="#2A1A2E"/>
+      <text x="141" y="190">2</text>
+      <line x1="189" y1="130" x2="189" y2="170" stroke="#2A1A2E"/>
+      <text x="184" y="190">3</text>
+      <line x1="232" y1="130" x2="232" y2="170" stroke="#2A1A2E"/>
+      <text x="227" y="190">4</text>
+      <line x1="275" y1="130" x2="275" y2="170" stroke="#2A1A2E"/>
+      <text x="270" y="190">5</text>
+      <line x1="318" y1="130" x2="318" y2="170" stroke="#2A1A2E"/>
+      <text x="313" y="190">6</text>
+      <line x1="361" y1="130" x2="361" y2="170" stroke="#2A1A2E"/>
+      <text x="356" y="190">7</text>
+      <line x1="404" y1="130" x2="404" y2="170" stroke="#2A1A2E"/>
+      <text x="399" y="190">8</text>
+      <line x1="447" y1="130" x2="447" y2="170" stroke="#2A1A2E"/>
+      <text x="442" y="190">9</text>
+      <line x1="490" y1="130" x2="490" y2="170" stroke="#2A1A2E"/>
+      <text x="485" y="190">10</text>
+      <line x1="533" y1="130" x2="533" y2="170" stroke="#2A1A2E"/>
+      <text x="528" y="190">11</text>
+      <line x1="576" y1="130" x2="576" y2="170" stroke="#2A1A2E"/>
+      <text x="571" y="190">12</text>
+      <line x1="619" y1="130" x2="619" y2="170" stroke="#2A1A2E"/>
+      <text x="614" y="190">13</text>
+      <line x1="662" y1="130" x2="662" y2="170" stroke="#2A1A2E"/>
+      <text x="657" y="190">14</text>
+      <line x1="700" y1="130" x2="700" y2="170" stroke="#2A1A2E"/>
+      <text x="694" y="190">15</text>
+    </g>
+
+    <!-- Window: sent+acked (gray), sent-not-acked (orange), unused (cream) -->
+    <rect x="60" y="130" width="172" height="40" fill="#D9C0B0"/>
+    <rect x="232" y="130" width="172" height="40" fill="#FFB19D"/>
+    <rect x="404" y="130" width="296" height="40" fill="#FFE9D6"/>
+
+    <text x="80" y="155" font-size="11" fill="#2A1A2E">sent, acked</text>
+    <text x="252" y="155" font-size="11" fill="#2A1A2E">sent, in flight</text>
+    <text x="424" y="155" font-size="11" fill="#2A1A2E">unused</text>
+
+    <text x="60" y="218" font-size="11" fill="#7A5478">Constraint: W_sender + W_receiver &lt;= 2^k. With k=4 and W_s=8, W_r must be &lt;= 8.</text>
+  </g>
+
+  <!-- Fig 6-16 trace -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="258" font-size="14" font-weight="700">Fig. 6-16 trace (16 lines, deadlock at line 16)</text>
+
+    <rect x="32" y="272" width="736" height="200" rx="4" fill="#FFE9D6" stroke="#E2557A"/>
+    <text x="44" y="292" font-size="11"> 1  A -> B:  &lt;request 8 buffers&gt;          ; sender wants 8</text>
+    <text x="44" y="308" font-size="11"> 2  B -> A:  &lt;ack=15, buf=4&gt;             ; receiver grants 4</text>
+    <text x="44" y="324" font-size="11"> 3  A -> B:  &lt;seq=0, data=m0&gt;            ; 3 buffers left</text>
+    <text x="44" y="340" font-size="11"> 4  A -> B:  &lt;seq=1, data=m1&gt;            ; 2 buffers left</text>
+    <text x="44" y="356" font-size="11"> 5  A -> B:  &lt;seq=2, data=m2&gt;  (LOST)     ; A thinks 1 left</text>
+    <text x="44" y="372" font-size="11"> 6  B -> A:  &lt;ack=1, buf=3&gt;             ; ack 0,1, permit 2-4</text>
+    <text x="44" y="388" font-size="11"> 7  A -> B:  &lt;seq=3, data=m3&gt;            ; 1 buffer left</text>
+    <text x="44" y="404" font-size="11"> 8  A -> B:  &lt;seq=4, data=m4&gt;            ; A blocked, 0 left</text>
+    <text x="44" y="420" font-size="11"> 9  A -> B:  &lt;seq=2, data=m2&gt;            ; retransmit (timeout)</text>
+    <text x="44" y="436" font-size="11">10  B -> A:  &lt;ack=4, buf=0&gt;             ; acked, but A blocked</text>
+    <text x="44" y="452" font-size="11">11  B -> A:  &lt;ack=4, buf=1&gt;             ; one buffer free</text>
+    <text x="44" y="462" font-size="11">...</text>
+  </g>
+
+  <!-- BDP callout -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <rect x="32" y="486" width="736" height="56" rx="4" fill="#FFB19D" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="44" y="506" font-size="12" font-weight="700">Bandwidth-delay product (the "pipe size")</text>
+    <text x="44" y="524" font-size="11">BDP = bandwidth x RTT. 1 Mbps x 100 ms = 100 Kbit = 12.5 KB.  Stop-and-wait with 1460-byte MSS:</text>
+    <text x="44" y="538" font-size="11">throughput = 1460 / 0.1 s = 14.6 KB/s (1/7000th of the link). Fix: W = ceil(BDP / MSS) = 9 segments minimum.</text>
+  </g>
+</svg>

@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the primary lossy step in the JPEG pipeline?",
+      "options": [
+        "Color space conversion",
+        "DCT transform",
+        "Quantization of DCT coefficients",
+        "Huffman coding"
+      ],
+      "correct": 2,
+      "explanation": "Quantization divides DCT coefficients by the quantization table, discarding high-frequency detail. All other steps are lossless or reversible."
+    },
+    {
+      "stage": "post",
+      "question": "Why does JPEG convert RGB to YCbCr before compressing?",
+      "options": [
+        "YCbCr is smaller",
+        "It separates luminance from chrominance so chroma can be subsampled without much perceived loss",
+        "It makes the image brighter",
+        "YCbCr is required by the DCT"
+      ],
+      "correct": 1,
+      "explanation": "The eye is more sensitive to luminance detail than color detail. Separating Y from Cb/Cr allows 4:2:0 chroma subsampling, cutting data significantly."
+    },
+    {
+      "stage": "post",
+      "question": "What is the purpose of the zigzag scan in JPEG?",
+      "options": [
+        "To randomize the coefficients",
+        "To reorder coefficients from low to high frequency, grouping trailing zeros for run-length encoding",
+        "To reduce the block size",
+        "To apply the DCT"
+      ],
+      "correct": 1,
+      "explanation": "Zigzag scan traverses the 8x8 block from low-frequency to high-frequency coefficients, concentrating zeros at the end for efficient run-length encoding."
+    },
+    {
+      "stage": "post",
+      "question": "Why is JPEG poorly suited for line art or text images?",
+      "options": [
+        "Line art is too small",
+        "JPEG cannot handle black and white",
+        "Sharp edges contain high-frequency energy that quantization discards, causing ringing artifacts",
+        "JPEG requires color"
+      ],
+      "correct": 2,
+      "explanation": "Line art and text have sharp high-frequency edges. The quantization table aggressively reduces high-frequency coefficients, producing visible ringing and blurring."
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="900" height="620" fill="#FFF7EC"/>
+  <text x="450" y="36" text-anchor="middle" font-size="19" font-weight="700" fill="#2A1A2E">nmap Scan Taxonomy — probe flags vs. RFC 793 response vs. inferred state</text>
+  <text x="450" y="55" text-anchor="middle" font-size="11" fill="#6a5a4e">Each scan is a choice of TCP control bits (RFC 793 offset 10..15); port state is inferred from the kernel reply, never observed directly.</text>
+
+  <!-- Column headers -->
+  <g font-size="13" font-weight="700" fill="#2A1A2E">
+    <text x="70" y="92">Scan</text>
+    <text x="230" y="92">Flags sent</text>
+    <text x="430" y="92">Target reply (RFC 793)</text>
+    <text x="690" y="92">Inferred state</text>
+  </g>
+  <line x1="40" y1="100" x2="860" y2="100" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- Row template: scan name | flag bits | response | state -->
+  <g font-size="12" fill="#2A1A2E">
+
+    <!-- SYN scan -->
+    <text x="48" y="128">-sS SYN</text>
+    <rect x="220" y="116" width="22" height="16" fill="#E2557A"/><text x="231" y="128" text-anchor="middle" fill="#FFF7EC" font-size="10">S</text>
+    <text x="430" y="128">open → SYN|ACK ; closed → RST|ACK</text>
+    <text x="690" y="128" fill="#E2557A" font-weight="700">open / closed / filtered</text>
+
+    <!-- connect -->
+    <text x="48" y="160">-sT connect()</text>
+    <rect x="220" y="148" width="22" height="16" fill="#E2557A"/><text x="231" y="160" text-anchor="middle" fill="#FFF7EC" font-size="10">S</text>
+    <text x="430" y="160">same as SYN, but completes 3-way handshake</text>
+    <text x="690" y="160">open / closed / filtered</text>
+
+    <!-- NULL -->
+    <text x="48" y="192">-sN NULL</text>
+    <rect x="220" y="180" width="22" height="16" fill="none" stroke="#2A1A2E"/><text x="231" y="192" text-anchor="middle" font-size="9">∅</text>
+    <text x="430" y="192">open → drop ; closed → RST</text>
+    <text x="690" y="192">open|filtered / closed</text>
+
+    <!-- FIN -->
+    <text x="48" y="224">-sF FIN</text>
+    <rect x="220" y="212" width="22" height="16" fill="#E2557A"/><text x="231" y="224" text-anchor="middle" fill="#FFF7EC" font-size="10">F</text>
+    <text x="430" y="224">open → drop ; closed → RST</text>
+    <text x="690" y="224">open|filtered / closed</text>
+
+    <!-- Xmas -->
+    <text x="48" y="256">-sX Xmas</text>
+    <rect x="216" y="244" width="46" height="16" fill="#E2557A"/><text x="239" y="256" text-anchor="middle" fill="#FFF7EC" font-size="9">F|P|U</text>
+    <text x="430" y="256">open → drop ; closed → RST</text>
+    <text x="690" y="256">open|filtered / closed</text>
+
+    <!-- ACK -->
+    <text x="48" y="288">-sA ACK</text>
+    <rect x="220" y="276" width="22" height="16" fill="#E2557A"/><text x="231" y="288" text-anchor="middle" fill="#FFF7EC" font-size="10">A</text>
+    <text x="430" y="288">open &amp; closed → RST ; firewall drop → ∅</text>
+    <text x="690" y="288">unfiltered / filtered</text>
+
+    <!-- UDP -->
+    <text x="48" y="320">-sU UDP</text>
+    <rect x="220" y="308" width="22" height="16" fill="none" stroke="#2A1A2E"/><text x="231" y="320" text-anchor="middle" font-size="9">∅</text>
+    <text x="430" y="320">open → payload ; closed → ICMP 3/3 ; drop → ∅</text>
+    <text x="690" y="320">open / closed / open|filtered</text>
+  </g>
+
+  <line x1="40" y1="340" x2="860" y2="340" stroke="#2A1A2E" stroke-width="1" opacity="0.4"/>
+
+  <!-- State machine for SYN scan -->
+  <text x="450" y="368" text-anchor="middle" font-size="15" font-weight="700" fill="#2A1A2E">SYN scan state machine (half-open)</text>
+
+  <!-- scanner node -->
+  <circle cx="90" cy="450" r="34" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="90" y="446" text-anchor="middle" font-size="11" fill="#2A1A2E">scanner</text>
+  <text x="90" y="460" text-anchor="middle" font-size="10" fill="#6a5a4e">seq=x</text>
+
+  <!-- target node -->
+  <circle cx="810" cy="450" r="34" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="810" y="446" text-anchor="middle" font-size="11" fill="#2A1A2E">target</text>
+  <text x="810" y="460" text-anchor="middle" font-size="10" fill="#6a5a4e">:22</text>
+
+  <!-- SYN arrow -->
+  <line x1="124" y1="442" x2="776" y2="442" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="776,442 768,438 768,446" fill="#E2557A"/>
+  <text x="450" y="434" text-anchor="middle" font-size="11" fill="#2A1A2E">SYN  (flags=0x02)</text>
+
+  <!-- branch A: open -> SYN|ACK -->
+  <line x1="776" y1="470" x2="124" y2="470" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="124,470 132,466 132,474" fill="#2A1A2E"/>
+  <text x="450" y="464" text-anchor="middle" font-size="11" fill="#2A1A2E">SYN|ACK → open   (scanner sends RST, never establishes)</text>
+
+  <!-- branch B: closed -> RST|ACK -->
+  <line x1="776" y1="498" x2="124" y2="498" stroke="#2A1A2E" stroke-width="2" stroke-dasharray="6 4"/>
+  <polygon points="124,498 132,494 132,502" fill="#2A1A2E"/>
+  <text x="450" y="492" text-anchor="middle" font-size="11" fill="#2A1A2E">RST|ACK → closed</text>
+
+  <!-- branch C: filtered -> silence / ICMP -->
+  <line x1="700" y1="528" x2="560" y2="528" stroke="#6a5a4e" stroke-width="2" stroke-dasharray="2 4"/>
+  <text x="450" y="524" text-anchor="middle" font-size="11" fill="#6a5a4e">∅ no reply (or ICMP 3/1/2/3) → filtered</text>
+
+  <!-- timing templates strip -->
+  <text x="450" y="568" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Timing templates T0 → T5  (per-probe delay)</text>
+  <g font-size="11" fill="#2A1A2E">
+    <rect x="60"  y="582" width="120" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="120" y="597" text-anchor="middle">T0  5.0s paranoid</text>
+    <rect x="190" y="582" width="120" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="250" y="597" text-anchor="middle">T1  1.5s sneaky</text>
+    <rect x="320" y="582" width="120" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="380" y="597" text-anchor="middle">T2  0.4s polite</text>
+    <rect x="450" y="582" width="120" height="22" fill="#E2557A"/><text x="510" y="597" text-anchor="middle" fill="#FFF7EC">T3  0.1s default</text>
+    <rect x="580" y="582" width="120" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="640" y="597" text-anchor="middle">T4  0.01s aggressive</text>
+    <rect x="710" y="582" width="120" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="770" y="597" text-anchor="middle">T5  0s insane</text>
+  </g>
+</svg>

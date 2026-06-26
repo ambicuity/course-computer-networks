@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 620" width="860" height="620">
+  <style>
+    text { font-family: 'Inter', system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; fill: #E2557A; }
+    .field { font-size: 12px; font-weight: 600; }
+    .size { font-size: 10.5px; font-family: monospace; fill: #6b4a5e; }
+    .note { font-size: 11px; fill: #4a3a4e; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.4; }
+    .accent { fill: #FBE3EA; stroke: #E2557A; stroke-width: 1.6; }
+    .on { fill: #E2557A; stroke: #E2557A; stroke-width: 1; }
+    .off { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1; }
+    .arrow { stroke: #2A1A2E; stroke-width: 1.6; fill: none; }
+    .earrow { stroke: #E2557A; stroke-width: 1.8; fill: none; }
+  </style>
+  <rect x="0" y="0" width="860" height="620" fill="#FFF7EC"/>
+
+  <text class="title" x="30" y="38">Collision-Free MAC Protocols</text>
+  <text class="note" x="30" y="58">Three ways to schedule N stations without collisions: bit-map, token, countdown</text>
+
+  <!-- ============ BIT-MAP ============ -->
+  <text class="sub" x="30" y="92">1. Bit-map reservation (8 stations, contention + data)</text>
+
+  <g>
+    <text class="size" x="30" y="118">reservation:</text>
+    <rect class="on"   x="120" y="108" width="28" height="22"/>
+    <rect class="on"   x="148" y="108" width="28" height="22"/>
+    <rect class="off"  x="176" y="108" width="28" height="22"/>
+    <rect class="on"   x="204" y="108" width="28" height="22"/>
+    <rect class="off"  x="232" y="108" width="28" height="22"/>
+    <rect class="off"  x="260" y="108" width="28" height="22"/>
+    <rect class="off"  x="288" y="108" width="28" height="22"/>
+    <rect class="on"   x="316" y="108" width="28" height="22"/>
+    <text class="size" x="150" y="125" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="178" y="125" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="206" y="125" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="330" y="125" text-anchor="middle" fill="#FFFFFF">1</text>
+
+    <text class="size" x="358" y="124">slots 0..7 (N bits)</text>
+  </g>
+
+  <g>
+    <text class="size" x="30" y="155">data frames:</text>
+    <rect class="box" x="120" y="138" width="110" height="22"/>
+    <text class="field" x="175" y="153" text-anchor="middle">frame(0)</text>
+
+    <rect class="box" x="232" y="138" width="110" height="22"/>
+    <text class="field" x="287" y="153" text-anchor="middle">frame(1)</text>
+
+    <rect class="box" x="344" y="138" width="110" height="22"/>
+    <text class="field" x="399" y="153" text-anchor="middle">frame(3)</text>
+
+    <rect class="box" x="456" y="138" width="110" height="22"/>
+    <text class="field" x="511" y="153" text-anchor="middle">frame(7)</text>
+
+    <text class="size" x="580" y="154">ordered by station id</text>
+  </g>
+
+  <text class="note" x="30" y="180">Low-id stations wait 1.5N slots; high-id stations wait 0.5N. Mean: N slots.  Efficiency: d/(d+N) at low load, d/(d+1) at saturation.</text>
+
+  <!-- ============ TOKEN RING ============ -->
+  <text class="sub" x="30" y="212">2. Token ring (8 stations, single right-to-send circulates)</text>
+
+  <g transform="translate(120, 270)">
+    <circle cx="0" cy="0" r="30" class="box"/>
+    <text class="field" x="0" y="4" text-anchor="middle">S0</text>
+
+    <circle cx="160" cy="0" r="30" class="box"/>
+    <text class="field" x="160" y="4" text-anchor="middle">S1</text>
+
+    <circle cx="320" cy="0" r="30" class="box"/>
+    <text class="field" x="320" y="4" text-anchor="middle">S2</text>
+
+    <circle cx="480" cy="0" r="30" class="box"/>
+    <text class="field" x="480" y="4" text-anchor="middle">S3</text>
+
+    <circle cx="480" cy="120" r="30" class="box"/>
+    <text class="field" x="480" y="124" text-anchor="middle">S4</text>
+
+    <circle cx="320" cy="120" r="30" class="box"/>
+    <text class="field" x="320" y="124" text-anchor="middle">S5</text>
+
+    <circle cx="160" cy="120" r="30" class="box"/>
+    <text class="field" x="160" y="124" text-anchor="middle">S6</text>
+
+    <circle cx="0" cy="120" r="30" class="box"/>
+    <text class="field" x="0" y="124" text-anchor="middle">S7</text>
+
+    <!-- token at S2 -->
+    <circle cx="370" cy="0" r="9" class="accent"/>
+    <text class="size" x="370" y="3" text-anchor="middle">T</text>
+
+    <!-- circular arrows -->
+    <path class="arrow" d="M 30 -8 L 130 -8"/>
+    <polygon points="130,-12 138,-8 130,-4" fill="#2A1A2E"/>
+    <path class="arrow" d="M 190 -8 L 290 -8"/>
+    <polygon points="290,-12 298,-8 290,-4" fill="#2A1A2E"/>
+    <path class="arrow" d="M 350 -8 L 450 -8"/>
+    <polygon points="450,-12 458,-8 450,-4" fill="#2A1A2E"/>
+    <path class="earrow" d="M 480 30 L 480 90"/>
+    <polygon points="476,90 480,98 484,90" fill="#E2557A"/>
+    <path class="arrow" d="M 450 120 L 350 120"/>
+    <polygon points="350,116 342,120 350,124" fill="#2A1A2E"/>
+    <path class="arrow" d="M 290 120 L 190 120"/>
+    <polygon points="190,116 182,120 190,124" fill="#2A1A2E"/>
+    <path class="arrow" d="M 130 120 L 30 120"/>
+    <polygon points="30,116 22,120 30,124" fill="#2A1A2E"/>
+    <path class="arrow" d="M 0 90 L 0 30"/>
+    <polygon points="-4,30 0,22 4,30" fill="#2A1A2E"/>
+  </g>
+
+  <text class="note" x="30" y="420">Mean wait is (N-1) d_bits + N x walk_bits for every station. No low/high bias.  Token loss = single point of failure.</text>
+
+  <!-- ============ BINARY COUNTDOWN ============ -->
+  <text class="sub" x="30" y="450">3. Binary countdown (4 stations, 4-bit addresses, wired-OR arbitration)</text>
+
+  <g transform="translate(30, 470)">
+    <text class="size" x="0" y="0">bit pos</text>
+    <text class="size" x="0" y="22">addr 0010</text>
+    <text class="size" x="0" y="44">addr 0100</text>
+    <text class="size" x="0" y="66">addr 1001</text>
+    <text class="size" x="0" y="88">addr 1010</text>
+
+    <text class="size" x="100" y="0" text-anchor="middle">b0</text>
+    <text class="size" x="135" y="0" text-anchor="middle">b1</text>
+    <text class="size" x="170" y="0" text-anchor="middle">b2</text>
+    <text class="size" x="205" y="0" text-anchor="middle">b3</text>
+
+    <!-- 0010 -->
+    <rect class="off" x="92"  y="12" width="16" height="14"/>
+    <rect class="off" x="127" y="12" width="16" height="14"/>
+    <rect class="on"  x="162" y="12" width="16" height="14"/>
+    <rect class="off" x="197" y="12" width="16" height="14"/>
+    <text class="size" x="100" y="22" text-anchor="middle" fill="#FFFFFF">0</text>
+    <text class="size" x="135" y="22" text-anchor="middle" fill="#FFFFFF">0</text>
+    <text class="size" x="170" y="22" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="205" y="22" text-anchor="middle" fill="#FFFFFF">0</text>
+
+    <!-- 0100 -->
+    <rect class="off" x="92"  y="34" width="16" height="14"/>
+    <rect class="on"  x="127" y="34" width="16" height="14"/>
+    <rect class="off" x="162" y="34" width="16" height="14"/>
+    <rect class="off" x="197" y="34" width="16" height="14"/>
+    <text class="size" x="100" y="44" text-anchor="middle" fill="#FFFFFF">0</text>
+    <text class="size" x="135" y="44" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="170" y="44" text-anchor="middle" fill="#FFFFFF">0</text>
+    <text class="size" x="205" y="44" text-anchor="middle" fill="#FFFFFF">0</text>
+
+    <!-- 1001 -->
+    <rect class="on"  x="92"  y="56" width="16" height="14"/>
+    <rect class="off" x="127" y="56" width="16" height="14"/>
+    <rect class="off" x="162" y="56" width="16" height="14"/>
+    <rect class="on"  x="197" y="56" width="16" height="14"/>
+    <text class="size" x="100" y="66" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="135" y="66" text-anchor="middle" fill="#FFFFFF">0</text>
+    <text class="size" x="170" y="66" text-anchor="middle" fill="#FFFFFF">0</text>
+    <text class="size" x="205" y="66" text-anchor="middle" fill="#FFFFFF">1</text>
+
+    <!-- 1010 -->
+    <rect class="on"  x="92"  y="78" width="16" height="14"/>
+    <rect class="off" x="127" y="78" width="16" height="14"/>
+    <rect class="on"  x="162" y="78" width="16" height="14"/>
+    <rect class="off" x="197" y="78" width="16" height="14"/>
+    <text class="size" x="100" y="88" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="135" y="88" text-anchor="middle" fill="#FFFFFF">0</text>
+    <text class="size" x="170" y="88" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="205" y="88" text-anchor="middle" fill="#FFFFFF">0</text>
+
+    <!-- wire signal row -->
+    <text class="size" x="0" y="110">wire OR</text>
+    <rect class="on"  x="92"  y="100" width="16" height="14"/>
+    <rect class="off" x="127" y="100" width="16" height="14"/>
+    <rect class="on"  x="162" y="100" width="16" height="14"/>
+    <rect class="off" x="197" y="100" width="16" height="14"/>
+    <text class="size" x="100" y="110" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="135" y="110" text-anchor="middle" fill="#FFFFFF">0</text>
+    <text class="size" x="170" y="110" text-anchor="middle" fill="#FFFFFF">1</text>
+    <text class="size" x="205" y="110" text-anchor="middle" fill="#FFFFFF">0</text>
+  </g>
+
+  <text class="size" x="320" y="488">stops after seeing 1 in own 0</text>
+  <text class="size" x="320" y="510">stops after seeing 1 in own 0</text>
+  <text class="size" x="320" y="532">stops after seeing 1 in own 0</text>
+  <text class="size" x="320" y="554">WINS (highest address)</text>
+  <text class="size" x="320" y="554" fill="#E2557A" font-weight="700">WINS (highest address)</text>
+
+  <text class="note" x="30" y="600">Overhead = log2 N bits. Highest address wins; bias is intrinsic.  If address is the frame's first field, overhead = 0 and efficiency is 100%.</text>
+</svg>

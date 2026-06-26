@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" width="1100" height="720">
+  <rect width="1100" height="720" fill="#FFF7EC"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <text x="40" y="44" font-size="28" font-weight="700" fill="#2A1A2E">Static / Dynamic Web Pages & Web Apps</text>
+    <text x="40" y="70" font-size="14" fill="#2A1A2E">HTML + CSS for content/look. CGI/PHP/JSP/ASP for server logic. JS + DOM + AJAX for client logic.</text>
+  </g>
+
+  <!-- Static web path -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" transform="translate(40,110)">
+    <rect width="500" height="220" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="14" y="24" font-weight="700" fill="#E2557A">Static page (file on disk)</text>
+    <g transform="translate(14,46)">
+      <rect width="160" height="40" fill="#2A1A2E"/>
+      <text x="10" y="26" fill="#FFF7EC" font-weight="700">Browser</text>
+    </g>
+    <line x1="180" y1="66" x2="220" y2="66" stroke="#E2557A" stroke-width="2" marker-end="url(#arr7)"/>
+    <text x="180" y="58" font-size="11" fill="#2A1A2E">GET /index.html</text>
+    <g transform="translate(220,46)">
+      <rect width="160" height="40" fill="#2A1A2E"/>
+      <text x="10" y="26" fill="#FFF7EC" font-weight="700">Web server</text>
+    </g>
+    <line x1="280" y1="86" x2="240" y2="86" stroke="#E2557A" stroke-width="2" marker-end="url(#arr7)"/>
+    <text x="280" y="80" font-size="11" fill="#2A1A2E">200 OK + file</text>
+    <g transform="translate(380,46)">
+      <rect width="100" height="40" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="26" fill="#2A1A2E">disk</text>
+    </g>
+    <g transform="translate(14,140)" font-size="11" fill="#2A1A2E">
+      <text>index.html, style.css, image.png — bytes never change.</text>
+      <text>Cheap to host (CDN-friendly). High cache hit rate.</text>
+      <text>Limitations: no per-user content, no DB queries.</text>
+    </g>
+  </g>
+
+  <!-- Server-side dynamic path -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" transform="translate(560,110)">
+    <rect width="500" height="220" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="14" y="24" font-weight="700" fill="#E2557A">Server-side dynamic (PHP / CGI / JSP)</text>
+    <g transform="translate(14,46)">
+      <rect width="120" height="40" fill="#2A1A2E"/>
+      <text x="10" y="26" fill="#FFF7EC" font-weight="700">Browser</text>
+    </g>
+    <line x1="140" y1="66" x2="180" y2="66" stroke="#E2557A" stroke-width="2" marker-end="url(#arr7)"/>
+    <text x="140" y="58" font-size="11" fill="#2A1A2E">POST /order</text>
+    <g transform="translate(180,46)">
+      <rect width="100" height="40" fill="#2A1A2E"/>
+      <text x="10" y="26" fill="#FFF7EC" font-weight="700">Apache</text>
+    </g>
+    <line x1="240" y1="66" x2="280" y2="66" stroke="#E2557A" stroke-width="2" marker-end="url(#arr7)"/>
+    <text x="240" y="58" font-size="11" fill="#2A1A2E">exec</text>
+    <g transform="translate(280,46)">
+      <rect width="100" height="40" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="26" fill="#2A1A2E">PHP</text>
+    </g>
+    <line x1="340" y1="86" x2="280" y2="86" stroke="#E2557A" stroke-width="2" marker-end="url(#arr7)"/>
+    <text x="340" y="80" font-size="11" fill="#2A1A2E">query</text>
+    <g transform="translate(380,46)">
+      <rect width="100" height="40" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="26" fill="#2A1A2E">DB</text>
+    </g>
+    <g transform="translate(14,140)" font-size="11" fill="#2A1A2E">
+      <text>Server runs code per request; HTML is generated.</text>
+      <text>Can read DB, check cookies, validate input.</text>
+      <text>Higher cost than static; harder to cache.</text>
+    </g>
+  </g>
+
+  <!-- Client-side dynamic + AJAX -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" transform="translate(40,360)">
+    <rect width="1020" height="280" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="14" y="24" font-weight="700" fill="#E2557A">AJAX — Asynchronous JS + XML/JSON + DOM</text>
+    <g transform="translate(14,46)" font-size="11" fill="#2A1A2E">
+      <text y="0">1. Browser loads HTML with &lt;script src="app.js"&gt;.</text>
+      <text y="22">2. JavaScript executes on page load, attaches event listeners.</text>
+      <text y="44">3. User types in search box — JS does NOT block waiting on network.</text>
+      <text y="66">4. JS calls fetch('/api/search?q=cat') — async XMLHttpRequest.</text>
+      <text y="88">5. Server responds with JSON: {results: [...]}.</text>
+      <text y="110">6. JS callback receives JSON, walks the DOM, inserts &lt;li&gt; nodes.</text>
+      <text y="132">7. Browser repaints only the affected part of the page.</text>
+    </g>
+    <g transform="translate(14,200)">
+      <rect width="80" height="26" fill="#E2557A"/>
+      <text x="14" y="20" fill="#FFF7EC" font-weight="700">HTML+CSS</text>
+      <rect x="90" width="80" height="26" fill="#E2557A"/>
+      <text x="104" y="20" fill="#FFF7EC" font-weight="700">DOM</text>
+      <rect x="180" width="100" height="26" fill="#E2557A"/>
+      <text x="194" y="20" fill="#FFF7EC" font-weight="700">XML/JSON</text>
+      <rect x="290" width="100" height="26" fill="#E2557A"/>
+      <text x="304" y="20" fill="#FFF7EC" font-weight="700">async I/O</text>
+      <rect x="400" width="100" height="26" fill="#E2557A"/>
+      <text x="414" y="20" fill="#FFF7EC" font-weight="700">JavaScript</text>
+    </g>
+    <text x="14" y="260" font-size="11" fill="#2A1A2E" opacity="0.7">Gmail, Google Maps, Google Docs are classic AJAX applications.</text>
+  </g>
+  <defs>
+    <marker id="arr7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .h { font-size: 16px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 13px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .dim { fill: #6b5560; font-size: 12px; }
+  </style>
+
+  <text x="40" y="46" class="title">Substitution vs. Transposition</text>
+  <text x="40" y="68" class="sub">Two classical tricks. Each leaks a different weakness; together they hide both.</text>
+
+  <!-- Left panel: substitution -->
+  <rect x="40" y="100" width="400" height="430" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="128" class="h">Substitution</text>
+  <text x="60" y="148" class="dim">Order preserved, symbols disguised.</text>
+
+  <text x="60" y="178" class="mono">plaintext:  a b c d e f g h i j k l m n o p q r s t u v w x y z</text>
+  <text x="60" y="200" class="mono accent">ciphertext: Q W E R T Y U I O P A S D F G H J K L Z X C V B N M</text>
+
+  <text x="60" y="240" class="h">Example: attack</text>
+  <text x="60" y="262" class="mono">a -> Q</text>
+  <text x="60" y="282" class="mono">t -> Z   t -> Z</text>
+  <text x="60" y="302" class="mono">a -> Q</text>
+  <text x="60" y="322" class="mono">c -> E</text>
+  <text x="60" y="342" class="mono">k -> A</text>
+  <text x="60" y="372" class="mono accent">ciphertext = Q Z Z Q E A</text>
+
+  <text x="60" y="410" class="dim">Key space: 26! ~= 4 x 10^26 (too big to brute force)</text>
+  <text x="60" y="430" class="dim">But: e, t, a, o are still the most frequent letters.</text>
+  <text x="60" y="450" class="dim">A single crib word (e.g. 'financial') recovers the key.</text>
+  <text x="60" y="478" class="mono accent">Frequency analysis cracks it in minutes.</text>
+
+  <!-- Right panel: transposition -->
+  <rect x="480" y="100" width="400" height="430" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="500" y="128" class="h">Transposition (columnar)</text>
+  <text x="500" y="148" class="dim">Symbols preserved, order scrambled.</text>
+
+  <!-- key word MEGABUCK ranks -->
+  <text x="500" y="178" class="mono">key: M  E  G  A  B  U  C  K</text>
+  <text x="500" y="200" class="mono accent">     7  4  5  1  2  8  3  6   (column rank)</text>
+
+  <!-- mini grid -->
+  <g transform="translate(500,225)">
+    <text x="0" y="14" class="mono">p l e a s e t r</text>
+    <text x="0" y="34" class="mono">a n s f e r o n</text>
+    <text x="0" y="54" class="mono">e m i l l i o n</text>
+    <text x="0" y="74" class="mono">d o l l a r s t</text>
+  </g>
+
+  <text x="500" y="340" class="dim">Read out by column rank: A, B, C, E, G, K, M, U</text>
+  <text x="500" y="360" class="dim">Column A first ('a','f','l','a') then column B ('s','e','l','r')...</text>
+  <text x="500" y="385" class="mono accent">ciphertext = AFLLSKSOSELAWAIATOOSSCCTCLNMO MANT...</text>
+
+  <text x="500" y="430" class="dim">Letter frequencies unchanged: e, t, a, o still rank highest.</text>
+  <text x="500" y="450" class="dim">Guess the column count, then order columns by digram fit.</text>
+  <text x="500" y="478" class="mono accent">Probable word ('milliondollars') recovers the order.</text>
+
+  <!-- footer takeaway -->
+  <rect x="40" y="540" width="840" height="0" stroke="#E2557A" stroke-width="2"/>
+</svg>

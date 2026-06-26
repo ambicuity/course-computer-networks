@@ -1,0 +1,13 @@
+AS 65001 topology (12 routers, cluster 10.0.0.255)
+  10.0.0.1 [RR] cluster=10.0.0.255 peers=13
+  10.0.0.10 [R] cluster=- peers=2
+  10.0.0.11 [R] cluster=- peers=2
+  10.0.0.12 [R] cluster=- peers=2
+  10.0.0.2 [RR] cluster=10.0.0.255 peers=11
+  10.0.0.3 [R] cluster=- peers=2
+  10.0.0.4 [R] cluster=- peers=2
+  10.0.0.5 [R] cluster=- peers=2
+  10.0.0.6 [R] cluster=- peers=2
+  10.0.0.7 [R] cluster=- peers=2
+  10.0.0.8 [R] cluster=- peers=2
+  10.0.0.9 [R] cluster=- peers=2

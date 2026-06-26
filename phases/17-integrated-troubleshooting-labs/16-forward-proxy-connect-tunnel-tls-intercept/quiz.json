@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A browser behind a corporate proxy shows ERR_CERT_AUTHORITY_INVALID when opening https://api.partner.example. The proxy's certificate has issuer=CN=Corp Internal Sub-CA. What does this prove?",
+      "options": [
+        "A. The proxy is a benign passthrough and the origin's certificate is bad",
+        "B. The proxy is in MITM mode, terminating TLS and presenting a corporate-CA-signed leaf for the public hostname",
+        "C. The browser trust store is corrupt",
+        "D. DNS is returning the wrong IP"
+      ],
+      "answer": 1,
+      "explanation": "When the leaf certificate's issuer is a corporate sub-CA rather than the public CA the origin actually uses, the proxy is terminating TLS in MITM mode. The browser's trust store is fine; the corporate CA simply has no authority to sign for api.partner.example."
+    },
+    {
+      "question": "In an HTTP/1.1 CONNECT exchange, what is the meaning of the proxy's reply 'HTTP/1.1 200 Connection Established'?",
+      "options": [
+        "A. The proxy has cached the response",
+        "B. The TLS handshake is complete",
+        "C. The proxy has opened a TCP tunnel to the origin and is now a byte pump",
+        "D. The proxy has authenticated the user"
+      ],
+      "answer": 2,
+      "explanation": "RFC 7231 sec. 4.3.6 (and RFC 9110 sec. 9.3.6) define CONNECT as a tunnel request. A 200 reply means the proxy has accepted the tunnel and is now forwarding bytes; it does not say anything about TLS, which is negotiated inside the tunnel."
+    },
+    {
+      "question": "Why is ALPN (h2 vs http/1.1) only visible to a forward proxy after the CONNECT 200, not before?",
+      "options": [
+        "A. The proxy blocks ALPN before the tunnel is up",
+        "B. ALPN is a TLS extension and the proxy has not yet seen the TLS handshake in tunnel mode",
+        "C. ALPN runs on a different port",
+        "D. The browser only sends ALPN after authentication"
+      ],
+      "answer": 1,
+      "explanation": "ALPN is negotiated inside the TLS handshake (RFC 7301). In tunnel mode the proxy only forwards bytes; it does not see the ClientHello until after the 200 reply switches it into byte-pump mode. In MITM mode the proxy terminates TLS, so it sees ALPN immediately on its own ClientHello to the origin."
+    }
+  ]
+}

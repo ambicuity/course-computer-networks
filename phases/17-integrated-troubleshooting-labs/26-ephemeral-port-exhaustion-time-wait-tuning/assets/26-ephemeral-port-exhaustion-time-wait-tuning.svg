@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">Ephemeral Port Exhaustion and TIME_WAIT</text>
+  <text x="40" y="68" class="sub">Default 28k ports, 60k sockets in TIME_WAIT, EADDRNOTAVAIL on connect(2)</text>
+
+  <rect x="40" y="120" width="200" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="148" text-anchor="middle" class="node">Web Service</text>
+  <text x="140" y="170" text-anchor="middle" class="mono">1000 outbound/s</text>
+  <text x="140" y="190" text-anchor="middle" class="label">EADDRNOTAVAIL</text>
+
+  <rect x="320" y="100" width="280" height="160" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="460" y="128" text-anchor="middle" class="node accent">Kernel</text>
+  <text x="460" y="150" text-anchor="middle" class="mono accent">ip_local_port_range 32768 60999</text>
+  <text x="460" y="170" text-anchor="middle" class="mono">TIME_WAIT sockets: 60000</text>
+  <text x="460" y="190" text-anchor="middle" class="label">28,232 ports available</text>
+  <text x="460" y="216" text-anchor="middle" class="label">60,000 sockets in TIME_WAIT</text>
+  <text x="460" y="240" text-anchor="middle" class="label accent">no port for new connection</text>
+
+  <rect x="680" y="120" width="180" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="770" y="148" text-anchor="middle" class="node">Upstream API</text>
+  <text x="770" y="170" text-anchor="middle" class="mono">api.partner.example</text>
+  <text x="770" y="190" text-anchor="middle" class="label">healthy, no errors</text>
+
+  <line x1="240" y1="170" x2="320" y2="170" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <polygon points="320,170 312,166 312,174" fill="#E2557A"/>
+  <text x="280" y="166" text-anchor="middle" class="label accent">connect(2) blocked</text>
+  <line x1="600" y1="180" x2="680" y2="170" stroke="#2A1A2E" stroke-width="2.5"/>
+
+  <rect x="40" y="300" width="840" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="328" class="node">Diagnostic and fix</text>
+  <text x="60" y="354" class="mono">ss -s                                              # socket statistics</text>
+  <text x="60" y="374" class="mono">cat /proc/sys/net/ipv4/ip_local_port_range         # ephemeral port range</text>
+  <text x="60" y="394" class="mono">cat /proc/sys/net/ipv4/tcp_tw_reuse                # 0 or 1</text>
+  <text x="60" y="414" class="mono">ss -tan state time-wait | wc -l                    # count TIME_WAIT</text>
+
+  <text x="60" y="450" class="node">Fix (three sysctls)</text>
+  <text x="60" y="472" class="mono">  sysctl -w net.ipv4.ip_local_port_range='1024 65535'      # 64,512 ports</text>
+  <text x="60" y="492" class="mono">  sysctl -w net.ipv4.tcp_tw_reuse=1                       # recycle TIME_WAIT for outgoing</text>
+  <text x="60" y="512" class="mono">  sysctl -w net.ipv4.tcp_fin_timeout=15                    # reduce FIN-WAIT-2</text>
+  <text x="60" y="532" class="label accent">Do NOT use tcp_tw_recycle=1 (removed in Linux 4.12)</text>
+</svg>

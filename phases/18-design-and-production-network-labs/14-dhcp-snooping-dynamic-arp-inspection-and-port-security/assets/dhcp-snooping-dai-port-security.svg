@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="Helvetica, Arial, sans-serif" font-size="11">
+  <rect width="800" height="500" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="400" y="22" text-anchor="middle" font-size="18" font-weight="bold" fill="#2A1A2E">DHCP Snooping + DAI + Port Security — Access Layer</text>
+  <text x="400" y="38" text-anchor="middle" font-size="10" fill="#2A1A2E">Catalyst 9300 access stack, 6 VLANs, 1.2k hosts, DHCP server 10.20.1.4</text>
+
+  <!-- Trust boundary dashed line -->
+  <line x1="380" y1="60" x2="380" y2="430" stroke="#E2557A" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="395" y="55" fill="#E2557A" font-weight="bold">Trust boundary</text>
+
+  <!-- Distribution router -->
+  <g>
+    <rect x="50" y="90" width="130" height="50" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="115" y="112" text-anchor="middle" font-weight="bold" fill="#2A1A2E">Distribution</text>
+    <text x="115" y="128" text-anchor="middle" font-size="10" fill="#2A1A2E">10.20.0.1 / SVI 10/20/30/40</text>
+  </g>
+
+  <!-- DHCP server -->
+  <g>
+    <rect x="50" y="180" width="130" height="50" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="115" y="202" text-anchor="middle" font-weight="bold" fill="#2A1A2E">DHCP Pair</text>
+    <text x="115" y="218" text-anchor="middle" font-size="10" fill="#2A1A2E">10.20.1.4 / 10.20.1.5</text>
+  </g>
+
+  <!-- Catalyst 9300 access switch -->
+  <g>
+    <rect x="50" y="290" width="130" height="120" rx="8" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2.5"/>
+    <text x="115" y="312" text-anchor="middle" font-weight="bold" fill="#2A1A2E">C9300-48P</text>
+    <text x="115" y="328" text-anchor="middle" font-size="10" fill="#2A1A2E">access stack</text>
+    <text x="115" y="346" text-anchor="middle" font-size="9" fill="#2A1A2E">dhcp-snoop + DAI</text>
+    <text x="115" y="360" text-anchor="middle" font-size="9" fill="#2A1A2E">port-security</text>
+    <text x="115" y="378" text-anchor="middle" font-size="9" fill="#E2557A">binding table: 30</text>
+    <text x="115" y="392" text-anchor="middle" font-size="9" fill="#E2557A">DAI drop: 1 / PSEC: 1</text>
+  </g>
+
+  <!-- Trunk from distribution down to access -->
+  <line x1="115" y1="140" x2="115" y2="180" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="115" y1="230" x2="115" y2="290" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="180" y1="115" x2="430" y2="115" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <text x="290" y="108" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="bold">trunk: VLAN 10,20,30,40,50,60 (trusted)</text>
+  <line x1="180" y1="205" x2="430" y2="205" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <text x="290" y="198" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="bold">Gi1/0/48 trusted (DHCP server uplink)</text>
+
+  <!-- C9300 uplinks -->
+  <line x1="180" y1="320" x2="430" y2="320" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="180" y1="370" x2="430" y2="370" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- Legitimate host -->
+  <g>
+    <rect x="430" y="290" width="100" height="50" rx="5" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="480" y="310" text-anchor="middle" font-weight="bold" fill="#2A1A2E">Gi1/0/5</text>
+    <text x="480" y="324" text-anchor="middle" font-size="9" fill="#2A1A2E">aa:bb:cc:00:00:05</text>
+    <text x="480" y="336" text-anchor="middle" font-size="9" fill="#2A1A2E">10.20.1.6</text>
+  </g>
+
+  <!-- Rogue DHCP server (host) -->
+  <g>
+    <rect x="430" y="180" width="100" height="50" rx="5" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="480" y="200" text-anchor="middle" font-weight="bold" fill="#E2557A">Gi1/0/12</text>
+    <text x="480" y="214" text-anchor="middle" font-size="9" fill="#E2557A">de:ad:be:ef:00:01</text>
+    <text x="480" y="226" text-anchor="middle" font-size="9" fill="#E2557A">ROGUE SERVER</text>
+  </g>
+  <line x1="430" y1="205" x2="380" y2="370" stroke="#E2557A" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="380" y="395" text-anchor="middle" font-size="9" fill="#E2557A" font-weight="bold">DHCPOFFER from untrusted</text>
+  <text x="380" y="408" text-anchor="middle" font-size="9" fill="#E2557A">→ DROP (DHCP_SNOOPING_DENY)</text>
+
+  <!-- ARP spoof source -->
+  <g>
+    <rect x="555" y="180" width="100" height="50" rx="5" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="605" y="200" text-anchor="middle" font-weight="bold" fill="#E2557A">Gi1/0/12</text>
+    <text x="605" y="214" text-anchor="middle" font-size="9" fill="#E2557A">same host</text>
+    <text x="605" y="226" text-anchor="middle" font-size="9" fill="#E2557A">is-at 10.20.0.1 = self</text>
+  </g>
+  <line x1="555" y1="205" x2="380" y2="370" stroke="#E2557A" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="600" y="252" text-anchor="middle" font-size="9" fill="#E2557A" font-weight="bold">ARP spoof of gateway</text>
+  <text x="600" y="265" text-anchor="middle" font-size="9" fill="#E2557A">→ DROP (DAI_SPOOF)</text>
+
+  <!-- MAC flapper -->
+  <g>
+    <rect x="555" y="290" width="100" height="50" rx="5" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="605" y="310" text-anchor="middle" font-weight="bold" fill="#2A1A2E">Gi1/0/30</text>
+    <text x="605" y="324" text-anchor="middle" font-size="9" fill="#2A1A2E">aa:bb:cc:de:ad:be</text>
+    <text x="605" y="336" text-anchor="middle" font-size="9" fill="#2A1A2E">learned (1/2)</text>
+  </g>
+  <g>
+    <rect x="680" y="290" width="100" height="50" rx="5" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="730" y="310" text-anchor="middle" font-weight="bold" fill="#E2557A">Gi1/0/31</text>
+    <text x="730" y="324" text-anchor="middle" font-size="9" fill="#E2557A">same MAC</text>
+    <text x="730" y="336" text-anchor="middle" font-size="9" fill="#E2557A">ERR-DIS</text>
+  </g>
+  <line x1="605" y1="340" x2="730" y2="340" stroke="#E2557A" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="668" y="358" text-anchor="middle" font-size="9" fill="#E2557A" font-weight="bold">MAC flap</text>
+  <text x="668" y="370" text-anchor="middle" font-size="9" fill="#E2557A">→ DROP (PSECURE_MACFLAP)</text>
+
+  <!-- Legit DHCP path -->
+  <line x1="115" y1="205" x2="380" y2="320" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="220" y="265" text-anchor="middle" font-size="10" fill="#2A1A2E" font-weight="bold">DHCP 4-way</text>
+  <text x="220" y="278" text-anchor="middle" font-size="10" fill="#2A1A2E">(DISCOVER/OFFER/REQUEST/ACK)</text>
+  <text x="220" y="291" text-anchor="middle" font-size="9" fill="#2A1A2E">→ binding table (30 entries)</text>
+
+  <!-- Legend -->
+  <g>
+    <rect x="50" y="430" width="700" height="55" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="60" y="448" font-weight="bold" fill="#2A1A2E">Legend</text>
+    <line x1="60" y1="460" x2="90" y2="460" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="100" y="463" font-size="10" fill="#2A1A2E">trusted traffic</text>
+    <line x1="220" y1="460" x2="250" y2="460" stroke="#E2557A" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="260" y="463" font-size="10" fill="#2A1A2E">trusted trunk / attack</text>
+    <line x1="60" y1="478" x2="90" y2="478" stroke="#E2557A" stroke-width="2" stroke-dasharray="3 3"/>
+    <text x="100" y="481" font-size="10" fill="#2A1A2E">dropped / blocked at switch</text>
+    <rect x="320" y="472" width="14" height="10" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="340" y="481" font-size="10" fill="#2A1A2E">violator / rogue</text>
+    <rect x="450" y="472" width="14" height="10" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="470" y="481" font-size="10" fill="#2A1A2E">legit host / switch</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

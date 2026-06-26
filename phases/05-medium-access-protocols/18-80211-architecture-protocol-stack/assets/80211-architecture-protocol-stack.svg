@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="820" height="500" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold">802.11 Architecture — BSS, ESS, DS, and the protocol stack</text>
+    <text x="410" y="50" text-anchor="middle" font-size="11" font-weight="bold">infrastructure (BSS via AP) vs ad hoc (IBSS) · 802.2 LLC above the MAC</text>
+  </g>
+
+  <!-- Infrastructure topology -->
+  <g>
+    <rect x="40" y="80" width="370" height="200" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="225" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">Infrastructure mode (BSS via AP + DS)</text>
+
+    <rect x="200" y="120" width="50" height="50" fill="#E2557A"/>
+    <text x="225" y="148" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">AP</text>
+    <text x="225" y="160" text-anchor="middle" font-size="9" fill="#FFF7EC">BSSID</text>
+
+    <rect x="80" y="200" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="100" y="220" text-anchor="middle" font-size="10" fill="#2A1A2E">STA1</text>
+
+    <rect x="160" y="200" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="180" y="220" text-anchor="middle" font-size="10" fill="#2A1A2E">STA2</text>
+
+    <rect x="280" y="200" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="300" y="220" text-anchor="middle" font-size="10" fill="#2A1A2E">STA3</text>
+
+    <line x1="100" y1="200" x2="220" y2="170" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="180" y1="200" x2="225" y2="170" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="300" y1="200" x2="230" y2="170" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <text x="225" y="252" text-anchor="middle" font-size="10" fill="#2A1A2E">SSID = "corpnet" · BSSID = AP MAC</text>
+    <text x="225" y="270" text-anchor="middle" font-size="10" fill="#2A1A2E">AID (1-2007) assigned on association</text>
+  </g>
+
+  <!-- Ad hoc / IBSS -->
+  <g>
+    <rect x="430" y="80" width="350" height="200" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="605" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">Ad hoc / IBSS (no AP)</text>
+
+    <rect x="470" y="130" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="490" y="150" text-anchor="middle" font-size="10" fill="#2A1A2E">STA1</text>
+    <rect x="580" y="130" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="600" y="150" text-anchor="middle" font-size="10" fill="#2A1A2E">STA2</text>
+    <rect x="690" y="130" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="710" y="150" text-anchor="middle" font-size="10" fill="#2A1A2E">STA3</text>
+    <rect x="525" y="210" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="545" y="230" text-anchor="middle" font-size="10" fill="#2A1A2E">STA4</text>
+    <rect x="635" y="210" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="655" y="230" text-anchor="middle" font-size="10" fill="#2A1A2E">STA5</text>
+
+    <line x1="510" y1="140" x2="580" y2="140" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="620" y1="140" x2="690" y2="140" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="490" y1="160" x2="540" y2="210" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="600" y1="160" x2="650" y2="210" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="700" y1="160" x2="670" y2="210" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="560" y1="240" x2="640" y2="240" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <text x="605" y="265" text-anchor="middle" font-size="10" fill="#2A1A2E">BSSID = random · 802.11s mesh extends</text>
+  </g>
+
+  <!-- Protocol stack -->
+  <g>
+    <rect x="40" y="300" width="740" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="320" font-size="12" font-weight="bold" fill="#2A1A2E">802.11 protocol stack</text>
+
+    <g fill="#2A1A2E" font-size="10">
+      <rect x="60" y="340" width="700" height="28" fill="none" stroke="#2A1A2E" stroke-width="0.5"/>
+      <text x="68" y="358" font-weight="bold">Upper layers</text>
+      <text x="700" y="358" text-anchor="end">IP, ARP, ICMP, DHCP, TCP, UDP, …</text>
+
+      <rect x="60" y="368" width="700" height="28" fill="none" stroke="#2A1A2E" stroke-width="0.5"/>
+      <text x="68" y="386" font-weight="bold">LLC  (IEEE 802.2)</text>
+      <text x="700" y="386" text-anchor="end">SSAP/DSAP, identifying upper-layer protocol</text>
+
+      <rect x="60" y="396" width="700" height="28" fill="#E2557A" opacity="0.5" stroke="#2A1A2E" stroke-width="0.5"/>
+      <text x="68" y="414" font-weight="bold" fill="#2A1A2E">MAC  (802.11)</text>
+      <text x="700" y="414" text-anchor="end" fill="#2A1A2E">DCF, fragmentation, encryption, BSS/IBSS, power save</text>
+
+      <rect x="60" y="424" width="700" height="28" fill="#2A1A2E"/>
+      <text x="68" y="442" font-weight="bold" fill="#FFF7EC">PHY  (802.11)</text>
+      <text x="700" y="442" text-anchor="end" fill="#FFF7EC">legacy (DSSS/FHSS) · 11b HR-DSSS · 11a/g OFDM · 11n MIMO-OFDM</text>
+    </g>
+    <text x="60" y="470" font-size="10" fill="#2A1A2E">LLC is the "glue" that makes all 802.x look the same to the network layer. Modern IP uses the simpler Ethernet-style format (EtherType 0x0800) without LLC/SNAP overhead.</text>
+  </g>
+</svg>

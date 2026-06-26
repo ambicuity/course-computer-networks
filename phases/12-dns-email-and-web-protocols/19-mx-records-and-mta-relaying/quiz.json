@@ -1,0 +1,35 @@
+[
+  {
+    "question": "A domain has MX records with preferences 30, 10, and 20. In what order does an MTA try them?",
+    "options": [
+      "A. 30, 20, 10 (high number first)",
+      "B. 10, 20, 30 (low number first)",
+      "C. Random",
+      "D. In the order the records were added to the zone"
+    ],
+    "answer": 1,
+    "explanation": "RFC 974 / RFC 5321 §5.1 specifies that lower preference numbers are higher priority. The MTA tries 10 first, then 20, then 30."
+  },
+  {
+    "question": "A domain has no MX records at all. What does an MTA do, per RFC 5321 §5.1?",
+    "options": [
+      "A. Bounces the message immediately with NXDOMAIN",
+      "B. Treats the domain's own A or AAAA record as an implicit MX and tries it on port 25",
+      "C. Tries the root name servers",
+      "D. Queues the message forever"
+    ],
+    "answer": 1,
+    "explanation": "RFC 5321 §5.1 specifies the implicit-A-record fallback: when no MX exists, treat the domain's own A/AAAA record as an implicit MX with the same preference. RFC 7505 later added an explicit Null MX (MX 0 .) to override this."
+  },
+  {
+    "question": "What does the explicit MX record 'example.com. IN MX 0 .' mean?",
+    "options": [
+      "A. The lowest priority MX target is the root of DNS",
+      "B. This is a typo; the target must be a hostname",
+      "C. Per RFC 7505, the domain explicitly accepts no mail",
+      "D. The MX record is the SOA fallback"
+    ],
+    "answer": 2,
+    "explanation": "RFC 7505 specifies MX 0 . (target = root) as a Null MX, an explicit signal that the domain does not accept mail. It avoids forcing the MTA to fall back to the implicit A-record lookup."
+  }
+]

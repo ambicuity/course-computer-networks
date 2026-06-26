@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+  <style>
+    .ink { fill:#2A1A2E; font-family:Inter, ui-sans-serif, system-ui, sans-serif; }
+    .berry { fill:#E2557A; }
+    .mono { font-family: ui-monospace, Menlo, Consolas, monospace; fill:#2A1A2E; }
+    .small { font-size:11px; }
+    .sec { font-size:18px; font-weight:700; }
+    .tag { font-size:10px; font-weight:700; fill:#FFF7EC; }
+  </style>
+  <text x="440" y="32" text-anchor="middle" class="ink sec">BGP Path-Vector Routing (RFC 4271)</text>
+
+  <!-- AS diagram with policy roles -->
+  <g stroke="#2A1A2E" stroke-width="1.4" fill="none">
+    <rect x="60" y="80" width="140" height="80"/><text x="130" y="118" text-anchor="middle" class="ink lbl">AS1</text><text x="130" y="138" text-anchor="middle" class="mono small">transit</text>
+    <rect x="280" y="80" width="140" height="80"/><text x="350" y="118" text-anchor="middle" class="ink lbl">AS2</text><text x="350" y="138" text-anchor="middle" class="mono small">customer</text>
+    <rect x="500" y="80" width="140" height="80"/><text x="430" y="118" text-anchor="middle" class="ink"></text><text x="570" y="118" text-anchor="middle" class="ink lbl">AS3</text><text x="570" y="138" text-anchor="middle" class="mono small">peer</text>
+    <rect x="720" y="80" width="140" height="80"/><text x="790" y="118" text-anchor="middle" class="ink lbl">AS4</text><text x="790" y="138" text-anchor="middle" class="mono small">customer</text>
+  </g>
+  <g class="mono small">
+    <text x="220" y="120" text-anchor="middle" class="ink">CU</text>
+    <text x="440" y="120" text-anchor="middle" fill="#E2557A">PE (peering)</text>
+    <text x="660" y="120" text-anchor="middle" class="ink">CU</text>
+  </g>
+
+  <!-- Path vector propagation -->
+  <text x="40" y="220" class="ink sec">Path-vector propagation (AS_PATH)</text>
+  <g class="mono small">
+    <text x="40" y="250" class="ink">AS4 advertises:  prefix=C   AS_PATH=[AS4]   NEXT_HOP=R3a</text>
+    <text x="40" y="270" class="ink">→ across link to AS3 (R3a): AS_PATH=[AS3? no, just propagated]</text>
+    <text x="40" y="288" class="ink">Wait — example: prefix C starts in AS3.</text>
+    <text x="40" y="306" class="ink">AS3 → AS2 (top link): AS_PATH=[AS3], Next=R3a</text>
+    <text x="40" y="324" class="ink">AS2 → AS1 (top):    AS_PATH=[AS2, AS3], Next=R2a</text>
+    <text x="40" y="352" class="ink">Loop rule: receiver checks its own ASN in PATH; if present → drop.</text>
+    <text x="40" y="376" class="ink">Hot-potato (early exit): packets leave AS1 via lowest-cost</text>
+    <text x="40" y="392" class="ink">  internal egress even if downstream AS path is longer.</text>
+    <text x="40" y="410" fill="#E2557A">Result: asymmetric paths home and back.</text>
+  </g>
+
+  <!-- Attributes -->
+  <text x="500" y="220" class="ink sec">Attributes that decide routes</text>
+  <g class="mono small">
+    <text x="500" y="246" class="ink">1. LOCAL_PREF (highest wins) — set by inbound policy</text>
+    <text x="500" y="264" class="ink">2. AS_PATH (shortest wins) — tiebreaker</text>
+    <text x="500" y="282" class="ink">3. ORIGIN (IGP &gt; EGP &gt; incomplete)</text>
+    <text x="500" y="300" class="ink">4. MED (lowest wins) — hint to neighbor AS</text>
+    <text x="500" y="318" class="ink">5. EBGP over IBGP learned</text>
+    <text x="500" y="336" class="ink">6. IGP cost to NEXT_HOP (hot-potato)</text>
+    <text x="500" y="362" class="ink">Carries: TCP/179, MD5 auth, route-refresh</text>
+    <text x="500" y="388" fill="#E2557A">Hijack: leak /24 with shorter AS_PATH</text>
+    <text x="500" y="406" class="ink">              → global black-hole (Pak/YouTube 2008)</text>
+  </g>
+  <text x="40" y="500" class="ink small">Customer → peer → transit is the policy trichotomy: customer-routes win, peer-routes exchange-only, transit costs money.</text>
+</svg>

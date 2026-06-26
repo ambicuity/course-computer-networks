@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .h { font-size: 16px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .dim { fill: #6b5560; font-size: 11px; }
+    .box { fill: #fff; stroke: #2A1A2E; stroke-width: 1.5; }
+    .fbox { fill: #FFF0F4; stroke: #E2557A; stroke-width: 1.5; }
+  </style>
+
+  <text x="40" y="46" class="title">RSA: Key Generation to Session-Key Distribution</text>
+  <text x="40" y="68" class="sub">Chapter §8.3.1. Trapdoor permutation on Z_n. Hard to invert without factoring n.</text>
+
+  <!-- Keygen -->
+  <rect x="40" y="100" width="400" height="180" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="126" class="h">1. Key generation</text>
+  <text x="60" y="150" class="mono">Pick primes p, q (~1024 bits each)</text>
+  <text x="60" y="170" class="mono">n = p * q          (modulus, 2048 bits)</text>
+  <text x="60" y="190" class="mono">phi(n) = (p-1)(q-1)</text>
+  <text x="60" y="210" class="mono">choose e (e.g. 65537)</text>
+  <text x="60" y="230" class="mono">d = e^-1 mod phi(n) (extended Euclid)</text>
+  <text x="60" y="258" class="dim accent">Public key: (e, n).  Private key: (d, n).</text>
+
+  <!-- Encrypt / Decrypt -->
+  <rect x="460" y="100" width="420" height="180" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="480" y="126" class="h">2. Encrypt / Decrypt</text>
+  <text x="480" y="150" class="mono">C = P^e mod n           (encrypt)</text>
+  <text x="480" y="170" class="mono">P = C^d mod n           (decrypt)</text>
+  <text x="480" y="200" class="dim">Correctness: Euler's theorem</text>
+  <text x="480" y="220" class="dim">P^(1 + k*phi(n)) = P (mod n)</text>
+  <text x="480" y="240" class="dim">since e*d = 1 + k*phi(n).</text>
+  <text x="480" y="266" class="dim accent">Textbook RSA is deterministic and malleable; use OAEP padding.</text>
+
+  <!-- SUZANNE table -->
+  <rect x="40" y="300" width="400" height="240" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="60" y="326" class="h accent">3. SUZANNE example (chapter)</text>
+  <text x="60" y="350" class="mono">p=3, q=11, n=33, d=7, e=3</text>
+  <text x="60" y="380" class="mono">Letter  P    P^3      C (mod 33)</text>
+  <text x="60" y="402" class="mono">S      19    6859     28</text>
+  <text x="60" y="422" class="mono">U      21    9261     21</text>
+  <text x="60" y="442" class="mono">Z      26   17576     20</text>
+  <text x="60" y="462" class="mono">A       1       1      1</text>
+  <text x="60" y="482" class="mono">N      14    2744      5</text>
+  <text x="60" y="502" class="mono">E       5     125     26</text>
+  <text x="60" y="528" class="dim">Decrypt: C^7 mod 33 recovers P.</text>
+
+  <!-- Session-key distribution -->
+  <rect x="460" y="300" width="420" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="480" y="326" class="h">4. Session-key distribution</text>
+  <text x="480" y="354" class="mono">Alice:  K = random 32 bytes</text>
+  <text x="480" y="374" class="mono">        C = OAEP-encrypt(K, Bob_pub)</text>
+  <text x="480" y="394" class="mono">        send C to Bob</text>
+  <text x="480" y="420" class="mono">Bob:    K = OAEP-decrypt(C, Bob_priv)</text>
+  <text x="480" y="440" class="mono">        use K for AES-256-GCM</text>
+  <text x="480" y="478" class="dim">TLS 1.2 RSA key transport: exactly this.</text>
+  <text x="480" y="498" class="dim accent">TLS 1.3 replaced it with (EC)DH; legacy remains.</text>
+  <text x="480" y="528" class="dim">2048-bit RSA minimum through 2030.</text>
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <text x="450" y="44" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#2A1A2E">IPsec ESP Packet Layout (RFC 4303)</text>
+  <text x="450" y="72" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#2A1A2E">Encryption covers payload + trailer; integrity covers header + IV + ciphertext + trailer.</text>
+
+  <!-- ESP transport mode -->
+  <rect x="60" y="110" width="780" height="100" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="132" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#2A1A2E">Transport Mode</text>
+
+  <rect x="60" y="146" width="80" height="50" fill="#2A1A2E"/>
+  <text x="100" y="176" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">IP hdr</text>
+
+  <rect x="140" y="146" width="80" height="50" fill="#FFE7C9" stroke="#2A1A2E"/>
+  <text x="180" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">SPI</text>
+  <text x="180" y="184" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">32 bits</text>
+
+  <rect x="220" y="146" width="80" height="50" fill="#FFE7C9" stroke="#2A1A2E"/>
+  <text x="260" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">Seq Num</text>
+  <text x="260" y="184" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">32 bits</text>
+
+  <rect x="300" y="146" width="60" height="50" fill="#FFE7C9" stroke="#2A1A2E"/>
+  <text x="330" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">IV</text>
+  <text x="330" y="184" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">8 bytes</text>
+
+  <rect x="360" y="146" width="240" height="50" fill="#E2557A"/>
+  <text x="480" y="172" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC" font-weight="700">encrypted</text>
+  <text x="480" y="186" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFF7EC">TCP segment + data</text>
+
+  <rect x="600" y="146" width="60" height="50" fill="#E2557A"/>
+  <text x="630" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFF7EC">Pad</text>
+  <text x="630" y="184" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">0..255</text>
+
+  <rect x="660" y="146" width="60" height="50" fill="#E2557A"/>
+  <text x="690" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFF7EC">Pad Len</text>
+  <text x="690" y="184" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">+ Next Hdr</text>
+
+  <rect x="720" y="146" width="120" height="50" fill="#2A1A2E"/>
+  <text x="780" y="172" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">ICV</text>
+  <text x="780" y="186" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFF7EC">128 bits</text>
+
+  <!-- ESP tunnel mode -->
+  <rect x="60" y="240" width="780" height="100" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="262" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#2A1A2E">Tunnel Mode (site-to-site VPN)</text>
+
+  <rect x="60" y="276" width="80" height="50" fill="#2A1A2E"/>
+  <text x="100" y="306" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">NEW IP</text>
+
+  <rect x="140" y="276" width="80" height="50" fill="#FFE7C9" stroke="#2A1A2E"/>
+  <text x="180" y="306" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">SPI</text>
+
+  <rect x="220" y="276" width="80" height="50" fill="#FFE7C9" stroke="#2A1A2E"/>
+  <text x="260" y="306" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">Seq</text>
+
+  <rect x="300" y="276" width="60" height="50" fill="#FFE7C9" stroke="#2A1A2E"/>
+  <text x="330" y="306" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">IV</text>
+
+  <rect x="360" y="276" width="320" height="50" fill="#E2557A"/>
+  <text x="520" y="302" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC" font-weight="700">encrypted</text>
+  <text x="520" y="316" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFF7EC">[Inner IP][TCP][data]</text>
+
+  <rect x="680" y="276" width="40" height="50" fill="#E2557A"/>
+  <text x="700" y="306" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">Pad</text>
+
+  <rect x="720" y="276" width="60" height="50" fill="#E2557A"/>
+  <text x="750" y="302" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">Pad Len</text>
+  <text x="750" y="316" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">NH=4</text>
+
+  <rect x="780" y="276" width="60" height="50" fill="#2A1A2E"/>
+  <text x="810" y="306" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">ICV</text>
+
+  <!-- Algorithm table -->
+  <rect x="60" y="370" width="780" height="170" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="394" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2A1A2E">Common ESP Algorithms</text>
+
+  <text x="80" y="420" font-family="monospace" font-size="11" fill="#2A1A2E">Encryption:</text>
+  <text x="200" y="420" font-family="monospace" font-size="11" fill="#2A1A2E">RFC 3602 AES-CBC   |   RFC 3686 AES-CTR   |   RFC 4106 AES-GCM (AEAD)</text>
+  <text x="200" y="438" font-family="monospace" font-size="11" fill="#2A1A2E">RFC 7634 ChaCha20   |   RFC 4303 NULL</text>
+
+  <text x="80" y="464" font-family="monospace" font-size="11" fill="#2A1A2E">Integrity:</text>
+  <text x="200" y="464" font-family="monospace" font-size="11" fill="#2A1A2E">HMAC-SHA-256-128   |   HMAC-SHA-512-256   |   AES-GMAC (combined)</text>
+
+  <text x="80" y="494" font-family="monospace" font-size="11" fill="#2A1A2E">Anti-replay:</text>
+  <text x="200" y="494" font-family="monospace" font-size="11" fill="#2A1A2E">32-bit counter; receiver maintains a sliding window (default 32 packets).</text>
+
+  <text x="80" y="520" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#E2557A">Lesson 21 built AH (integrity only). ESP combines integrity + confidentiality.</text>
+</svg>

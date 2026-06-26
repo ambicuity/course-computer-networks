@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" width="720" height="520">
+  <rect width="720" height="520" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; }
+    .berry { fill: #E2557A; }
+    .stroke { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+    .arrow { stroke: #2A1A2E; stroke-width: 2; fill: none; marker-end: url(#arr); }
+    .barrow { stroke: #E2557A; stroke-width: 2; fill: none; marker-end: url(#barr); }
+    text { font-family: 'Inter', sans-serif; }
+    .mono { font-family: monospace; }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="barr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+  <text x="360" y="28" text-anchor="middle" class="ink" font-size="17" font-weight="bold">Certificates and X.509</text>
+  <!-- Fake home page attack -->
+  <text x="180" y="58" text-anchor="middle" class="ink" font-size="12" font-weight="bold">Fake-Home-Page Attack</text>
+  <circle cx="60" cy="95" r="22" class="stroke"/>
+  <text x="60" y="99" text-anchor="middle" class="ink" font-size="11">Alice</text>
+  <rect x="280" y="78" width="80" height="34" rx="4" class="stroke" fill="#FFE9F0"/>
+  <text x="320" y="95" text-anchor="middle" class="berry" font-size="10">Trudy</text>
+  <text x="320" y="107" text-anchor="middle" class="berry mono" font-size="8">E_T (fake)</text>
+  <circle cx="520" cy="95" r="22" class="stroke"/>
+  <text x="520" y="99" text-anchor="middle" class="ink" font-size="11">Bob</text>
+  <path d="M82 88 Q 180 60, 280 88" class="barrow"/>
+  <text x="180" y="52" text-anchor="middle" class="ink mono" font-size="8">1. GET page</text>
+  <path d="M360 88 Q 440 60, 498 88" class="arrow"/>
+  <text x="430" y="52" text-anchor="middle" class="ink mono" font-size="8">4. E_B(msg) fwd</text>
+  <text x="200" y="115" class="ink mono" font-size="8">2. fake page + E_T</text>
+  <text x="440" y="115" class="ink mono" font-size="8">3. Trudy reads, re-encrypts</text>
+  <!-- Certificate structure -->
+  <text x="540" y="58" text-anchor="middle" class="ink" font-size="12" font-weight="bold">X.509 V3 Certificate</text>
+  <rect x="420" y="70" width="280" height="230" rx="6" class="stroke" fill="#FFF"/>
+  <text x="430" y="88" class="ink mono" font-size="9" font-weight="bold">Field         Meaning</text>
+  <text x="430" y="104" class="ink mono" font-size="9">Version       V1/V2/V3</text>
+  <text x="430" y="118" class="ink mono" font-size="9">Serial #      unique per CA</text>
+  <text x="430" y="132" class="ink mono" font-size="9">Sig algorithm sha256WithRSA...</text>
+  <text x="430" y="146" class="ink mono" font-size="9">Issuer        CA's X.500 DN</text>
+  <text x="430" y="160" class="ink mono" font-size="9">Validity      notBefore/notAfter</text>
+  <text x="430" y="174" class="ink mono" font-size="9">Subject       entity's X.500 DN</text>
+  <text x="430" y="188" class="ink mono" font-size="9">Public key    subject key + algID</text>
+  <text x="430" y="202" class="ink mono" font-size="9">Issuer/Subj ID optional unique IDs</text>
+  <text x="430" y="216" class="ink mono" font-size="9">Extensions    keyUsage, SAN, ...</text>
+  <text x="430" y="234" class="berry mono" font-size="9" font-weight="bold">Signature     CA signs TBS body</text>
+  <text x="430" y="252" class="ink mono" font-size="8">TBS = to-be-signed fields</text>
+  <text x="430" y="272" class="ink mono" font-size="8">ASN.1/DER encoded (OSI legacy)</text>
+  <text x="430" y="290" class="berry mono" font-size="8">RFC 5280 = IETF profile</text>
+  <!-- Verification flow -->
+  <text x="360" y="335" text-anchor="middle" class="ink" font-size="13" font-weight="bold">Verification (CA offline, only E_CA needed)</text>
+  <rect x="40" y="350" width="640" height="80" rx="6" class="stroke" fill="#FFF"/>
+  <text x="60" y="370" class="ink mono" font-size="10">1. parse cert -> (body, signature)</text>
+  <text x="60" y="388" class="ink mono" font-size="10">2. h_mine = SHA-256(body)</text>
+  <text x="60" y="406" class="ink mono" font-size="10">3. h_ca   = E_CA(signature)   # recover CA's hash</text>
+  <text x="60" y="424" class="ink mono" font-size="10">4. if h_mine == h_ca and now() in [notBefore,notAfter]: trust</text>
+  <text x="400" y="388" class="berry mono" font-size="10">else: reject (tampered/expired/wrong CA)</text>
+  <!-- Defenses -->
+  <text x="360" y="465" text-anchor="middle" class="ink" font-size="12" font-weight="bold">What certificates prevent</text>
+  <text x="60" y="485" class="ink" font-size="10">• Public-key substitution (Trudy swaps E_B for E_T)</text>
+  <text x="60" y="503" class="ink" font-size="10">• Fake-home-page MITM (signature block won't verify)</text>
+  <text x="400" y="485" class="ink" font-size="10">• Replay of expired keys (validity window)</text>
+  <text x="400" y="503" class="berry" font-size="10">• Attribute spoofing (attribute certs bind key to property)</text>
+</svg>

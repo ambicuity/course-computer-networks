@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why is ECB mode never used to encrypt messages longer than one block?",
+    "options": [
+      "A. ECB is slower than CBC",
+      "B. Identical plaintext blocks produce identical ciphertext blocks under the same key, so structure leaks (chapter's Leslie/Kim bonus example)",
+      "C. ECB requires a 256-bit key",
+      "D. ECB does not support random IVs"
+    ],
+    "answer": 1,
+    "explanation": "ECB encrypts each block independently with the same key. Two equal plaintext blocks -> two equal ciphertext blocks. The chapter uses this to show Leslie copying Kim's encrypted bonus block onto her own record (section 8.2.3). The canonical visual proof is the 'Tux penguin' image, where the silhouette remains visible after ECB encryption."
+  },
+  {
+    "question": "In CBC mode, what happens when an attacker XORs a chosen delta into ciphertext block i-1?",
+    "options": [
+      "A. Nothing; CBC is immune to bit-flipping",
+      "B. Block i decrypts to garbage, and the same delta XORs into the plaintext of block i+1",
+      "C. The whole message becomes invalid",
+      "D. The IV is corrupted and decryption fails"
+    ],
+    "answer": 1,
+    "explanation": "In CBC, P_i = D_K(C_i) XOR C_{i-1}. If C_{i-1} is flipped by delta, then P_i becomes D_K(C_i) XOR (C_{i-1} XOR delta) = (original P_i) XOR delta. Block i's plaintext flips by delta, while block i-1 decrypts to garbage (the attacker broke the previous ciphertext). This is why authenticated encryption (HMAC, GCM) is mandatory for CBC."
+  },
+  {
+    "question": "What is the consequence of nonce reuse in AES-CTR mode?",
+    "options": [
+      "A. The keystream is regenerated safely",
+      "B. C_1 XOR C_2 = P_1 XOR P_2, completely breaking confidentiality",
+      "C. The cipher falls back to ECB mode",
+      "D. The receiver cannot decrypt any block"
+    ],
+    "answer": 1,
+    "explanation": "In CTR, C_i = P_i XOR E_K(IV + i). Two messages under the same (K, IV) share the same keystream. XORing the ciphertexts cancels the keystream, leaving P_1 XOR P_2 in the attacker's hands. From there, crib-drag (the same technique as classical cryptanalysis) recovers both plaintexts. This is why CTR mandates a unique nonce per message under a given key."
+  }
+]

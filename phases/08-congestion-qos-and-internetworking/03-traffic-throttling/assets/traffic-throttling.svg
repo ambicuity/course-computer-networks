@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="900" height="420" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="450" y="34" text-anchor="middle" fill="#2A1A2E" font-size="20" font-weight="700">Hop-by-Hop Backpressure vs End-to-End Choke</text>
+  <text x="450" y="56" text-anchor="middle" fill="#2A1A2E" font-size="12" opacity="0.7">Choke packet takes effect at each hop it traverses — immediate relief at D, buffer cost upstream</text>
+
+  <!-- ============ Top row: End-to-End ============ -->
+  <text x="40" y="96" fill="#2A1A2E" font-size="14" font-weight="700">End-to-end</text>
+  <text x="40" y="114" fill="#2A1A2E" font-size="11" opacity="0.65">choke returns to A; D overflows while waiting</text>
+
+  <!-- Path nodes -->
+  <g font-size="13" font-weight="600">
+    <circle cx="120" cy="150" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="120" y="155" text-anchor="middle" fill="#2A1A2E">A</text>
+    <circle cx="300" cy="150" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="300" y="155" text-anchor="middle" fill="#2A1A2E">E</text>
+    <circle cx="480" cy="150" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="480" y="155" text-anchor="middle" fill="#2A1A2E">F</text>
+    <circle cx="660" cy="150" r="22" fill="#E2557A" stroke="#E2557A" stroke-width="2"/>
+    <text x="660" y="155" text-anchor="middle" fill="#FFF7EC">D</text>
+  </g>
+
+  <!-- Forward flow arrows (top row) -->
+  <g stroke="#2A1A2E" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <line x1="142" y1="150" x2="278" y2="150"/>
+    <line x1="322" y1="150" x2="458" y2="150"/>
+    <line x1="502" y1="150" x2="638" y2="150"/>
+  </g>
+  <text x="210" y="140" text-anchor="middle" fill="#2A1A2E" font-size="10" opacity="0.6">full rate</text>
+  <text x="390" y="140" text-anchor="middle" fill="#2A1A2E" font-size="10" opacity="0.6">full rate</text>
+  <text x="570" y="140" text-anchor="middle" fill="#2A1A2E" font-size="10" opacity="0.6">full rate — overflow</text>
+
+  <!-- Choke return arrow (long, back to A) -->
+  <path d="M 660 172 C 660 210, 120 210, 120 172" stroke="#E2557A" stroke-width="2.5" fill="none" stroke-dasharray="6 4" marker-end="url(#arrowBerry)"/>
+  <text x="390" y="214" text-anchor="middle" fill="#E2557A" font-size="11" font-weight="600">choke packet — 40 ms RTT, 6.2 Mb still in flight</text>
+  <text x="390" y="228" text-anchor="middle" fill="#2A1A2E" font-size="10" opacity="0.55">D drops packets while choke travels back to A</text>
+
+  <!-- Drops marker -->
+  <text x="660" y="120" text-anchor="middle" fill="#E2557A" font-size="12" font-weight="700">DROPS</text>
+
+  <!-- ============ Bottom row: Hop-by-Hop ============ -->
+  <text x="40" y="278" fill="#2A1A2E" font-size="14" font-weight="700">Hop-by-hop</text>
+  <text x="40" y="296" fill="#2A1A2E" font-size="11" opacity="0.65">choke throttles each hop in turn; no drops, upstream buffers grow</text>
+
+  <g font-size="13" font-weight="600">
+    <circle cx="120" cy="330" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="120" y="335" text-anchor="middle" fill="#2A1A2E">A</text>
+    <circle cx="300" cy="330" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="300" y="335" text-anchor="middle" fill="#2A1A2E">E</text>
+    <circle cx="480" cy="330" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="480" y="335" text-anchor="middle" fill="#2A1A2E">F</text>
+    <circle cx="660" cy="330" r="22" fill="#FFF7EC" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="660" y="335" text-anchor="middle" fill="#E2557A">D</text>
+  </g>
+
+  <!-- Forward flow arrows (bottom, progressively reduced) -->
+  <g stroke="#2A1A2E" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <line x1="142" y1="330" x2="278" y2="330"/>
+    <line x1="322" y1="330" x2="458" y2="330"/>
+    <line x1="502" y1="330" x2="638" y2="330"/>
+  </g>
+  <text x="210" y="320" text-anchor="middle" fill="#2A1A2E" font-size="10" opacity="0.6">reduced (3rd)</text>
+  <text x="390" y="320" text-anchor="middle" fill="#2A1A2E" font-size="10" opacity="0.6">reduced (2nd)</text>
+  <text x="570" y="320" text-anchor="middle" fill="#2A1A2E" font-size="10" opacity="0.6">reduced (1st) — relief</text>
+
+  <!-- Three short backpressure arrows -->
+  <g stroke="#E2557A" stroke-width="2.5" fill="none" stroke-dasharray="5 3" marker-end="url(#arrowBerry)">
+    <path d="M 660 308 C 640 292, 520 292, 502 308"/>
+    <path d="M 480 308 C 460 292, 340 292, 322 308"/>
+    <path d="M 300 308 C 280 292, 160 292, 142 308"/>
+  </g>
+  <text x="581" y="288" text-anchor="middle" fill="#E2557A" font-size="10" font-weight="600">1</text>
+  <text x="401" y="288" text-anchor="middle" fill="#E2557A" font-size="10" font-weight="600">2</text>
+  <text x="221" y="288" text-anchor="middle" fill="#E2557A" font-size="10" font-weight="600">3</text>
+
+  <text x="450" y="372" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">Each hop throttles on choke arrival — D gets immediate relief; F, E absorb the flow in their buffers</text>
+  <text x="450" y="390" text-anchor="middle" fill="#2A1A2E" font-size="10" opacity="0.55">No drops. Tradeoff: upstream buffer cost scales with the bandwidth-delay product.</text>
+
+  <!-- Legend -->
+  <g transform="translate(760, 96)" font-size="10">
+    <rect x="0" y="0" width="120" height="56" fill="none" stroke="#2A1A2E" stroke-width="1" opacity="0.4" rx="4"/>
+    <line x1="8" y1="16" x2="28" y2="16" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="34" y="19" fill="#2A1A2E">forward data</text>
+    <line x1="8" y1="34" x2="28" y2="34" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="5 3"/>
+    <text x="34" y="37" fill="#2A1A2E">choke signal</text>
+    <circle cx="18" cy="48" r="6" fill="#E2557A"/>
+    <text x="34" y="51" fill="#2A1A2E">congested hop</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrowBerry" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .h { font-size: 16px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .dim { fill: #6b5560; font-size: 11px; }
+    .box { fill: #fff; stroke: #2A1A2E; stroke-width: 1.5; }
+    .fbox { fill: #FFF0F4; stroke: #E2557A; stroke-width: 1.5; }
+  </style>
+
+  <text x="40" y="46" class="title">Cryptanalysis: Differential, Linear, Power, Timing</text>
+  <text x="40" y="68" class="sub">The math is unbreakable. The implementation is not.</text>
+
+  <!-- Differential -->
+  <rect x="40" y="100" width="420" height="160" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="126" class="h">Differential cryptanalysis</text>
+  <text x="60" y="148" class="mono">Pick delta_P = 0x00010000</text>
+  <text x="60" y="168" class="mono">Encrypt P and P XOR delta_P.</text>
+  <text x="60" y="188" class="mono">Observe delta_C = C XOR C'.</text>
+  <text x="60" y="208" class="mono">Score each candidate subkey via DDT.</text>
+  <text x="60" y="234" class="dim">DES broken with 2^47 chosen plaintexts.</text>
+  <text x="60" y="250" class="dim accent">Biham-Shamir, 1990.</text>
+
+  <!-- Linear -->
+  <rect x="480" y="100" width="400" height="160" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="500" y="126" class="h">Linear cryptanalysis</text>
+  <text x="500" y="148" class="mono">Find XOR masks a,b where</text>
+  <text x="500" y="168" class="mono">Pr[(P.a) XOR (C.b) = K.c] = 1/2 + eps.</text>
+  <text x="500" y="188" class="mono">Stack biases via piling-up lemma.</text>
+  <text x="500" y="208" class="mono">Sample 1/(eps^2) plaintexts.</text>
+  <text x="500" y="234" class="dim">DES broken with 2^43 known plaintexts.</text>
+  <text x="500" y="250" class="dim accent">Matsui, 1993.</text>
+
+  <!-- Power -->
+  <rect x="40" y="290" width="420" height="240" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="60" y="316" class="h accent">Power analysis</text>
+  <text x="60" y="340" class="mono">P = sum_i HW(SBOX[p_i XOR k_i])</text>
+  <text x="60" y="360" class="dim">HW(byte) = number of 1 bits.</text>
+  <text x="60" y="380" class="dim">3 V for a 1 bit, 0 V for a 0 bit.</text>
+  <text x="60" y="404" class="mono">For each candidate key byte k':</text>
+  <text x="60" y="424" class="mono">  build model trace HW(SBOX[p_i XOR k'])</text>
+  <text x="60" y="444" class="mono">  correlate with observed trace</text>
+  <text x="60" y="464" class="mono">Pick the k' with highest correlation.</text>
+  <text x="60" y="494" class="dim">Defense: masking, hiding, constant-time.</text>
+  <text x="60" y="512" class="dim accent">FIPS 140-3 §7.5 requires side-channel tests.</text>
+
+  <!-- Timing -->
+  <rect x="480" y="290" width="400" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="500" y="316" class="h">Timing analysis</text>
+  <text x="500" y="340" class="mono">if (mac[i] != expected[i]) return 0;</text>
+  <text x="500" y="360" class="dim">Each iteration short-circuits on mismatch.</text>
+  <text x="500" y="380" class="dim">Attacker measures time, infers MAC prefix.</text>
+  <text x="500" y="404" class="mono">Defense: constant-time compare.</text>
+  <text x="500" y="424" class="mono">  diff |= mac[i] ^ expected[i];</text>
+  <text x="500" y="444" class="mono">  return diff == 0;</text>
+  <text x="500" y="464" class="dim">Same cycles regardless of mismatch position.</text>
+  <text x="500" y="484" class="dim">Use hmac.compare_digest or CRYPTO_memcmp.</text>
+  <text x="500" y="512" class="dim accent">Spectre/Meltdown: speculative timing leaks too.</text>
+</svg>

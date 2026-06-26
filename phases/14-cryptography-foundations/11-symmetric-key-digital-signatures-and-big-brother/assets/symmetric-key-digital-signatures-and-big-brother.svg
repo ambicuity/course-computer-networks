@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560">
+  <rect width="820" height="560" fill="#FFF7EC"/>
+  <style>
+    .t { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .mono { font-family: monospace; fill: #2A1A2E; }
+    .acc { fill: #E2557A; }
+    .accs { stroke: #E2557A; }
+    .ink { stroke: #2A1A2E; }
+  </style>
+
+  <text x="410" y="38" text-anchor="middle" class="t" font-size="24" font-weight="700">
+    Symmetric-Key Signatures with Big Brother
+  </text>
+  <text x="410" y="62" text-anchor="middle" class="t" font-size="13" opacity="0.7">
+    Alice -&gt; BB -&gt; Bob: BB vouches for the message with K_BB(A, t, P)
+  </text>
+
+  <!-- Alice box -->
+  <rect x="40" y="100" width="160" height="120" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <rect x="40" y="100" width="160" height="28" rx="10" class="acc"/>
+  <text x="120" y="119" text-anchor="middle" class="t" fill="#fff" font-size="14" font-weight="700">Alice</text>
+  <text x="120" y="148" class="mono" font-size="11">plaintext P</text>
+  <text x="120" y="166" class="mono" font-size="11">nonce R_A</text>
+  <text x="120" y="184" class="mono" font-size="11">timestamp t</text>
+  <text x="120" y="206" class="t" font-size="11" fill="#E2557A" font-weight="700">HMAC under K_A</text>
+
+  <!-- BB box -->
+  <rect x="330" y="100" width="160" height="160" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <rect x="330" y="100" width="160" height="28" rx="10" class="acc"/>
+  <text x="410" y="119" text-anchor="middle" class="t" fill="#fff" font-size="14" font-weight="700">Big Brother (BB)</text>
+  <text x="410" y="148" class="t" font-size="11" font-weight="700">holds K_A, K_B, K_BB</text>
+  <text x="410" y="172" class="mono" font-size="10">verify HMAC under K_A</text>
+  <text x="410" y="192" class="mono" font-size="10">build exhibit</text>
+  <text x="410" y="208" class="mono" font-size="10" fill="#E2557A">HMAC(K_BB, A|t|P)</text>
+  <text x="410" y="232" class="t" font-size="11" opacity="0.85">escrow: BB sees P</text>
+  <text x="410" y="250" class="t" font-size="11" opacity="0.85">replay: check R_A cache</text>
+
+  <!-- Bob box -->
+  <rect x="620" y="100" width="160" height="120" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <rect x="620" y="100" width="160" height="28" rx="10" class="acc"/>
+  <text x="700" y="119" text-anchor="middle" class="t" fill="#fff" font-size="14" font-weight="700">Bob</text>
+  <text x="700" y="148" class="mono" font-size="11">verify exhibit</text>
+  <text x="700" y="166" class="mono" font-size="11">under K_BB</text>
+  <text x="700" y="184" class="mono" font-size="11">timestamp window</text>
+  <text x="700" y="206" class="t" font-size="11" fill="#E2557A" font-weight="700">accept order</text>
+
+  <!-- Arrows -->
+  <line x1="200" y1="160" x2="330" y2="160" class="accs" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="265" y="152" text-anchor="middle" class="mono" font-size="10">A, K_A(B,R_A,t,P)</text>
+
+  <line x1="490" y1="160" x2="620" y2="160" class="accs" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="555" y="152" text-anchor="middle" class="mono" font-size="10">K_BB(A,t,P), K_B(...)</text>
+
+  <!-- Replay defense panel -->
+  <rect x="40" y="300" width="740" height="120" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <text x="60" y="324" class="t" font-size="14" font-weight="700">Replay defense</text>
+
+  <rect x="60" y="340" width="220" height="60" rx="8" fill="#FFF7EC" class="accs" stroke-width="1.5"/>
+  <text x="170" y="360" text-anchor="middle" class="t" font-size="12" font-weight="700">Timestamp t</text>
+  <text x="170" y="378" text-anchor="middle" class="mono" font-size="11">|now - t| &lt; 5 s</text>
+  <text x="170" y="394" text-anchor="middle" class="t" font-size="10" opacity="0.8">catches delayed replays</text>
+
+  <rect x="300" y="340" width="220" height="60" rx="8" fill="#FFF7EC" class="accs" stroke-width="1.5"/>
+  <text x="410" y="360" text-anchor="middle" class="t" font-size="12" font-weight="700">Nonce R_A</text>
+  <text x="410" y="378" text-anchor="middle" class="mono" font-size="11">cache (A, R_A) seen?</text>
+  <text x="410" y="394" text-anchor="middle" class="t" font-size="10" opacity="0.8">catches instant replays</text>
+
+  <rect x="540" y="340" width="220" height="60" rx="8" fill="#FFF7EC" class="accs" stroke-width="1.5"/>
+  <text x="650" y="360" text-anchor="middle" class="t" font-size="12" font-weight="700">Court exhibit</text>
+  <text x="650" y="378" text-anchor="middle" class="mono" font-size="11">K_BB(A, t, P)</text>
+  <text x="650" y="394" text-anchor="middle" class="t" font-size="10" opacity="0.8">judge asks BB to verify</text>
+
+  <!-- Trade-offs -->
+  <rect x="40" y="440" width="740" height="100" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <text x="60" y="464" class="t" font-size="14" font-weight="700">Trade-offs that motivate public-key signatures</text>
+  <text x="60" y="486" class="t" font-size="11">- Single point of trust: K_BB leak -&gt; every signature forgeable</text>
+  <text x="60" y="504" class="t" font-size="11">- Escrow: BB reads every plaintext P (privacy hazard, subpoena risk)</text>
+  <text x="60" y="522" class="t" font-size="11">- Logistics: each user must visit BB in person to receive K_A</text>
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

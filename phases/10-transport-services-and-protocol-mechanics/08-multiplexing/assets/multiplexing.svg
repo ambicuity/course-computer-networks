@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <rect width="800" height="560" fill="#FFF7EC"/>
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="40" font-size="22" font-weight="700">Multiplexing — upward vs inverse (inverse) mux</text>
+    <text x="32" y="62" font-size="13" fill="#7A5478">Tanenbaum 6.2.5, Fig. 6-17 — many transports share one NSAP, or one transport spans many NSAPs</text>
+  </g>
+
+  <!-- Fig 6-17(a): upward mux -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="100" font-size="14" font-weight="700">(a) Upward multiplexing — 4 TCP conns share one IP</text>
+
+    <!-- 4 transport endpoints -->
+    <rect x="60" y="120" width="120" height="30" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="74" y="140" font-size="11">TCP A:80</text>
+    <rect x="60" y="158" width="120" height="30" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="74" y="178" font-size="11">TCP A:80 (c2)</text>
+    <rect x="60" y="196" width="120" height="30" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="74" y="216" font-size="11">TCP A:22</text>
+    <rect x="60" y="234" width="120" height="30" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="74" y="254" font-size="11">TCP A:443</text>
+
+    <!-- transport entity -->
+    <rect x="220" y="160" width="160" height="60" rx="4" fill="#FFCFB8" stroke="#E2557A"/>
+    <text x="232" y="180" font-size="12" font-weight="700">Transport entity</text>
+    <text x="232" y="200" font-size="11">demux on 4-tuple</text>
+    <text x="232" y="214" font-size="11">(src_ip, src_port, dst_ip, dst_port)</text>
+
+    <!-- network layer: single NSAP -->
+    <rect x="420" y="180" width="280" height="40" rx="4" fill="#FFB19D" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="436" y="206" font-size="12" font-weight="700">Network connection: 1 NSAP (e.g. 10.0.1.5)</text>
+
+    <!-- arrows -->
+    <line x1="180" y1="135" x2="220" y2="180" stroke="#E2557A" stroke-width="1"/>
+    <line x1="180" y1="173" x2="220" y2="190" stroke="#E2557A" stroke-width="1"/>
+    <line x1="180" y1="211" x2="220" y2="200" stroke="#E2557A" stroke-width="1"/>
+    <line x1="180" y1="249" x2="220" y2="210" stroke="#E2557A" stroke-width="1"/>
+    <line x1="380" y1="190" x2="420" y2="195" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="420,195 412,191 412,199" fill="#E2557A"/>
+  </g>
+
+  <!-- Fig 6-17(b): inverse mux -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="320" font-size="14" font-weight="700">(b) Inverse (downward) multiplexing — 1 transport spans k paths</text>
+
+    <rect x="60" y="340" width="200" height="60" rx="4" fill="#FFCFB8" stroke="#E2557A"/>
+    <text x="74" y="360" font-size="12" font-weight="700">Single transport conn</text>
+    <text x="74" y="378" font-size="11">e.g. MPTCP, SCTP</text>
+
+    <rect x="300" y="320" width="160" height="30" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="310" y="340" font-size="11">NSAP 1: Wi-Fi (10.0.1.5)</text>
+    <rect x="300" y="358" width="160" height="30" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="310" y="378" font-size="11">NSAP 2: LTE (10.0.1.6)</text>
+    <rect x="300" y="396" width="160" height="30" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="310" y="416" font-size="11">NSAP 3: Ethernet (10.0.1.7)</text>
+
+    <line x1="260" y1="370" x2="300" y2="335" stroke="#E2557A" stroke-width="1"/>
+    <line x1="260" y1="370" x2="300" y2="373" stroke="#E2557A" stroke-width="1"/>
+    <line x1="260" y1="370" x2="300" y2="411" stroke="#E2557A" stroke-width="1"/>
+
+    <rect x="500" y="358" width="240" height="50" rx="4" fill="#FFB19D" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="514" y="378" font-size="12" font-weight="700">Effective bandwidth</text>
+    <text x="514" y="396" font-size="11">= sum(paths) x efficiency</text>
+
+    <line x1="460" y1="335" x2="500" y2="370" stroke="#E2557A" stroke-width="1"/>
+    <line x1="460" y1="373" x2="500" y2="380" stroke="#E2557A" stroke-width="1"/>
+    <line x1="460" y1="411" x2="500" y2="395" stroke="#E2557A" stroke-width="1"/>
+  </g>
+
+  <!-- Bottom: 4-tuple demux table -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="450" font-size="14" font-weight="700">Connection table — the demux key</text>
+    <rect x="32" y="464" width="736" height="80" rx="4" fill="#FFE9D6" stroke="#E2557A"/>
+    <text x="44" y="484" font-size="11">local_ip  local_port  remote_ip     remote_port  socket</text>
+    <text x="44" y="500" font-size="11">10.0.1.5  80           203.0.113.7   51234        conn 1 (web)</text>
+    <text x="44" y="514" font-size="11">10.0.1.5  80           198.51.100.42 44321        conn 2 (web)</text>
+    <text x="44" y="528" font-size="11">10.0.1.5  22           203.0.113.7   51240        conn 3 (ssh)</text>
+    <text x="44" y="540" font-size="11">10.0.1.5  443          198.51.100.42 44322        conn 4 (tls)</text>
+  </g>
+</svg>

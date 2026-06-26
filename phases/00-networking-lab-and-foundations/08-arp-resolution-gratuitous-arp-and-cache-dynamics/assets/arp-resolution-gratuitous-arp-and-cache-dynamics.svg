@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" width="900" height="640" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="900" height="640" fill="#FFF7EC"/>
+
+  <text x="40" y="46" font-size="22" font-weight="700" fill="#2A1A2E">ARP Resolution &amp; Cache Dynamics</text>
+  <text x="40" y="68" font-size="13" fill="#2A1A2E" opacity="0.7">RFC 826 request/reply, gratuitous ARP (RFC 5227), and the REACHABLE → STALE → GC cache lifecycle</text>
+
+  <!-- ===== Topology: A asks for B ===== -->
+  <text x="40" y="104" font-size="14" font-weight="600" fill="#2A1A2E">1. Broadcast REQUEST — &quot;who has 10.0.0.9?&quot;</text>
+
+  <!-- Host A -->
+  <rect x="60" y="120" width="150" height="78" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="135" y="142" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">Host A</text>
+  <text x="135" y="160" text-anchor="middle" font-size="11" fill="#2A1A2E">10.0.0.7</text>
+  <text x="135" y="176" text-anchor="middle" font-size="11" fill="#2A1A2E">aa:bb:cc:..:07</text>
+  <text x="135" y="192" text-anchor="middle" font-size="10" fill="#E2557A">cache: miss</text>
+
+  <!-- Host B -->
+  <rect x="690" y="120" width="150" height="78" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="765" y="142" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">Host B</text>
+  <text x="765" y="160" text-anchor="middle" font-size="11" fill="#2A1A2E">10.0.0.9</text>
+  <text x="765" y="176" text-anchor="middle" font-size="11" fill="#2A1A2E">aa:bb:cc:..:09</text>
+  <text x="765" y="192" text-anchor="middle" font-size="10" fill="#E2557A">target</text>
+
+  <!-- broadcast cloud / bus -->
+  <line x1="210" y1="159" x2="690" y2="159" stroke="#E2557A" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="450" y="150" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="600">broadcast ff:ff:ff:ff:ff:ff  ·  ethertype 0x0806</text>
+  <text x="450" y="174" text-anchor="middle" font-size="11" fill="#2A1A2E">ARP REQUEST: op=1  sha=A  spa=10.0.0.7  tha=00:..  tpa=10.0.0.9</text>
+
+  <!-- arrow back -->
+  <line x1="690" y1="208" x2="210" y2="208" stroke="#2A1A2E" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="450" y="224" text-anchor="middle" font-size="11" fill="#2A1A2E">2. unicast REPLY — op=2  sha=B  spa=10.0.0.9  tha=A  tpa=10.0.0.7</text>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Gratuitous ARP row ===== -->
+  <text x="40" y="268" font-size="14" font-weight="600" fill="#2A1A2E">3. Gratuitous ARP — spa == tpa, forces cache update without a query</text>
+
+  <rect x="60" y="286" width="150" height="64" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="135" y="308" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">A (new NIC)</text>
+  <text x="135" y="326" text-anchor="middle" font-size="11" fill="#2A1A2E">10.0.0.7</text>
+  <text x="135" y="342" text-anchor="middle" font-size="11" fill="#2A1A2E">aa:bb:cc:..:77</text>
+
+  <rect x="690" y="286" width="150" height="64" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="765" y="310" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">B</text>
+  <text x="765" y="328" text-anchor="middle" font-size="11" fill="#2A1A2E">cache 10.0.0.7</text>
+  <text x="765" y="344" text-anchor="middle" font-size="11" fill="#E2557A">..:07 → ..:77</text>
+
+  <line x1="210" y1="318" x2="690" y2="318" stroke="#E2557A" stroke-width="2" marker-end="url(#arrr)"/>
+  <text x="450" y="312" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="600">gARP REQUEST  spa=tpa=10.0.0.7</text>
+  <text x="450" y="338" text-anchor="middle" font-size="11" fill="#2A1A2E">B learns the new MAC silently — used on NIC swap, takeover, address claim, dup-addr detect</text>
+
+  <!-- ===== Cache state machine ===== -->
+  <text x="40" y="400" font-size="14" font-weight="600" fill="#2A1A2E">4. Cache lifecycle (Linux neighbour states)</text>
+
+  <rect x="70" y="420" width="150" height="56" rx="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="145" y="445" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">REACHABLE</text>
+  <text x="145" y="462" text-anchor="middle" font-size="10" fill="#2A1A2E">~30s base_reachable</text>
+
+  <rect x="370" y="420" width="150" height="56" rx="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="445" y="445" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">STALE</text>
+  <text x="445" y="462" text-anchor="middle" font-size="10" fill="#2A1A2E">gc_stale_time ~60s</text>
+
+  <rect x="670" y="420" width="150" height="56" rx="26" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="745" y="445" text-anchor="middle" font-size="13" font-weight="700" fill="#E2557A">GC / removed</text>
+  <text x="745" y="462" text-anchor="middle" font-size="10" fill="#2A1A2E">entry deleted</text>
+
+  <line x1="220" y1="448" x2="370" y2="448" stroke="#2A1A2E" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="295" y="442" text-anchor="middle" font-size="10" fill="#2A1A2E">timeout</text>
+  <line x1="520" y1="448" x2="670" y2="448" stroke="#2A1A2E" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="595" y="442" text-anchor="middle" font-size="10" fill="#2A1A2E">gc timeout</text>
+
+  <line x1="445" y1="420" x2="200" y2="420" stroke="#E2557A" stroke-width="1.6" marker-end="url(#arrr)"/>
+  <text x="320" y="414" text-anchor="middle" font-size="10" fill="#E2557A">traffic / ARP reply refreshes → REACHABLE</text>
+
+  <!-- ===== Packet field strip ===== -->
+  <text x="40" y="520" font-size="14" font-weight="600" fill="#2A1A2E">5. 28-byte ARP payload (RFC 826) over a 14-byte Ethernet header</text>
+
+  <g font-size="10" fill="#2A1A2E">
+    <rect x="40" y="534" width="48" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="64" y="555" text-anchor="middle">htype</text><text x="64" y="563" text-anchor="middle">1</text>
+    <rect x="88" y="534" width="48" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="112" y="552" text-anchor="middle">ptype</text><text x="112" y="563" text-anchor="middle">0x0800</text>
+    <rect x="136" y="534" width="24" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="148" y="555" text-anchor="middle">hlen</text>
+    <rect x="160" y="534" width="24" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="172" y="555" text-anchor="middle">plen</text>
+    <rect x="184" y="534" width="48" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="208" y="552" text-anchor="middle">op</text><text x="208" y="563" text-anchor="middle">1/2</text>
+    <rect x="232" y="534" width="90" height="34" fill="#FFF7EC" stroke="#E2557A"/><text x="277" y="552" text-anchor="middle" fill="#E2557A">sha (6)</text><text x="277" y="563" text-anchor="middle">sender MAC</text>
+    <rect x="322" y="534" width="70" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="357" y="552" text-anchor="middle">spa (4)</text><text x="357" y="563" text-anchor="middle">sender IP</text>
+    <rect x="392" y="534" width="90" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="437" y="552" text-anchor="middle">tha (6)</text><text x="437" y="563" text-anchor="middle">target MAC</text>
+    <rect x="482" y="534" width="70" height="34" fill="#FFF7EC" stroke="#E2557A"/><text x="517" y="552" text-anchor="middle" fill="#E2557A">tpa (4)</text><text x="517" y="563" text-anchor="middle">target IP</text>
+    <text x="562" y="555" font-size="10" fill="#2A1A2E" opacity="0.7">+ 14B Ether: dst(6) src(6) type=0x0806(2)</text>
+  </g>
+
+  <text x="40" y="606" font-size="11" fill="#2A1A2E" opacity="0.75">Resolver: miss → broadcast REQUEST → owner unicast REPLY → both caches updated. Gratuitous ARP reuses the same &quot;always learn sender&quot; rule.</text>
+</svg>

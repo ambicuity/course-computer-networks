@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <title>Cipher Modes — ECB, CBC, CTR, OFB, GCM chaining and error propagation</title>
+  <desc>Five cipher modes shown as block dataflow: ECB independent blocks leak patterns; CBC XOR-chains with an IV; CTR keystream from counter; OFB keystream from cipher feedback; GCM adds an auth tag.</desc>
+
+  <rect width="800" height="480" fill="#FFF7EC"/>
+
+  <text x="400" y="32" text-anchor="middle" fill="#2A1A2E" font-size="18" font-weight="700">Cipher Modes — chaining, IV, error propagation</text>
+  <text x="400" y="52" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">E = block encrypt · D = block decrypt · ⊕ = XOR · arrows show data dependency</text>
+
+  <defs>
+    <marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- ECB row -->
+  <g font-size="11" fill="#2A1A2E">
+    <text x="20" y="92" font-weight="700">ECB</text>
+    <rect x="60" y="80" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="80" y="96" text-anchor="middle">P0</text>
+    <rect x="120" y="80" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="140" y="96" text-anchor="middle">P1</text>
+    <rect x="190" y="80" width="40" height="24" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="210" y="96" text-anchor="middle">E</text>
+    <rect x="250" y="80" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="270" y="96" text-anchor="middle">C0</text>
+    <rect x="190" y="110" width="40" height="24" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="210" y="126" text-anchor="middle">E</text>
+    <rect x="250" y="110" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="270" y="126" text-anchor="middle">C1</text>
+    <line x1="100" y1="92" x2="190" y2="92" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="160" y1="92" x2="190" y2="122" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <text x="310" y="100" opacity="0.7">identical P -> identical C · reorder works</text>
+  </g>
+
+  <!-- CBC row -->
+  <g font-size="11" fill="#2A1A2E">
+    <text x="20" y="182" font-weight="700">CBC</text>
+    <rect x="60" y="170" width="40" height="24" fill="#7B6CA8" opacity="0.25" stroke="#7B6CA8" stroke-width="1.2"/>
+    <text x="80" y="186" text-anchor="middle">IV</text>
+    <rect x="120" y="170" width="40" height="24" fill="#3D8B8B" opacity="0.2" stroke="#3D8B8B" stroke-width="1.2"/>
+    <text x="140" y="186" text-anchor="middle">P0</text>
+    <circle cx="180" cy="182" r="9" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.4"/>
+    <text x="180" y="186" text-anchor="middle" font-size="9">⊕</text>
+    <rect x="210" y="170" width="40" height="24" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="230" y="186" text-anchor="middle">E</text>
+    <rect x="270" y="170" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="290" y="186" text-anchor="middle">C0</text>
+    <circle cx="345" cy="182" r="9" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.4"/>
+    <text x="345" y="186" text-anchor="middle" font-size="9">⊕</text>
+    <rect x="375" y="170" width="40" height="24" fill="#3D8B8B" opacity="0.2" stroke="#3D8B8B" stroke-width="1.2"/>
+    <text x="395" y="186" text-anchor="middle">P1</text>
+    <rect x="435" y="170" width="40" height="24" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="455" y="186" text-anchor="middle">E</text>
+    <rect x="495" y="170" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="515" y="186" text-anchor="middle">C1</text>
+    <line x1="100" y1="182" x2="171" y2="182" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="160" y1="182" x2="171" y2="182" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="189" y1="182" x2="210" y2="182" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="250" y1="182" x2="270" y2="182" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="310" y1="182" x2="336" y2="182" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="354" y1="182" x2="375" y2="182" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="415" y1="182" x2="435" y2="182" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="475" y1="182" x2="495" y2="182" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <text x="555" y="186" opacity="0.7">swap C0 -> garbles P0,P1</text>
+  </g>
+
+  <!-- CTR row -->
+  <g font-size="11" fill="#2A1A2E">
+    <text x="20" y="272" font-weight="700">CTR</text>
+    <rect x="60" y="260" width="40" height="24" fill="#7B6CA8" opacity="0.25" stroke="#7B6CA8" stroke-width="1.2"/>
+    <text x="80" y="276" text-anchor="middle">IV</text>
+    <rect x="120" y="260" width="40" height="24" fill="#7B6CA8" opacity="0.25" stroke="#7B6CA8" stroke-width="1.2"/>
+    <text x="140" y="276" text-anchor="middle">IV+1</text>
+    <rect x="190" y="260" width="40" height="24" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="210" y="276" text-anchor="middle">E</text>
+    <rect x="250" y="260" width="40" height="24" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="270" y="276" text-anchor="middle">E</text>
+    <circle cx="320" cy="272" r="9" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.4"/>
+    <text x="320" y="276" text-anchor="middle" font-size="9">⊕</text>
+    <circle cx="380" cy="272" r="9" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.4"/>
+    <text x="380" y="276" text-anchor="middle" font-size="9">⊕</text>
+    <rect x="410" y="260" width="40" height="24" fill="#3D8B8B" opacity="0.2" stroke="#3D8B8B" stroke-width="1.2"/>
+    <text x="430" y="276" text-anchor="middle">P0</text>
+    <rect x="470" y="260" width="40" height="24" fill="#3D8B8B" opacity="0.2" stroke="#3D8B8B" stroke-width="1.2"/>
+    <text x="490" y="276" text-anchor="middle">P1</text>
+    <rect x="530" y="260" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="550" y="276" text-anchor="middle">C0</text>
+    <rect x="590" y="260" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="610" y="276" text-anchor="middle">C1</text>
+    <line x1="100" y1="272" x2="190" y2="272" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="160" y1="272" x2="250" y2="272" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="230" y1="272" x2="311" y2="272" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="290" y1="272" x2="371" y2="272" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="410" y1="272" x2="311" y2="272" stroke="#2A1A2E" stroke-width="1.2" opacity="0.5"/>
+    <line x1="450" y1="272" x2="371" y2="272" stroke="#2A1A2E" stroke-width="1.2" opacity="0.5"/>
+    <line x1="329" y1="272" x2="530" y2="272" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="389" y1="272" x2="590" y2="272" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <text x="650" y="276" opacity="0.7">random access · (k,IV) reuse fatal</text>
+  </g>
+
+  <!-- OFB row -->
+  <g font-size="11" fill="#2A1A2E">
+    <text x="20" y="362" font-weight="700">OFB</text>
+    <rect x="60" y="350" width="40" height="24" fill="#7B6CA8" opacity="0.25" stroke="#7B6CA8" stroke-width="1.2"/>
+    <text x="80" y="366" text-anchor="middle">IV</text>
+    <rect x="130" y="350" width="40" height="24" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="150" y="366" text-anchor="middle">E</text>
+    <rect x="200" y="350" width="40" height="24" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="220" y="366" text-anchor="middle">E</text>
+    <circle cx="280" cy="362" r="9" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.4"/>
+    <text x="280" y="366" text-anchor="middle" font-size="9">⊕</text>
+    <circle cx="350" cy="362" r="9" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.4"/>
+    <text x="350" y="366" text-anchor="middle" font-size="9">⊕</text>
+    <rect x="380" y="350" width="40" height="24" fill="#3D8B8B" opacity="0.2" stroke="#3D8B8B" stroke-width="1.2"/>
+    <text x="400" y="366" text-anchor="middle">P0</text>
+    <rect x="440" y="350" width="40" height="24" fill="#3D8B8B" opacity="0.2" stroke="#3D8B8B" stroke-width="1.2"/>
+    <text x="460" y="366" text-anchor="middle">P1</text>
+    <rect x="510" y="350" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="530" y="366" text-anchor="middle">C0</text>
+    <rect x="570" y="350" width="40" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="590" y="366" text-anchor="middle">C1</text>
+    <line x1="100" y1="362" x2="130" y2="362" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="170" y1="362" x2="200" y2="362" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="240" y1="362" x2="271" y2="362" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="240" y1="362" x2="341" y2="362" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)" opacity="0.6"/>
+    <line x1="380" y1="362" x2="271" y2="362" stroke="#2A1A2E" stroke-width="1.2" opacity="0.5"/>
+    <line x1="440" y1="362" x2="341" y2="362" stroke="#2A1A2E" stroke-width="1.2" opacity="0.5"/>
+    <line x1="289" y1="362" x2="510" y2="362" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="359" y1="362" x2="570" y2="362" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <text x="630" y="366" opacity="0.7">keystream indep. of data · 1bit->1bit</text>
+  </g>
+
+  <!-- GCM row -->
+  <g font-size="11" fill="#2A1A2E">
+    <text x="20" y="432" font-weight="700">GCM</text>
+    <rect x="60" y="420" width="60" height="24" fill="#7B6CA8" opacity="0.25" stroke="#7B6CA8" stroke-width="1.2"/>
+    <text x="90" y="436" text-anchor="middle">CTR enc</text>
+    <rect x="140" y="420" width="60" height="24" fill="#3D8B8B" opacity="0.2" stroke="#3D8B8B" stroke-width="1.2"/>
+    <text x="170" y="436" text-anchor="middle">ciphertext</text>
+    <rect x="220" y="420" width="60" height="24" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="250" y="436" text-anchor="middle">GHASH</text>
+    <rect x="300" y="420" width="60" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="330" y="436" text-anchor="middle">auth tag</text>
+    <line x1="120" y1="432" x2="140" y2="432" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="200" y1="432" x2="220" y2="432" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <line x1="280" y1="432" x2="300" y2="432" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#ar)"/>
+    <text x="380" y="436" opacity="0.8">GCM = CTR + tag (confidentiality + integrity) · TLS 1.3 / IPsec default</text>
+  </g>
+</svg>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620">
+  <rect width="880" height="620" fill="#FFF7EC"/>
+  <style>
+    .ink { fill:#2A1A2E; font-family:Inter, ui-sans-serif, system-ui, sans-serif; }
+    .berry { fill:#E2557A; }
+    .stroke-ink { stroke:#2A1A2E; fill:none; }
+    .stroke-berry { stroke:#E2557A; fill:none; }
+    .mono { font-family: ui-monospace, Menlo, Consolas, monospace; fill:#2A1A2E; }
+    .small { font-size:11px; }
+    .lbl { font-size:13px; }
+    .sec { font-size:18px; font-weight:700; }
+    .tag { font-size:10px; font-weight:700; fill:#FFF7EC; }
+  </style>
+
+  <!-- Title -->
+  <text x="440" y="34" text-anchor="middle" class="ink sec">Internet Control Protocols &amp; MPLS — packet-level view</text>
+
+  <!-- ICMP section -->
+  <rect x="24" y="60" width="400" height="240" rx="10" class="stroke-ink" stroke-width="1.6"/>
+  <text x="224" y="86" text-anchor="middle" class="ink sec">ICMP (RFC 792, proto 1)</text>
+
+  <text x="44" y="120" class="ink lbl">Type</text>
+  <text x="118" y="120" class="ink lbl">Code</text>
+  <text x="180" y="120" class="ink lbl">Name</text>
+  <line x1="36" y1="128" x2="412" y2="128" stroke="#2A1A2E" stroke-width="0.8"/>
+
+  <text x="44" y="148" class="mono small">0</text>
+  <text x="118" y="148" class="mono small">0</text>
+  <text x="180" y="148" class="ink small">Echo Reply (ping return)</text>
+  <text x="44" y="168" class="mono small">8</text>
+  <text x="118" y="168" class="mono small">0</text>
+  <text x="180" y="168" class="ink small">Echo Request (ping sends)</text>
+  <text x="44" y="188" class="mono small">3</text>
+  <text x="118" y="188" class="mono small">0-5</text>
+  <text x="180" y="188" class="ink small">Destination Unreachable</text>
+  <text x="44" y="208" class="mono small">5</text>
+  <text x="118" y="208" class="mono small">0-3</text>
+  <text x="180" y="208" class="ink small">Redirect (better next-hop)</text>
+  <text x="44" y="228" class="mono small">11</text>
+  <text x="118" y="228" class="mono small">0</text>
+  <text x="180" y="228" class="ink small">Time Exceeded (traceroute)</text>
+  <text x="44" y="248" class="mono small">12</text>
+  <text x="118" y="248" class="mono small">0</text>
+  <text x="180" y="248" class="ink small">Parameter Problem</text>
+
+  <!-- ICMP packet layout -->
+  <text x="44" y="276" class="ink small">ICMP inside IP: [IP hdr][ICMP type|code|cksum|rest]</text>
+  <rect x="44" y="282" width="60" height="14" fill="#E2557A"/><text x="74" y="293" text-anchor="middle" class="tag">IP</text>
+  <rect x="104" y="282" width="200" height="14" fill="#2A1A2E"/><text x="204" y="293" text-anchor="middle" class="tag">ICMP (type/code/ck/rest)</text>
+
+  <!-- ARP section -->
+  <rect x="456" y="60" width="400" height="240" rx="10" class="stroke-ink" stroke-width="1.6"/>
+  <text x="656" y="86" text-anchor="middle" class="ink sec">ARP (RFC 826)</text>
+
+  <text x="476" y="118" class="ink small">host1 → broadcast:</text>
+  <rect x="476" y="128" width="360" height="22" fill="#E2557A"/>
+  <text x="656" y="143" text-anchor="middle" class="tag">Who has 192.32.65.5? Tell 192.32.65.7 (E1)</text>
+
+  <text x="476" y="168" class="ink small">host2 → host1 (unicast):</text>
+  <rect x="476" y="178" width="360" height="22" fill="#2A1A2E"/>
+  <text x="656" y="193" text-anchor="middle" class="tag">192.32.65.5 is at E2</text>
+
+  <text x="476" y="218" class="ink small">Frame on CS LAN: src MAC E1 → dst MAC E2</text>
+  <text x="476" y="238" class="ink small">Frame on EE LAN: src MAC E4 → dst MAC E6 (IP unchanged)</text>
+  <text x="476" y="262" class="ink small">Gratuitous ARP: "who has MY IP?" duplicates → reply</text>
+  <text x="476" y="282" class="ink small">Proxy ARP: router answers for remote host</text>
+
+  <!-- DHCP section -->
+  <rect x="24" y="320" width="400" height="180" rx="10" class="stroke-ink" stroke-width="1.6"/>
+  <text x="224" y="346" text-anchor="middle" class="ink sec">DHCP (RFC 2131) — DORA</text>
+
+  <g class="mono small">
+    <text x="44" y="372" class="ink">client ── DISCOVER ──> (bcast)</text>
+    <text x="44" y="394" class="ink">server ── OFFER  ──> client</text>
+    <text x="44" y="416" class="ink">client ── REQUEST ──> (bcast)</text>
+    <text x="44" y="438" class="ink">server ── ACK     ──> client</text>
+  </g>
+  <text x="44" y="464" class="ink small">Lease: T1=50% renew w/ original server</text>
+  <text x="44" y="484" class="ink small">       T2=87.5% seek any; expiry → release</text>
+
+  <!-- MPLS section -->
+  <rect x="456" y="320" width="400" height="180" rx="10" class="stroke-ink" stroke-width="1.6"/>
+  <text x="656" y="346" text-anchor="middle" class="ink sec">MPLS shim (RFC 3031)</text>
+
+  <!-- Shim layout -->
+  <rect x="476" y="360" width="160" height="20" fill="#2A1A2E"/>
+  <text x="518" y="374" text-anchor="middle" class="tag">Label (20)</text>
+  <rect x="636" y="360" width="40" height="20" fill="#E2557A"/>
+  <text x="656" y="374" text-anchor="middle" class="tag">TC</text>
+  <rect x="676" y="360" width="30" height="20" fill="#2A1A2E"/>
+  <text x="691" y="374" text-anchor="middle" class="tag">S</text>
+  <rect x="706" y="360" width="50" height="20" fill="#E2557A"/>
+  <text x="731" y="374" text-anchor="middle" class="tag">TTL</text>
+  <text x="476" y="394" class="ink small">20+3+1+8 = 32 bits = 4 bytes between PPP and IP</text>
+
+  <text x="476" y="416" class="ink small">LER ingress: push   (TTL=64)</text>
+  <text x="476" y="436" class="ink small">LSR:        swap    (TTL--)</text>
+  <text x="476" y="456" class="ink small">LER egress:  pop     (S=1 ⇒ bottom)</text>
+  <text x="476" y="476" class="ink small">FEC aggregates many flows under one label</text>
+
+  <!-- footer caption -->
+  <text x="440" y="540" text-anchor="middle" class="ink small">ICMP probes/errors ride IP proto 1 · ARP/DHCP run LAN-local · MPLS label swaps beat longest-prefix lookup</text>
+  <text x="440" y="560" text-anchor="middle" class="ink small">Evidence: tcpdump -v, Wireshark filters (icmp, arp, port 67/68, mpls)</text>
+</svg>

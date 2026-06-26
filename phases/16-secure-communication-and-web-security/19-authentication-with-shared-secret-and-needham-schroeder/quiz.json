@@ -1,0 +1,35 @@
+[
+  {
+    "question": "What is the purpose of a nonce in challenge-response authentication?",
+    "options": [
+      "A. It encrypts the password so it cannot be read in transit",
+      "B. It ensures that a recorded response cannot be replayed in a later session because the response is bound to a single-use random value",
+      "C. It serves as a session key shared between the two parties",
+      "D. It authenticates the server to the client (only)"
+    ],
+    "answer": 1,
+    "explanation": "A nonce (number used once) is a server-generated random value bound into the keyed response. Because the response is unique to that nonce, a recording attacker cannot submit the same bytes in a future session. It is not an encryption key, nor the session key, and on its own it does not authenticate the server."
+  },
+  {
+    "question": "In Needham-Schroeder 1978, which secret protects the ticket K_B(A, K_S)?",
+    "options": [
+      "A. The session key K_S that the KDC just minted",
+      "B. Alice's long-term key K_A shared with the KDC",
+      "C. Bob's long-term key K_B shared with the KDC",
+      "D. A public key from a certificate"
+    ],
+    "answer": 2,
+    "explanation": "The ticket is sealed under K_B, the long-term symmetric key Bob shares with the KDC. Only Bob and the KDC know K_B, so only Bob can decrypt the ticket and recover K_S along with Alice's claimed identity. The KDC seals a separate envelope for Alice under K_A."
+  },
+  {
+    "question": "What is the Denning-Sacco attack against Needham-Schroeder 1978?",
+    "options": [
+      "A. The attacker breaks RSA to recover the KDC's private key",
+      "B. The attacker intercepts message 1 and replaces Bob's identity with their own",
+      "C. The attacker replays an old ticket K_B(A, K_S) using a stolen old session key, convincing Bob that they are Alice",
+      "D. The attacker exhausts the KDC's nonce space to force a predictable session key"
+    ],
+    "answer": 2,
+    "explanation": "Denning and Sacco (1981) observed that if an attacker ever learns an old session key K_S, they can replay the original message 3 (the ticket) and Bob has no timestamp or fresh nonce to distinguish it from a current exchange. The 1987 fix added a fresh R_B challenge so that the attacker would need to compute K_S_old(R_B - 1) under the current K_S, which fails."
+  }
+]

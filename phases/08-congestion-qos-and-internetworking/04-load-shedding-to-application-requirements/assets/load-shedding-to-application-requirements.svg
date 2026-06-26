@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <title>Load Shedding to Application Requirements — queue, classifier, drop policies</title>
+  <desc>Three application classes (real-time, streaming, elastic) feed an overloaded output link; wine/milk/RED drop policies and DSCP drop precedence decide which packets survive.</desc>
+
+  <rect width="800" height="480" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="400" y="34" text-anchor="middle" fill="#2A1A2E" font-size="18" font-weight="700">Load Shedding to Application Requirements</text>
+  <text x="400" y="54" text-anchor="middle" fill="#2A1A2E" font-size="12" opacity="0.7">wine = keep old (file transfer) · milk = keep new (real-time) · RED = drop early</text>
+
+  <!-- Legend -->
+  <g font-size="11" fill="#2A1A2E">
+    <rect x="40" y="76" width="14" height="14" fill="#E2557A" opacity="0.7"/>
+    <text x="60" y="88">real-time (EF, milk)</text>
+    <rect x="190" y="76" width="14" height="14" fill="#7B6CA8" opacity="0.7"/>
+    <text x="210" y="88">streaming (AF, mixed)</text>
+    <rect x="350" y="76" width="14" height="14" fill="#3D8B8B" opacity="0.7"/>
+    <text x="370" y="88">elastic (BE, wine)</text>
+  </g>
+
+  <!-- Three application classes feeding the classifier -->
+  <g font-size="11" fill="#2A1A2E">
+    <text x="60" y="130" font-weight="600">Application classes</text>
+  </g>
+
+  <!-- real-time -->
+  <g>
+    <rect x="50" y="140" width="120" height="50" rx="6" fill="#E2557A" opacity="0.15" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="110" y="160" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="600">real-time</text>
+    <text x="110" y="176" text-anchor="middle" fill="#2A1A2E" font-size="10">VoIP · DSCP=EF(46)</text>
+    <text x="110" y="188" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.7">delay&lt;150ms · loss ok</text>
+  </g>
+  <!-- streaming -->
+  <g>
+    <rect x="50" y="200" width="120" height="50" rx="6" fill="#7B6CA8" opacity="0.15" stroke="#7B6CA8" stroke-width="1.5"/>
+    <text x="110" y="220" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="600">streaming</text>
+    <text x="110" y="236" text-anchor="middle" fill="#2A1A2E" font-size="10">VoD · DSCP=AF</text>
+    <text x="110" y="248" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.7">jitter ok · loss bad</text>
+  </g>
+  <!-- elastic -->
+  <g>
+    <rect x="50" y="260" width="120" height="50" rx="6" fill="#3D8B8B" opacity="0.15" stroke="#3D8B8B" stroke-width="1.5"/>
+    <text x="110" y="280" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="600">elastic</text>
+    <text x="110" y="296" text-anchor="middle" fill="#2A1A2E" font-size="10">FTP · DSCP=BE(0)</text>
+    <text x="110" y="308" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.7">delay ok · loss bad</text>
+  </g>
+
+  <!-- Arrows from classes to classifier -->
+  <g stroke="#2A1A2E" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <line x1="170" y1="165" x2="250" y2="210"/>
+    <line x1="170" y1="225" x2="250" y2="225"/>
+    <line x1="170" y1="285" x2="250" y2="240"/>
+  </g>
+
+  <!-- Classifier box -->
+  <g>
+    <rect x="250" y="180" width="100" height="90" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="300" y="210" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">classifier</text>
+    <text x="300" y="228" text-anchor="middle" fill="#2A1A2E" font-size="10">+ policer</text>
+    <text x="300" y="248" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.7">read DSCP</text>
+    <text x="300" y="262" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.7">set drop prec.</text>
+  </g>
+
+  <!-- Arrow classifier to queue -->
+  <g stroke="#2A1A2E" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <line x1="350" y1="225" x2="410" y2="225"/>
+  </g>
+
+  <!-- Output queue (FIFO with depth) -->
+  <g>
+    <rect x="410" y="170" width="140" height="120" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="480" y="186" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">output queue</text>
+    <!-- queue slots -->
+    <rect x="420" y="196" width="120" height="14" fill="#E2557A" opacity="0.5"/>
+    <rect x="420" y="212" width="120" height="14" fill="#3D8B8B" opacity="0.5"/>
+    <rect x="420" y="228" width="120" height="14" fill="#7B6CA8" opacity="0.5"/>
+    <rect x="420" y="244" width="120" height="14" fill="#3D8B8B" opacity="0.5"/>
+    <rect x="420" y="260" width="120" height="14" fill="#E2557A" opacity="0.5"/>
+    <text x="480" y="285" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.6">FIFO · tail = newest</text>
+  </g>
+
+  <!-- Drop decision panel -->
+  <g>
+    <rect x="590" y="130" width="180" height="180" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="680" y="152" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">drop policy</text>
+
+    <text x="600" y="176" fill="#E2557A" font-size="11" font-weight="600">milk (real-time)</text>
+    <text x="600" y="190" fill="#2A1A2E" font-size="10" opacity="0.8">drop OLDEST first</text>
+    <text x="600" y="202" fill="#2A1A2E" font-size="9" opacity="0.6">stale sample = useless</text>
+
+    <text x="600" y="222" fill="#3D8B8B" font-size="11" font-weight="600">wine (elastic)</text>
+    <text x="600" y="236" fill="#2A1A2E" font-size="10" opacity="0.8">drop NEWEST first</text>
+    <text x="600" y="248" fill="#2A1A2E" font-size="9" opacity="0.6">keep in-order bytes</text>
+
+    <text x="600" y="268" fill="#7B6CA8" font-size="11" font-weight="600">RED (any class)</text>
+    <text x="600" y="282" fill="#2A1A2E" font-size="10" opacity="0.8">drop random early</text>
+    <text x="600" y="294" fill="#2A1A2E" font-size="9" opacity="0.6">min/max_thresh · EWMA</text>
+  </g>
+
+  <!-- Arrow queue to drop policy -->
+  <g stroke="#2A1A2E" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <line x1="550" y1="225" x2="590" y2="220"/>
+  </g>
+
+  <!-- Link out -->
+  <g>
+    <rect x="410" y="310" width="140" height="26" rx="4" fill="#2A1A2E" opacity="0.08" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="480" y="328" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="600">link out (rate-limited)</text>
+  </g>
+  <g stroke="#2A1A2E" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <line x1="480" y1="290" x2="480" y2="310"/>
+  </g>
+
+  <!-- QoS 4-tuple at bottom -->
+  <g>
+    <text x="400" y="380" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">QoS 4-tuple per flow</text>
+    <g font-size="11" fill="#2A1A2E">
+      <rect x="200" y="392" width="90" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+      <text x="245" y="410" text-anchor="middle">bandwidth</text>
+      <rect x="300" y="392" width="90" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+      <text x="345" y="410" text-anchor="middle">delay</text>
+      <rect x="400" y="392" width="90" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+      <text x="445" y="410" text-anchor="middle">jitter</text>
+      <rect x="500" y="392" width="90" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+      <text x="545" y="410" text-anchor="middle">loss</text>
+    </g>
+  </g>
+
+  <text x="400" y="450" text-anchor="middle" fill="#2A1A2E" font-size="10" opacity="0.6">drop policy is chosen per class from the 4-tuple — not one-size-fits-all tail drop</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

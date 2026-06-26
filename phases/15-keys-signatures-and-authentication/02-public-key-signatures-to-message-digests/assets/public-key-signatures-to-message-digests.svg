@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" width="720" height="500">
+  <rect width="720" height="500" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; }
+    .berry { fill: #E2557A; }
+    .stroke { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+    .arrow { stroke: #2A1A2E; stroke-width: 2; fill: none; marker-end: url(#arr); }
+    .barrow { stroke: #E2557A; stroke-width: 2; fill: none; marker-end: url(#barr); }
+    text { font-family: 'Inter', sans-serif; }
+    .mono { font-family: monospace; }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="barr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+  <text x="360" y="32" text-anchor="middle" class="ink" font-size="17" font-weight="bold">Public-Key Signatures + Message Digests</text>
+  <!-- Alice side -->
+  <rect x="30" y="60" width="280" height="200" rx="8" class="stroke" fill="#FFF"/>
+  <text x="170" y="84" text-anchor="middle" class="ink" font-size="14" font-weight="bold">Alice (signer)</text>
+  <rect x="50" y="100" width="240" height="32" rx="4" class="stroke"/>
+  <text x="170" y="120" text-anchor="middle" class="ink mono" font-size="11">P = "Transfer $1000..."</text>
+  <path d="M170 136 L170 152" class="arrow"/>
+  <rect x="50" y="156" width="240" height="32" rx="4" class="stroke" fill="#FFE9F0"/>
+  <text x="170" y="176" text-anchor="middle" class="berry mono" font-size="11">SHA-256(P) = 32-byte digest</text>
+  <path d="M170 192 L170 208" class="arrow"/>
+  <rect x="50" y="212" width="240" height="32" rx="4" class="stroke" fill="#FFE9F0"/>
+  <text x="170" y="232" text-anchor="middle" class="berry mono" font-size="11">D_A(MD(P)) = RSA sign</text>
+  <!-- Arrow to Bob -->
+  <path d="M310 228 L410 228" class="barrow"/>
+  <text x="360" y="218" text-anchor="middle" class="ink mono" font-size="9">send P + D_A(MD(P))</text>
+  <!-- Bob side -->
+  <rect x="410" y="60" width="280" height="200" rx="8" class="stroke" fill="#FFF"/>
+  <text x="550" y="84" text-anchor="middle" class="ink" font-size="14" font-weight="bold">Bob (verifier)</text>
+  <rect x="430" y="100" width="240" height="32" rx="4" class="stroke"/>
+  <text x="550" y="120" text-anchor="middle" class="ink mono" font-size="11">recv P, D_A(MD(P))</text>
+  <path d="M550 136 L550 152" class="arrow"/>
+  <rect x="430" y="156" width="240" height="32" rx="4" class="stroke"/>
+  <text x="550" y="176" text-anchor="middle" class="ink mono" font-size="11">SHA-256(P) = MD(P)'</text>
+  <path d="M550 192 L550 208" class="arrow"/>
+  <rect x="430" y="212" width="240" height="32" rx="4" class="stroke" fill="#FFE9F0"/>
+  <text x="550" y="232" text-anchor="middle" class="berry mono" font-size="11">E_A(D_A(MD(P))) = MD(P)?</text>
+  <!-- SHA-1 compression box -->
+  <text x="360" y="300" text-anchor="middle" class="ink" font-size="14" font-weight="bold">SHA-1 Compression (80 rounds, 160-bit output)</text>
+  <rect x="80" y="320" width="560" height="100" rx="6" class="stroke" fill="#FFF"/>
+  <text x="100" y="342" class="ink mono" font-size="10">512-bit block</text>
+  <text x="220" y="342" class="ink" font-size="14">→</text>
+  <text x="240" y="342" class="ink mono" font-size="10">expand 16 → 80 words W[i]</text>
+  <text x="430" y="342" class="ink" font-size="14">→</text>
+  <text x="450" y="342" class="ink mono" font-size="10">80 rounds: A,B,C,D,E</text>
+  <text x="100" y="370" class="ink mono" font-size="9">f_0-19: Ch(B,C,D)   K=0x5A827999</text>
+  <text x="100" y="386" class="ink mono" font-size="9">f_20-39: Parity     K=0x6ED9EBA1</text>
+  <text x="100" y="402" class="ink mono" font-size="9">f_40-59: Maj(B,C,D)  K=0x8F1BBCDC</text>
+  <text x="380" y="370" class="ink mono" font-size="9">f_60-79: Parity     K=0xCA62C1D6</text>
+  <text x="380" y="386" class="ink mono" font-size="9">temp = S5(A)+f+E+W[i]+K</text>
+  <text x="380" y="402" class="ink mono" font-size="9">H0..H4 += A..E (per block)</text>
+  <!-- Weaknesses -->
+  <text x="360" y="450" text-anchor="middle" class="ink" font-size="12" font-weight="bold">Environmental weaknesses (not algorithm flaws)</text>
+  <text x="60" y="472" class="ink" font-size="10">• Key disclosure: Alice claims burglary → D_A "stolen" → repudiation breaks</text>
+  <text x="60" y="488" class="ink" font-size="10">• Key rotation: old D_A(P) fails under current E_A → need timestamped key archives</text>
+  <text x="360" y="472" class="berry" font-size="10">→ fixed by certificates (L04) + PKI (L05)</text>
+  <text x="360" y="488" class="berry" font-size="10">→ MD5 broken; use SHA-256</text>
+</svg>

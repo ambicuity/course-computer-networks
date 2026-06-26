@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" width="760" height="460">
+  <rect width="760" height="460" fill="#FFF7EC"/>
+  <text x="380" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="bold" fill="#2A1A2E">TCP Service Model: Byte Stream, Sockets, RFC Stack</text>
+  <text x="380" y="50" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-style="italic" fill="#2A1A2E">Tanenbaum Sec. 6.5.1 (intro, RFC 793 + amendments) and 6.5.2 (sockets, ports)</text>
+
+  <!-- Socket anatomy -->
+  <g>
+    <text x="40" y="85" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#2A1A2E">Socket = (IP address, 16-bit port)</text>
+    <rect x="40" y="100" width="180" height="50" fill="#E2557A" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="130" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#FFF7EC">IP address (32 or 128 bits)</text>
+    <rect x="220" y="100" width="100" height="50" fill="#2A1A2E" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="270" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#FFF7EC">Port (16)</text>
+  </g>
+
+  <!-- Connection four-tuple -->
+  <g>
+    <text x="40" y="180" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#2A1A2E">Connection = (local socket, remote socket)</text>
+    <rect x="40" y="200" width="170" height="36" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="125" y="223" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2A1A2E">local:  10.0.0.1:80</text>
+    <text x="40" y="250" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#E2557A">+</text>
+    <rect x="100" y="200" width="200" height="36" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="200" y="223" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2A1A2E">remote: 10.0.0.99:51234</text>
+    <text x="40" y="270" font-family="Georgia, serif" font-size="10" font-style="italic" fill="#2A1A2E">Identified by the four-tuple (src_ip, src_port, dst_ip, dst_port). No virtual circuit numbers.</text>
+  </g>
+
+  <!-- Byte-stream -->
+  <g>
+    <text x="40" y="305" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#2A1A2E">Byte stream: writes coalesce or split on read</text>
+    <g font-family="Georgia, serif" font-size="11" fill="#2A1A2E">
+      <rect x="40" y="315" width="80" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="80" y="334" text-anchor="middle" font-weight="bold" fill="#FFF7EC">write 512</text>
+      <rect x="125" y="315" width="80" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="165" y="334" text-anchor="middle" font-weight="bold" fill="#FFF7EC">write 512</text>
+      <rect x="210" y="315" width="80" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="250" y="334" text-anchor="middle" font-weight="bold" fill="#FFF7EC">write 512</text>
+      <rect x="295" y="315" width="80" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="335" y="334" text-anchor="middle" font-weight="bold" fill="#FFF7EC">write 512</text>
+      <text x="395" y="334" font-size="16" fill="#E2557A">==&gt;</text>
+      <rect x="425" y="315" width="240" height="28" fill="#2A1A2E" stroke="#2A1A2E"/>
+      <text x="545" y="334" text-anchor="middle" font-weight="bold" fill="#FFF7EC">read(2048) returns 2048</text>
+    </g>
+    <text x="40" y="370" font-family="Georgia, serif" font-size="10" font-style="italic" fill="#2A1A2E">Application cannot detect that the sender made four writes.</text>
+  </g>
+
+  <!-- RFC stack -->
+  <g>
+    <text x="40" y="395" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#2A1A2E">RFC stack (selected)</text>
+    <g font-family="Georgia, serif" font-size="10" fill="#2A1A2E">
+      <rect x="40" y="405" width="60" height="20" fill="#2A1A2E"/>
+      <text x="70" y="419" text-anchor="middle" font-weight="bold" fill="#FFF7EC">RFC 793</text>
+      <text x="105" y="420">base TCP (1981)</text>
+
+      <rect x="240" y="405" width="60" height="20" fill="#2A1A2E"/>
+      <text x="270" y="419" text-anchor="middle" font-weight="bold" fill="#FFF7EC">RFC 1323</text>
+      <text x="305" y="420">PAWS, window scale (1992)</text>
+
+      <rect x="40" y="430" width="60" height="20" fill="#E2557A"/>
+      <text x="70" y="444" text-anchor="middle" font-weight="bold" fill="#FFF7EC">RFC 2581</text>
+      <text x="105" y="445">congestion control (1999)</text>
+
+      <rect x="240" y="430" width="60" height="20" fill="#E2557A"/>
+      <text x="270" y="444" text-anchor="middle" font-weight="bold" fill="#FFF7EC">RFC 5681</text>
+      <text x="305" y="445">congestion control update (2009)</text>
+
+      <rect x="440" y="430" width="60" height="20" fill="#2A1A2E"/>
+      <text x="470" y="444" text-anchor="middle" font-weight="bold" fill="#FFF7EC">RFC 3168</text>
+      <text x="505" y="445">ECN (2001)</text>
+    </g>
+  </g>
+</svg>

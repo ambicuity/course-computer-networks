@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="760" height="520" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="760" height="520" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">Computing the 16-bit Internet checksum</text>
+  <text x="380" y="56" text-anchor="middle" font-size="13" fill="#2A1A2E">one's complement sum with end-around carry, then invert</text>
+
+  <!-- ===== Row 1: 16-bit words ===== -->
+  <text x="30" y="96" font-size="13" font-weight="600" fill="#2A1A2E">1. Treat header as 16-bit words</text>
+  <g font-size="13" fill="#2A1A2E" text-anchor="middle">
+    <rect x="30"  y="106" width="86" height="34" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1.2"/>
+    <text x="73"  y="128">45 00</text>
+    <rect x="116" y="106" width="86" height="34" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1.2"/>
+    <text x="159" y="128">00 14</text>
+    <rect x="202" y="106" width="86" height="34" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1.2"/>
+    <text x="245" y="128">00 01</text>
+    <rect x="288" y="106" width="86" height="34" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1.2"/>
+    <text x="331" y="128">00 00</text>
+    <rect x="374" y="106" width="86" height="34" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1.2"/>
+    <text x="417" y="128">40 06</text>
+    <rect x="460" y="106" width="86" height="34" rx="4" fill="#E2557A" fill-opacity="0.10" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="503" y="128" fill="#E2557A">00 00</text>
+    <rect x="546" y="106" width="86" height="34" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1.2"/>
+    <text x="589" y="128">7f 00</text>
+    <rect x="632" y="106" width="86" height="34" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1.2"/>
+    <text x="675" y="128">00 01</text>
+  </g>
+  <text x="503" y="160" text-anchor="middle" font-size="11" fill="#E2557A">checksum field = 0</text>
+
+  <!-- ===== Row 2: sum with carry ===== -->
+  <text x="30" y="192" font-size="13" font-weight="600" fill="#2A1A2E">2. One's complement sum (big-endian, with carry)</text>
+  <g font-size="12" fill="#2A1A2E">
+    <text x="30" y="214" font-family="ui-monospace, monospace">sum = 0x4500 + 0x0014 + 0x0001 + 0x0000 + 0x4006 + 0x0000 + 0x7f00 + 0x0001 + 0x7f00 + 0x0002</text>
+    <text x="30" y="234" font-family="ui-monospace, monospace">    = 0x0001831E   &#8594;  high half 0x0001 overflows</text>
+  </g>
+
+  <!-- arrow to fold -->
+  <line x1="380" y1="246" x2="380" y2="268" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- ===== Row 3: fold carry ===== -->
+  <text x="30" y="290" font-size="13" font-weight="600" fill="#2A1A2E">3. Fold end-around carry</text>
+  <g font-size="12" fill="#2A1A2E" font-family="ui-monospace, monospace">
+    <text x="30" y="312">0x0001831E &#8594; 0x831E + 0x0001 = 0x831F   (no more overflow)</text>
+  </g>
+  <rect x="240" y="324" width="130" height="30" rx="4" fill="none" stroke="#E2557A" stroke-width="1.4"/>
+  <text x="305" y="344" text-anchor="middle" font-size="12" font-family="ui-monospace, monospace" fill="#E2557A">folded sum = 0x831F</text>
+
+  <line x1="370" y1="339" x2="400" y2="339" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- ===== Row 4: one's complement ===== -->
+  <text x="410" y="290" font-size="13" font-weight="600" fill="#2A1A2E">4. One's complement</text>
+  <rect x="425" y="324" width="160" height="30" rx="4" fill="#E2557A" fill-opacity="0.12" stroke="#E2557A" stroke-width="1.4"/>
+  <text x="505" y="344" text-anchor="middle" font-size="12" font-family="ui-monospace, monospace" fill="#E2557A">checksum &#8801; ~0x831F = 0x7CE0</text>
+
+  <!-- ===== Row 5: verify ===== -->
+  <text x="30" y="390" font-size="13" font-weight="600" fill="#2A1A2E">5. Receiver verification &mdash; whole packet sums to 0xFFFF</text>
+  <g font-size="12" fill="#2A1A2E" font-family="ui-monospace, monospace">
+    <text x="30" y="412">data sum + 0x7CE0  &#8594;  0x831F + 0x7CE0 = 0xFFFF</text>
+    <text x="30" y="430">~0xFFFF = 0x0000  &#8594;  accept (the &ldquo;result is zero&rdquo; rule)</text>
+  </g>
+
+  <!-- legend / two-zero note -->
+  <g font-size="11" fill="#2A1A2E">
+    <text x="30" y="476" font-style="italic">One's complement has two zeros: all-0s and all-1s &#8594; all-0s codes &ldquo;no checksum&rdquo; with no extra field.</text>
+    <text x="30" y="494" font-style="italic" fill="#E2557A">Weakness: undetected insertion of 0x0000, WORD REORDERING, or message splices &mdash; why link layers prefer CRC.</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

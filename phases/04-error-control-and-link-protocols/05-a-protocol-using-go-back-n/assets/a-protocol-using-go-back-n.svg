@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .lbl { font-size: 13px; font-weight: 600; }
+    .mono { font-family: monospace; font-size: 12px; }
+    .small { font-size: 11px; fill: #6b5560; }
+    .frame { fill: #fff; stroke: #2A1A2E; stroke-width: 1.5; }
+    .ok { fill: #2A1A2E; }
+    .berry { fill: #E2557A; }
+  </style>
+
+  <text x="32" y="40" class="title">Go-Back-N: one lost frame, full-window retransmit</text>
+  <text x="32" y="62" class="sub">Receive window = 1. Frame 2 is lost; frames 3-4 are discarded; on timeout the sender goes back to 2.</text>
+
+  <!-- timelines -->
+  <text x="32" y="108" class="lbl">Sender</text>
+  <text x="32" y="468" class="lbl">Receiver</text>
+  <line x1="120" y1="118" x2="720" y2="118" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="120" y1="478" x2="720" y2="478" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="700" y="138" class="small">time &#8594;</text>
+
+  <!-- sent frames (sender row) -->
+  <g>
+    <!-- 0 -->
+    <rect x="130" y="124" width="46" height="26" rx="3" class="frame"/>
+    <text x="153" y="142" text-anchor="middle" class="mono">seq 0</text>
+    <!-- 1 -->
+    <rect x="184" y="124" width="46" height="26" rx="3" class="frame"/>
+    <text x="207" y="142" text-anchor="middle" class="mono">seq 1</text>
+    <!-- 2 LOST -->
+    <rect x="238" y="124" width="46" height="26" rx="3" class="frame" stroke="#E2557A" stroke-dasharray="4 3"/>
+    <text x="261" y="142" text-anchor="middle" class="mono berry">seq 2</text>
+    <!-- 3 -->
+    <rect x="292" y="124" width="46" height="26" rx="3" class="frame"/>
+    <text x="315" y="142" text-anchor="middle" class="mono">seq 3</text>
+    <!-- 4 -->
+    <rect x="346" y="124" width="46" height="26" rx="3" class="frame"/>
+    <text x="369" y="142" text-anchor="middle" class="mono">seq 4</text>
+  </g>
+
+  <!-- diagonal frame paths to receiver -->
+  <line x1="153" y1="152" x2="200" y2="446" stroke="#2A1A2E" stroke-width="1.4"/>
+  <line x1="207" y1="152" x2="254" y2="446" stroke="#2A1A2E" stroke-width="1.4"/>
+  <!-- lost frame 2: stops mid-way with an X -->
+  <line x1="261" y1="152" x2="300" y2="300" stroke="#E2557A" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <g stroke="#E2557A" stroke-width="2.2">
+    <line x1="292" y1="291" x2="308" y2="307"/>
+    <line x1="308" y1="291" x2="292" y2="307"/>
+  </g>
+  <text x="316" y="304" class="small berry">lost on wire</text>
+  <line x1="315" y1="152" x2="362" y2="446" stroke="#2A1A2E" stroke-width="1.4"/>
+  <line x1="369" y1="152" x2="416" y2="446" stroke="#2A1A2E" stroke-width="1.4"/>
+
+  <!-- receiver row frames -->
+  <g>
+    <rect x="177" y="450" width="46" height="26" rx="3" class="frame"/>
+    <text x="200" y="468" text-anchor="middle" class="mono">acc 0</text>
+    <rect x="231" y="450" width="46" height="26" rx="3" class="frame"/>
+    <text x="254" y="468" text-anchor="middle" class="mono">acc 1</text>
+    <rect x="339" y="450" width="46" height="26" rx="3" class="frame" stroke="#E2557A"/>
+    <text x="362" y="468" text-anchor="middle" class="mono berry">drop 3</text>
+    <rect x="393" y="450" width="46" height="26" rx="3" class="frame" stroke="#E2557A"/>
+    <text x="416" y="468" text-anchor="middle" class="mono berry">drop 4</text>
+  </g>
+  <text x="300" y="496" class="small">frame_expected stays at 2; everything after the gap is discarded</text>
+
+  <!-- timeout marker -->
+  <line x1="470" y1="118" x2="470" y2="478" stroke="#E2557A" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <text x="478" y="300" class="lbl berry">TIMEOUT(2)</text>
+  <text x="478" y="318" class="small">timer for seq 2 expires</text>
+
+  <!-- go-back-N retransmit window -->
+  <g>
+    <rect x="500" y="124" width="46" height="26" rx="3" class="frame" fill="#FCE7EE" stroke="#E2557A"/>
+    <text x="523" y="142" text-anchor="middle" class="mono">seq 2</text>
+    <rect x="554" y="124" width="46" height="26" rx="3" class="frame" fill="#FCE7EE" stroke="#E2557A"/>
+    <text x="577" y="142" text-anchor="middle" class="mono">seq 3</text>
+    <rect x="608" y="124" width="46" height="26" rx="3" class="frame" fill="#FCE7EE" stroke="#E2557A"/>
+    <text x="631" y="142" text-anchor="middle" class="mono">seq 4</text>
+  </g>
+  <text x="500" y="172" class="small berry">GO BACK N: resend whole window from ack_expected (=2)</text>
+
+  <line x1="523" y1="152" x2="560" y2="446" stroke="#E2557A" stroke-width="1.4"/>
+  <line x1="577" y1="152" x2="614" y2="446" stroke="#E2557A" stroke-width="1.4"/>
+  <line x1="631" y1="152" x2="668" y2="446" stroke="#E2557A" stroke-width="1.4"/>
+  <g>
+    <rect x="537" y="450" width="46" height="26" rx="3" class="frame"/>
+    <text x="560" y="468" text-anchor="middle" class="mono">acc 2</text>
+    <rect x="591" y="450" width="46" height="26" rx="3" class="frame"/>
+    <text x="614" y="468" text-anchor="middle" class="mono">acc 3</text>
+    <rect x="645" y="450" width="46" height="26" rx="3" class="frame"/>
+    <text x="668" y="468" text-anchor="middle" class="mono">acc 4</text>
+  </g>
+
+  <!-- formula box -->
+  <rect x="32" y="516" width="696" height="30" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="44" y="535" class="mono">window  w = 2&#183;BD + 1   |   50 kbps, 250 ms one-way, 1000-bit frames  &#8594;  BD = 12.5, w = 26   |   ACKs are cumulative</text>
+</svg>

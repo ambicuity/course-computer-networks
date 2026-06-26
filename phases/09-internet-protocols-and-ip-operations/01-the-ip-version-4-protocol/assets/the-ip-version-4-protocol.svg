@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 560" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">
+  <!-- Palette: cream #FFF7EC, ink #2A1A2E, berry #E2557A -->
+  <rect width="780" height="560" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="390" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#2A1A2E">IPv4 Header Layout (RFC 791)</text>
+  <text x="390" y="52" text-anchor="middle" font-size="11" fill="#2A1A2E" opacity="0.65">20-byte fixed part + 0–40 byte options · big-endian, high-order bit first</text>
+
+  <!-- Byte ruler -->
+  <g font-size="9" fill="#2A1A2E" opacity="0.55">
+    <text x="150" y="78" text-anchor="middle">byte 0</text>
+    <text x="310" y="78" text-anchor="middle">byte 4</text>
+    <text x="470" y="78" text-anchor="middle">byte 8</text>
+    <text x="630" y="78" text-anchor="middle">byte 12</text>
+    <text x="715" y="78" text-anchor="middle">byte 16</text>
+  </g>
+
+  <!-- Word 1: Version(4) | IHL(4) | DSCP(6) | ECN(2) | Total Length(16) -->
+  <g>
+    <rect x="30" y="88" width="60" height="64" fill="#2A1A2E" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="60" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#FFF7EC">Version</text>
+    <text x="60" y="136" text-anchor="middle" font-size="9" fill="#FFF7EC" opacity="0.8">4 bits</text>
+
+    <rect x="90" y="88" width="60" height="64" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="120" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">IHL</text>
+    <text x="120" y="136" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.7">4 bits</text>
+
+    <rect x="150" y="88" width="90" height="32" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="195" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">DSCP</text>
+    <rect x="150" y="120" width="90" height="32" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="195" y="140" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">ECN</text>
+    <text x="195" y="60" text-anchor="middle" font-size="8" fill="#E2557A" font-weight="700">Diff. Services</text>
+
+    <rect x="240" y="88" width="150" height="64" fill="#2A1A2E" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="315" y="116" text-anchor="middle" font-size="11" font-weight="700" fill="#FFF7EC">Total Length</text>
+    <text x="315" y="132" text-anchor="middle" font-size="9" fill="#FFF7EC" opacity="0.8">16 bits</text>
+  </g>
+
+  <!-- Word 2: Identification(16) | Flags(3) | Fragment Offset(13) -->
+  <g>
+    <rect x="30" y="162" width="180" height="60" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="120" y="188" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Identification</text>
+    <text x="120" y="204" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.7">16 bits</text>
+
+    <rect x="210" y="162" width="33" height="60" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="226" y="188" text-anchor="middle" font-size="9" font-weight="700" fill="#FFF7EC">Flags</text>
+    <text x="226" y="202" text-anchor="middle" font-size="8" fill="#FFF7EC" opacity="0.9">3b</text>
+
+    <rect x="243" y="162" width="147" height="60" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="316" y="188" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Fragment Offset</text>
+    <text x="316" y="204" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.7">13 bits · 8-byte units</text>
+  </g>
+
+  <!-- Word 3: TTL(8) | Protocol(8) | Header Checksum(16) -->
+  <g>
+    <rect x="30" y="232" width="90" height="60" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="75" y="258" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">TTL</text>
+    <text x="75" y="274" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.7">8 bits</text>
+
+    <rect x="120" y="232" width="90" height="60" fill="#2A1A2E" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="165" y="258" text-anchor="middle" font-size="10" font-weight="700" fill="#FFF7EC">Protocol</text>
+    <text x="165" y="274" text-anchor="middle" font-size="9" fill="#FFF7EC" opacity="0.8">8 bits</text>
+
+    <rect x="210" y="232" width="180" height="60" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="300" y="258" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Header Checksum</text>
+    <text x="300" y="274" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.7">16 bits · one's complement</text>
+  </g>
+
+  <!-- Word 4: Source Address (32) -->
+  <g>
+    <rect x="30" y="302" width="360" height="56" fill="#2A1A2E" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="210" y="328" text-anchor="middle" font-size="11" font-weight="700" fill="#FFF7EC">Source Address</text>
+    <text x="210" y="344" text-anchor="middle" font-size="9" fill="#FFF7EC" opacity="0.8">32 bits · offset 12</text>
+  </g>
+
+  <!-- Word 5: Destination Address (32) -->
+  <g>
+    <rect x="30" y="368" width="360" height="56" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="210" y="394" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Destination Address</text>
+    <text x="210" y="410" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.7">32 bits · offset 16</text>
+  </g>
+
+  <!-- Options -->
+  <g>
+    <rect x="30" y="434" width="360" height="44" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="210" y="456" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Options (0–40 bytes, padded to 4)</text>
+    <text x="210" y="470" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.6">Security · Strict/Loose Source Route · Record Route · Timestamp</text>
+  </g>
+
+  <!-- Byte offset annotations on left -->
+  <g font-size="9" fill="#E2557A" font-weight="700">
+    <text x="18" y="124" text-anchor="end">0</text>
+    <text x="18" y="196" text-anchor="end">4</text>
+    <text x="18" y="266" text-anchor="end">8</text>
+    <text x="18" y="334" text-anchor="end">12</text>
+    <text x="18" y="400" text-anchor="end">16</text>
+    <text x="18" y="460" text-anchor="end">20</text>
+  </g>
+
+  <!-- Side panel: field sizes summary -->
+  <g>
+    <rect x="430" y="88" width="320" height="390" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1" rx="6"/>
+    <text x="590" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Field Quick Reference</text>
+    <line x1="450" y1="120" x2="730" y2="120" stroke="#E2557A" stroke-width="1"/>
+
+    <g font-size="10" fill="#2A1A2E">
+      <text x="450" y="142" font-weight="700">Version</text><text x="730" y="142" text-anchor="end">4 b · = 4</text>
+      <text x="450" y="162" font-weight="700">IHL</text><text x="730" y="162" text-anchor="end">4 b · 5–15 words</text>
+      <text x="450" y="182" font-weight="700">DSCP</text><text x="730" y="182" text-anchor="end">6 b · RFC 2474</text>
+      <text x="450" y="202" font-weight="700">ECN</text><text x="730" y="202" text-anchor="end">2 b · RFC 3168</text>
+      <text x="450" y="222" font-weight="700">Total Length</text><text x="730" y="222" text-anchor="end">16 b · ≤ 65535</text>
+      <text x="450" y="242" font-weight="700">Identification</text><text x="730" y="242" text-anchor="end">16 b · reassembly</text>
+      <text x="450" y="262" font-weight="700">Flags</text><text x="730" y="262" text-anchor="end">3 b · DF, MF</text>
+      <text x="450" y="282" font-weight="700">Frag Offset</text><text x="730" y="282" text-anchor="end">13 b · 8-B units</text>
+      <text x="450" y="302" font-weight="700">TTL</text><text x="730" y="302" text-anchor="end">8 b · hops</text>
+      <text x="450" y="322" font-weight="700">Protocol</text><text x="730" y="322" text-anchor="end">8 b · IANA</text>
+      <text x="450" y="342" font-weight="700">Checksum</text><text x="730" y="342" text-anchor="end">16 b · per-hop</text>
+      <text x="450" y="362" font-weight="700">Source Addr</text><text x="730" y="362" text-anchor="end">32 b · off 12</text>
+      <text x="450" y="382" font-weight="700">Dest Addr</text><text x="730" y="382" text-anchor="end">32 b · off 16</text>
+      <text x="450" y="402" font-weight="700">Options</text><text x="730" y="402" text-anchor="end">0–40 B · off 20</text>
+    </g>
+
+    <line x1="450" y1="418" x2="730" y2="418" stroke="#E2557A" stroke-width="1"/>
+    <text x="590" y="438" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.7">Fixed header = 20 bytes (IHL=5)</text>
+    <text x="590" y="452" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.7">Max header = 60 bytes (IHL=15)</text>
+    <text x="590" y="466" text-anchor="middle" font-size="9" fill="#E2557A" font-weight="700">14 fields · RFC 791 (1981)</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="390" y="540" text-anchor="middle" font-size="9" fill="#2A1A2E" opacity="0.5">IP Version 4 Protocol · 32-bit words, big-endian</text>
+</svg>

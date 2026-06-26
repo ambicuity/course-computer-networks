@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    .t  { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .m  { font-family: monospace; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .stroke { stroke: #2A1A2E; fill: none; }
+    .berry  { stroke: #E2557A; fill: none; }
+  </style>
+
+  <text x="30" y="38" class="t" font-size="22" font-weight="700">802.1Q tag and the per-VLAN learning table</text>
+
+  <!-- ===== Frame format ===== -->
+  <text x="30" y="74" class="t" font-size="14" font-weight="600">Tagged Ethernet frame (max 1522 bytes)</text>
+
+  <!-- field boxes -->
+  <g>
+    <rect x="30"  y="86" width="90"  height="40" class="stroke"/>
+    <text x="75"  y="105" class="t" font-size="11" text-anchor="middle">Dest MAC</text>
+    <text x="75"  y="119" class="m" font-size="10" text-anchor="middle">6 B</text>
+
+    <rect x="120" y="86" width="90"  height="40" class="stroke"/>
+    <text x="165" y="105" class="t" font-size="11" text-anchor="middle">Src MAC</text>
+    <text x="165" y="119" class="m" font-size="10" text-anchor="middle">6 B</text>
+
+    <rect x="210" y="86" width="100" height="40" class="berry" stroke-width="2"/>
+    <text x="260" y="105" class="accent" font-size="11" text-anchor="middle" font-weight="700">TPID 0x8100</text>
+    <text x="260" y="119" class="m accent" font-size="10" text-anchor="middle">2 B</text>
+
+    <rect x="310" y="86" width="100" height="40" class="berry" stroke-width="2"/>
+    <text x="360" y="105" class="accent" font-size="11" text-anchor="middle" font-weight="700">TCI</text>
+    <text x="360" y="119" class="m accent" font-size="10" text-anchor="middle">2 B</text>
+
+    <rect x="410" y="86" width="80"  height="40" class="stroke"/>
+    <text x="450" y="105" class="t" font-size="11" text-anchor="middle">Type/Len</text>
+    <text x="450" y="119" class="m" font-size="10" text-anchor="middle">2 B</text>
+
+    <rect x="490" y="86" width="150" height="40" class="stroke"/>
+    <text x="565" y="108" class="t" font-size="11" text-anchor="middle">Payload 46..1500 B</text>
+
+    <rect x="640" y="86" width="90"  height="40" class="stroke"/>
+    <text x="685" y="105" class="t" font-size="11" text-anchor="middle">FCS (CRC)</text>
+    <text x="685" y="119" class="m" font-size="10" text-anchor="middle">4 B — recompute</text>
+  </g>
+
+  <!-- TCI bit breakdown -->
+  <line x1="310" y1="126" x2="200" y2="170" class="berry" stroke-dasharray="3,3"/>
+  <line x1="410" y1="126" x2="700" y2="170" class="berry" stroke-dasharray="3,3"/>
+
+  <rect x="200" y="170" width="500" height="56" class="berry" stroke-width="2"/>
+  <text x="450" y="188" class="t" font-size="12" text-anchor="middle" font-weight="600">Tag Control Information (16 bits)</text>
+  <g class="m" font-size="11">
+    <rect x="210" y="196" width="120" height="22" class="stroke"/>
+    <text x="270" y="211" text-anchor="middle">PCP (3) 802.1p</text>
+    <rect x="330" y="196" width="60"  height="22" class="stroke"/>
+    <text x="360" y="211" text-anchor="middle">DEI (1)</text>
+    <rect x="390" y="196" width="300" height="22" class="berry" stroke-width="2"/>
+    <text x="540" y="211" text-anchor="middle" class="accent" font-weight="700">VLAN Identifier — VID (12 bits, 1..4094)</text>
+  </g>
+
+  <!-- ===== Topology ===== -->
+  <text x="30" y="266" class="t" font-size="14" font-weight="600">Flooding is scoped by VID: gray=VLAN 10, white=VLAN 20</text>
+
+  <!-- switch B1 -->
+  <rect x="60" y="290" width="150" height="80" rx="6" class="stroke"/>
+  <text x="135" y="312" class="t" font-size="13" text-anchor="middle" font-weight="600">Switch B1</text>
+  <text x="135" y="330" class="m" font-size="10" text-anchor="middle">p2: VLAN 10</text>
+  <text x="135" y="344" class="m" font-size="10" text-anchor="middle">p3: VLAN 20</text>
+  <text x="135" y="358" class="m" font-size="10" text-anchor="middle">trunk -> B2</text>
+
+  <!-- switch B2 -->
+  <rect x="550" y="290" width="150" height="80" rx="6" class="stroke"/>
+  <text x="625" y="312" class="t" font-size="13" text-anchor="middle" font-weight="600">Switch B2</text>
+  <text x="625" y="330" class="m" font-size="10" text-anchor="middle">p4: VLAN 10+20</text>
+  <text x="625" y="344" class="m" font-size="10" text-anchor="middle">p5: VLAN 10</text>
+  <text x="625" y="358" class="m" font-size="10" text-anchor="middle">trunk -> B1</text>
+
+  <!-- trunk link (tagged) -->
+  <line x1="210" y1="330" x2="550" y2="330" class="berry" stroke-width="2"/>
+  <text x="380" y="322" class="accent" font-size="11" text-anchor="middle" font-weight="700">tagged trunk (VID 10, 20)</text>
+
+  <!-- hosts -->
+  <rect x="30" y="400" width="70" height="34" rx="4" class="stroke"/>
+  <text x="65" y="421" class="m" font-size="10" text-anchor="middle">A · v10</text>
+  <line x1="65" y1="400" x2="100" y2="370" class="stroke"/>
+
+  <rect x="170" y="400" width="70" height="34" rx="4" class="stroke"/>
+  <text x="205" y="421" class="m" font-size="10" text-anchor="middle">C · v20</text>
+  <line x1="180" y1="400" x2="165" y2="370" class="stroke"/>
+
+  <rect x="660" y="400" width="70" height="34" rx="4" class="stroke"/>
+  <text x="695" y="421" class="m" font-size="10" text-anchor="middle">B · v10</text>
+  <line x1="660" y1="400" x2="640" y2="370" class="stroke"/>
+
+  <!-- ===== Learning table ===== -->
+  <text x="30" y="470" class="t" font-size="14" font-weight="600">Forwarding DB — key = (VID, MAC), 300 s aging</text>
+  <g class="m" font-size="11">
+    <rect x="30" y="480" width="420" height="22" fill="#E2557A" opacity="0.15"/>
+    <text x="40"  y="495">VID</text>
+    <text x="100" y="495">Source MAC</text>
+    <text x="300" y="495">Port</text>
+    <text x="380" y="495">Age(s)</text>
+
+    <text x="40"  y="517">10</text>
+    <text x="100" y="517">00:11:22:aa:bb:01</text>
+    <text x="300" y="517">2</text>
+    <text x="380" y="517">12</text>
+
+    <text x="40"  y="535">10</text>
+    <text x="100" y="535">00:11:22:aa:bb:09</text>
+    <text x="300" y="535">4</text>
+    <text x="380" y="535">45</text>
+
+    <text x="40"  y="553">20</text>
+    <text x="100" y="553">00:11:22:aa:bb:0f</text>
+    <text x="300" y="553">3</text>
+    <text x="380" y="553">5</text>
+  </g>
+  <line x1="30" y1="502" x2="450" y2="502" class="stroke"/>
+
+  <text x="480" y="521" class="t" font-size="11" font-weight="600">Same MAC may repeat across</text>
+  <text x="480" y="539" class="t" font-size="11">VLANs — separate rows by key.</text>
+</svg>

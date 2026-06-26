@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="760" height="520">
+  <rect width="760" height="520" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 12px; fill: #6b5566; }
+    .axis { font-size: 12px; font-weight: 600; }
+    .tick { font-size: 10px; fill: #6b5566; font-family: monospace; }
+    .lbl { font-size: 12px; font-weight: 700; }
+    .note { font-size: 11px; fill: #6b5566; }
+  </style>
+
+  <text x="32" y="38" class="title">Throughput vs. Latency: three guided media</text>
+  <text x="32" y="58" class="sub">Magnetic media wins on throughput; copper wins on latency. Crossover = V/R vs T_transit.</text>
+
+  <!-- plot frame -->
+  <rect x="90" y="86" width="540" height="350" fill="#ffffff" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- axis labels -->
+  <text x="360" y="470" class="axis" text-anchor="middle">Latency  (log scale)  ->  slower</text>
+  <text x="34" y="262" class="axis" text-anchor="middle" transform="rotate(-90 34 262)">Throughput Gbps (log) -> higher</text>
+
+  <!-- x ticks: latency -->
+  <text x="150" y="452" class="tick" text-anchor="middle">1 us</text>
+  <text x="280" y="452" class="tick" text-anchor="middle">1 ms</text>
+  <text x="410" y="452" class="tick" text-anchor="middle">1 s</text>
+  <text x="560" y="452" class="tick" text-anchor="middle">hours</text>
+
+  <!-- y ticks: throughput -->
+  <text x="82" y="420" class="tick" text-anchor="end">0.1</text>
+  <text x="82" y="340" class="tick" text-anchor="end">1</text>
+  <text x="82" y="260" class="tick" text-anchor="end">10</text>
+  <text x="82" y="180" class="tick" text-anchor="end">100</text>
+  <text x="82" y="110" class="tick" text-anchor="end">1000</text>
+
+  <!-- gridlines -->
+  <g stroke="#e7d9c8" stroke-width="1">
+    <line x1="90" y1="180" x2="630" y2="180"/>
+    <line x1="90" y1="260" x2="630" y2="260"/>
+    <line x1="90" y1="340" x2="630" y2="340"/>
+    <line x1="280" y1="86" x2="280" y2="436"/>
+    <line x1="410" y1="86" x2="410" y2="436"/>
+  </g>
+
+  <!-- crossover diagonal: ship-if region above/right -->
+  <line x1="120" y1="430" x2="600" y2="110" stroke="#E2557A" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="470" y="150" class="lbl" fill="#E2557A">SHIP region</text>
+  <text x="470" y="166" class="note" fill="#E2557A">V/R &gt; T_transit</text>
+  <text x="150" y="410" class="note">network region</text>
+
+  <!-- Coax point (low latency, mid throughput) -->
+  <circle cx="200" cy="230" r="9" fill="#2A1A2E"/>
+  <text x="216" y="226" class="lbl">Coaxial cable</text>
+  <text x="216" y="242" class="note">50/75 Ohm, ~few GHz, us delay</text>
+
+  <!-- Twisted pair point -->
+  <circle cx="165" cy="300" r="9" fill="#2A1A2E"/>
+  <text x="181" y="296" class="lbl">Twisted pair</text>
+  <text x="181" y="312" class="note">Cat 5e/6a, 1-10 Gbps, ~0.5 us/100 m</text>
+
+  <!-- Magnetic media point (high latency, very high throughput) -->
+  <circle cx="565" cy="125" r="11" fill="#E2557A"/>
+  <text x="408" y="116" class="lbl" fill="#E2557A" text-anchor="start">Magnetic media (tapes)</text>
+  <text x="408" y="100" class="note" fill="#E2557A">800 TB box, ~74 Gbps, hours latency</text>
+
+  <!-- callout box: the inequality -->
+  <rect x="92" y="486" width="576" height="26" fill="#2A1A2E"/>
+  <text x="104" y="504" font-family="monospace" font-size="12" fill="#FFF7EC">ship_if  V / R  &gt;  T_transit    e.g. 800 TB / 10 Gbps = 7.4 d  &gt;  1 d FedEx  -&gt;  SHIP</text>
+</svg>

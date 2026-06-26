@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 620" width="860" height="620">
+  <style>
+    text { font-family: 'Inter', system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; fill: #E2557A; }
+    .field { font-size: 12px; font-weight: 600; }
+    .size { font-size: 10.5px; font-family: monospace; fill: #6b4a5e; }
+    .note { font-size: 11px; fill: #4a3a4e; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.4; }
+    .accent { fill: #FBE3EA; stroke: #E2557A; stroke-width: 1.6; }
+    .idle { fill: #FFFFFF; stroke: #6b4a5e; stroke-width: 1.4; }
+    .success { fill: #FBE3EA; stroke: #E2557A; stroke-width: 1.6; }
+    .collision { fill: #FFFFFF; stroke: #E2557A; stroke-width: 2.2; stroke-dasharray: 4 3; }
+  </style>
+  <rect x="0" y="0" width="860" height="620" fill="#FFF7EC"/>
+
+  <text class="title" x="30" y="38">Limited-Contention &amp; the Adaptive Tree Walk</text>
+  <text class="note" x="30" y="58">Success probability has a 1/e ceiling; the tree walk keeps k ~ 1 in every slot</text>
+
+  <!-- ============ SUCCESS CURVE ============ -->
+  <text class="sub" x="30" y="92">1. Acquisition probability k p (1 - p)^(k-1) at p = 1/k</text>
+
+  <g transform="translate(30, 110)">
+    <!-- Axes -->
+    <line x1="0" y1="120" x2="500" y2="120" stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="0" y1="0" x2="0" y2="120" stroke="#2A1A2E" stroke-width="1.2"/>
+    <text class="size" x="500" y="135" text-anchor="end">k (ready stations) -></text>
+    <text class="size" x="-6" y="0" text-anchor="end">1.0</text>
+    <text class="size" x="-6" y="60" text-anchor="end">0.5</text>
+    <text class="size" x="-6" y="120" text-anchor="end">0.0</text>
+
+    <!-- 1/e line -->
+    <line x1="0" y1="76" x2="500" y2="76" stroke="#E2557A" stroke-width="1.4" stroke-dasharray="6 3"/>
+    <text class="size" x="510" y="79" fill="#E2557A">1/e ≈ 0.368</text>
+
+    <!-- data points k=1..24 -->
+    <g>
+      <!-- k=1, s=1.0 -->
+      <circle cx="0" cy="0" r="3.5" fill="#E2557A"/>
+      <text class="size" x="2" y="-3">1</text>
+      <!-- k=2..24, s = ((k-1)/k)^(k-1) -->
+      <!-- k=2: 0.5 ; k=3: 0.444; k=4: 0.422; k=5: 0.410; k=8: 0.392; k=16: 0.376; k=24: 0.371 -->
+      <circle cx="42" cy="60" r="3.5" fill="#E2557A"/>
+      <text class="size" x="42" y="76" text-anchor="middle">2</text>
+      <circle cx="83" cy="47" r="3.5" fill="#E2557A"/>
+      <text class="size" x="83" y="63" text-anchor="middle">3</text>
+      <circle cx="125" cy="49" r="3.5" fill="#E2557A"/>
+      <text class="size" x="125" y="65" text-anchor="middle">4</text>
+      <circle cx="166" cy="51" r="3.5" fill="#E2557A"/>
+      <text class="size" x="166" y="67" text-anchor="middle">5</text>
+      <circle cx="208" cy="53" r="3.5" fill="#E2557A"/>
+      <text class="size" x="208" y="69" text-anchor="middle">8</text>
+      <circle cx="250" cy="55" r="3.5" fill="#E2557A"/>
+      <text class="size" x="250" y="71" text-anchor="middle">12</text>
+      <circle cx="291" cy="56" r="3.5" fill="#E2557A"/>
+      <text class="size" x="291" y="72" text-anchor="middle">16</text>
+      <circle cx="375" cy="58" r="3.5" fill="#E2557A"/>
+      <text class="size" x="375" y="74" text-anchor="middle">20</text>
+      <circle cx="458" cy="59" r="3.5" fill="#E2557A"/>
+      <text class="size" x="458" y="75" text-anchor="middle">24</text>
+    </g>
+
+    <text class="note" x="0" y="170">All k >= 5 sit close to 1/e.  Adding stations does not help: limited-contention must lower k per slot.</text>
+  </g>
+
+  <!-- ============ TREE WALK ============ -->
+  <text class="sub" x="30" y="320">2. Adaptive tree walk on N=8 with stations G, H ready</text>
+
+  <g transform="translate(120, 360)">
+    <!-- Tree -->
+    <circle cx="80" cy="0" r="20" class="box"/>
+    <text class="field" x="80" y="4" text-anchor="middle">1</text>
+
+    <circle cx="20" cy="60" r="20" class="box"/>
+    <text class="field" x="20" y="64" text-anchor="middle">2</text>
+
+    <circle cx="140" cy="60" r="20" class="box"/>
+    <text class="field" x="140" y="64" text-anchor="middle">3</text>
+
+    <circle cx="-10" cy="120" r="18" class="idle"/>
+    <text class="size" x="-10" y="124" text-anchor="middle">4</text>
+    <circle cx="50" cy="120" r="18" class="idle"/>
+    <text class="size" x="50" y="124" text-anchor="middle">5</text>
+    <circle cx="110" cy="120" r="18" class="idle"/>
+    <text class="size" x="110" y="124" text-anchor="middle">6</text>
+    <circle cx="170" cy="120" r="18" class="success"/>
+    <text class="size" x="170" y="124" text-anchor="middle">7</text>
+
+    <!-- edges -->
+    <line x1="62" y1="16" x2="38" y2="44" stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="98" y1="16" x2="122" y2="44" stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="9" y1="78" x2="-6" y2="102" stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="31" y1="78" x2="50" y2="102" stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="129" y1="78" x2="114" y2="102" stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="151" y1="78" x2="170" y2="102" stroke="#2A1A2E" stroke-width="1.2"/>
+
+    <!-- leaves -->
+    <text class="size" x="-10" y="158" text-anchor="middle">A</text>
+    <text class="size" x="50" y="158" text-anchor="middle">B</text>
+    <text class="size" x="110" y="158" text-anchor="middle">C</text>
+    <text class="size" x="170" y="158" text-anchor="middle">D</text>
+    <text class="size" x="170" y="158" text-anchor="middle" fill="#E2557A" font-weight="700">D</text>
+
+    <!-- slot outcomes in callouts -->
+    <g>
+      <text class="size" x="110" y="-6" fill="#E2557A">slot 0: collision (G,H under root)</text>
+      <text class="size" x="-50" y="50" fill="#6b4a5e">slot 1: idle (no one under 2)</text>
+      <text class="size" x="160" y="50" fill="#E2557A">slot 2: SKIP 3 (skip rule)</text>
+      <text class="size" x="200" y="64" fill="#E2557A">slot 3: collision (G,H under 3)</text>
+      <text class="size" x="-30" y="105" fill="#6b4a5e">slot 4: idle</text>
+      <text class="size" x="200" y="120" fill="#E2557A">slot 5: SKIP 6, hit 7</text>
+    </g>
+  </g>
+
+  <!-- ============ START LEVEL ============ -->
+  <text class="sub" x="30" y="540">3. Choosing the start level: i = log2(q)</text>
+
+  <g transform="translate(30, 560)">
+    <rect class="box" x="0" y="0" width="780" height="44"/>
+    <text class="size" x="14" y="18">q = 1 (light load)</text>
+    <text class="size" x="14" y="34">start at root, behaves like slotted ALOHA</text>
+
+    <text class="size" x="280" y="18">q = 8 (medium)</text>
+    <text class="size" x="280" y="34">start at level 3 (leaves), near bit-map</text>
+
+    <text class="size" x="540" y="18">q = N (heavy)</text>
+    <text class="size" x="540" y="34">start at leaves, full collision-free</text>
+  </g>
+</svg>

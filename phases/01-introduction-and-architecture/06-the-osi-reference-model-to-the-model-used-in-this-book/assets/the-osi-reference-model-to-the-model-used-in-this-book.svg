@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect x="0" y="0" width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    .title { font: 700 20px Inter, sans-serif; fill: #2A1A2E; }
+    .sub   { font: 400 12px Inter, sans-serif; fill: #2A1A2E; }
+    .col   { font: 600 13px Inter, sans-serif; fill: #2A1A2E; }
+    .lyr   { font: 600 13px Inter, sans-serif; fill: #2A1A2E; }
+    .pdu   { font: 400 11px monospace; fill: #2A1A2E; }
+    .tag   { font: 700 10px Inter, sans-serif; fill: #FFF7EC; }
+  </style>
+
+  <text x="30" y="38" class="title">OSI (7) &#8594; TCP/IP (4) &#8594; The Book Model (5)</text>
+  <text x="30" y="58" class="sub">Same stack, three lenses. Each layer adds a header (PDU). Routers rewrite L1&#8211;L3; L4+ is end-to-end.</text>
+
+  <!-- column headers -->
+  <text x="120" y="92" class="col" text-anchor="middle">OSI</text>
+  <text x="320" y="92" class="col" text-anchor="middle">TCP/IP</text>
+  <text x="520" y="92" class="col" text-anchor="middle">Book model</text>
+  <text x="675" y="92" class="col" text-anchor="middle">PDU</text>
+
+  <!-- ===== Application band (OSI 5-7 -> 1) ===== -->
+  <rect x="40" y="105" width="160" height="120" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="40" y1="145" x2="200" y2="145" stroke="#2A1A2E" stroke-width="0.8" stroke-dasharray="3 3"/>
+  <line x1="40" y1="185" x2="200" y2="185" stroke="#2A1A2E" stroke-width="0.8" stroke-dasharray="3 3"/>
+  <text x="120" y="130" class="lyr" text-anchor="middle">7 Application</text>
+  <text x="120" y="170" class="lyr" text-anchor="middle">6 Presentation</text>
+  <text x="120" y="210" class="lyr" text-anchor="middle">5 Session</text>
+
+  <rect x="240" y="105" width="160" height="120" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="320" y="170" class="lyr" text-anchor="middle">Application</text>
+
+  <rect x="440" y="105" width="160" height="120" rx="6" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="520" y="170" class="lyr" text-anchor="middle" fill="#FFF7EC">5 Application</text>
+  <text x="675" y="170" class="pdu" text-anchor="middle">message</text>
+
+  <!-- ===== Transport band ===== -->
+  <rect x="40" y="235" width="160" height="56" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="268" class="lyr" text-anchor="middle">4 Transport</text>
+  <rect x="240" y="235" width="160" height="56" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="320" y="268" class="lyr" text-anchor="middle">Transport</text>
+  <rect x="440" y="235" width="160" height="56" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="520" y="262" class="lyr" text-anchor="middle">4 Transport</text>
+  <text x="520" y="280" class="pdu" text-anchor="middle">TCP / UDP</text>
+  <text x="675" y="268" class="pdu" text-anchor="middle">segment</text>
+
+  <!-- ===== Network band ===== -->
+  <rect x="40" y="301" width="160" height="56" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="334" class="lyr" text-anchor="middle">3 Network</text>
+  <rect x="240" y="301" width="160" height="56" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="320" y="328" class="lyr" text-anchor="middle">Internet</text>
+  <text x="320" y="346" class="pdu" text-anchor="middle">IP / ICMP</text>
+  <rect x="440" y="301" width="160" height="56" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="520" y="334" class="lyr" text-anchor="middle">3 Network</text>
+  <text x="675" y="334" class="pdu" text-anchor="middle">packet</text>
+
+  <!-- ===== Link band ===== -->
+  <rect x="40" y="367" width="160" height="56" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="400" class="lyr" text-anchor="middle">2 Data Link</text>
+  <rect x="240" y="367" width="160" height="56" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="320" y="400" class="lyr" text-anchor="middle">Link</text>
+  <rect x="440" y="367" width="160" height="56" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="520" y="394" class="lyr" text-anchor="middle">2 Link</text>
+  <text x="520" y="412" class="pdu" text-anchor="middle">Ethernet / 802.11</text>
+  <text x="675" y="400" class="pdu" text-anchor="middle">frame</text>
+
+  <!-- ===== Physical band ===== -->
+  <rect x="40" y="433" width="160" height="50" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="463" class="lyr" text-anchor="middle">1 Physical</text>
+  <rect x="240" y="433" width="160" height="50" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="320" y="463" class="sub" text-anchor="middle">(part of Link)</text>
+  <rect x="440" y="433" width="160" height="50" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="520" y="463" class="lyr" text-anchor="middle">1 Physical</text>
+  <text x="675" y="463" class="pdu" text-anchor="middle">bit</text>
+
+  <!-- end-to-end vs chained brackets on the book model -->
+  <line x1="622" y1="108" x2="622" y2="288" stroke="#E2557A" stroke-width="2.5"/>
+  <rect x="608" y="185" width="14" height="14" fill="#E2557A"/>
+  <text x="630" y="150" class="sub" transform="rotate(90 630 150)" fill="#E2557A" font-weight="700">end-to-end (L4+)</text>
+
+  <line x1="622" y1="304" x2="622" y2="480" stroke="#2A1A2E" stroke-width="2.5"/>
+  <text x="630" y="345" class="sub" transform="rotate(90 630 345)" font-weight="700">chained / per-hop (L1&#8211;L3)</text>
+
+  <!-- footnote -->
+  <text x="30" y="520" class="sub">Book deletes OSI Presentation + Session. A router decrements IP TTL (RFC 791), recomputes the header</text>
+  <text x="30" y="538" class="sub">checksum, and rewrites the Ethernet header (IEEE 802.3) at every hop &#8212; but never touches the TCP segment.</text>
+</svg>

@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "In a BGP AS_PATH, which AS is the origin of the prefix?",
+      "options": [
+        "The first (leftmost) AS in the path",
+        "The last (rightmost) AS in the path",
+        "The peer AS that sent the UPDATE",
+        "The AS with the lowest number"
+      ],
+      "correct": 1,
+      "explanation": "AS_PATH is ordered most-recent-first; the rightmost AS is the origin that first announced the prefix."
+    },
+    {
+      "stage": "post",
+      "question": "A customer AS advertises a prefix whose true origin is one of its transits. What is this?",
+      "options": [
+        "An origin hijack",
+        "A route leak",
+        "A normal peer session",
+        "An RPKI NotFound"
+      ],
+      "correct": 1,
+      "explanation": "Re-advertising a transit-learned route to another transit makes the customer an accidental transit; this is a route leak."
+    },
+    {
+      "stage": "post",
+      "question": "RPKI Route Origin Validation prevents which class of attack most directly?",
+      "options": [
+        "Route leaks from customers without ROAs",
+        "Origin hijacks where a forged AS claims a prefix with a published ROA",
+        "DDoS volumetric attacks",
+        "BGP session resets"
+      ],
+      "correct": 1,
+      "explanation": "A ROA binds prefix to origin ASN; a forged origin produces an Invalid validation result that enforcing routers reject."
+    }
+  ]
+}

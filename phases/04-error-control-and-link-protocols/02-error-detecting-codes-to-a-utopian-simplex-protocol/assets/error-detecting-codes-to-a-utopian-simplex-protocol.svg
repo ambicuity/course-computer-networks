@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .h { font-size: 15px; font-weight: 700; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: monospace; font-size: 13px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.5; }
+    .abox { fill: #FCE7EE; stroke: #E2557A; stroke-width: 1.5; }
+  </style>
+
+  <text x="40" y="40" class="title">Error-Detecting Codes &#8594; CRC &#8594; Utopia (Protocol 1)</text>
+
+  <!-- Three codes row -->
+  <text x="40" y="80" class="h">Three linear, systematic block codes (detection, not correction)</text>
+
+  <rect x="40" y="92" width="250" height="92" rx="6" class="box"/>
+  <text x="56" y="114" class="h">1. Parity</text>
+  <text x="56" y="136" class="lbl">XOR of data bits, Hamming distance 2</text>
+  <text x="56" y="156" class="mono">1011010 &#8594; 1011010<tspan class="accent">0</tspan></text>
+  <text x="56" y="176" class="lbl">detects all single-bit errors</text>
+
+  <rect x="305" y="92" width="265" height="92" rx="6" class="box"/>
+  <text x="321" y="114" class="h">2. Internet checksum</text>
+  <text x="321" y="136" class="lbl">16-bit one's-complement sum (RFC 1071)</text>
+  <text x="321" y="156" class="lbl">end-around carry fold; used by IPv4/TCP/UDP</text>
+  <text x="321" y="176" class="lbl">catches word-aligned bit pairs parity misses</text>
+
+  <rect x="585" y="92" width="255" height="92" rx="6" class="abox"/>
+  <text x="601" y="114" class="h accent">3. CRC (polynomial)</text>
+  <text x="601" y="136" class="lbl">remainder of mod-2 division by G(x)</text>
+  <text x="601" y="156" class="lbl">IEEE 802.3: 0x04C11DB7, r = 32</text>
+  <text x="601" y="176" class="lbl">all bursts &#8804; r; in hardware shift registers</text>
+
+  <!-- CRC worked example -->
+  <text x="40" y="222" class="h">CRC long division — frame 1101011111, G(x) = x&#8308; + x + 1 (Fig. 3-9)</text>
+  <rect x="40" y="234" width="500" height="150" rx="6" class="box"/>
+  <text x="56" y="258" class="mono">M(x)   = 1101011111            (degree 9)</text>
+  <text x="56" y="280" class="mono">x&#8308;M(x) = 1101011111<tspan class="accent">0000</tspan>        (append r=4 zeros)</text>
+  <text x="56" y="302" class="mono">divide by 10011  (mod-2, XOR)</text>
+  <text x="56" y="324" class="mono">remainder (CRC) = <tspan class="accent">0010</tspan></text>
+  <text x="56" y="346" class="mono">T(x) = 1101011111<tspan class="accent">0010</tspan>   divisible by G(x)</text>
+  <text x="56" y="372" class="mono">receiver: T(x) mod G(x) = 0  &#8594; frame OK</text>
+
+  <!-- arrow to detection -->
+  <rect x="560" y="234" width="280" height="150" rx="6" class="abox"/>
+  <text x="576" y="258" class="h accent">Detection power</text>
+  <text x="576" y="282" class="lbl">all single-bit errors (G has &#8805; 2 terms)</text>
+  <text x="576" y="304" class="lbl">all odd errors (x+1 divides G)</text>
+  <text x="576" y="326" class="lbl">all double errors within frame length</text>
+  <text x="576" y="348" class="lbl">all bursts of length &#8804; r</text>
+  <text x="576" y="370" class="lbl accent">undetected longer burst prob &#8776; (&#189;)&#8319;</text>
+
+  <!-- Utopia protocol -->
+  <text x="40" y="424" class="h">Protocol 1 — A Utopian Simplex Protocol (error-free channel)</text>
+
+  <rect x="40" y="436" width="200" height="96" rx="6" class="box"/>
+  <text x="56" y="458" class="h">sender1</text>
+  <text x="56" y="480" class="mono">from_network_layer</text>
+  <text x="56" y="500" class="mono">s.info = buffer</text>
+  <text x="56" y="520" class="mono">to_physical_layer(s)</text>
+
+  <line x1="240" y1="484" x2="360" y2="484" stroke="#E2557A" stroke-width="2.5"/>
+  <polygon points="360,484 350,479 350,489" fill="#E2557A"/>
+  <text x="248" y="476" class="lbl accent">perfect wire: no loss,</text>
+  <text x="248" y="510" class="lbl accent">no damage, no reorder</text>
+
+  <rect x="360" y="436" width="210" height="96" rx="6" class="box"/>
+  <text x="376" y="458" class="h">receiver1</text>
+  <text x="376" y="480" class="mono">wait_for_event</text>
+  <text x="376" y="500" class="mono">from_physical_layer(r)</text>
+  <text x="376" y="520" class="mono">to_network_layer(r.info)</text>
+
+  <rect x="590" y="436" width="250" height="96" rx="6" class="abox"/>
+  <text x="606" y="458" class="h accent">Why no checksum here</text>
+  <text x="606" y="480" class="lbl">no seq numbers, no ACKs</text>
+  <text x="606" y="500" class="lbl">no flow control, no timers</text>
+  <text x="606" y="520" class="lbl">only event: frame_arrival</text>
+</svg>

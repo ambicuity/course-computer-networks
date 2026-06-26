@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why does CUBIC replace Reno's linear cwnd growth with a cubic function of time since the last loss?",
+    "options": [
+      "A. Because linear growth is mathematically incorrect",
+      "B. Because CUBIC scales by time rather than by RTT, giving long-RTT flows a chance to compete fairly with short-RTT flows",
+      "C. Because the cubic function is easier to compute",
+      "D. Because RFC 8312 mandates it"
+    ],
+    "answer": 1,
+    "explanation": "Under Reno, a 100 ms-RTT flow and a 10 ms-RTT flow both add 1 MSS per RTT. In absolute bytes/second the long-RTT flow is 10x slower, so it loses out at any bottleneck shared with a short-RTT flow. CUBIC grows cwnd as a cubic function of wall-clock time since the last loss -- W(t) = C*(t-K)^3 + W_max -- so long-RTT and short-RTT flows advance at the same rate per second (RTT-fairness)."
+  },
+  {
+    "question": "How does SACK reduce the bandwidth wasted by a single packet loss compared with cumulative ACK?",
+    "options": [
+      "A. By encrypting the lost segments",
+      "B. By allowing the receiver to report up to 3 ranges of bytes received out of order, so the sender retransmits only the missing ranges instead of everything from the first lost byte",
+      "C. By increasing the window size",
+      "D. By changing the checksum algorithm"
+    ],
+    "answer": 1,
+    "explanation": "Cumulative ACK tells the sender only 'next byte expected is N', so the sender must retransmit everything from N onward -- potentially many segments. SACK (RFC 2018, refined RFC 2883) lets the receiver list up to 3 ranges of bytes it has buffered out of order. The sender, guided by RFC 3517, retransmits only the gaps. The savings are dramatic on a high-BDP path: a single packet loss costs 35 retransmits under cumulative ACK but only 2 with SACK."
+  },
+  {
+    "question": "Why does BBR achieve better throughput than Reno on a path with deep buffers (bufferbloat)?",
+    "options": [
+      "A. Because BBR runs only on UDP",
+      "B. Because BBR is model-based: it paces at the estimated bottleneck bandwidth and targets an inflight of BDP, so it reacts to measured delay growth instead of packet loss",
+      "C. Because BBR skips the handshake",
+      "D. Because BBR uses a larger initial window"
+    ],
+    "answer": 1,
+    "explanation": "Reno treats any queue build-up as 'congestion approaching' and halves cwnd on the first loss, which under bufferbloat produces a saw-tooth well below the link capacity. BBR (RFC 9067) estimates two quantities -- BtlBw (max delivery rate over a recent window) and RTprop (min RTT when the path was not queued) -- and tries to hold BDP bytes in flight. It reacts to measured delay growth rather than loss, so a path with 200 ms of queue-induced delay does not force BBR to slow down."
+  }
+]

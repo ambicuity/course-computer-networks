@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why does adding redundancy to encrypted messages reduce the success rate of a random forgery attack?",
+    "options": [
+      "A. Redundancy makes the cipher harder to invert",
+      "B. The receiver rejects any decrypted message whose structure does not match the expected redundant pattern, so random ciphertexts almost never produce a valid structure",
+      "C. Redundancy replaces the encryption",
+      "D. Redundancy changes the key length"
+    ],
+    "answer": 1,
+    "explanation": "Encryption stops a passive eavesdropper but does not stop an active intruder from sending random ciphertexts. Redundancy (e.g. a 9-byte zero prefix) gives the receiver a structural validity test; random ciphertexts almost never produce the expected pattern, so forgery fails with probability ~2^-72 (chapter, section 8.1.5)."
+  },
+  {
+    "question": "Which of the following is NOT a valid freshness mechanism against replay attacks?",
+    "options": [
+      "A. Embed a timestamp inside the encrypted payload and reject messages older than 10 seconds",
+      "B. Include a per-message nonce and have the receiver track all nonces seen",
+      "C. Use a longer encryption key",
+      "D. Issue a random challenge that the next message must echo inside its encryption"
+    ],
+    "answer": 2,
+    "explanation": "Key length is unrelated to freshness; the chapter lists timestamp, nonce, and challenge-response as the three canonical mechanisms. A longer key increases computational security but does nothing to stop the attacker from re-sending a previously valid ciphertext."
+  },
+  {
+    "question": "What does the receiver of a Kerberos authenticator check to ensure freshness, beyond format validity?",
+    "options": [
+      "A. The IP source address matches the claimed principal",
+      "B. The timestamp is within 5 minutes (default clock skew window) and the nonce has not been seen recently",
+      "C. The TLS cipher suite is AES-256",
+      "D. The TCP checksum is non-zero"
+    ],
+    "answer": 1,
+    "explanation": "Kerberos authenticators (RFC 4120, section 5.5.1) embed a timestamp plus a nonce from the ticket-granting ticket exchange; the server rejects authenticators outside the configured clock skew window (default 5 minutes) or with a replayed nonce. This is a textbook application of cryptographic principle 2 (freshness)."
+  }
+]

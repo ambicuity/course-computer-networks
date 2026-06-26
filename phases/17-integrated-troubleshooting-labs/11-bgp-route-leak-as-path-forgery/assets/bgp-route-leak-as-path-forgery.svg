@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+    .bad { fill: #E2557A; }
+    .good { fill: #2A1A2E; }
+  </style>
+
+  <text x="40" y="46" class="title">BGP Route Leak vs Origin Hijack</text>
+  <text x="40" y="68" class="sub">AS64555 re-advertises 203.0.113.0/24 from AS64666; AS64888 forges origin</text>
+
+  <!-- AS64600: legitimate origin -->
+  <rect x="40" y="120" width="200" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="148" text-anchor="middle" class="node good">AS64600 (origin)</text>
+  <text x="140" y="170" text-anchor="middle" class="mono">203.0.113.0/24</text>
+  <text x="140" y="190" text-anchor="middle" class="label">ROA: origin=64600, max=24</text>
+
+  <!-- AS64666: transit -->
+  <rect x="320" y="120" width="200" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="420" y="148" text-anchor="middle" class="node">AS64666 (transit)</text>
+  <text x="420" y="170" text-anchor="middle" class="mono">legit: AS_PATH=[64666 64600]</text>
+  <text x="420" y="190" text-anchor="middle" class="label">rpki: Valid</text>
+
+  <!-- AS64555: leaker -->
+  <rect x="40" y="290" width="200" height="100" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="140" y="318" text-anchor="middle" class="node bad">AS64555 (leaker)</text>
+  <text x="140" y="340" text-anchor="middle" class="mono">customer of AS64666</text>
+  <text x="140" y="360" text-anchor="middle" class="mono">announces 203.0.113.0/24</text>
+  <text x="140" y="378" text-anchor="middle" class="label bad">AS_PATH=[64555]</text>
+
+  <!-- AS64888: hijacker -->
+  <rect x="320" y="290" width="200" height="100" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="320" y="318" class="node bad" text-anchor="start">AS64888 (hijacker)</text>
+  <text x="320" y="340" class="mono" text-anchor="start">forges origin</text>
+  <text x="320" y="360" class="mono" text-anchor="start">AS_PATH=[64888]</text>
+  <text x="320" y="378" class="label bad" text-anchor="start">rpki: Invalid (origin=64600 ROA)</text>
+
+  <!-- AS64700: peer -->
+  <rect x="600" y="200" width="260" height="160" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="730" y="226" text-anchor="middle" class="node good">AS64700 (peer)</text>
+  <text x="730" y="248" text-anchor="middle" class="label">sees three different UPDATE streams:</text>
+  <text x="610" y="276" class="mono">[64700 64666 64600]  Valid   (legit)</text>
+  <text x="610" y="296" class="mono bad">[64700 64666 64555]  NotFound or Valid (LEAK)</text>
+  <text x="610" y="316" class="mono bad">[64700 64888]         Invalid (HIJACK)</text>
+  <text x="610" y="346" class="label">RFC 6811 ROV should drop the Invalid</text>
+
+  <!-- Arrows: legit -->
+  <line x1="240" y1="170" x2="320" y2="170" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="320,170 310,166 310,174" fill="#2A1A2E"/>
+  <text x="280" y="160" class="label good">eBGP legit</text>
+
+  <line x1="520" y1="170" x2="600" y2="240" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="600,240 590,236 590,244" fill="#2A1A2E"/>
+  <text x="560" y="195" class="label good">propagated</text>
+
+  <!-- Arrows: leak -->
+  <line x1="140" y1="290" x2="380" y2="220" stroke="#E2557A" stroke-width="2" stroke-dasharray="5 3"/>
+  <polygon points="380,220 370,217 374,225" fill="#E2557A"/>
+  <text x="190" y="260" class="label bad">LEAK  customer to transit</text>
+
+  <!-- Arrows: forgery -->
+  <line x1="520" y1="320" x2="600" y2="280" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <polygon points="600,280 590,277 594,285" fill="#E2557A"/>
+  <text x="540" y="305" class="label bad">FORGED</text>
+
+  <!-- Bottom: defense -->
+  <rect x="40" y="430" width="840" height="110" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="454" class="node">Defense in depth</text>
+  <text x="60" y="478" class="mono">1. RPKI ROV -- reject Invalid (catches the hijack)</text>
+  <text x="60" y="500" class="mono">2. IRR-based prefix-list per customer -- stops the leak at import</text>
+  <text x="60" y="522" class="mono">3. enforce-first-as -- blocks path-injection attempts</text>
+</svg>

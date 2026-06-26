@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" width="720" height="520">
+  <rect width="720" height="520" fill="#FFF7EC"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="bold" fill="#2A1A2E">Wireless Security: WPA2 Handshake and WEP-to-CCMP Evolution</text>
+
+  <!-- Parking lot attack -->
+  <text x="40" y="56" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">The Parking-Lot Attack</text>
+  <rect x="60" y="70" width="100" height="40" rx="4" fill="#E8DCC8" stroke="#2A1A2E"/>
+  <text x="110" y="94" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">Base Station</text>
+  <path d="M 160 90 Q 250 70 340 90" fill="none" stroke="#E2557A" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="250" y="66" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">radio (300m)</text>
+  <rect x="340" y="70" width="100" height="40" rx="4" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="390" y="88" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">Attacker</text>
+  <text x="390" y="102" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">(parking lot)</text>
+  <text x="460" y="90" font-family="monospace" font-size="9" fill="#2A1A2E">← radio passes</text>
+  <text x="460" y="102" font-family="monospace" font-size="9" fill="#2A1A2E">  over firewall</text>
+
+  <!-- Four-packet handshake -->
+  <text x="40" y="140" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">WPA2 Four-Packet Handshake</text>
+  <line x1="130" y1="160" x2="130" y2="330" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="550" y1="160" x2="550" y2="330" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="130" y="156" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="#2A1A2E">Client</text>
+  <text x="550" y="156" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="#2A1A2E">AP</text>
+
+  <line x1="130" y1="180" x2="550" y2="180" stroke="#E2557A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="340" y="175" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">1. nonce_AP</text>
+  <text x="340" y="188" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">AP sends random nonce</text>
+
+  <line x1="550" y1="210" x2="130" y2="210" stroke="#E2557A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="340" y="205" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">2. nonce_C + MIC</text>
+  <text x="340" y="218" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">client computes K_S from nonces+MACs+master key</text>
+
+  <line x1="130" y1="245" x2="550" y2="245" stroke="#E2557A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="340" y="240" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">3. group key K_G + MIC</text>
+  <text x="340" y="253" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">AP verifies MIC, distributes broadcast key</text>
+
+  <line x1="550" y1="280" x2="130" y2="280" stroke="#E2557A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="340" y="275" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">4. ACK + MIC</text>
+  <text x="340" y="288" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">client confirms; both have K_S and K_G</text>
+
+  <rect x="200" y="300" width="280" height="22" rx="3" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="340" y="315" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Session key K_S = f(master_key, nonce_AP, nonce_C, MAC_AP, MAC_C)</text>
+
+  <!-- WEP vs CCMP -->
+  <text x="40" y="352" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">Evolution: WEP -> TKIP -> CCMP</text>
+  <rect x="60" y="362" width="150" height="56" rx="4" fill="#E2557A" stroke="#2A1A2E" opacity="0.7"/>
+  <text x="135" y="380" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#FFF7EC">WEP (broken)</text>
+  <text x="135" y="395" text-anchor="middle" font-family="monospace" font-size="8" fill="#FFF7EC">RC4 weak keying</text>
+  <text x="135" y="408" text-anchor="middle" font-family="monospace" font-size="8" fill="#FFF7EC">32-bit CRC integrity</text>
+
+  <rect x="230" y="362" width="150" height="56" rx="4" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="305" y="380" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#2A1A2E">TKIP (interim)</text>
+  <text x="305" y="395" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">improved RC4</text>
+  <text x="305" y="408" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">Michael MIC (now broken)</text>
+
+  <rect x="400" y="362" width="150" height="56" rx="4" fill="#E8DCC8" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="475" y="380" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#2A1A2E">CCMP (recommended)</text>
+  <text x="475" y="395" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">AES-128 counter mode</text>
+  <text x="475" y="408" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">CBC-MAC integrity</text>
+
+  <line x1="210" y1="390" x2="230" y2="390" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="380" y1="390" x2="400" y2="390" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Bluetooth -->
+  <text x="40" y="450" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">Bluetooth</text>
+  <text x="40" y="468" font-family="monospace" font-size="9" fill="#2A1A2E">Passkey: 4 digits (10^4) pre-2.1, 6 digits (10^6) post-2.1</text>
+  <text x="40" y="482" font-family="monospace" font-size="9" fill="#2A1A2E">Cipher: E0 stream cipher | Integrity: SAFER+</text>
+  <text x="40" y="496" font-family="monospace" font-size="9" fill="#E2557A">Authenticates DEVICES not USERS — device theft = account access</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

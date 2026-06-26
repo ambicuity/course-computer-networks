@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" width="720" height="480">
+  <rect width="720" height="480" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; }
+    .berry { fill: #E2557A; }
+    .stroke { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+    .arrow { stroke: #2A1A2E; stroke-width: 2; fill: none; marker-end: url(#arr); }
+    .barrow { stroke: #E2557A; stroke-width: 2; fill: none; marker-end: url(#barr); }
+    text { font-family: 'Inter', sans-serif; }
+    .mono { font-family: monospace; }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="barr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+  <text x="360" y="36" text-anchor="middle" class="ink" font-size="18" font-weight="bold">Symmetric-Key Signatures: The Big Brother Protocol</text>
+  <!-- Principals -->
+  <g>
+    <circle cx="120" cy="130" r="38" class="stroke"/>
+    <text x="120" y="126" text-anchor="middle" class="ink" font-size="14" font-weight="bold">Alice</text>
+    <text x="120" y="144" text-anchor="middle" class="ink mono" font-size="10">key K_A</text>
+    <rect x="300" y="92" width="120" height="76" rx="8" class="stroke" fill="#FFF"/>
+    <text x="360" y="118" text-anchor="middle" class="ink" font-size="14" font-weight="bold">Big Brother</text>
+    <text x="360" y="138" text-anchor="middle" class="ink mono" font-size="10">key K_BB</text>
+    <text x="360" y="156" text-anchor="middle" class="berry mono" font-size="9">trusted authority</text>
+    <circle cx="600" cy="130" r="38" class="stroke"/>
+    <text x="600" y="126" text-anchor="middle" class="ink" font-size="14" font-weight="bold">Bob</text>
+    <text x="600" y="144" text-anchor="middle" class="ink mono" font-size="10">key K_B</text>
+  </g>
+  <!-- Step 1: Alice -> BB -->
+  <path d="M158 118 Q 240 80, 300 110" class="arrow"/>
+  <text x="230" y="74" text-anchor="middle" class="ink mono" font-size="10">① A, K_A(B, R_A, t, P)</text>
+  <text x="230" y="60" text-anchor="middle" class="berry" font-size="10">Alice signs under K_A</text>
+  <!-- Step 2: BB -> Bob -->
+  <path d="M420 110 Q 500 80, 562 118" class="barrow"/>
+  <text x="490" y="74" text-anchor="middle" class="ink mono" font-size="10">② K_B(A, R_A, t, P, K_BB(A,t,P))</text>
+  <text x="490" y="60" text-anchor="middle" class="berry" font-size="10">BB re-signs + adds K_BB signature</text>
+  <!-- Replay defense box -->
+  <rect x="500" y="200" width="180" height="80" rx="6" class="stroke" fill="#FFF"/>
+  <text x="590" y="222" text-anchor="middle" class="ink" font-size="12" font-weight="bold">Bob's checks</text>
+  <text x="510" y="240" class="ink mono" font-size="9">• timestamp t fresh?</text>
+  <text x="510" y="256" class="ink mono" font-size="9">• nonce R_A not seen?</text>
+  <text x="510" y="272" class="ink mono" font-size="9">• K_BB sig valid?</text>
+  <!-- Court scene -->
+  <text x="360" y="230" text-anchor="middle" class="ink" font-size="13" font-weight="bold">Court dispute (nonrepudiation)</text>
+  <rect x="160" y="250" width="260" height="56" rx="6" class="stroke" fill="#FFF"/>
+  <text x="290" y="272" text-anchor="middle" class="ink mono" font-size="10">Bob shows Exhibit A:</text>
+  <text x="290" y="288" text-anchor="middle" class="berry mono" font-size="11" font-weight="bold">K_BB(A, t, P)</text>
+  <text x="290" y="302" text-anchor="middle" class="ink mono" font-size="9">Judge asks BB to verify → only BB can</text>
+  <!-- Weaknesses -->
+  <text x="360" y="345" text-anchor="middle" class="ink" font-size="13" font-weight="bold">Structural weaknesses</text>
+  <text x="120" y="370" class="ink" font-size="11">• BB reads every signed message</text>
+  <text x="120" y="390" class="ink" font-size="11">• Everyone must trust one authority</text>
+  <text x="120" y="410" class="ink" font-size="11">• BB is a single point of failure</text>
+  <text x="380" y="370" class="berry" font-size="11">→ fixed by public-key signatures</text>
+  <text x="380" y="390" class="berry" font-size="11">→ fixed by PKI multi-root (lesson 05)</text>
+  <text x="380" y="410" class="berry" font-size="11">→ fixed by KDC/Kerberos (lessons 07-08)</text>
+  <text x="360" y="450" text-anchor="middle" class="ink mono" font-size="9">Source: Tanenbaum §8.4.1 | RFC 2104 HMAC</text>
+</svg>

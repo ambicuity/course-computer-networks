@@ -1,0 +1,35 @@
+[
+  {
+    "question": "A response carries Cache-Control: max-age=300 and Date: 14:00:00. The current time is 14:04:00. According to RFC 7234, is the cached copy fresh?",
+    "options": [
+      "A. Yes, the age is 240 s which is less than 300 s",
+      "B. No, the response is always stale after any nonzero time",
+      "C. Yes, because Date always implies freshness",
+      "D. Only if the server also sends ETag"
+    ],
+    "answer": 0,
+    "explanation": "Age = current - Date = 240 s. max-age = 300 s. Since 240 < 300 the cached copy is still fresh; the cache can serve it without contacting the origin."
+  },
+  {
+    "question": "The client sends If-None-Match: \"v1\" and the server's current ETag is \"v1\". What does the server return?",
+    "options": [
+      "A. 200 OK with the body again",
+      "B. 304 Not Modified with no body",
+      "C. 412 Precondition Failed",
+      "D. 416 Requested Range Not Satisfiable"
+    ],
+    "answer": 1,
+    "explanation": "RFC 7232 §4.1: matching ETag means the cached copy is current. The server replies 304 Not Modified with no body; the client reuses its cached body."
+  },
+  {
+    "question": "A server sends Vary: Accept-Encoding. What does this mean to a shared cache?",
+    "options": [
+      "A. The response is invalid",
+      "B. The cache key includes the Accept-Encoding header value, so gzip and identity responses are stored separately",
+      "C. The response is always private",
+      "D. The response must be served uncompressed"
+    ],
+    "answer": 1,
+    "explanation": "Vary tells the cache which request headers affect the response (RFC 7234 §4.1). With Vary: Accept-Encoding, a gzip response and an uncompressed response are different cache entries and will not be served to the wrong client."
+  }
+]

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560">
+  <rect width="820" height="560" fill="#FFF7EC"/>
+  <style>
+    .title { font: 700 22px Inter, sans-serif; fill: #2A1A2E; }
+    .sub   { font: 400 13px Inter, sans-serif; fill: #2A1A2E; }
+    .lyr   { font: 600 14px Inter, sans-serif; fill: #2A1A2E; }
+    .ev    { font: 400 11px monospace; fill: #2A1A2E; }
+    .rfc   { font: 700 11px monospace; fill: #E2557A; }
+    .tag   { font: 600 12px Inter, sans-serif; fill: #FFF7EC; }
+    .small { font: 400 11px Inter, sans-serif; fill: #2A1A2E; }
+  </style>
+
+  <text x="40" y="44" class="title">Layered bisection: symptom &#8594; RFC MUST &#8594; evidence</text>
+  <text x="40" y="66" class="sub">Each layer owns falsifiable evidence. Stop at the first MUST the wire does not show.</text>
+
+  <!-- symptom box -->
+  <rect x="40" y="86" width="740" height="40" rx="6" fill="#2A1A2E"/>
+  <text x="56" y="111" class="tag">SYMPTOM: large HTTPS responses hang over VPN, small pages work</text>
+
+  <!-- direction arrows -->
+  <text x="612" y="150" class="small">bottom-up: suspect infra</text>
+  <text x="612" y="166" class="small">top-down: suspect the app</text>
+  <line x1="760" y1="190" x2="760" y2="470" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="760,470 754,458 766,458" fill="#E2557A"/>
+  <polygon points="760,190 754,202 766,202" fill="#E2557A"/>
+  <text x="585" y="195" class="rfc">L7</text>
+  <text x="585" y="465" class="rfc">L1</text>
+
+  <!-- layer rows -->
+  <!-- L7 -->
+  <rect x="40" y="178" width="540" height="46" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="40" y="178" width="46" height="46" rx="6" fill="#E2557A"/>
+  <text x="52" y="206" class="tag">L7</text>
+  <text x="98" y="200" class="lyr">Application</text>
+  <text x="98" y="217" class="ev">curl -v / dig &#8594; HTTP status, DNS RRs, TLS alert</text>
+  <text x="420" y="207" class="rfc">RFC 7231</text>
+  <circle cx="535" cy="201" r="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="531" y="205" class="ev">&#10003;</text>
+
+  <!-- L4 -->
+  <rect x="40" y="232" width="540" height="46" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="40" y="232" width="46" height="46" rx="6" fill="#E2557A"/>
+  <text x="52" y="260" class="tag">L4</text>
+  <text x="98" y="254" class="lyr">Transport</text>
+  <text x="98" y="271" class="ev">ss -tan &#8594; SYN/ACK/RST/FIN, seq/ack, ESTABLISHED</text>
+  <text x="420" y="261" class="rfc">RFC 793</text>
+  <circle cx="535" cy="255" r="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="531" y="259" class="ev">&#10003;</text>
+
+  <!-- L3 - falsified -->
+  <rect x="40" y="286" width="540" height="46" rx="6" fill="#E2557A"/>
+  <rect x="40" y="286" width="46" height="46" rx="6" fill="#2A1A2E"/>
+  <text x="52" y="314" class="tag">L3</text>
+  <text x="98" y="308" class="tag">Network &#8212; FALSIFIED HERE</text>
+  <text x="98" y="325" style="font:400 11px monospace; fill:#FFF7EC">tcpdump 'icmp[icmptype]==3 and icmp[icmpcode]==4' &#8594; absent</text>
+  <text x="445" y="315" style="font:700 11px monospace; fill:#2A1A2E">RFC 1191</text>
+  <circle cx="535" cy="309" r="10" fill="#2A1A2E"/>
+  <text x="531" y="313" style="font:400 11px monospace; fill:#FFF7EC">&#10007;</text>
+
+  <!-- L2 -->
+  <rect x="40" y="340" width="540" height="46" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="40" y="340" width="46" height="46" rx="6" fill="#E2557A"/>
+  <text x="52" y="368" class="tag">L2</text>
+  <text x="98" y="362" class="lyr">Data Link</text>
+  <text x="98" y="379" class="ev">ip neigh &#8594; ARP: 32-bit IPv4 &#8594; 48-bit MAC</text>
+  <text x="420" y="369" class="rfc">RFC 826</text>
+  <circle cx="535" cy="363" r="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="531" y="367" class="ev">&#10003;</text>
+
+  <!-- L1 -->
+  <rect x="40" y="394" width="540" height="46" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="40" y="394" width="46" height="46" rx="6" fill="#E2557A"/>
+  <text x="52" y="422" class="tag">L1</text>
+  <text x="98" y="416" class="lyr">Physical</text>
+  <text x="98" y="433" class="ev">ip link / ethtool -S &#8594; carrier, error counters</text>
+  <text x="405" y="423" class="rfc">IEEE 802.3</text>
+  <circle cx="535" cy="417" r="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="531" y="421" class="ev">&#10003;</text>
+
+  <!-- diagnosis -->
+  <rect x="40" y="470" width="740" height="64" rx="6" fill="#2A1A2E"/>
+  <text x="56" y="494" class="tag">DIAGNOSIS &#8212; RFC 1191 MUST violated: required ICMP "Fragmentation Needed,</text>
+  <text x="56" y="512" class="tag">DF set" (Type 3 / Code 4) is dropped &#8594; PMTUD black hole.</text>
+  <text x="56" y="528" style="font:600 12px Inter, sans-serif; fill:#E2557A">FIX: clamp TCP MSS to the path MTU (TCPMSS --clamp-mss-to-pmtu).</text>
+</svg>

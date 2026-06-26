@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .h  { font-size: 20px; font-weight: 700; }
+    .lyr{ font-size: 14px; font-weight: 600; }
+    .sm { font-size: 11px; fill: #2A1A2E; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .acc { fill: #E2557A; }
+    .box{ fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.5; }
+    .accbox{ fill: #FBE3EA; stroke: #E2557A; stroke-width: 1.5; }
+  </style>
+
+  <text x="30" y="36" class="h">Bluetooth classic stack: radio up to L2CAP</text>
+
+  <!-- Stack column -->
+  <rect class="accbox" x="30" y="58" width="330" height="34"/>
+  <text x="40" y="80" class="lyr">Profiles (headset, A2DP, HID)  —  vertical slices</text>
+
+  <rect class="box" x="30" y="98" width="330" height="34"/>
+  <text x="40" y="120" class="lyr">L2CAP  —  segment/reassemble, mux, retransmit, QoS</text>
+
+  <!-- HCI line -->
+  <line x1="20" y1="146" x2="370" y2="146" stroke="#E2557A" stroke-width="2" stroke-dasharray="7 4"/>
+  <text x="375" y="150" class="sm acc">HCI line: host above / chip below</text>
+
+  <rect class="box" x="30" y="158" width="330" height="34"/>
+  <text x="40" y="180" class="lyr">Link manager  —  pairing, encryption, link setup</text>
+
+  <rect class="box" x="30" y="198" width="330" height="44"/>
+  <text x="40" y="218" class="lyr">Link control (baseband) ≈ MAC</text>
+  <text x="40" y="234" class="sm">625-µs slots, TDM, 1/3/5-slot frames, 18-bit header</text>
+
+  <rect class="accbox" x="30" y="248" width="330" height="44"/>
+  <text x="40" y="268" class="lyr acc">Radio layer (PHY)</text>
+  <text x="40" y="284" class="sm">2.4-GHz ISM · 79 × 1 MHz · 1600 hops/s · GFSK 1 Mbps</text>
+
+  <!-- Slot timeline -->
+  <text x="30" y="330" class="lyr">Piconet TDM: 625-µs slots (master=even, slave=odd)</text>
+  <g>
+    <rect class="accbox" x="30"  y="342" width="55" height="30"/>
+    <rect class="box"    x="85"  y="342" width="55" height="30"/>
+    <rect class="accbox" x="140" y="342" width="55" height="30"/>
+    <rect class="box"    x="195" y="342" width="55" height="30"/>
+    <rect class="accbox" x="250" y="342" width="55" height="30"/>
+    <text x="48"  y="362" class="sm">M s0</text>
+    <text x="103" y="362" class="sm">S s1</text>
+    <text x="158" y="362" class="sm">M s2</text>
+    <text x="213" y="362" class="sm">S s3</text>
+    <text x="268" y="362" class="sm">M s4</text>
+    <text x="320" y="362" class="sm acc">hop only between frames</text>
+  </g>
+
+  <!-- Header decode -->
+  <text x="30" y="412" class="lyr">Header: 18 logical bits → 54 transmitted (×3, majority vote)</text>
+  <g>
+    <rect class="box" x="30"  y="424" width="60" height="28"/><text x="40" y="442" class="sm">Addr 3</text>
+    <rect class="box" x="90"  y="424" width="60" height="28"/><text x="100" y="442" class="sm">Type 4</text>
+    <rect class="box" x="150" y="424" width="34" height="28"/><text x="158" y="442" class="sm">F</text>
+    <rect class="box" x="184" y="424" width="34" height="28"/><text x="194" y="442" class="sm">A</text>
+    <rect class="box" x="218" y="424" width="34" height="28"/><text x="228" y="442" class="sm">S</text>
+    <rect class="accbox" x="252" y="424" width="90" height="28"/><text x="262" y="442" class="sm">HEC 8</text>
+  </g>
+  <text x="30" y="476" class="mono">copy1=11_  copy2=1<tspan class="acc">0</tspan>_  copy3=11_   →  vote = 1</text>
+  <text x="30" y="494" class="sm">One flipped copy is outvoted: cheap 2.5-mW radios, noisy band.</text>
+
+  <!-- Link types -->
+  <rect class="box" x="430" y="200" width="300" height="64"/>
+  <text x="442" y="222" class="lyr">SCO link</text>
+  <text x="442" y="240" class="sm">fixed slot · never retransmit · FEC</text>
+  <text x="442" y="256" class="sm">one 64-kbps PCM voice · up to 3/slave</text>
+
+  <rect class="accbox" x="430" y="272" width="300" height="64"/>
+  <text x="442" y="294" class="lyr acc">ACL link</text>
+  <text x="442" y="312" class="sm">best-effort · stop-and-wait retransmit</text>
+  <text x="442" y="328" class="sm">from L2CAP (≤64 KB) · one per slave</text>
+
+  <!-- AFH -->
+  <rect class="box" x="430" y="56" width="300" height="120"/>
+  <text x="442" y="78" class="lyr acc">Adaptive Frequency Hopping</text>
+  <text x="442" y="98" class="sm">79 channels; prune those busy with 802.11</text>
+  <g>
+    <rect x="442" y="110" width="6" height="22" fill="#E2557A"/>
+    <rect x="450" y="110" width="6" height="22" fill="#2A1A2E"/>
+    <rect x="458" y="110" width="6" height="22" fill="#E2557A"/>
+    <rect x="466" y="110" width="6" height="22" fill="#2A1A2E"/>
+    <rect x="474" y="110" width="6" height="22" fill="#E2557A"/>
+    <rect x="482" y="110" width="6" height="22" fill="#cbb8cf"/>
+    <rect x="490" y="110" width="6" height="22" fill="#cbb8cf"/>
+    <rect x="498" y="110" width="6" height="22" fill="#cbb8cf"/>
+    <rect x="506" y="110" width="6" height="22" fill="#2A1A2E"/>
+    <rect x="514" y="110" width="6" height="22" fill="#E2557A"/>
+    <rect x="522" y="110" width="6" height="22" fill="#cbb8cf"/>
+    <rect x="530" y="110" width="6" height="22" fill="#cbb8cf"/>
+    <rect x="538" y="110" width="6" height="22" fill="#2A1A2E"/>
+  </g>
+  <text x="442" y="152" class="sm">grey = pruned (Wi-Fi busy), kept = hop set</text>
+  <text x="442" y="168" class="sm">cures choppy SCO voice near busy APs</text>
+
+  <text x="430" y="376" class="sm acc">L2CAP feeds ACL · profiles pick which protocols to include</text>
+</svg>

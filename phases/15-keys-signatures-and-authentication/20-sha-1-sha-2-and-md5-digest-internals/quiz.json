@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "In the Merkle–Damgård construction, why can an attacker compute H(M || padding || extension) knowing only H(M) and len(M), without knowing M?",
+      "options": [
+        "Because Merkle–Damgård uses a weak compression function that leaks the message",
+        "Because the final digest is itself a valid intermediate chaining state, so the attacker can feed it as the initial state for additional blocks",
+        "Because the padding is predictable and can be XORed out of the digest",
+        "Because SHA-256 uses a linear message schedule that is fully invertible"
+      ],
+      "correct": 1,
+      "explanation": "Merkle–Damgård outputs the compression-function state directly as the digest. That state is also the input to any further compression. An attacker who knows H(M) can reconstruct the glue padding (since len(M) is known) and feed H(M) as the initial chaining value for new blocks, computing H(M || padding || extension) without ever learning M. HMAC defeats this length-extension attack by hashing under a secret key twice."
+    },
+    {
+      "stage": "pre",
+      "question": "A 56-byte message is hashed with SHA-256. After appending the mandatory 0x80 byte and the 64-bit length field, how many 512-bit (64-byte) blocks does the padded message occupy?",
+      "options": [
+        "1 block — 56 bytes already fits inside one block",
+        "2 blocks — the 0x80 byte pushes past the 56-byte mark, so zero-fill and the length field overflow into a second block",
+        "3 blocks — each padding component needs its own block",
+        "1 block — the length field replaces the last 8 message bytes in place"
+      ],
+      "correct": 1,
+      "explanation": "Padding must leave room for the 8-byte length and end on a 64-byte boundary, so data + 0x80 must reach 56 bytes mod 64. A 56-byte message plus the 0x80 byte is already 57 bytes, past 56, so it cannot fit the length in this block. Zero bytes fill to 120 (56 mod 64 in the second block) and the 8-byte length completes 128 bytes = two blocks. (A 55-byte message is the largest that still fits in a single block: 55 + 1 + 8 = 64.)"
+    },
+    {
+      "stage": "post",
+      "question": "What is the purpose of the SHA-256 message-schedule function σ0(x) = ROTR(x,7) XOR ROTR(x,18) XOR SHR(x,3)?",
+      "options": [
+        "To compress the 64 round words back into 16 words for the next block",
+        "To derive the 64 round constants K[0..63] from prime cube roots",
+        "To diffuse each input word's bits across many positions when extending the schedule from W[0..15] to W[16..63], making differential paths hard to engineer",
+        "To implement the Choice function used inside the T1 computation"
+      ],
+      "correct": 2,
+      "explanation": "Lowercase σ0 is a schedule mixing function. When computing W[i] = σ1(W[i-2]) + W[i-7] + σ0(W[i-15]) + W[i-16] for i = 16..63, σ0 and σ1 ensure a small change in any of the 16 input words spreads across many bit positions of the derived words. SHA-1's weaker schedule used only a 1-bit rotate, which Wang et al. exploited; SHA-256's asymmetric rotations and shifts make such paths infeasible."
+    },
+    {
+      "stage": "post",
+      "question": "MD5 uses four nonlinear functions across four groups of 16 rounds. Which function is applied in rounds 33–48 (the third group)?",
+      "options": [
+        "F(b,c,d) = (b AND c) OR (NOT b AND d)",
+        "G(b,c,d) = (b AND d) OR (c AND NOT d)",
+        "H(b,c,d) = b XOR c XOR d",
+        "I(b,c,d) = c XOR (b OR NOT d)"
+      ],
+      "correct": 2,
+      "explanation": "MD5's four groups use F (rounds 1–16), G (17–32), H (33–48), and I (49–64). H is a simple XOR parity function — the same structure SHA-1 uses in its second and fourth groups of 20 rounds. Alternating Choice-style and parity functions was meant to balance differential and linear cryptanalysis, but Wang et al. showed MD5's combination is insufficient."
+    },
+    {
+      "stage": "post",
+      "question": "What specific weakness in SHA-1's message schedule did Wang, Yin, and Yu exploit in their 2005 collision attack?",
+      "options": [
+        "The round constants are too small and allow direct algebraic inversion of the compression function",
+        "The single 1-bit left-rotate in W[i] = ROTL(W[i-3] XOR W[i-8] XOR W[i-14] XOR W[i-16], 1) is too narrow to diffuse differences, enabling a differential path through all 80 rounds",
+        "SHA-1 reuses the same 16 message words in all 80 rounds without any expansion",
+        "SHA-1's five working registers (a,b,c,d,e) create a linear dependency that cancels"
+      ],
+      "correct": 1,
+      "explanation": "SHA-1 expands 16 words to 80 using W[i] = ROTL(W[i-3] XOR W[i-8] XOR W[i-14] XOR W[i-16], 1). The single-bit rotation makes a bit difference propagate to a predictable position, so Wang et al. could build a differential characteristic that nets to zero difference after 80 rounds — two distinct messages reaching the same state. SHA-256's schedule uses multi-bit asymmetric rotations and right shifts that diffuse differences far faster, blocking such paths."
+    },
+    {
+      "stage": "post",
+      "question": "The SHAttered project (Stevens et al., 2017) produced the first practical SHA-1 collision. Which statement best describes what was demonstrated and its cost?",
+      "options": [
+        "Two random 512-bit messages with the same SHA-1 digest, found by birthday attack on a single GPU in under a day",
+        "Two distinct PDF files with identical SHA-1 digests, after roughly 9.2 × 10^18 SHA-1 compressions on GPU clusters costing about $110,000",
+        "A preimage attack that recovered the original message from a SHA-1 digest, demonstrating full key recovery",
+        "A second-preimage break runnable for free on any consumer laptop"
+      ],
+      "correct": 1,
+      "explanation": "SHAttered demonstrated an identical-prefix collision: two distinct PDFs sharing one SHA-1 digest — a collision, not a preimage attack. It required ~9.2 × 10^18 SHA-1 compressions across GPU clusters, ~$110,000 at 2017 rates; a chosen-prefix variant followed in 2020 for ~$45,000. Collision resistance is what TLS certificates, code signing, and Git rely on, which is why this retired SHA-1 from those uses."
+    }
+  ]
+}

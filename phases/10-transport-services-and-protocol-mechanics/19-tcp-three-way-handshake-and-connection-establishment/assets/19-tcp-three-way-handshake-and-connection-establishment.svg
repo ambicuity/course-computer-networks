@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 600" width="980" height="600">
+  <rect width="980" height="600" fill="#FFF7EC"/>
+  <style>text{font-family:Inter,sans-serif;fill:#2A1A2E}.t{font-size:22px;font-weight:700}.s{font-size:12px;fill:#6b5560}.h{font-size:13px;font-weight:700}.m{font-family:monospace;font-size:12px}.a{fill:#E2557A}.l{font-size:11px;fill:#6b5560}</style>
+  <text x="40" y="34" class="t">TCP Three-Way Handshake</text>
+  <text x="40" y="52" class="s">three segments to synchronize ISNs and allocate state on both sides</text>
+
+  <rect x="100" y="80" width="280" h="320" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="240" y="102" text-anchor="middle" class="h">Client</text>
+  <rect x="600" y="80" width="280" h="320" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="740" y="102" text-anchor="middle" class="h">Server</text>
+
+  <rect x="120" y="116" width="240" h="32" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="240" y="136" text-anchor="middle" class="m">CLOSED -&gt; SYN_SENT</text>
+  <rect x="620" y="116" width="240" h="32" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="740" y="136" text-anchor="middle" class="m">LISTEN -&gt; SYN_RCVD</text>
+  <rect x="120" y="352" width="240" h="32" rx="4" fill="#FFE9C8" stroke="#E2557A" stroke-width="2"/><text x="240" y="372" text-anchor="middle" class="m">ESTABLISHED</text>
+  <rect x="620" y="352" width="240" h="32" rx="4" fill="#FFE9C8" stroke="#E2557A" stroke-width="2"/><text x="740" y="372" text-anchor="middle" class="m">ESTABLISHED</text>
+
+  <line x1="380" y1="180" x2="600" y2="180" stroke="#E2557A" stroke-width="3"/>
+  <polygon points="600,180 590,174 590,186" fill="#E2557A"/>
+  <rect x="400" y="160" width="180" h="36" rx="4" fill="#FFF0F4" stroke="#E2557A"/>
+  <text x="490" y="178" text-anchor="middle" class="m">SYN  seq=x</text>
+  <text x="490" y="190" text-anchor="middle" class="l">consumes 1 byte of seq</text>
+
+  <line x1="600" y1="240" x2="380" y2="240" stroke="#E2557A" stroke-width="3"/>
+  <polygon points="380,240 390,234 390,246" fill="#E2557A"/>
+  <rect x="400" y="220" width="180" h="36" rx="4" fill="#FFF0F4" stroke="#E2557A"/>
+  <text x="490" y="238" text-anchor="middle" class="m">SYN+ACK  seq=y  ack=x+1</text>
+  <text x="490" y="250" text-anchor="middle" class="l">server picks its own ISN</text>
+
+  <line x1="380" y1="300" x2="600" y2="300" stroke="#E2557A" stroke-width="3"/>
+  <polygon points="600,300 590,294 590,306" fill="#E2557A"/>
+  <rect x="400" y="280" width="180" h="36" rx="4" fill="#FFF0F4" stroke="#E2557A"/>
+  <text x="490" y="298" text-anchor="middle" class="m">ACK  ack=y+1</text>
+  <text x="490" y="310" text-anchor="middle" class="l">may carry first data byte</text>
+
+  <rect x="100" y="420" width="780" h="100" rx="8" fill="#fff" stroke="#2A1A2E"/>
+  <text x="120" y="442" class="h">Why three, not two?</text>
+  <text x="120" y="462" class="l">The third ACK confirms to the server that the client's ISN was current, not a</text>
+  <text x="120" y="478" class="l">delayed duplicate from a prior connection (RFC 793; Saltzer-Reed-Clark 1975).</text>
+  <text x="120" y="500" class="l">Without it, a stale SYN could resurrect a closed connection -- the server's</text>
+  <text x="120" y="516" class="l">SYN+ACK would be acknowledged by an unrelated host, opening a phantom.</text>
+
+  <rect x="100" y="538" width="780" h="44" rx="8" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="120" y="558" class="h">SYN retransmission schedule (RFC 6298)</text>
+  <text x="120" y="576" class="m">t = 1s, 2s, 4s, 8s, 16s, 32s, 64s, 64s, 64s   -- give up after ~9 attempts / 75s, return ETIMEDOUT</text>
+
+  <rect x="890" y="80" width="60" h="280" rx="6" fill="#fff" stroke="#2A1A2E"/>
+  <text x="920" y="98" text-anchor="middle" class="h">SYN</text>
+  <text x="920" y="112" text-anchor="middle" class="h">Cookie</text>
+  <text x="920" y="134" text-anchor="middle" class="l">listen queue</text>
+  <text x="920" y="148" text-anchor="middle" class="l">full (4987)</text>
+  <rect x="896" y="158" width="48" h="20" rx="2" fill="#FFE9C8" stroke="#E2557A"/><text x="920" y="172" text-anchor="middle" class="m">ts(5)</text>
+  <rect x="896" y="182" width="48" h="20" rx="2" fill="#FFE9C8" stroke="#E2557A"/><text x="920" y="196" text-anchor="middle" class="m">mss(3)</text>
+  <rect x="896" y="206" width="48" h="20" rx="2" fill="#FFE9C8" stroke="#E2557A"/><text x="920" y="220" text-anchor="middle" class="m">hmac(24)</text>
+  <text x="920" y="244" text-anchor="middle" class="l">= 32-bit ISN</text>
+  <text x="920" y="262" text-anchor="middle" class="l">no server</text>
+  <text x="920" y="276" text-anchor="middle" class="l">state stored</text>
+  <text x="920" y="304" text-anchor="middle" class="l">caveat:</text>
+  <text x="920" y="318" text-anchor="middle" class="l">no win scale,</text>
+  <text x="920" y="332" text-anchor="middle" class="l">no SACK, fixed</text>
+  <text x="920" y="346" text-anchor="middle" class="l">MSS choice</text>
+</svg>

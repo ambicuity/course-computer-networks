@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the primary advantage of multicast over unicast for video distribution?",
+      "options": [
+        "Multicast is faster",
+        "Multicast sends one copy that forks at routers, reducing bandwidth vs. N unicast copies",
+        "Multicast uses less CPU",
+        "Multicast does not need routing"
+      ],
+      "correct": 1,
+      "explanation": "Multicast sends a single copy of each packet that is duplicated only at branch points in the distribution tree, saving bandwidth compared to unicast which sends N separate copies."
+    },
+    {
+      "stage": "post",
+      "question": "What is the role of the Rendezvous Point (RP) in PIM-SM?",
+      "options": [
+        "It encrypts multicast traffic",
+        "It is the root of the shared tree where sources register and receivers join",
+        "It assigns multicast addresses",
+        "It replaces the designated router"
+      ],
+      "correct": 1,
+      "explanation": "The RP is the central meeting point: sources register their streams with the RP, and receivers join the shared tree rooted at the RP to receive traffic."
+    },
+    {
+      "stage": "post",
+      "question": "What triggers the SPT (Shortest Path Tree) switchover in PIM-SM?",
+      "options": [
+        "When the RP fails",
+        "When traffic on the shared tree exceeds a configured rate threshold, the DR joins directly toward the source",
+        "When IGMPv3 is disabled",
+        "When all receivers leave"
+      ],
+      "correct": 1,
+      "explanation": "When a receiver's DR detects that traffic on the shared tree exceeds the SPT threshold, it sends a PIM Join directly toward the source, creating a shortest-path tree and then pruning the shared tree."
+    },
+    {
+      "stage": "post",
+      "question": "What happens when the last receiver on a LAN leaves a multicast group?",
+      "options": [
+        "Nothing changes; traffic continues flowing",
+        "The DR sends a PIM Prune toward the RP, removing that branch from the tree",
+        "The RP shuts down",
+        "The source stops sending"
+      ],
+      "correct": 1,
+      "explanation": "When no receivers remain on a LAN, the DR sends a PIM Prune message toward the RP, which prunes that branch from the distribution tree and stops traffic flowing to that LAN."
+    },
+    {
+      "stage": "post",
+      "question": "What is the difference between the shared tree (*,G) and the source tree (S,G)?",
+      "options": [
+        "They are the same thing with different names",
+        "The shared tree is rooted at the RP for all sources; the source tree is rooted at a specific source for lower latency",
+        "The source tree uses TCP; the shared tree uses UDP",
+        "The shared tree is always faster"
+      ],
+      "correct": 1,
+      "explanation": "The shared tree (*,G) is rooted at the RP and carries traffic from all sources for group G. The source tree (S,G) is rooted at a specific source S, providing a shorter path to receivers after switchover."
+    }
+  ]
+}

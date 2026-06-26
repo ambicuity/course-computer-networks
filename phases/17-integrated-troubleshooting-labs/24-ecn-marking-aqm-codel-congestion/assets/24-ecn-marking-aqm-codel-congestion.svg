@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">ECN Marking &amp; AQM (CoDel) Interaction</text>
+  <text x="40" y="68" class="sub">CoDel marks CE; receiver echoes ECE; sender halves CWND; throughput collapses</text>
+
+  <rect x="40" y="120" width="180" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="130" y="148" text-anchor="middle" class="node">Sender</text>
+  <text x="130" y="170" text-anchor="middle" class="mono">ECT(0) on data</text>
+  <text x="130" y="190" text-anchor="middle" class="label">tcp_ecn=1</text>
+
+  <rect x="320" y="100" width="220" height="160" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="430" y="128" text-anchor="middle" class="node accent">Egress CoDel</text>
+  <text x="430" y="150" text-anchor="middle" class="mono accent">target 5ms interval 100ms ecn</text>
+  <text x="430" y="172" text-anchor="middle" class="mono">ecn_mark 12045</text>
+  <text x="430" y="194" text-anchor="middle" class="label accent">marks CE, does not drop</text>
+  <text x="430" y="216" text-anchor="middle" class="label">sojourn time &gt; 5ms for &gt;100ms</text>
+  <text x="430" y="238" text-anchor="middle" class="label">cwnd: 42 -&gt; 21 (CWND halved)</text>
+
+  <rect x="640" y="120" width="200" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="740" y="148" text-anchor="middle" class="node">Receiver</text>
+  <text x="740" y="170" text-anchor="middle" class="mono">sees CE in ECN</text>
+  <text x="740" y="190" text-anchor="middle" class="label">echoes ECE in next ACK</text>
+
+  <line x1="220" y1="170" x2="320" y2="180" stroke="#2A1A2E" stroke-width="2.5"/>
+  <line x1="540" y1="200" x2="640" y2="170" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <text x="590" y="195" text-anchor="middle" class="label accent">CE marked</text>
+  <line x1="640" y1="190" x2="540" y2="220" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <text x="590" y="245" text-anchor="middle" class="label accent">ECE flag in ACK</text>
+
+  <rect x="40" y="300" width="840" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="328" class="node">ECN field (RFC 3168) and TCP ECN flag</text>
+
+  <text x="60" y="358" class="mono">ECN field (IPv4 TOS / IPv6 TC, lower 2 bits):</text>
+  <text x="60" y="378" class="mono">  00 = Not-ECT       01 = ECT(1)        10 = ECT(0)        11 = CE</text>
+  <text x="60" y="404" class="mono">TCP byte 13 layout (RFC 793 + RFC 3168):</text>
+  <text x="60" y="424" class="mono">  bit:  7   6   5   4   3   2   1   0</text>
+  <text x="60" y="444" class="mono">        CWR ECE URG ACK PSH RST SYN FIN</text>
+
+  <text x="60" y="476" class="node">Fix</text>
+  <text x="60" y="498" class="mono">  tc qdisc replace dev eth0 root codel target 5ms interval 100ms   (no `ecn`)</text>
+  <text x="60" y="518" class="mono">  sysctl -w net.ipv4.tcp_ecn=1     # negotiate, default</text>
+</svg>

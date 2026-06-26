@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A 1 Gbps link has 200 ms RTT. With MSS=1460, how many segments must be in flight to fill the link?",
+      "options": [
+        "A. 30",
+        "B. 17,123 (BDP=25,000,000 bytes / 1460)",
+        "C. 1000",
+        "D. 65535 (the TCP receive window max)"
+      ],
+      "answer": 1,
+      "explanation": "BDP = bandwidth * RTT = 1,000,000,000 bps * 0.2 s = 200,000,000 bits = 25,000,000 bytes. Divided by 1,460 bytes per segment, that is 17,123 segments. The sender's cwnd must reach this size to fill the link."
+    },
+    {
+      "question": "The default tcp_wmem is 4096 16384 4194304. What does the third value (4194304) mean?",
+      "options": [
+        "A. The initial buffer size",
+        "B. The default buffer size",
+        "C. The maximum socket send buffer (4 MB), used when the application sets SO_SNDBUF",
+        "D. The receive window scale"
+      ],
+      "answer": 2,
+      "explanation": "tcp_wmem is min / default / max. The third value (4 MB) is the maximum socket send buffer; the kernel will not let the buffer grow past this. For a high-BDP link, 4 MB is too small; cwnd is clamped to the buffer's in-flight portion. The fix is to set max=64 MB or more."
+    },
+    {
+      "question": "What does tcp_slow_start_after_idle=0 do, and why is it useful for bulk transfer?",
+      "options": [
+        "A. Disables TCP timestamps",
+        "B. Prevents the cwnd from collapsing to initcwnd after a 1 RTT idle period; useful for bulk transfer because a momentary pause does not trigger cwnd collapse and the subsequent slow start",
+        "C. Enables window scaling",
+        "D. Disables ECN"
+      ],
+      "answer": 1,
+      "explanation": "tcp_slow_start_after_idle=1 (default) resets cwnd to initcwnd after a 1 RTT idle period. For a bulk transfer, a momentary pause (1-2s for a write) would trigger the collapse and 10+ RTTs of slow-start recovery. Disabling it (tcp_slow_start_after_idle=0) keeps cwnd stable across idle periods, which is the right setting for bulk workloads."
+    }
+  ]
+}

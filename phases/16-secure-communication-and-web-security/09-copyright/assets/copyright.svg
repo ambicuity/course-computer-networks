@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" width="800" height="540">
+  <rect width="800" height="540" fill="#FFF7EC"/>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" fill="#2A1A2E">
+
+    <text x="400" y="32" text-anchor="middle" font-size="22" font-weight="700">Copyright on the Network: Legal Stack and Takedown Workflow</text>
+    <text x="400" y="54" text-anchor="middle" font-size="13" fill="#5a4a5e">Berne (1886) → WIPO (1996) → DMCA (1998) → EUCD (2001) → takedown → 24-hour clock</text>
+
+    <g>
+      <rect x="40" y="80" width="170" height="56" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.6" rx="6"/>
+      <text x="125" y="102" text-anchor="middle" font-size="13" font-weight="700">Berne 1886</text>
+      <text x="125" y="122" text-anchor="middle" font-size="10" fill="#5a4a5e">automatic copyright on creation</text>
+
+      <rect x="225" y="80" width="170" height="56" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.6" rx="6"/>
+      <text x="310" y="102" text-anchor="middle" font-size="13" font-weight="700">WIPO 1996</text>
+      <text x="310" y="122" text-anchor="middle" font-size="10" fill="#5a4a5e">programs, databases, TPMs</text>
+
+      <rect x="410" y="80" width="170" height="56" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.6" rx="6"/>
+      <text x="495" y="102" text-anchor="middle" font-size="13" font-weight="700">DMCA §1201 (US)</text>
+      <text x="495" y="122" text-anchor="middle" font-size="10" fill="#5a4a5e">anti-circumvention of DRM</text>
+
+      <rect x="595" y="80" width="170" height="56" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.6" rx="6"/>
+      <text x="680" y="102" text-anchor="middle" font-size="13" font-weight="700">EUCD (EU)</text>
+      <text x="680" y="122" text-anchor="middle" font-size="10" fill="#5a4a5e">EU 2001/29/EC</text>
+    </g>
+
+    <g stroke="#2A1A2E" stroke-width="1.4" fill="#2A1A2E">
+      <polygon points="213,108 221,103 221,113"/>
+      <polygon points="398,108 406,103 406,113"/>
+      <polygon points="583,108 591,103 591,113"/>
+    </g>
+
+    <g>
+      <text x="40" y="180" font-size="14" font-weight="700">Four technical enforcement mechanisms</text>
+
+      <g font-size="11">
+        <rect x="40" y="195" width="170" height="70" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2" rx="4"/>
+        <text x="50" y="215" font-weight="700">DRM (license-gated)</text>
+        <text x="50" y="232" font-size="10">Widevine, FairPlay, PlayReady</text>
+        <text x="50" y="248" font-size="10" fill="#5a4a5e">key issued by license server</text>
+        <text x="50" y="262" font-size="10" fill="#5a4a5e">revocable, expirable</text>
+
+        <rect x="225" y="195" width="170" height="70" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2" rx="4"/>
+        <text x="235" y="215" font-weight="700">Watermark (forensic)</text>
+        <text x="235" y="232" font-size="10">AACS, CMLA</text>
+        <text x="235" y="248" font-size="10" fill="#5a4a5e">unique ID per license</text>
+        <text x="235" y="262" font-size="10" fill="#5a4a5e">traces leak to user</text>
+
+        <rect x="410" y="195" width="170" height="70" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2" rx="4"/>
+        <text x="420" y="215" font-weight="700">License server</text>
+        <text x="420" y="232" font-size="10">Adobe CC, M365, games</text>
+        <text x="420" y="248" font-size="10" fill="#5a4a5e">server-issued token</text>
+        <text x="420" y="262" font-size="10" fill="#5a4a5e">can refuse to renew</text>
+
+        <rect x="595" y="195" width="170" height="70" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2" rx="4"/>
+        <text x="605" y="215" font-weight="700">Takedown notice</text>
+        <text x="605" y="232" font-size="10">DMCA §512, EUCD Art. 14</text>
+        <text x="605" y="248" font-size="10" fill="#5a4a5e">after-the-fact removal</text>
+        <text x="605" y="262" font-size="10" fill="#5a4a5e">24-hour response</text>
+      </g>
+    </g>
+
+    <g>
+      <text x="40" y="305" font-size="14" font-weight="700">Takedown workflow (6 steps, 24-hour clock)</text>
+
+      <g font-size="11">
+        <rect x="40" y="320" width="118" height="42" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.4" rx="4"/>
+        <text x="99" y="338" text-anchor="middle" font-weight="700">1. Receive</text>
+        <text x="99" y="354" text-anchor="middle" font-size="10" fill="#5a4a5e">log notice</text>
+
+        <rect x="166" y="320" width="118" height="42" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.4" rx="4"/>
+        <text x="225" y="338" text-anchor="middle" font-weight="700">2. Validate</text>
+        <text x="225" y="354" text-anchor="middle" font-size="10" fill="#5a4a5e">§512(c)(3) check</text>
+
+        <rect x="292" y="320" width="118" height="42" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.4" rx="4"/>
+        <text x="351" y="338" text-anchor="middle" font-weight="700">3. Locate</text>
+        <text x="351" y="354" text-anchor="middle" font-size="10" fill="#5a4a5e">URL exists?</text>
+
+        <rect x="418" y="320" width="118" height="42" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.4" rx="4"/>
+        <text x="477" y="338" text-anchor="middle" font-weight="700">4. Remove</text>
+        <text x="477" y="354" text-anchor="middle" font-size="10" fill="#5a4a5e">HTTP 410</text>
+
+        <rect x="544" y="320" width="118" height="42" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.4" rx="4"/>
+        <text x="603" y="338" text-anchor="middle" font-weight="700">5. Notify</text>
+        <text x="603" y="354" text-anchor="middle" font-size="10" fill="#5a4a5e">counter-notice</text>
+
+        <rect x="670" y="320" width="100" height="42" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.4" rx="4"/>
+        <text x="720" y="338" text-anchor="middle" font-weight="700">6. Log</text>
+        <text x="720" y="354" text-anchor="middle" font-size="10" fill="#5a4a5e">chain of evidence</text>
+      </g>
+
+      <g stroke="#2A1A2E" stroke-width="1.2" fill="#2A1A2E">
+        <polygon points="160,341 164,337 164,345"/>
+        <polygon points="286,341 290,337 290,345"/>
+        <polygon points="412,341 416,337 416,345"/>
+        <polygon points="538,341 542,337 542,345"/>
+        <polygon points="664,341 668,337 668,345"/>
+      </g>
+    </g>
+
+    <g>
+      <text x="40" y="400" font-size="14" font-weight="700">DMCA §512(c)(3) — 6 required elements</text>
+      <g font-size="11" font-family="ui-monospace, 'SF Mono', 'Menlo', monospace">
+        <text x="50" y="422">1. Identification of the copyrighted work claimed</text>
+        <text x="50" y="438">2. Identification of the infringing material (URL)</text>
+        <text x="50" y="454">3. Contact information (name, address, phone, email)</text>
+        <text x="50" y="470">4. Good-faith statement (belief use is not authorized)</text>
+        <text x="50" y="486">5. Accuracy statement (under penalty of perjury)</text>
+        <text x="50" y="502">6. Physical or electronic signature</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="495" y="400" width="270" height="120" fill="#FFE6E6" stroke="#E2557A" stroke-width="1.4" rx="4"/>
+      <text x="505" y="418" font-size="12" font-weight="700">Common overblock failure modes</text>
+      <g font-size="11">
+        <text x="505" y="438">- Sinkholing the whole domain (only one URL is bad)</text>
+        <text x="505" y="454">- Blocking the user's IP (affects other NAT users)</text>
+        <text x="505" y="470">- Refusing to act because the notice "looks fake"</text>
+        <text x="505" y="486">- Acting on a foreign takedown without US DMCA</text>
+        <text x="505" y="502">- Failing to log the action (loses safe harbor)</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

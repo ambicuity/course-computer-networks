@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="800" height="520" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#2A1A2E">Traffic Shaping: Unshaped vs. Token-Bucket Shaped</text>
+  <text x="400" y="62" text-anchor="middle" font-size="13" fill="#6B5B6E">Burst of 16,000 KB at 1000 Mbps smoothed to 200 Mbps long-term rate</text>
+
+  <!-- Axes -->
+  <line x1="90" y1="100" x2="90" y2="470" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="90" y1="470" x2="740" y2="470" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="90" font-size="11" fill="#2A1A2E" font-weight="600">Mbps</text>
+  <text x="740" y="490" font-size="11" fill="#2A1A2E" font-weight="600" text-anchor="end">ms</text>
+
+  <!-- Y gridlines + labels -->
+  <g stroke="#E8D9C5" stroke-width="1" stroke-dasharray="3,3">
+    <line x1="90" y1="150" x2="740" y2="150"/>
+    <line x1="90" y1="230" x2="740" y2="230"/>
+    <line x1="90" y1="310" x2="740" y2="310"/>
+    <line x1="90" y1="390" x2="740" y2="390"/>
+  </g>
+  <g font-size="10" fill="#6B5B6E" text-anchor="end">
+    <text x="84" y="154">1000</text>
+    <text x="84" y="234">750</text>
+    <text x="84" y="314">500</text>
+    <text x="84" y="394">250</text>
+    <text x="84" y="474">0</text>
+  </g>
+
+  <!-- X labels (0, 125, 250, 500, 1000 ms) -->
+  <g font-size="10" fill="#6B5B6E" text-anchor="middle">
+    <text x="90" y="486">0</text>
+    <text x="171" y="486">125</text>
+    <text x="252" y="486">250</text>
+    <text x="415" y="486">500</text>
+    <text x="740" y="486">1000</text>
+  </g>
+
+  <!-- Unshaped trace: burst at 1000 Mbps for 125 ms, then 0 -->
+  <rect x="90" y="150" width="81" height="320" fill="#E2557A" opacity="0.85"/>
+  <text x="130" y="170" font-size="11" fill="#FFF7EC" font-weight="700" text-anchor="middle">burst</text>
+  <text x="130" y="186" font-size="10" fill="#FFF7EC" text-anchor="middle">16,000 KB</text>
+  <line x1="171" y1="470" x2="740" y2="470" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="200" y="120" font-size="12" fill="#E2557A" font-weight="700">Unshaped (host output)</text>
+
+  <!-- Shaped trace: initial burst at 1000 Mbps for ~94 ms, then cut to 200 Mbps -->
+  <!-- 94 ms of peak: width = 94/1000 * 650 = ~61 px -->
+  <rect x="90" y="150" width="61" height="320" fill="#2A1A2E" opacity="0.55"/>
+  <text x="120" y="170" font-size="10" fill="#FFF7EC" font-weight="700" text-anchor="middle">S</text>
+  <!-- 200 Mbps plateau for the remainder of the burst (to ~400 ms area) -->
+  <!-- 200 Mbps = y 310. plateau from x=151 to x=415 (250ms..500ms) -->
+  <rect x="151" y="310" width="264" height="160" fill="#2A1A2E" opacity="0.35"/>
+  <line x1="415" y1="470" x2="740" y2="470" stroke="#2A1A2E" stroke-width="2.5"/>
+  <text x="520" y="300" font-size="12" fill="#2A1A2E" font-weight="700">Token-bucket shaped</text>
+
+  <!-- R reference line at 200 Mbps -->
+  <line x1="90" y1="310" x2="740" y2="310" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="735" y="305" font-size="10" fill="#E2557A" text-anchor="end" font-weight="600">R = 200 Mbps</text>
+
+  <!-- Burst annotation S = B/(M-R) -->
+  <line x1="90" y1="498" x2="151" y2="498" stroke="#2A1A2E" stroke-width="1.2"/>
+  <line x1="90" y1="494" x2="90" y2="502" stroke="#2A1A2E" stroke-width="1.2"/>
+  <line x1="151" y1="494" x2="151" y2="502" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="120" y="513" font-size="10" fill="#2A1A2E" text-anchor="middle" font-weight="600">S ≈ 94 ms</text>
+
+  <!-- Legend -->
+  <g font-size="11" fill="#2A1A2E">
+    <rect x="560" y="100" width="14" height="14" fill="#E2557A" opacity="0.85"/>
+    <text x="580" y="112">Unshaped burst</text>
+    <rect x="560" y="122" width="14" height="14" fill="#2A1A2E" opacity="0.55"/>
+    <text x="580" y="134">Shaped burst (S)</text>
+    <rect x="560" y="144" width="14" height="14" fill="#2A1A2E" opacity="0.35"/>
+    <text x="580" y="156">Shaped at R</text>
+  </g>
+</svg>

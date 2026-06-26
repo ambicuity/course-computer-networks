@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="760" height="480">
+  <rect width="760" height="480" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .axis { stroke: #2A1A2E; stroke-width: 1.5; }
+    .frame { fill: #2A1A2E; opacity: 0.18; stroke: #2A1A2E; stroke-width: 1; }
+    .test { fill: #E2557A; opacity: 0.85; stroke: #2A1A2E; stroke-width: 1.2; }
+    .vuln { fill: #E2557A; opacity: 0.16; stroke: #E2557A; stroke-width: 1; stroke-dasharray: 4 3; }
+  </style>
+
+  <text x="30" y="38" class="title">ALOHA: the vulnerable period</text>
+  <text x="30" y="60" class="lbl">A test frame is destroyed if any other transmission starts inside its danger window.</text>
+
+  <!-- ============ PURE ALOHA panel ============ -->
+  <text x="30" y="98" class="sub">Pure ALOHA — vulnerable period = 2 frame times</text>
+
+  <!-- time axis -->
+  <line x1="60" y1="190" x2="700" y2="190" class="axis"/>
+  <polygon points="700,190 690,185 690,195" fill="#2A1A2E"/>
+  <text x="690" y="210" class="lbl">time</text>
+
+  <!-- tick marks at t0-1, t0, t0+1, t0+2 -->
+  <line x1="230" y1="185" x2="230" y2="195" class="axis"/>
+  <line x1="380" y1="185" x2="380" y2="195" class="axis"/>
+  <line x1="530" y1="185" x2="530" y2="195" class="axis"/>
+  <text x="206" y="225" class="mono">t0-1</text>
+  <text x="368" y="225" class="mono">t0</text>
+  <text x="500" y="225" class="mono">t0+1</text>
+
+  <!-- vulnerable window 2T wide, centered on test frame start..end -->
+  <rect x="230" y="118" width="300" height="56" class="vuln"/>
+  <text x="300" y="112" class="lbl" fill="#E2557A">vulnerable: 2 frame times</text>
+
+  <!-- test frame (shaded/berry) occupies t0 .. t0+1 -->
+  <rect x="380" y="130" width="150" height="32" class="test"/>
+  <text x="405" y="151" class="mono" fill="#FFF7EC">test frame</text>
+
+  <!-- a colliding neighbour starting just before t0 -->
+  <rect x="280" y="130" width="150" height="14" fill="#2A1A2E" opacity="0.30" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="248" y="170" class="lbl">tail hits head</text>
+
+  <!-- a colliding neighbour starting just after t0 -->
+  <rect x="470" y="148" width="150" height="14" fill="#2A1A2E" opacity="0.30" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="540" y="170" class="lbl">head hits tail</text>
+
+  <text x="60" y="258" class="mono">S = G &#183; e^(-2G)   peak 1/(2e) = 0.184 at G = 0.5</text>
+
+  <!-- ============ SLOTTED ALOHA panel ============ -->
+  <text x="30" y="304" class="sub">Slotted ALOHA — frames start only at slot edges, vulnerable period = 1 frame time</text>
+
+  <!-- slot grid -->
+  <line x1="60" y1="396" x2="700" y2="396" class="axis"/>
+  <polygon points="700,396 690,391 690,401" fill="#2A1A2E"/>
+  <text x="690" y="416" class="lbl">time</text>
+
+  <!-- slot boundaries -->
+  <g stroke="#2A1A2E" stroke-width="1" opacity="0.55">
+    <line x1="160" y1="330" x2="160" y2="396"/>
+    <line x1="310" y1="330" x2="310" y2="396"/>
+    <line x1="460" y1="330" x2="460" y2="396"/>
+    <line x1="610" y1="330" x2="610" y2="396"/>
+  </g>
+  <text x="200" y="345" class="lbl">empty</text>
+  <text x="345" y="345" class="lbl">success</text>
+  <text x="500" y="345" class="lbl">collision</text>
+
+  <!-- vulnerable window = exactly one slot -->
+  <rect x="310" y="356" width="150" height="34" class="vuln"/>
+  <text x="318" y="430" class="lbl" fill="#E2557A">vulnerable: 1 slot</text>
+
+  <!-- success slot: one test frame -->
+  <rect x="318" y="362" width="134" height="22" class="test"/>
+  <text x="338" y="378" class="mono" fill="#FFF7EC">1 frame</text>
+
+  <!-- collision slot: two frames stacked -->
+  <rect x="468" y="362" width="134" height="11" fill="#2A1A2E" opacity="0.30" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="468" y="374" width="134" height="11" fill="#2A1A2E" opacity="0.30" stroke="#2A1A2E" stroke-width="1"/>
+
+  <text x="60" y="462" class="mono">S = G &#183; e^(-G)    peak 1/e   = 0.368 at G = 1.0  (37% empty / 37% ok / 26% collide)</text>
+</svg>

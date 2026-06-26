@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A QUIC connection stalls 30 seconds after a Wi-Fi to LTE roam and closes with error 0x0c. What is the most likely root cause?",
+      "options": [
+        "A. The server ran out of spare Connection IDs because active_connection_id_limit is too low",
+        "B. LTE always drops UDP/443",
+        "C. QUIC is not allowed on the cellular network",
+        "D. The 4-tuple is the same on both interfaces, confusing the server"
+      ],
+      "answer": 0,
+      "explanation": "QUIC migration needs a spare CID to address the new path. When active_connection_id_limit=2 and the client retires the CID for the dropped Wi-Fi path, the server cannot issue a fresh CID for LTE, so PATH_CHALLENGE is never sent, validation fails, and 0x0c (PATH_RESPONSE_ERROR) closes the connection."
+    },
+    {
+      "question": "What is the role of the PATH_CHALLENGE/PATH_RESPONSE exchange in QUIC?",
+      "options": [
+        "A. To negotiate the TLS version",
+        "B. To prove that a peer can both receive and send on a new local address before that path is used for general traffic",
+        "C. To estimate the congestion window on a new path",
+        "D. To renegotiate the Connection ID"
+      ],
+      "answer": 1,
+      "explanation": "RFC 9000 sec. 8.2 defines path validation as a challenge-response. The validating peer sends PATH_CHALLENGE on the new path; the peer must echo the token in PATH_RESPONSE. Only after a matching response does the path transition from Validating to Validated and become usable for data."
+    },
+    {
+      "question": "Why does QUIC tolerate a NAT rebind where TCP would have died?",
+      "options": [
+        "A. QUIC reuses the TCP socket underneath",
+        "B. The Connection ID, not the 4-tuple, binds packets to the session",
+        "C. QUIC runs over ICMP",
+        "D. QUIC disables the kernel routing table"
+      ],
+      "answer": 1,
+      "explanation": "QUIC identifies a session by the Connection ID carried in the packet header. The receiving endpoint looks up the connection by DCID rather than by 4-tuple, so a NAT rebind that changes local or remote IP/port is transparent to the application, as long as the peer issues a fresh CID for the new path."
+    }
+  ]
+}

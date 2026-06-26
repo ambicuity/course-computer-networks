@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" width="920" height="600">
+  <rect width="920" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 16px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .small { font-size: 11px; fill: #6b5560; }
+    .accent { fill: #E2557A; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E2557A"/>
+    </marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="40" class="title">Berkeley Socket Lifecycle</text>
+  <text x="40" y="60" class="sub">SOCKET, BIND, LISTEN, ACCEPT, CONNECT, SEND/RECEIVE, CLOSE  (TCP RFC 793)</text>
+
+  <rect x="60" y="100" width="160" height="430" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="128" text-anchor="middle" class="node">Server</text>
+  <text x="140" y="148" text-anchor="middle" class="small">listen FD + accepted FDs</text>
+
+  <rect x="700" y="100" width="160" height="430" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="780" y="128" text-anchor="middle" class="node">Client</text>
+  <text x="780" y="148" text-anchor="middle" class="small">ephemeral port</text>
+
+  <rect x="80" y="180" width="120" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="140" y="200" text-anchor="middle" class="mono">SOCKET(3)</text>
+  <rect x="80" y="220" width="120" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="140" y="240" text-anchor="middle" class="mono">BIND(:12345)</text>
+  <rect x="80" y="260" width="120" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="140" y="280" text-anchor="middle" class="mono">LISTEN(10)</text>
+  <rect x="80" y="320" width="120" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="140" y="340" text-anchor="middle" class="mono">ACCEPT()-&gt;FD5</text>
+  <rect x="80" y="360" width="120" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="140" y="380" text-anchor="middle" class="mono">SEND/RECV</text>
+  <rect x="80" y="410" width="120" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="140" y="430" text-anchor="middle" class="mono accent">RST</text>
+  <rect x="80" y="460" width="120" height="28" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="140" y="480" text-anchor="middle" class="mono">CLOSE()</text>
+
+  <rect x="720" y="180" width="120" height="28" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="780" y="200" text-anchor="middle" class="mono">SOCKET(4)</text>
+  <rect x="720" y="220" width="120" height="28" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="780" y="240" text-anchor="middle" class="mono">(BIND skip)</text>
+  <rect x="720" y="260" width="120" height="28" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="780" y="280" text-anchor="middle" class="mono">CONNECT(:12345)</text>
+  <rect x="720" y="320" width="120" height="28" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="780" y="340" text-anchor="middle" class="mono">unblocks</text>
+  <rect x="720" y="360" width="120" height="28" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="780" y="380" text-anchor="middle" class="mono">SEND/RECV</text>
+  <rect x="720" y="410" width="120" height="28" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="780" y="430" text-anchor="middle" class="mono">recv RST</text>
+  <rect x="720" y="460" width="120" height="28" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="780" y="480" text-anchor="middle" class="mono">CLOSE()</text>
+
+  <line x1="220" y1="280" x2="700" y2="320" stroke="#E2557A" stroke-width="2" marker-end="url(#a)"/>
+  <text x="450" y="296" text-anchor="middle" class="mono accent">SYN, seq=ISN_c</text>
+  <line x1="700" y1="320" x2="220" y2="360" stroke="#E2557A" stroke-width="2" marker-end="url(#a)"/>
+  <text x="450" y="354" text-anchor="middle" class="mono accent">SYN+ACK, ack=ISN_c+1</text>
+  <line x1="220" y1="360" x2="700" y2="395" stroke="#E2557A" stroke-width="2" marker-end="url(#a)"/>
+  <text x="450" y="386" text-anchor="middle" class="mono accent">ACK</text>
+  <line x1="220" y1="395" x2="700" y2="425" stroke="#2A1A2E" stroke-width="2" marker-end="url(#b)"/>
+  <text x="450" y="416" text-anchor="middle" class="mono">DATA "GET /etc/hosts\0"</text>
+  <line x1="700" y1="425" x2="220" y2="455" stroke="#2A1A2E" stroke-width="2" marker-end="url(#b)"/>
+  <text x="450" y="446" text-anchor="middle" class="mono">DATA "127.0.0.1 localhost ..."</text>
+  <line x1="700" y1="430" x2="220" y2="478" stroke="#E2557A" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#a)"/>
+  <text x="450" y="468" text-anchor="middle" class="mono accent">RST (asymmetric close)</text>
+
+  <rect x="60" y="555" width="800" height="34" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="460" y="576" text-anchor="middle" class="small">8 Berkeley primitives map 1:1 to the 5 hypothetical primitives (LISTEN, CONNECT, SEND, RECEIVE, DISCONNECT)</text>
+  <text x="460" y="591" text-anchor="middle" class="small">Sockets are 4.2BSD (1983) -- still the API in Linux, Windows winsock, Go net, libuv.</text>
+</svg>

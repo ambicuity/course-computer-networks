@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">MX Records and MTA Relaying with DNS</text>
+  <text x="40" y="68" class="sub">DNS tells the MTA which hosts accept mail and in what order; RFC 1035 §3.3.9 / RFC 5321 §5.1</text>
+
+  <!-- MX set panel -->
+  <rect x="40" y="100" width="430" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">example.com zone fragment</text>
+  <text x="60" y="146" class="mono">$ORIGIN example.com.</text>
+  <text x="60" y="164" class="mono">$TTL 86400</text>
+  <text x="60" y="182" class="mono">@  IN  MX  10 mail1.example.com.</text>
+  <text x="60" y="200" class="mono">@  IN  MX  20 mail2.example.com.</text>
+  <text x="60" y="218" class="mono">@  IN  MX  30 backup.example.net.</text>
+  <text x="60" y="236" class="mono">mail1 IN A 192.0.2.10</text>
+  <text x="60" y="254" class="mono">mail2 IN A 192.0.2.20</text>
+  <text x="60" y="272" class="mono">@  IN  MX  0  .                ; null MX (RFC 7505)</text>
+  <text x="60" y="294" class="label">Preference is 16-bit, lower = higher priority.</text>
+  <text x="60" y="310" class="label">Same preference = load-balancing pool.</text>
+  <text x="60" y="326" class="label">Each MX target needs an A/AAAA record.</text>
+
+  <!-- Glue response panel -->
+  <rect x="490" y="100" width="390" height="240" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="510" y="124" class="node accent">Resolver response (one UDP packet)</text>
+  <text x="510" y="148" class="mono">;; ANSWER:</text>
+  <text x="510" y="166" class="mono">example.com.   3600  MX  10  mail1.example.com.</text>
+  <text x="510" y="184" class="mono">example.com.   3600  MX  20  mail2.example.com.</text>
+  <text x="510" y="202" class="mono">example.com.   3600  MX  30  backup.example.net.</text>
+  <text x="510" y="220" class="mono">;; ADDITIONAL (glue):</text>
+  <text x="510" y="238" class="mono">mail1.example.com.   3600  A    192.0.2.10</text>
+  <text x="510" y="256" class="mono">mail2.example.com.   3600  A    192.0.2.20</text>
+  <text x="510" y="274" class="mono">backup.example.net.  3600  A    198.51.100.5</text>
+  <text x="510" y="298" class="label">Glue cuts the second lookup round trip;</text>
+  <text x="510" y="314" class="label">without it every MX target pays a recursive cost.</text>
+
+  <!-- Selection panel -->
+  <rect x="40" y="360" width="840" height="180" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="384" class="node">MTA selection (RFC 5321 §5.1)</text>
+  <text x="60" y="406" class="mono">try mail1.example.com:25   -- OK?  SMTP relaying begins.</text>
+  <text x="60" y="424" class="mono">                -- fail?  try mail2.example.com:25.</text>
+  <text x="60" y="442" class="mono">                -- fail?  try backup.example.net:25  (queue and retry later).</text>
+  <text x="60" y="460" class="mono">                -- all fail?  bounce after local queue timeout.</text>
+  <text x="60" y="478" class="mono">no MX records?  RFC 5321 §5.1: try the A/AAAA record of the domain itself.</text>
+  <text x="60" y="496" class="mono">explicit MX 0 .?  RFC 7505 Null MX -- delivery attempt skipped entirely.</text>
+  <text x="60" y="518" class="label">Modern backup MX still scans mail (or requires authenticated pull)</text>
+  <text x="60" y="534" class="label">to avoid becoming a spam relay.</text>
+</svg>

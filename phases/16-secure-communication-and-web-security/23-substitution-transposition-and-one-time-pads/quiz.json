@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why is monoalphabetic substitution broken by frequency analysis despite a 26! keyspace?",
+    "options": [
+      "A. The key is too short to brute-force",
+      "B. The substitution preserves the letter-frequency distribution of the plaintext; the attacker maps the most common ciphertext letter to 'e', the next to 't', and so on, recovering the key with a few hundred characters",
+      "C. The key must be transmitted in the clear",
+      "D. Modern computers can brute-force 26! keys in seconds"
+    ],
+    "answer": 1,
+    "explanation": "Monoalphabetic substitution is a permutation of the alphabet, so ciphertext letter frequencies match plaintext letter frequencies exactly. English letter, digram, and trigram statistics reduce the search from 4×10^26 keys to a handful of educated guesses. Even 100-200 ciphertext characters are usually enough."
+  },
+  {
+    "question": "What is the Kasiski examination used for?",
+    "options": [
+      "A. Recovering the substitution key in a monoalphabetic cipher",
+      "B. Finding the key length of a Vigenere cipher by measuring distances between repeated ciphertext digrams",
+      "C. Encrypting one-time pads",
+      "D. Decoding a Caesar cipher"
+    ],
+    "answer": 1,
+    "explanation": "When the same plaintext digram aligns with the same key position, the resulting ciphertext digram is identical. The distances between occurrences share the key length as a factor. The most common factor across many distances is the key length. Combined with the Friedman test (Index of Coincidence), this breaks Vigenere without knowing the key."
+  },
+  {
+    "question": "Why is one-time-pad key reuse catastrophic?",
+    "options": [
+      "A. The same key produces the same keystream; XOR of two ciphertexts equals XOR of two plaintexts, leaking structure that yields to known-plaintext attacks",
+      "B. The XOR operation becomes associative and the key is recoverable directly",
+      "C. Reused keys are detectable on the wire and the protocol aborts",
+      "D. The key length shortens with each reuse"
+    ],
+    "answer": 1,
+    "explanation": "If c1 = m1 XOR k and c2 = m2 XOR k with the same k, then c1 XOR c2 = m1 XOR m2. With one known plaintext (or likely structure like HTTP 'GET /'), the other plaintext is recovered directly. This is exactly the weakness that broke WEP (RC4 IV reuse) and is why CTR mode and AES-GCM require unique nonces per message."
+  }
+]

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 560" width="720" height="560">
+  <rect width="720" height="560" fill="#FFF7EC"/>
+  <style>
+    .title { font: 700 22px Inter, sans-serif; fill: #2A1A2E; }
+    .sub   { font: 600 14px Inter, sans-serif; fill: #2A1A2E; }
+    .lbl   { font: 12px Inter, sans-serif; fill: #2A1A2E; }
+    .mono  { font: 13px monospace; fill: #2A1A2E; }
+    .mono-a{ font: 700 13px monospace; fill: #E2557A; }
+    .note  { font: 11px Inter, sans-serif; fill: #6b5a6e; }
+  </style>
+
+  <text class="title" x="28" y="38">Distance Vector: one Bellman-Ford relaxation at router J</text>
+  <text class="note" x="28" y="58">new_metric(dest) = min over neighbors X of [ cost_to_X + X's advertised cost to dest ]   (Figure 5-9, dest = G)</text>
+
+  <!-- Neighbor nodes feeding into J -->
+  <!-- A -->
+  <circle cx="90" cy="150" r="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+  <text class="sub" x="90" y="155" text-anchor="middle">A</text>
+  <text class="mono" x="90" y="200" text-anchor="middle">to G: 18</text>
+  <text class="lbl" x="90" y="120" text-anchor="middle">J→A = 8 ms</text>
+
+  <!-- I -->
+  <circle cx="90" cy="250" r="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+  <text class="sub" x="90" y="255" text-anchor="middle">I</text>
+  <text class="mono" x="90" y="300" text-anchor="middle">to G: 31</text>
+  <text class="lbl" x="90" y="222" text-anchor="middle">J→I = 10 ms</text>
+
+  <!-- H -->
+  <circle cx="90" cy="350" r="26" fill="#FFF7EC" stroke="#E2557A" stroke-width="3"/>
+  <text class="sub" x="90" y="355" text-anchor="middle">H</text>
+  <text class="mono-a" x="90" y="400" text-anchor="middle">to G: 6</text>
+  <text class="lbl" x="90" y="322" text-anchor="middle">J→H = 12 ms</text>
+
+  <!-- K -->
+  <circle cx="90" cy="450" r="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+  <text class="sub" x="90" y="455" text-anchor="middle">K</text>
+  <text class="mono" x="90" y="495" text-anchor="middle">to G: 31</text>
+  <text class="lbl" x="90" y="422" text-anchor="middle">J→K = 6 ms</text>
+
+  <!-- candidate boxes -->
+  <g>
+    <line x1="116" y1="150" x2="300" y2="150" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="116" y1="250" x2="300" y2="250" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="116" y1="350" x2="300" y2="350" stroke="#E2557A" stroke-width="2.5"/>
+    <line x1="116" y1="450" x2="300" y2="450" stroke="#2A1A2E" stroke-width="1.5"/>
+
+    <rect x="300" y="132" width="150" height="36" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text class="mono" x="375" y="155" text-anchor="middle">8 + 18 = 26</text>
+
+    <rect x="300" y="232" width="150" height="36" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text class="mono" x="375" y="255" text-anchor="middle">10 + 31 = 41</text>
+
+    <rect x="300" y="332" width="150" height="36" rx="6" fill="#fde4ec" stroke="#E2557A" stroke-width="2.5"/>
+    <text class="mono-a" x="375" y="355" text-anchor="middle">12 + 6 = 18  ✓</text>
+
+    <rect x="300" y="432" width="150" height="36" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text class="mono" x="375" y="455" text-anchor="middle">6 + 31 = 37</text>
+  </g>
+
+  <!-- arrows to the min selector -->
+  <line x1="450" y1="150" x2="540" y2="290" stroke="#2A1A2E" stroke-width="1.2"/>
+  <line x1="450" y1="250" x2="540" y2="295" stroke="#2A1A2E" stroke-width="1.2"/>
+  <line x1="450" y1="350" x2="540" y2="305" stroke="#E2557A" stroke-width="2.5"/>
+  <line x1="450" y1="450" x2="540" y2="310" stroke="#2A1A2E" stroke-width="1.2"/>
+
+  <!-- min selector -->
+  <rect x="540" y="270" width="150" height="60" rx="10" fill="#2A1A2E"/>
+  <text x="615" y="295" text-anchor="middle" font="700 14px Inter, sans-serif" fill="#FFF7EC" style="font:700 14px Inter,sans-serif">min( )</text>
+  <text x="615" y="316" text-anchor="middle" fill="#E2557A" style="font:700 14px monospace">= 18 via H</text>
+
+  <!-- installed entry -->
+  <rect x="500" y="380" width="200" height="74" rx="10" fill="#FFF7EC" stroke="#E2557A" stroke-width="3"/>
+  <text class="sub" x="600" y="404" text-anchor="middle">J's new table entry</text>
+  <text class="mono" x="600" y="426" text-anchor="middle">dest = G</text>
+  <text class="mono-a" x="600" y="444" text-anchor="middle">metric = 18  next-hop = H</text>
+  <line x1="615" y1="330" x2="600" y2="380" stroke="#E2557A" stroke-width="2.5"/>
+
+  <text class="note" x="28" y="528">The old table is NOT an input — only neighbor costs + freshly received vectors. "Infinity" is capped (RIP = 16) so</text>
+  <text class="note" x="28" y="544">bad news (a dead link) cannot count upward forever: the count-to-infinity loop self-terminates at the cap.</text>
+</svg>

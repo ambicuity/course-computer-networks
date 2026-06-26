@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "Why does IPFIX / NetFlow v9 use UDP (default port 4739 / 9995) instead of TCP for export?",
+      "options": [
+        "A. UDP is faster than TCP at any speed",
+        "B. UDP is stateless; TCP retransmits would double-count in billing, and head-of-line blocking would amplify congestion during incidents",
+        "C. UDP is encrypted by default while TCP is plaintext",
+        "D. UDP packets are smaller than TCP packets"
+      ],
+      "correct": 1,
+      "explanation": "Flow export tolerates loss better than reorder or retransmit-duplication. Retransmitting a flow record via TCP would bill the same conversation twice; head-of-line blocking stalls the export pipeline under load. UDP/4739 is deliberate (RFC 7011 §10)."
+    },
+    {
+      "question": "What is the role of a NetFlow v9 / IPFIX Template record?",
+      "options": [
+        "A. It contains a single flow's octet and packet counts",
+        "B. It declares the field layout (sequence of IANA Information Element IDs and lengths) referenced by subsequent Data Records",
+        "C. It negotiates the UDP port for the next flow export",
+        "D. It encrypts the exported flow data"
+      ],
+      "correct": 1,
+      "explanation": "Templates decouple the wire format from the schema. The collector caches (template_id, source_id) -> field layout, then walks Data Records by length, decoding each IE (srcIPv4Address, protocolIdentifier, etc.) from the IANA registry (RFC 7012)."
+    },
+    {
+      "question": "At 1-in-1000 random packet sampling, what is the standard-error envelope for an observed octet count?",
+      "options": [
+        "A. Exactly the true value (sampling does not introduce error)",
+        "B. sqrt(N) where N is the sample size; the variance scales with the inverse sample rate",
+        "C. Proportional to the link MTU",
+        "D. Always +50% over the true value"
+      ],
+      "correct": 1,
+      "explanation": "Random sampling has standard error sqrt(N) for sample size N, so 1-in-1000 over 1,000,000 packets gives N=1000 samples with SE ~31.6 -- roughly a 1-sigma envelope of ~3.16% around the true value. RFC 5475 formalizes this for IPFIX/PSAMP."
+    }
+  ]
+}

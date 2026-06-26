@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" width="820" height="360">
+  <rect width="820" height="360" fill="#FFF7EC"/>
+  <defs><marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="#2A1A2E"/></marker></defs>
+  <style>
+    text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;fill:#2A1A2E}
+    .h1{font-size:16px;font-weight:700}.h2{font-size:12px;font-weight:700;fill:#E2557A}
+    .lab{font-size:11px}.sm{font-size:9.5px}
+    .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px}
+    .acc{stroke:#E2557A}.ink{stroke:#2A1A2E}
+  </style>
+  <text x="20" y="28" class="h1">UMTS 3G: cellular reuse, CDMA spreading, and the split core</text>
+  <line x1="20" y1="36" x2="800" y2="36" class="ink" stroke-width="1"/>
+
+  <text x="20" y="58" class="h2">1 · Cellular reuse (cluster K=7)</text>
+  <g transform="translate(96,150)" stroke="#2A1A2E" stroke-width="1.1" fill="none">
+    <polygon points="26,0 13,22.5 -13,22.5 -26,0 -13,-22.5 13,-22.5" fill="#E2557A" fill-opacity="0.18" stroke="#E2557A"/>
+    <polygon points="26,0 13,22.5 -13,22.5 -26,0 -13,-22.5 13,-22.5" transform="translate(52,0)"/>
+    <polygon points="26,0 13,22.5 -13,22.5 -26,0 -13,-22.5 13,-22.5" transform="translate(26,45)"/>
+    <polygon points="26,0 13,22.5 -13,22.5 -26,0 -13,-22.5 13,-22.5" transform="translate(-26,45)"/>
+    <polygon points="26,0 13,22.5 -13,22.5 -26,0 -13,-22.5 13,-22.5" transform="translate(-52,0)"/>
+    <polygon points="26,0 13,22.5 -13,22.5 -26,0 -13,-22.5 13,-22.5" transform="translate(-26,-45)"/>
+    <polygon points="26,0 13,22.5 -13,22.5 -26,0 -13,-22.5 13,-22.5" transform="translate(26,-45)"/>
+    <circle cx="0" cy="0" r="2.4" fill="#E2557A"/><circle cx="52" cy="0" r="2" fill="#2A1A2E"/>
+    <circle cx="26" cy="45" r="2" fill="#2A1A2E"/><circle cx="-26" cy="45" r="2" fill="#2A1A2E"/>
+    <circle cx="-52" cy="0" r="2" fill="#2A1A2E"/><circle cx="-26" cy="-45" r="2" fill="#2A1A2E"/>
+    <circle cx="26" cy="-45" r="2" fill="#2A1A2E"/>
+  </g>
+  <text x="20" y="214" class="lab">D = R·√(3K) reuse distance</text>
+  <text x="20" y="230" class="sm">K=7,R=1km→D≈4.58km; band/cell=B/K</text>
+  <text x="20" y="246" class="sm">3G CDMA: every cell reuses ALL freqs</text>
+
+  <text x="250" y="58" class="h2">2 · WCDMA OVSF spread + correlate</text>
+  <g class="ink" fill="none" stroke-width="1">
+    <line x1="300" y1="78" x2="285" y2="100"/><line x1="300" y1="78" x2="315" y2="100"/>
+    <line x1="285" y1="100" x2="277" y2="124"/><line x1="285" y1="100" x2="293" y2="124"/>
+    <line x1="315" y1="100" x2="307" y2="124"/><line x1="315" y1="100" x2="323" y2="124"/>
+  </g>
+  <rect x="294" y="72" width="12" height="12" rx="2" fill="#FFF7EC" class="ink"/>
+  <rect x="279" y="94" width="12" height="12" rx="2" fill="#FFF7EC" class="ink"/>
+  <rect x="309" y="94" width="12" height="12" rx="2" fill="#E2557A" fill-opacity="0.25" class="acc"/>
+  <rect x="318" y="118" width="12" height="12" rx="2" fill="#E2557A" fill-opacity="0.25" class="acc"/>
+  <text x="300" y="82" class="sm" text-anchor="middle">SF1</text>
+  <text x="250" y="158" class="lab">bit 1(1)→+code  bit 2(0)→−code</text>
+  <g transform="translate(250,170)">
+    <line x1="0" y1="20" x2="220" y2="20" class="ink" stroke-width="0.6"/>
+    <polyline points="0,4 0,36 27.5,36 27.5,4 55,4 55,36 82.5,36 82.5,4 110,4" fill="none" class="acc" stroke-width="1.4"/>
+    <polyline points="110,36 110,4 137.5,4 137.5,36 165,36 165,4 192.5,4 192.5,36 220,36" fill="none" class="ink" stroke-width="1.4"/>
+  </g>
+  <text x="250" y="228" class="mono">code=[+1 +1 +1 +1 −1 −1 −1 −1] (SF=8)</text>
+  <text x="250" y="244" class="sm">Σ=+8→“1”, −8→“0”; other code → 0</text>
+  <text x="250" y="260" class="sm">Gp=3.84Mcps/12.2kbps≈314 (25dB)→N≈64</text>
+
+  <text x="520" y="58" class="h2">3 · UMTS architecture &amp; soft handover</text>
+  <rect x="540" y="78" width="36" height="20" rx="3" fill="#FFF7EC" class="ink"/>
+  <text x="558" y="92" class="sm" text-anchor="middle">UE</text>
+  <rect x="500" y="124" width="44" height="20" rx="3" fill="#E2557A" fill-opacity="0.18" class="acc"/>
+  <text x="522" y="138" class="sm" text-anchor="middle">Node B₁</text>
+  <rect x="572" y="124" width="44" height="20" rx="3" fill="#E2557A" fill-opacity="0.18" class="acc"/>
+  <text x="594" y="138" class="sm" text-anchor="middle">Node B₂</text>
+  <rect x="536" y="170" width="44" height="20" rx="3" fill="#FFF7EC" class="ink"/>
+  <text x="558" y="184" class="sm" text-anchor="middle">RNC</text>
+  <text x="582" y="116" class="sm" fill="#E2557A">Uu (WCDMA air)</text>
+  <text x="582" y="158" class="sm" fill="#E2557A">soft handover</text>
+  <text x="586" y="200" class="sm">Iu</text>
+  <line x1="558" y1="190" x2="558" y2="222" class="ink" stroke-width="1"/>
+  <line x1="500" y1="222" x2="616" y2="222" class="ink" stroke-width="1"/>
+  <line x1="500" y1="222" x2="500" y2="238" class="ink" stroke-width="1"/>
+  <line x1="616" y1="222" x2="616" y2="238" class="ink" stroke-width="1"/>
+  <rect x="464" y="238" width="68" height="20" rx="3" fill="#FFF7EC" class="ink"/>
+  <text x="498" y="252" class="sm" text-anchor="middle">MSC/GMSC</text>
+  <text x="498" y="276" class="sm" text-anchor="middle">Iu-CS → PSTN</text>
+  <rect x="584" y="238" width="68" height="20" rx="3" fill="#FFF7EC" class="ink"/>
+  <text x="618" y="252" class="sm" text-anchor="middle">SGSN/GGSN</text>
+  <text x="618" y="276" class="sm" text-anchor="middle">Iu-PS → Internet</text>
+  <rect x="534" y="300" width="48" height="18" rx="3" fill="#FFF7EC" class="ink"/>
+  <text x="558" y="313" class="sm" text-anchor="middle">HSS</text>
+  <line x1="558" y1="284" x2="558" y2="300" class="ink" stroke-width="0.7" stroke-dasharray="3,3"/>
+  <text x="590" y="313" class="sm">locate mobile</text>
+  <circle cx="700" cy="100" r="9" fill="#E2557A" fill-opacity="0.25" class="acc"/>
+  <circle cx="720" cy="100" r="9" fill="#E2557A" fill-opacity="0.25" class="acc"/>
+  <circle cx="710" cy="98" r="3" fill="#2A1A2E"/>
+  <text x="700" y="126" class="sm" text-anchor="middle">B₁</text>
+  <text x="720" y="126" class="sm" text-anchor="middle">B₂</text>
+  <text x="680" y="146" class="sm">UE in 2 cells:</text>
+  <text x="680" y="160" class="sm">make-before-break,</text>
+  <text x="680" y="174" class="sm">RNC combines</text>
+  <text x="20" y="346" class="sm">3GPP TS 25.201/25.212 (air) · TS 25.331 (handover) · TS 23.060 (core) · TS 33.102 (AKA/f8/f9)</text>
+</svg>

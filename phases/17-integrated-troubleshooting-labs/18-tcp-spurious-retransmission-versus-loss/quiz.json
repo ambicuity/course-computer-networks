@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A Wireshark capture shows tcp.analysis.retransmission. The original segment's ACK arrives 5 ms AFTER the retransmit was sent. What kind of retransmission is this?",
+      "options": [
+        "A. Fast retransmit (RFC 5681)",
+        "B. Spurious retransmission: the original was delayed, not lost",
+        "C. RTO-based loss, no dup-ACKs",
+        "D. The receiver buffer overflowed"
+      ],
+      "answer": 1,
+      "explanation": "When the ACK for the original segment arrives after the retransmit, the original was delayed, not lost. Wireshark tags this as tcp.analysis.spurious_retransmission. The fix is RACK (RFC 8985) and DSACK, not chasing a phantom network problem."
+    },
+    {
+      "question": "Three duplicate ACKs (no payload) arrive at the receiver, then a retransmit is sent before the RTO fires. Which RFC and which Wireshark filter apply?",
+      "options": [
+        "A. RFC 6298; tcp.analysis.spurious_retransmission",
+        "B. RFC 5681; tcp.analysis.fast_retransmission",
+        "C. RFC 2018; tcp.analysis.duplicate_ack",
+        "D. RFC 8985; tcp.analysis.rack_retransmission"
+      ],
+      "answer": 1,
+      "explanation": "RFC 5681 defines fast retransmit at 3 duplicate ACKs. Wireshark marks these packets as tcp.analysis.fast_retransmission. The three duplicate ACKs are the trigger; the retransmit is the recovery."
+    },
+    {
+      "question": "The Linux default tcp_retries2 is 15. After how many seconds does the kernel give up?",
+      "options": [
+        "A. 15 seconds",
+        "B. 92.4 seconds (sum of 1+2+4+...+16384 ms, capped)",
+        "C. 1 second",
+        "D. 5 minutes"
+      ],
+      "answer": 1,
+      "explanation": "RFC 6298 doubles the RTO on each retransmission, capped. With the default initial RTO of 1s and 15 retries, the kernel waits roughly 92.4 seconds before declaring the connection dead. The exact sum is 1+2+4+8+16+32+64+128+256+512+1024+2048+4096+8192+16384 = 32767 ms of attempts, capped at 92400 ms in practice."
+    }
+  ]
+}

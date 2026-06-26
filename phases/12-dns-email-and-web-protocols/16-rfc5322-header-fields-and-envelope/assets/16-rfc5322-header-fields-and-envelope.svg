@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">RFC 5322 Header Fields and the Envelope</text>
+  <text x="40" y="68" class="sub">Two parallel pieces of state: SMTP envelope (RFC 5321) and RFC 5322 header+body</text>
+
+  <!-- SMTP dialog panel -->
+  <rect x="40" y="100" width="420" height="240" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="60" y="124" class="node accent">SMTP envelope (RFC 5321)</text>
+  <text x="60" y="150" class="mono">S: 220 mail.example.com ESMTP ready</text>
+  <text x="60" y="170" class="mono">C: EHLO client.example.org</text>
+  <text x="60" y="190" class="mono">S: 250-mail.example.com ... 250-SIZE ... 250-ENHANCEDSTATUSCODES</text>
+  <text x="60" y="210" class="mono accent">C: MAIL FROM:&lt;alice@cs.washington.edu&gt;</text>
+  <text x="60" y="226" class="mono accent">C: RCPT TO:&lt;bob@ee.uwa.edu.au&gt;</text>
+  <text x="60" y="242" class="mono accent">C: RCPT TO:&lt;carol@ee.uwa.edu.au&gt;</text>
+  <text x="60" y="262" class="mono">C: DATA</text>
+  <text x="60" y="280" class="mono">C: From: alice@cs.washington.edu   &lt;-- header (not envelope)</text>
+  <text x="60" y="296" class="mono">C: To: bob@ee.uwa.edu.au</text>
+  <text x="60" y="312" class="mono">C: Subject: Lunch?</text>
+  <text x="60" y="328" class="mono">C: .</text>
+  <text x="60" y="348" class="label">MAIL FROM and RCPT TO live in the SMTP dialog,</text>
+  <text x="60" y="364" class="label">not in the data. MTAs route on the envelope.</text>
+
+  <!-- RFC 5322 message panel -->
+  <rect x="480" y="100" width="420" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="500" y="124" class="node">RFC 5322 message (header + body)</text>
+  <text x="500" y="148" class="mono">From: Alice &lt;alice@example.org&gt;          &lt;-- mandatory</text>
+  <text x="500" y="164" class="mono">To: Bob &lt;bob@example.com&gt;</text>
+  <text x="500" y="180" class="mono">Cc: Carol &lt;carol@example.com&gt;</text>
+  <text x="500" y="196" class="mono">Bcc: Dave &lt;dave@example.com&gt;           &lt;-- stripped on copy</text>
+  <text x="500" y="212" class="mono">Date: Thu, 25 Jun 2026 14:32:11 -0700   &lt;-- mandatory</text>
+  <text x="500" y="228" class="mono">Subject: Lunch?</text>
+  <text x="500" y="244" class="mono">Message-Id: &lt;CAA7h9M-...@example.com&gt;</text>
+  <text x="500" y="260" class="mono">In-Reply-To: &lt;previous-msg-id@...&gt;</text>
+  <text x="500" y="276" class="mono">References: &lt;root-id@...&gt; &lt;prev-id@...&gt;</text>
+  <text x="500" y="292" class="mono">Received: from client.example.org ...    &lt;-- per hop</text>
+  <text x="500" y="308" class="mono">Received: from sender.example.org ...</text>
+  <text x="500" y="328" class="label">The blank line after the last header marks the</text>
+  <text x="500" y="344" class="label">start of the body. Continuation lines start</text>
+  <text x="500" y="360" class="label">with whitespace (folded headers, RFC 5322 §3.2.2).</text>
+
+  <!-- Trace panel -->
+  <rect x="40" y="360" width="860" height="180" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="384" class="node">Reading the Received trace (top to bottom = newest first)</text>
+  <text x="60" y="412" class="mono">1.  from client.example.org (198.51.100.7) by sender.example.org (Postfix) with ESMTPSA ...</text>
+  <text x="60" y="432" class="mono">    for &lt;bob@example.com&gt;; 2026-06-25 14:32:05 -0700</text>
+  <text x="60" y="456" class="mono">2.  from sender.example.org (203.0.113.10) by mx.example.com (Postfix) with ESMTPS ...</text>
+  <text x="60" y="476" class="mono">    for &lt;bob@example.com&gt;; 2026-06-25 14:32:11 -0700</text>
+  <text x="60" y="500" class="label">Reading in reverse = the actual hop order: client -&gt; sender -&gt; mx.</text>
+  <text x="60" y="516" class="label">ESMTPSA = SMTP+auth+TLS.  ESMTPS = SMTP+TLS.  ESMTP = SMTP with extensions.</text>
+  <text x="60" y="532" class="label">"with ESMTPS" or "with ESMTPSA" is the upgrade marker: TLS happened on that hop.</text>
+</svg>

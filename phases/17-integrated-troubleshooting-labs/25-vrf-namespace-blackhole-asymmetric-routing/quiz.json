@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A connection is established, the first data packet goes through, then the connection stalls. conntrack -L shows the entry in state INVALID. What is the most likely cause?",
+      "options": [
+        "A. The IP is wrong",
+        "B. The reply left via a different interface than the original arrived on; conntrack marks the reply INVALID",
+        "C. The DNS is broken",
+        "D. The TCP window is too small"
+      ],
+      "answer": 1,
+      "explanation": "Conntrack marks a reply INVALID if the reply's egress interface differs from the original's ingress interface. In a multi-tenant host, this is the classic asymmetric-routing issue: the customer's pod's reply leaves via the bridge, but the original arrived on eth0. The fix is to use a VRF, NOTRACK the flow, or add a policy routing rule."
+    },
+    {
+      "question": "What is the difference between a network namespace and a VRF in Linux?",
+      "options": [
+        "A. A namespace is isolated; a VRF shares the kernel's network stack but has its own routing table",
+        "B. A VRF is for IPv6 only",
+        "C. They are the same thing",
+        "D. A namespace is for routing only"
+      ],
+      "answer": 0,
+      "explanation": "A network namespace (ip netns add) is an isolated kernel networking stack: own interfaces, routing table, ARP cache, iptables rules. A VRF (ip vrf) is a lightweight namespace that shares most of the kernel's network stack but has its own routing table. Both solve the multi-tenant isolation problem; conntrack is shared across both by default."
+    },
+    {
+      "question": "What is the security trade-off of `iptables -t raw -A PREROUTING -s 198.51.100.42 -j NOTRACK`?",
+      "options": [
+        "A. No security trade-off; the kernel still filters the packets",
+        "B. The flow is not statefully inspected; no anti-spoofing protection; no NAT tracking; no connection-rate limiting",
+        "C. The packets are encrypted",
+        "D. The packets are dropped"
+      ],
+      "answer": 1,
+      "explanation": "NOTRACK bypasses the conntrack module for the flow. The packets are still filtered by the regular iptables rules, but the stateful context (RELATED, ESTABLISHED) is not available. The flow is not protected by conntrack's anti-spoofing checks, and any NAT rules that depend on conntrack will not work. Use NOTRACK only when you have a specific reason to bypass stateful inspection."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">mDNS / Zeroconf Name Conflict</text>
+  <text x="40" y="68" class="sub">Two hosts claim laptop.local; probe cycle detects conflict; both rename</text>
+
+  <rect x="40" y="120" width="200" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="148" text-anchor="middle" class="node">Host A (10.0.0.42)</text>
+  <text x="140" y="170" text-anchor="middle" class="mono">proposed: laptop.local</text>
+  <text x="140" y="190" text-anchor="middle" class="mono">avahi-daemon</text>
+  <text x="140" y="212" text-anchor="middle" class="label">probes 0, 250, 500 ms</text>
+
+  <rect x="320" y="120" width="280" height="120" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="460" y="148" text-anchor="middle" class="node accent">Link-local mDNS</text>
+  <text x="460" y="170" text-anchor="middle" class="mono">224.0.0.251:5353 (IPv4)</text>
+  <text x="460" y="190" text-anchor="middle" class="mono">ff02::fb:5353 (IPv6)</text>
+  <text x="460" y="212" text-anchor="middle" class="label">TTL 255, not routed</text>
+
+  <rect x="680" y="120" width="200" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="780" y="148" text-anchor="middle" class="node">Host B (10.0.0.43)</text>
+  <text x="780" y="170" text-anchor="middle" class="mono">proposed: laptop.local</text>
+  <text x="780" y="190" text-anchor="middle" class="mono">avahi-daemon</text>
+  <text x="780" y="212" text-anchor="middle" class="label">probes 0, 250, 500 ms</text>
+
+  <line x1="240" y1="170" x2="320" y2="170" stroke="#2A1A2E" stroke-width="2.5"/>
+  <line x1="600" y1="190" x2="680" y2="190" stroke="#2A1A2E" stroke-width="2.5"/>
+  <line x1="320" y1="200" x2="240" y2="200" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <line x1="680" y1="200" x2="600" y2="200" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+
+  <rect x="40" y="320" width="840" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="348" class="node">RFC 6762 conflict resolution</text>
+  <text x="60" y="372" class="mono">Probing  : 3 queries 250 ms apart, host picks a quiet name</text>
+  <text x="60" y="392" class="mono">Conflict : if any peer answers during the probe, host MUST rename (sec. 9.2)</text>
+  <text x="60" y="412" class="mono accent">Host A renames: laptop.local -&gt; laptop-2.local   (10.0.0.42)</text>
+  <text x="60" y="432" class="mono accent">Host B renames: laptop.local -&gt; laptop-3.local   (10.0.0.43)</text>
+  <text x="60" y="458" class="node">Diagnostic</text>
+  <text x="60" y="478" class="mono">avahi-browse -art                      avahi-resolve -n laptop.local</text>
+  <text x="60" y="498" class="mono">tcpdump -i wlan0 -n 'udp port 5353'     dig -p 5353 @224.0.0.251 laptop.local</text>
+  <text x="60" y="524" class="label">Fix: rename one host, accept the -2 suffix, or split the link (mDNS is link-local)</text>
+</svg>

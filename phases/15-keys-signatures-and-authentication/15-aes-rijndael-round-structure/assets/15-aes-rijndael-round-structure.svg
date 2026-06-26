@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .h { font-size: 16px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 13px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .dim { fill: #6b5560; font-size: 12px; }
+    .box { fill: #fff; stroke: #2A1A2E; stroke-width: 1.5; }
+    .fbox { fill: #FFF0F4; stroke: #E2557A; stroke-width: 1.5; }
+    .cell { fill: #fff; stroke: #2A1A2E; stroke-width: 1; }
+    .hcell { fill: #FFF0F4; stroke: #E2557A; stroke-width: 1; }
+  </style>
+
+  <text x="40" y="46" class="title">AES-128 Round Structure</text>
+  <text x="40" y="68" class="sub">10 rounds, each with SubBytes, ShiftRows, MixColumns (skip on round 10), AddRoundKey.</text>
+
+  <!-- State matrix -->
+  <rect x="40" y="100" width="220" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="128" class="h">AES state (4x4 bytes)</text>
+  <g transform="translate(70,150)">
+    <rect x="0" y="0" width="30" height="30" class="cell"/><text x="15" y="20" text-anchor="middle" class="mono">s00</text>
+    <rect x="32" y="0" width="30" height="30" class="cell"/><text x="47" y="20" text-anchor="middle" class="mono">s01</text>
+    <rect x="64" y="0" width="30" height="30" class="cell"/><text x="79" y="20" text-anchor="middle" class="mono">s02</text>
+    <rect x="96" y="0" width="30" height="30" class="cell"/><text x="111" y="20" text-anchor="middle" class="mono">s03</text>
+
+    <rect x="0" y="32" width="30" height="30" class="cell"/><text x="15" y="52" text-anchor="middle" class="mono">s10</text>
+    <rect x="32" y="32" width="30" height="30" class="cell"/><text x="47" y="52" text-anchor="middle" class="mono">s11</text>
+    <rect x="64" y="32" width="30" height="30" class="cell"/><text x="79" y="52" text-anchor="middle" class="mono">s12</text>
+    <rect x="96" y="32" width="30" height="30" class="cell"/><text x="111" y="52" text-anchor="middle" class="mono">s13</text>
+
+    <rect x="0" y="64" width="30" height="30" class="cell"/><text x="15" y="84" text-anchor="middle" class="mono">s20</text>
+    <rect x="32" y="64" width="30" height="30" class="cell"/><text x="47" y="84" text-anchor="middle" class="mono">s21</text>
+    <rect x="64" y="64" width="30" height="30" class="cell"/><text x="79" y="84" text-anchor="middle" class="mono">s22</text>
+    <rect x="96" y="64" width="30" height="30" class="cell"/><text x="111" y="84" text-anchor="middle" class="mono">s23</text>
+
+    <rect x="0" y="96" width="30" height="30" class="cell"/><text x="15" y="116" text-anchor="middle" class="mono">s30</text>
+    <rect x="32" y="96" width="30" height="30" class="cell"/><text x="47" y="116" text-anchor="middle" class="mono">s31</text>
+    <rect x="64" y="96" width="30" height="30" class="cell"/><text x="79" y="116" text-anchor="middle" class="mono">s32</text>
+    <rect x="96" y="96" width="30" height="30" class="cell"/><text x="111" y="116" text-anchor="middle" class="mono">s33</text>
+  </g>
+  <text x="60" y="290" class="dim">128 bits = 16 bytes</text>
+  <text x="60" y="306" class="dim">column-major order</text>
+
+  <!-- Round operations -->
+  <rect x="290" y="100" width="290" height="290" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="310" y="128" class="h">Round i (for i = 1..10)</text>
+
+  <rect x="310" y="150" width="240" height="40" class="fbox" rx="6"/>
+  <text x="430" y="176" text-anchor="middle" class="mono accent">SubBytes (S-box on every byte)</text>
+
+  <rect x="310" y="200" width="240" height="40" class="fbox" rx="6"/>
+  <text x="430" y="226" text-anchor="middle" class="mono accent">ShiftRows (row r rotated by r)</text>
+
+  <rect x="310" y="250" width="240" height="40" class="fbox" rx="6"/>
+  <text x="430" y="276" text-anchor="middle" class="mono accent">MixColumns (GF(2^8) per col)</text>
+  <text x="430" y="305" text-anchor="middle" class="dim">(skipped on round 10)</text>
+
+  <rect x="310" y="320" width="240" height="40" class="fbox" rx="6"/>
+  <text x="430" y="346" text-anchor="middle" class="mono accent">AddRoundKey (XOR with rk[i])</text>
+
+  <!-- Right column: round counts and notes -->
+  <rect x="610" y="100" width="280" height="290" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="630" y="128" class="h accent">Rounds per key size</text>
+  <text x="630" y="156" class="mono">AES-128: 10 rounds, 11 round keys</text>
+  <text x="630" y="180" class="mono">AES-192: 12 rounds, 13 round keys</text>
+  <text x="630" y="204" class="mono">AES-256: 14 rounds, 15 round keys</text>
+
+  <text x="630" y="246" class="dim">Block size: 128 bits (16 bytes) for all.</text>
+  <text x="630" y="266" class="dim">S-box: single 256-entry table.</text>
+  <text x="630" y="286" class="dim">Only nonlinear step: SubBytes.</text>
+  <text x="630" y="320" class="mono accent">Hardware: AES-NI on x86, ARMv8.</text>
+  <text x="630" y="340" class="mono accent">Throughput: &gt;5 Gbps/core.</text>
+  <text x="630" y="372" class="dim">Spec: FIPS 197 (2001).</text>
+
+  <!-- Bottom strip: 10 rounds -->
+  <rect x="40" y="410" width="840" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="436" class="h">Encryption flow</text>
+  <text x="60" y="460" class="mono">Pre:   state XOR rk[0]</text>
+  <text x="60" y="480" class="mono">R1..R9: SubBytes, ShiftRows, MixColumns, AddRoundKey</text>
+  <text x="60" y="500" class="mono">R10:   SubBytes, ShiftRows, AddRoundKey (no MixColumns)</text>
+  <text x="60" y="520" class="dim accent">FIPS 197 Appendix C.1 test vector verified by this lesson's implementation.</text>
+</svg>

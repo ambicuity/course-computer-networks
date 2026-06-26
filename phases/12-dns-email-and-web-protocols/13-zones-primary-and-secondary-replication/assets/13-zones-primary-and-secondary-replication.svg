@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">DNS Zones, Primaries, and Secondary Replication</text>
+  <text x="40" y="68" class="sub">One primary, N secondaries, NOTIFY triggers AXFR/IXFR, SOA timers govern the refresh cycle</text>
+
+  <!-- Primary -->
+  <rect x="60" y="100" width="240" height="140" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="180" y="124" text-anchor="middle" class="node accent">Primary (master)</text>
+  <text x="180" y="146" text-anchor="middle" class="mono">ns1.example.com</text>
+  <text x="180" y="166" text-anchor="middle" class="label">loads zone file from disk</text>
+  <text x="180" y="186" text-anchor="middle" class="label">originates NOTIFY on reload</text>
+  <text x="180" y="206" text-anchor="middle" class="label">answers AXFR (RFC 5936) and</text>
+  <text x="180" y="226" text-anchor="middle" class="label">IXFR (RFC 1995) over TCP/53</text>
+
+  <!-- Secondary 1 -->
+  <rect x="380" y="60" width="220" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="490" y="84" text-anchor="middle" class="node">Secondary #1</text>
+  <text x="490" y="106" text-anchor="middle" class="mono">ns2.example.com</text>
+  <text x="490" y="128" text-anchor="middle" class="label">answers authoritatively (AA=1)</text>
+  <text x="490" y="148" text-anchor="middle" class="label">refresh per SOA REFRESH</text>
+
+  <!-- Secondary 2 -->
+  <rect x="380" y="180" width="220" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="490" y="204" text-anchor="middle" class="node">Secondary #2</text>
+  <text x="490" y="226" text-anchor="middle" class="mono">ns3.example.com (anycast)</text>
+  <text x="490" y="248" text-anchor="middle" class="label">geographically remote</text>
+  <text x="490" y="268" text-anchor="middle" class="label">drops zone after EXPIRE</text>
+
+  <!-- NOTIFY arrows -->
+  <line x1="300" y1="150" x2="380" y2="100" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="380,100 372,103 374,112" fill="#E2557A"/>
+  <text x="340" y="118" text-anchor="middle" class="label accent">NOTIFY</text>
+
+  <line x1="300" y1="180" x2="380" y2="220" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="380,220 372,217 374,226" fill="#E2557A"/>
+  <text x="340" y="200" text-anchor="middle" class="label accent">NOTIFY</text>
+
+  <!-- IXFR reply -->
+  <line x1="380" y1="130" x2="300" y2="160" stroke="#2A1A2E" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <polygon points="300,160 308,160 305,168" fill="#2A1A2E"/>
+  <text x="340" y="148" text-anchor="middle" class="label">IXFR (TCP/53)</text>
+
+  <line x1="380" y1="240" x2="300" y2="200" stroke="#2A1A2E" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <polygon points="300,200 308,200 305,208" fill="#2A1A2E"/>
+  <text x="340" y="230" text-anchor="middle" class="label">IXFR (TCP/53)</text>
+
+  <!-- SOA panel -->
+  <rect x="620" y="60" width="280" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="760" y="86" text-anchor="middle" class="node">SOA timers (RFC 1035 &#167;3.3.13)</text>
+  <text x="640" y="116" class="mono">@ IN SOA ns1 admin.example.com. (</text>
+  <text x="650" y="138" class="mono">2026062501   ; serial  (RFC 1982)</text>
+  <text x="650" y="158" class="mono">3600         ; REFRESH  (s)</text>
+  <text x="650" y="178" class="mono">1800         ; RETRY    (s)</text>
+  <text x="650" y="198" class="mono">1209600      ; EXPIRE   (s = 14 d)</text>
+  <text x="650" y="218" class="mono">300 )        ; MINIMUM (negative TTL)</text>
+  <text x="640" y="248" class="label">Serial must be strictly increasing across edits.</text>
+  <text x="640" y="266" class="label">EXPIRE bounds how long the secondary answers</text>
+  <text x="640" y="282" class="label">authoritatively without a successful refresh.</text>
+
+  <!-- AXFR vs IXFR panel -->
+  <rect x="60" y="300" width="380" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="80" y="324" class="node">AXFR (RFC 5936) vs IXFR (RFC 1995)</text>
+  <text x="80" y="350" class="mono">AXFR:  SOA, every record in zone-order, SOA.</text>
+  <text x="80" y="370" class="mono">        Used for first transfer and as a fallback.</text>
+  <text x="80" y="390" class="mono">        Restrict with allow-transfer ACLs.</text>
+  <text x="80" y="418" class="mono">IXFR:  SOA(old), deleted records, added records,</text>
+  <text x="80" y="438" class="mono">        SOA(new). If diff &gt; full zone, primary</text>
+  <text x="80" y="458" class="mono">        falls back to AXFR.</text>
+  <text x="80" y="488" class="label">Triggered by NOTIFY (RFC 1996): primary sends</text>
+  <text x="80" y="506" class="label">a one-question "SOA" to each NS after reload.</text>
+  <text x="80" y="524" class="label">Secondary compares serials, opens TCP/53 if newer.</text>
+
+  <!-- Refresh cycle panel -->
+  <rect x="460" y="300" width="440" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="480" y="324" class="node">Refresh cycle and EXPIRE math</text>
+  <text x="480" y="350" class="mono">t=0      secondary successfully refreshes.</text>
+  <text x="480" y="370" class="mono">t=3600   REFRESH fires; primary unreachable?</text>
+  <text x="480" y="390" class="mono">         wait RETRY (1800 s), retry, repeat.</text>
+  <text x="480" y="410" class="mono">t=14d    EXPIRE reached: secondary drops zone.</text>
+  <text x="480" y="438" class="mono">Worst-case downtime budget:</text>
+  <text x="490" y="458" class="mono">  REFRESH * (1 + floor((EXPIRE - REFRESH) / RETRY))</text>
+  <text x="490" y="478" class="mono">  = 3600 + floor((1209600 - 3600) / 1800) * 1800</text>
+  <text x="490" y="498" class="mono">  = 1,207,800 s  (~ 13.97 days) before EXPIRE</text>
+  <text x="480" y="524" class="label">Set EXPIRE long enough to survive a planned outage</text>
+  <text x="480" y="540" class="label">but short enough that stale data eventually expires.</text>
+</svg>

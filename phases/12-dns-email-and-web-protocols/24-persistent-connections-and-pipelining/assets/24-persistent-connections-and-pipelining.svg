@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">HTTP Persistent Connections and Pipelining</text>
+  <text x="40" y="68" class="sub">HTTP/1.1 defaults to keep-alive; pipelining helps, HTTP/2 multiplexes</text>
+
+  <!-- Comparison timeline -->
+  <rect x="40" y="100" width="840" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">Three request strategies (3 resources shown)</text>
+
+  <text x="60" y="156" class="mono accent">HTTP/1.0 (one connection per request):</text>
+  <text x="80" y="174" class="mono">[SYN]-[ACK]-[GET]-[200]-FIN  [SYN]-[ACK]-[GET]-[200]-FIN  [SYN]-[ACK]-[GET]-[200]-FIN</text>
+  <text x="80" y="192" class="label">3 handshakes, 3 slow-starts, 3 connection teardowns.</text>
+
+  <text x="60" y="216" class="mono accent">HTTP/1.1 persistent (one connection, sequential):</text>
+  <text x="80" y="234" class="mono">[SYN]-[ACK]-[GET]-[200] [GET]-[200] [GET]-[200] FIN</text>
+  <text x="80" y="252" class="label">1 handshake; server idle between responses.</text>
+
+  <text x="60" y="276" class="mono accent">HTTP/1.1 persistent + pipelined:</text>
+  <text x="80" y="294" class="mono">[SYN]-[ACK]-[GET][GET][GET]-[200][200][200] FIN</text>
+  <text x="80" y="312" class="label">No server idle, but slow first response blocks the rest (HOL).</text>
+
+  <!-- Content-Length framing -->
+  <rect x="40" y="340" width="420" height="200" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="364" class="node">Response framing (RFC 7230)</text>
+  <text x="60" y="388" class="mono">HTTP/1.1 200 OK</text>
+  <text x="60" y="404" class="mono">Content-Length: 1234</text>
+  <text x="60" y="420" class="mono">Content-Type: text/html</text>
+  <text x="60" y="436" class="mono">&lt;1234 octets of body&gt;</text>
+  <text x="60" y="456" class="label">Content-Length delimits responses on</text>
+  <text x="60" y="472" class="label">persistent connections (RFC 7230 §3.3.2).</text>
+  <text x="60" y="490" class="label">Transfer-Encoding: chunked is the</text>
+  <text x="60" y="506" class="label">alternative when the size is unknown</text>
+  <text x="60" y="522" class="label">(RFC 7230 §4.1): 7\\r\\nfoo bar\\r\\n0\\r\\n\\r\\n.</text>
+
+  <!-- HTTP/2 -->
+  <rect x="480" y="340" width="400" height="200" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="500" y="364" class="node accent">HTTP/2 multiplexed (RFC 7540)</text>
+  <text x="500" y="388" class="mono">[SYN] [ACK] [TLS]</text>
+  <text x="500" y="406" class="mono">[stream 1 HEADERS][stream 3 HEADERS][stream 7 HEADERS]</text>
+  <text x="500" y="424" class="mono">... interleaved data frames on the same connection ...</text>
+  <text x="500" y="442" class="mono">[stream 1 DATA][stream 7 DATA][stream 3 DATA]</text>
+  <text x="500" y="464" class="label">One TCP connection; many streams;</text>
+  <text x="500" y="480" class="label">no head-of-line blocking between streams.</text>
+  <text x="500" y="496" class="label">HPACK compresses repeated headers.</text>
+  <text x="500" y="512" class="label">HTTP/3 (RFC 9114) replaces TCP with QUIC.</text>
+</svg>

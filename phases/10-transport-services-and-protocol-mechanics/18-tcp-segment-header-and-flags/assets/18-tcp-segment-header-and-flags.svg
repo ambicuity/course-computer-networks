@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 540" width="980" height="540">
+  <rect width="980" height="540" fill="#FFF7EC"/>
+  <style>
+    text{font-family:Inter,sans-serif;fill:#2A1A2E}.t{font-size:22px;font-weight:700}.s{font-size:12px;fill:#6b5560}.h{font-size:13px;font-weight:700}.m{font-family:monospace;font-size:12px}.a{fill:#E2557A}.l{font-size:11px;fill:#6b5560}
+  </style>
+  <text x="30" y="34" class="t">TCP Segment Header and Control Flags</text>
+  <text x="30" y="54" class="s">20-byte fixed header (RFC 793); eight flags; data offset in high nibble of byte 12</text>
+  <g transform="translate(30,76)">
+    <rect x="0" y="0" width="80" h="34" fill="#FFF0F4" stroke="#E2557A" stroke-width="2"/>
+    <rect x="80" y="0" width="80" h="34" fill="#FFF0F4" stroke="#E2557A" stroke-width="2"/>
+    <rect x="160" y="0" width="280" h="34" fill="#F1E8FF" stroke="#2A1A2E"/>
+    <rect x="440" y="0" width="280" h="34" fill="#F1E8FF" stroke="#2A1A2E"/>
+    <text x="40" y="22" text-anchor="middle" class="m">Source Port</text>
+    <text x="120" y="22" text-anchor="middle" class="m">Dest Port</text>
+    <text x="300" y="22" text-anchor="middle" class="m">Sequence Number (32)</text>
+    <text x="580" y="22" text-anchor="middle" class="m">Acknowledgement Number (32)</text>
+    <rect x="0" y="34" width="80" h="34" fill="#FFF0F4" stroke="#E2557A" stroke-width="2"/>
+    <rect x="80" y="34" width="80" h="34" fill="#FFF0F4" stroke="#E2557A" stroke-width="2"/>
+    <rect x="160" y="34" width="560" h="34" fill="#FFE9C8" stroke="#E2557A" stroke-width="2"/>
+    <rect x="720" y="34" width="120" h="34" fill="#F1E8FF" stroke="#2A1A2E"/>
+    <rect x="840" y="34" width="160" h="34" fill="#F1E8FF" stroke="#2A1A2E"/>
+    <text x="40" y="54" text-anchor="middle" class="m">Data Offset</text>
+    <text x="120" y="54" text-anchor="middle" class="m">Reserved</text>
+    <text x="440" y="50" text-anchor="middle" class="m">CWR  ECE  URG  ACK  PSH  RST  SYN  FIN</text>
+    <text x="440" y="64" text-anchor="middle" class="l">LSB=FIN (RFC 793); ECE/CWR = RFC 3168</text>
+    <text x="780" y="54" text-anchor="middle" class="m">Window (16)</text>
+    <text x="920" y="54" text-anchor="middle" class="m">Checksum (16)</text>
+    <rect x="0" y="68" width="800" h="34" fill="#F1E8FF" stroke="#2A1A2E"/>
+    <rect x="800" y="68" width="200" h="34" fill="#FFE9C8" stroke="#E2557A" stroke-width="2"/>
+    <text x="400" y="90" text-anchor="middle" class="m">Options (variable, padded to 32 bits, &lt;=40 bytes)</text>
+    <text x="900" y="90" text-anchor="middle" class="m">Urgent Pointer (16)</text>
+    <rect x="0" y="106" width="1000" h="36" fill="#FFF0F4" stroke="#E2557A" stroke-width="2"/>
+    <text x="500" y="128" text-anchor="middle" class="m a">DATA  (0 .. 65,495 bytes, capped at MSS = MTU - 40)</text>
+  </g>
+  <g transform="translate(30,240)">
+    <text x="0" y="0" class="h">The eight flags, MSB-first (7..0)</text>
+    <g transform="translate(0,8)">
+      <rect x="0" y="0" width="125" h="32" fill="#FFE9C8" stroke="#E2557A"/>
+      <rect x="125" y="0" width="125" h="32" fill="#FFE9C8" stroke="#E2557A"/>
+      <rect x="250" y="0" width="125" h="32" fill="#FFF0F4" stroke="#E2557A"/>
+      <rect x="375" y="0" width="125" h="32" fill="#FFF0F4" stroke="#E2557A"/>
+      <rect x="500" y="0" width="125" h="32" fill="#FFF0F4" stroke="#E2557A"/>
+      <rect x="625" y="0" width="125" h="32" fill="#FFF0F4" stroke="#E2557A"/>
+      <rect x="750" y="0" width="125" h="32" fill="#FFE9C8" stroke="#E2557A"/>
+      <rect x="875" y="0" width="125" h="32" fill="#FFE9C8" stroke="#E2557A"/>
+      <text x="62" y="20" text-anchor="middle" class="m">CWR</text>
+      <text x="187" y="20" text-anchor="middle" class="m">ECE</text>
+      <text x="312" y="20" text-anchor="middle" class="m">URG</text>
+      <text x="437" y="20" text-anchor="middle" class="m">ACK</text>
+      <text x="562" y="20" text-anchor="middle" class="m">PSH</text>
+      <text x="687" y="20" text-anchor="middle" class="m">RST</text>
+      <text x="812" y="20" text-anchor="middle" class="m">SYN</text>
+      <text x="937" y="20" text-anchor="middle" class="m">FIN</text>
+    </g>
+  </g>
+  <g transform="translate(30,300)">
+    <rect x="0" y="0" width="500" h="200" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="20" class="h">Common flag combinations</text>
+    <g transform="translate(0,30)" class="m">
+      <text x="12" y="14" class="a">0x02</text><text x="70" y="14">SYN        -- client opens, +1 seq</text>
+      <text x="12" y="32" class="a">0x12</text><text x="70" y="32">SYN+ACK    -- server accepts, +1 seq</text>
+      <text x="12" y="50" class="a">0x10</text><text x="70" y="50">ACK        -- pure ack, no data</text>
+      <text x="12" y="68" class="a">0x18</text><text x="70" y="68">PSH+ACK    -- data segment</text>
+      <text x="12" y="86" class="a">0x11</text><text x="70" y="86">FIN+ACK    -- graceful close</text>
+      <text x="12" y="104" class="a">0x04</text><text x="70" y="104">RST        -- abort</text>
+      <text x="12" y="122" class="a">0xC0</text><text x="70" y="122">CWR+ECE    -- ECN (RFC 3168)</text>
+      <text x="12" y="140" class="a">0x50</text><text x="70" y="140">ACK+URG    -- urgent (deprecated)</text>
+    </g>
+  </g>
+  <g transform="translate(540,300)">
+    <rect x="0" y="0" width="410" h="200" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="20" class="h">Why SYN and FIN consume one byte</text>
+    <text x="14" y="44" class="l">A SYN carries no data but must be</text>
+    <text x="14" y="60" class="l">acknowledged unambiguously. ACK = ISN+1</text>
+    <text x="14" y="76" class="l">distinguishes "saw SYN" from "zero-byte segment."</text>
+    <text x="14" y="110" class="h">Internet checksum (RFC 1071)</text>
+    <text x="14" y="132" class="l">16-bit ones'-complement sum over</text>
+    <text x="14" y="148" class="l">[pseudo-header] + [TCP header] + [payload]</text>
+    <text x="14" y="168" class="l">Pseudo: src IP, dst IP, 0, proto=6, length.</text>
+  </g>
+  </svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 16px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">Network Lab Environment</text>
+  <text x="40" y="68" class="sub">3 namespaces, 2 veth pairs, 2 subnets &#8212; h1 and h2 reach each other only through the router</text>
+
+  <!-- h1 node -->
+  <rect x="40" y="120" width="180" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="130" y="150" text-anchor="middle" class="node">h1 (netns)</text>
+  <text x="130" y="178" text-anchor="middle" class="mono">10.0.0.2/24</text>
+  <text x="130" y="200" text-anchor="middle" class="label">veth-h1</text>
+  <text x="130" y="224" text-anchor="middle" class="mono">default via 10.0.0.1</text>
+
+  <!-- router node -->
+  <rect x="370" y="100" width="180" height="160" rx="10" fill="#fff" stroke="#E2557A" stroke-width="3"/>
+  <text x="460" y="130" text-anchor="middle" class="node">router (netns)</text>
+  <text x="460" y="156" text-anchor="middle" class="mono">10.0.0.1/24  (veth-r1)</text>
+  <text x="460" y="176" text-anchor="middle" class="mono">10.0.1.1/24  (veth-r2)</text>
+  <rect x="392" y="194" width="136" height="44" rx="6" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="460" y="212" text-anchor="middle" class="mono accent">ip_forward = 1</text>
+  <text x="460" y="230" text-anchor="middle" class="label">forwards between subnets</text>
+
+  <!-- h2 node -->
+  <rect x="700" y="120" width="180" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="790" y="150" text-anchor="middle" class="node">h2 (netns)</text>
+  <text x="790" y="178" text-anchor="middle" class="mono">10.0.1.2/24</text>
+  <text x="790" y="200" text-anchor="middle" class="label">veth-h2</text>
+  <text x="790" y="224" text-anchor="middle" class="mono">default via 10.0.1.1</text>
+
+  <!-- link h1<->router (subnet A) -->
+  <line x1="220" y1="180" x2="370" y2="180" stroke="#2A1A2E" stroke-width="2.5"/>
+  <circle cx="220" cy="180" r="4" fill="#2A1A2E"/>
+  <circle cx="370" cy="180" r="4" fill="#2A1A2E"/>
+  <text x="295" y="170" text-anchor="middle" class="label">veth pair A</text>
+  <text x="295" y="206" text-anchor="middle" class="mono accent">subnet A 10.0.0.0/24</text>
+
+  <!-- link router<->h2 (subnet B) -->
+  <line x1="550" y1="180" x2="700" y2="180" stroke="#2A1A2E" stroke-width="2.5"/>
+  <circle cx="550" cy="180" r="4" fill="#2A1A2E"/>
+  <circle cx="700" cy="180" r="4" fill="#2A1A2E"/>
+  <text x="625" y="170" text-anchor="middle" class="label">veth pair B</text>
+  <text x="625" y="206" text-anchor="middle" class="mono accent">subnet B 10.0.1.0/24</text>
+
+  <!-- packet journey panel -->
+  <rect x="40" y="300" width="840" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="328" class="node">A ping from h1 to h2: what crosses the wire</text>
+
+  <!-- step 1 ARP -->
+  <text x="60" y="360" class="mono">1.</text>
+  <text x="90" y="360" class="mono">ARP (EtherType 0x0806):  "Who has 10.0.0.1? Tell 10.0.0.2"  to ff:ff:ff:ff:ff:ff</text>
+  <!-- step 2 IP out -->
+  <text x="60" y="390" class="mono">2.</text>
+  <text x="90" y="390" class="mono">Eth dst = router MAC  |  IP dst = 10.0.1.2  |  ICMP type 8  |  TTL 64</text>
+  <text x="90" y="408" class="label">Layer-2 dst is the next hop; Layer-3 dst is the final host.</text>
+  <!-- step 3 forward -->
+  <text x="60" y="438" class="mono">3.</text>
+  <text x="90" y="438" class="mono accent">router decrements TTL 64 -> 63, re-frames, forwards out veth-r2</text>
+  <!-- step 4 reply -->
+  <text x="60" y="468" class="mono">4.</text>
+  <text x="90" y="468" class="mono">h2 replies: ICMP type 0  |  IP dst = 10.0.0.2  |  TTL 64 (drops to 63 back through router)</text>
+
+  <!-- failure note -->
+  <rect x="60" y="484" width="800" height="26" rx="5" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="72" y="502" class="mono accent">If ip_forward = 0: request reaches veth-r1, never exits veth-r2 &#8212; ping times out.</text>
+</svg>

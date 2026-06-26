@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <text x="450" y="44" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#2A1A2E">Stateful Firewall: TCP Flow Tracking</text>
+  <text x="450" y="72" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#2A1A2E">5-tuple key: (proto, src_ip, src_port, dst_ip, dst_port)</text>
+
+  <!-- States -->
+  <rect x="60"  y="120" width="120" height="50" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">CLOSED</text>
+
+  <rect x="240" y="120" width="120" height="50" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="300" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">SYN_SENT</text>
+
+  <rect x="420" y="120" width="160" height="50" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="500" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">ESTABLISHED</text>
+
+  <rect x="620" y="120" width="120" height="50" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="680" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">FIN_WAIT</text>
+
+  <rect x="780" y="120" width="100" height="50" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="830" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">CLOSED</text>
+
+  <!-- Arrows -->
+  <line x1="180" y1="145" x2="240" y2="145" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="240,145 232,141 232,149" fill="#2A1A2E"/>
+  <text x="190" y="135" font-family="monospace" font-size="10" fill="#2A1A2E">SYN</text>
+
+  <line x1="360" y1="145" x2="420" y2="145" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="420,145 412,141 412,149" fill="#2A1A2E"/>
+  <text x="370" y="135" font-family="monospace" font-size="10" fill="#2A1A2E">SYN-ACK</text>
+
+  <line x1="580" y1="145" x2="620" y2="145" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="620,145 612,141 612,149" fill="#2A1A2E"/>
+  <text x="586" y="135" font-family="monospace" font-size="10" fill="#2A1A2E">FIN</text>
+
+  <line x1="740" y1="145" x2="780" y2="145" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="780,145 772,141 772,149" fill="#2A1A2E"/>
+  <text x="746" y="135" font-family="monospace" font-size="10" fill="#2A1A2E">ACK</text>
+
+  <!-- 5-tuple visualisation -->
+  <rect x="60" y="220" width="780" height="100" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="244" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2A1A2E">5-Tuple Flow Key</text>
+  <text x="80" y="278" font-family="monospace" font-size="11" fill="#2A1A2E">(tcp, 203.0.113.1, 55555, 10.0.0.5, 443)</text>
+  <text x="80" y="296" font-family="monospace" font-size="11" fill="#2A1A2E">reverse key:  (tcp, 10.0.0.5, 443, 203.0.113.1, 55555)</text>
+  <text x="80" y="312" font-family="monospace" font-size="11" fill="#E2557A">firewall admits packets whose key matches an open flow, OR initiates a new SYN.</text>
+
+  <!-- Rules example -->
+  <rect x="60" y="340" width="380" height="200" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="250" y="364" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2A1A2E">Stateless Ruleset</text>
+  <text x="80" y="388" font-family="monospace" font-size="10" fill="#2A1A2E">1. allow tcp from 10.0.0.0/24 to any:443</text>
+  <text x="80" y="406" font-family="monospace" font-size="10" fill="#2A1A2E">2. allow tcp from 10.0.0.0/24 to any:80</text>
+  <text x="80" y="424" font-family="monospace" font-size="10" fill="#2A1A2E">3. allow udp from 10.0.0.0/24 to any:53</text>
+  <text x="80" y="442" font-family="monospace" font-size="10" fill="#2A1A2E">4. allow icmp from any to 10.0.0.1</text>
+  <text x="80" y="460" font-family="monospace" font-size="10" fill="#2A1A2E">5. deny all</text>
+  <text x="80" y="488" font-family="Georgia, serif" font-size="11" fill="#E2557A">first-match-wins; no flow memory.</text>
+  <text x="80" y="506" font-family="Georgia, serif" font-size="11" fill="#E2557A">unsolicited inbound SYN: must add ACK bit check.</text>
+  <text x="80" y="524" font-family="Georgia, serif" font-size="11" fill="#E2557A">stateful engines solve this with conntrack.</text>
+
+  <!-- Stateful note -->
+  <rect x="460" y="340" width="380" height="200" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="650" y="364" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#FFF7EC">Stateful Engine</text>
+  <text x="480" y="388" font-family="monospace" font-size="10" fill="#FFF7EC">SYN   -&gt; create flow, state=SYN_SENT</text>
+  <text x="480" y="406" font-family="monospace" font-size="10" fill="#FFF7EC">SYN-ACK -&gt; state=ESTABLISHED</text>
+  <text x="480" y="424" font-family="monospace" font-size="10" fill="#FFF7EC">ACK   -&gt; admit if ESTABLISHED</text>
+  <text x="480" y="442" font-family="monospace" font-size="10" fill="#FFF7EC">FIN   -&gt; state=FIN_WAIT</text>
+  <text x="480" y="460" font-family="monospace" font-size="10" fill="#FFF7EC">RST   -&gt; drop flow</text>
+  <text x="480" y="488" font-family="monospace" font-size="10" fill="#FFF7EC">idle timeout: 30..60s typical</text>
+  <text x="480" y="506" font-family="monospace" font-size="10" fill="#FFF7EC">UDP/ICMP: pseudo-flow for 30s</text>
+  <text x="480" y="524" font-family="monospace" font-size="10" fill="#FFF7EC">Linux: nf_conntrack; BSD: pf state</text>
+</svg>

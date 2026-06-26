@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 620" width="860" height="620">
+  <rect x="0" y="0" width="860" height="620" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 14px; font-weight: 700; fill: #E2557A; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .small { font-size: 10px; fill: #6b5a6e; }
+  </style>
+
+  <text x="30" y="36" class="title">802.11 DCF: RTS/CTS + NAV timing, and the data frame</text>
+
+  <!-- ===== Top: timing diagram ===== -->
+  <text x="30" y="70" class="sub">Virtual carrier sense (CSMA/CA with RTS/CTS)</text>
+
+  <!-- station rows -->
+  <text x="30" y="104" class="lbl">A (sender)</text>
+  <text x="30" y="150" class="lbl">B (receiver)</text>
+  <text x="30" y="196" class="lbl">C / D (neighbors)</text>
+
+  <line x1="120" y1="100" x2="820" y2="100" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="120" y1="146" x2="820" y2="146" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="120" y1="192" x2="820" y2="192" stroke="#2A1A2E" stroke-width="1"/>
+
+  <!-- A: RTS then DATA -->
+  <rect x="130" y="86" width="70" height="22" rx="3" fill="#E2557A"/>
+  <text x="165" y="101" text-anchor="middle" class="mono" fill="#FFF7EC">RTS</text>
+  <rect x="360" y="86" width="200" height="22" rx="3" fill="#2A1A2E"/>
+  <text x="460" y="101" text-anchor="middle" class="mono" fill="#FFF7EC">DATA frame</text>
+
+  <!-- B: CTS then ACK -->
+  <rect x="245" y="132" width="70" height="22" rx="3" fill="#E2557A"/>
+  <text x="280" y="147" text-anchor="middle" class="mono" fill="#FFF7EC">CTS</text>
+  <rect x="605" y="132" width="70" height="22" rx="3" fill="#2A1A2E"/>
+  <text x="640" y="147" text-anchor="middle" class="mono" fill="#FFF7EC">ACK</text>
+
+  <!-- SIFS gaps -->
+  <text x="222" y="120" class="small">SIFS</text>
+  <text x="337" y="120" class="small">SIFS</text>
+  <text x="582" y="120" class="small">SIFS</text>
+
+  <!-- NAV bars for neighbors -->
+  <rect x="200" y="178" width="475" height="20" rx="3" fill="none" stroke="#E2557A" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="437" y="192" text-anchor="middle" class="lbl" fill="#E2557A">NAV set from Duration field — stay silent</text>
+
+  <!-- Duration arrows -->
+  <line x1="165" y1="216" x2="675" y2="216" stroke="#2A1A2E" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="420" y="232" text-anchor="middle" class="small">RTS Duration covers CTS + DATA + ACK (microseconds)</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Middle: interframe spacing ladder ===== -->
+  <text x="30" y="276" class="sub">Interframe spacing = priority (shorter gap wins the channel)</text>
+  <line x1="30" y1="288" x2="500" y2="288" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="30" y="294" width="60" height="18" fill="#E2557A"/>
+  <text x="60" y="307" text-anchor="middle" class="mono" fill="#FFF7EC">SIFS</text>
+  <rect x="30" y="316" width="150" height="18" fill="#c9a96b"/>
+  <text x="105" y="329" text-anchor="middle" class="mono" fill="#2A1A2E">DIFS</text>
+  <rect x="30" y="338" width="240" height="18" fill="#2A1A2E"/>
+  <text x="150" y="351" text-anchor="middle" class="mono" fill="#FFF7EC">EIFS (bad frame)</text>
+  <text x="300" y="307" class="small">ACK / CTS / next fragment go first</text>
+  <text x="300" y="329" class="small">ordinary DCF data + backoff</text>
+  <text x="300" y="351" class="small">after an undecodable frame</text>
+
+  <!-- ===== Bottom: data frame layout ===== -->
+  <text x="30" y="406" class="sub">802.11 data frame (bytes)</text>
+
+  <!-- field boxes -->
+  <g>
+    <rect x="30"  y="416" width="70"  height="40" fill="#E2557A"/>
+    <rect x="100" y="416" width="64"  height="40" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="164" y="416" width="90"  height="40" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="254" y="416" width="90"  height="40" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="344" y="416" width="90"  height="40" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="434" y="416" width="70"  height="40" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="504" y="416" width="240" height="40" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="744" y="416" width="86"  height="40" fill="#2A1A2E"/>
+
+    <text x="65"  y="434" text-anchor="middle" class="lbl" fill="#FFF7EC">Frame</text>
+    <text x="65"  y="448" text-anchor="middle" class="lbl" fill="#FFF7EC">Control</text>
+    <text x="132" y="440" text-anchor="middle" class="lbl">Duration</text>
+    <text x="209" y="434" text-anchor="middle" class="lbl">Address1</text>
+    <text x="209" y="448" text-anchor="middle" class="small">receiver</text>
+    <text x="299" y="434" text-anchor="middle" class="lbl">Address2</text>
+    <text x="299" y="448" text-anchor="middle" class="small">transmitter</text>
+    <text x="389" y="434" text-anchor="middle" class="lbl">Address3</text>
+    <text x="389" y="448" text-anchor="middle" class="small">distant</text>
+    <text x="469" y="434" text-anchor="middle" class="lbl">Seq</text>
+    <text x="469" y="448" text-anchor="middle" class="small">ctrl</text>
+    <text x="624" y="440" text-anchor="middle" class="lbl">Data (LLC.. up to 2312)</text>
+    <text x="787" y="440" text-anchor="middle" class="lbl" fill="#FFF7EC">FCS</text>
+
+    <text x="65"  y="472" text-anchor="middle" class="small">2</text>
+    <text x="132" y="472" text-anchor="middle" class="small">2</text>
+    <text x="209" y="472" text-anchor="middle" class="small">6</text>
+    <text x="299" y="472" text-anchor="middle" class="small">6</text>
+    <text x="389" y="472" text-anchor="middle" class="small">6</text>
+    <text x="469" y="472" text-anchor="middle" class="small">2</text>
+    <text x="624" y="472" text-anchor="middle" class="small">0-2312</text>
+    <text x="787" y="472" text-anchor="middle" class="small">4 (CRC-32)</text>
+  </g>
+
+  <!-- Frame control subfield expansion -->
+  <line x1="65" y1="416" x2="65" y2="500" stroke="#E2557A" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="65" y1="500" x2="200" y2="500" stroke="#E2557A" stroke-width="1"/>
+  <text x="210" y="504" class="mono">Frame Control = 11 subfields:</text>
+  <text x="30"  y="528" class="mono">ver=00 | type=10 | subtype=0000 | ToDS | FromDS | MoreFrag | Retry</text>
+  <text x="30"  y="546" class="mono">         | PwrMgmt | MoreData | Protected | Order</text>
+
+  <!-- Sequence control expansion -->
+  <text x="30" y="578" class="lbl"><tspan class="sub">Seq Control</tspan> = 12-bit sequence number (high) + 4-bit fragment number (low)</text>
+  <text x="30" y="600" class="small">Duration seeds neighbors' NAV · Retry+unchanged Seq = retransmission · FCS is the same CRC-32 as Ethernet</text>
+</svg>

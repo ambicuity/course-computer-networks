@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why does TCP use a three-way handshake instead of a two-way handshake?",
+    "options": [
+      "A. Because three is the minimum number of round trips needed to exchange an MSS option",
+      "B. Because the third segment lets the client confirm that the server's ISN is current, defending against delayed duplicates",
+      "C. Because the SYN flag must be acknowledged twice",
+      "D. Because RFC 793 was written in 1981 and three felt like a good number"
+    ],
+    "answer": 1,
+    "explanation": "The third ACK is what tells the server that the client's ISN was current, not a delayed duplicate from a previous connection. Without it, a stale SYN could resurrect a closed connection: an unrelated host could acknowledge the server's SYN+ACK and open a phantom connection. RFC 793 §6.5 spells this out, and Saltzer-Reed-Clark 1975 is the original source of the argument."
+  },
+  {
+    "question": "A SYN segment carries no application data but still consumes one byte of sequence space. Why?",
+    "options": [
+      "A. Because the SYN carries the MSS option which has length 4",
+      "B. Because RFC 793 requires all SYN segments to have exactly 1 byte of padding",
+      "C. So the receiver can acknowledge the SYN unambiguously with ACK = ISN + 1 instead of being confused with a zero-byte data segment",
+      "D. So the segment can carry an ECN nonce"
+    ],
+    "answer": 2,
+    "explanation": "If SYN consumed zero sequence numbers, ACK = ISN + 1 would also be a valid response to a hypothetical zero-byte data segment with SEQ = ISN. By reserving one byte, every sequence number corresponds to exactly one byte of stream content, including the SYN. This is what makes the three-way handshake unambiguous and why FIN behaves the same way."
+  },
+  {
+    "question": "The server's listen queue is full and a SYN arrives. How does the SYN cookie defense (RFC 4987) let the server still complete the handshake?",
+    "options": [
+      "A. The server stores the SYN in a backup queue on disk",
+      "B. The server encodes the ISN as a 32-bit cookie (timestamp + MSS index + HMAC) so it can validate the third ACK without any stored state",
+      "C. The server drops the SYN and asks the client to retry with a longer timeout",
+      "D. The server replies with RST to refuse the connection"
+    ],
+    "answer": 1,
+    "explanation": "Under SYN cookie mode the server does not allocate a transmission control block for the incoming SYN. It computes a 32-bit cookie from a low-order timestamp, an MSS index, and an HMAC of the connection 4-tuple. The cookie becomes the server's ISN. When the third ACK arrives, the server regenerates the cookie and checks whether ACK = cookie + 1. If it matches, the connection is reconstructed. Caveats: only one MSS choice, no window scale, no SACK blocks."
+  }
+]

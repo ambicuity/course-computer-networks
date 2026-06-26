@@ -1,0 +1,35 @@
+[
+  {
+    "question": "How many rounds does AES-128 use, and how many round keys are derived from the master key?",
+    "options": [
+      "A. 8 rounds, 9 round keys",
+      "B. 10 rounds, 11 round keys",
+      "C. 12 rounds, 13 round keys",
+      "D. 16 rounds, 16 round keys"
+    ],
+    "answer": 1,
+    "explanation": "AES-128 runs 10 rounds and produces 11 round keys: rk[0] is the master key, used in the pre-round AddRoundKey, and rk[1]..rk[10] are used at the end of each subsequent round. AES-192 uses 12 rounds, AES-256 uses 14 (FIPS 197, §5.2)."
+  },
+  {
+    "question": "What is the only nonlinear component of AES?",
+    "options": [
+      "A. ShiftRows",
+      "B. MixColumns",
+      "C. AddRoundKey",
+      "D. SubBytes (the S-box)"
+    ],
+    "answer": 3,
+    "explanation": "ShiftRows is a byte permutation (linear). MixColumns is a GF(2^8) matrix multiply (linear over GF(2)). AddRoundKey is XOR (linear). Only SubBytes applies a nonlinear permutation to each byte. AES's security rests on the careful algebraic choice of this single S-box."
+  },
+  {
+    "question": "What irreducible polynomial defines the GF(2^8) used by AES?",
+    "options": [
+      "A. x^8 + x^4 + x^3 + x + 1 (0x11B)",
+      "B. x^8 + x^4 + x^3 + x^2 + 1 (0x11D)",
+      "C. x^16 + x^5 + x^3 + x^2 + 1 (0x1002D)",
+      "D. x^7 + x + 1 (0x83)"
+    ],
+    "answer": 0,
+    "explanation": "AES uses the polynomial x^8 + x^4 + x^3 + x + 1 (0x11B) as the reduction polynomial. The 'xtime' operation (multiply by 2) shifts left by 1 and XORs 0x1B if the result overflows 8 bits. This polynomial is what makes MixColumns a valid GF(2^8) operation (FIPS 197, §4.2.1)."
+  }
+]

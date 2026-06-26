@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+    .bad { fill: #E2557A; }
+  </style>
+
+  <text x="40" y="46" class="title">QUIC Migration &amp; Spare-CID Exhaustion</text>
+  <text x="40" y="68" class="sub">Server limit=2, one CID retired when Wi-Fi dropped, no spare for the LTE path</text>
+
+  <!-- Client Wi-Fi (left) -->
+  <rect x="40" y="120" width="220" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="150" y="150" text-anchor="middle" class="node">Mobile Client</text>
+  <text x="150" y="172" text-anchor="middle" class="mono">Wi-Fi: 192.168.1.42:54000</text>
+  <text x="150" y="194" text-anchor="middle" class="mono">CID 0 (active) / CID 1 (spare)</text>
+  <text x="150" y="216" text-anchor="middle" class="label">first 120s of stream</text>
+
+  <!-- Client LTE (right of client box) -->
+  <rect x="40" y="290" width="220" height="120" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="150" y="320" text-anchor="middle" class="node bad">Mobile Client (roamed)</text>
+  <text x="150" y="342" text-anchor="middle" class="mono">LTE: 10.43.7.91:52411</text>
+  <text x="150" y="364" text-anchor="middle" class="mono">CID 0 retired, CID 1 cached</text>
+  <text x="150" y="386" text-anchor="middle" class="label">needs fresh CID for new path</text>
+
+  <!-- Arrow roam -->
+  <line x1="150" y1="240" x2="150" y2="290" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <polygon points="150,290 144,278 156,278" fill="#E2557A"/>
+  <text x="172" y="268" class="label accent">t=+120s  Wi-Fi down, LTE up</text>
+
+  <!-- Server -->
+  <rect x="640" y="170" width="240" height="180" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="760" y="200" text-anchor="middle" class="node">QUIC Server</text>
+  <text x="760" y="222" text-anchor="middle" class="mono">198.51.100.10:443</text>
+  <rect x="660" y="234" width="200" height="40" rx="5" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="760" y="252" text-anchor="middle" class="mono accent">active_connection_id_limit = 2</text>
+  <text x="760" y="292" text-anchor="middle" class="mono">CID pool: [0 issued, 1 issued]</text>
+  <text x="760" y="312" text-anchor="middle" class="mono">[0 retired]</text>
+  <text x="760" y="332" text-anchor="middle" class="label">spares = limit - (issued - retired) = 1</text>
+
+  <!-- Arrow Wi-Fi -->
+  <line x1="260" y1="180" x2="640" y2="220" stroke="#2A1A2E" stroke-width="2.5"/>
+  <circle cx="260" cy="180" r="4" fill="#2A1A2E"/>
+  <circle cx="640" cy="220" r="4" fill="#2A1A2E"/>
+  <text x="450" y="195" text-anchor="middle" class="label">1-RTT data, DCID=0</text>
+
+  <!-- Arrow LTE -->
+  <line x1="260" y1="350" x2="640" y2="280" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <circle cx="260" cy="350" r="4" fill="#E2557A"/>
+  <circle cx="640" cy="280" r="4" fill="#E2557A"/>
+  <text x="450" y="335" text-anchor="middle" class="label accent">1-RTT arrives, 4-tuple is new</text>
+
+  <!-- Bottom timeline -->
+  <rect x="40" y="430" width="840" height="110" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="454" class="node">Path validation state machine (RFC 9000 sec. 8.2)</text>
+  <text x="60" y="480" class="mono">Unknown --&gt; Validating --&gt; [PATH_CHALLENGE sent t=128.411]  --&gt; waiting PATH_RESPONSE</text>
+  <text x="60" y="502" class="mono accent">no PATH_RESPONSE within path_validation_timeout (3*pto=1.5s)</text>
+  <text x="60" y="524" class="mono accent">--&gt; CONNECTION_CLOSE 0x0c  PATH_RESPONSE_ERROR  "path validation failed"  t=132.290</text>
+</svg>

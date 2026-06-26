@@ -1,0 +1,35 @@
+[
+  {
+    "question": "What is the effective key length of single DES, and why is the 64-bit key only 56 bits of actual entropy?",
+    "options": [
+      "A. 64 bits; the parity bits add 8 bits of randomness",
+      "B. 56 bits; the 8 parity bits (one per byte) are ignored after the initial key permutation PC1",
+      "C. 128 bits; DES rounds double the effective key",
+      "D. 48 bits; only the round-key bits count"
+    ],
+    "answer": 1,
+    "explanation": "The 64-bit DES key has 8 parity bits (one per byte), used for early hardware error detection. The key schedule drops these via PC1, leaving a 56-bit effective key and a key space of 2^56. EFF's Deep Crack brute-forced this in days in 1998."
+  },
+  {
+    "question": "Why is the 3DES construction EDE (Encrypt-Decrypt-Encrypt) rather than EEE?",
+    "options": [
+      "A. EDE is faster because DES is symmetric",
+      "B. When K1 = K2, the middle D_K2 and outer E_K1 cancel, reducing 3DES to single DES for backward compatibility with legacy systems",
+      "C. EDE is required by the FIPS standard to avoid a known plaintext attack",
+      "D. EEE would produce identical ciphertexts for any key"
+    ],
+    "answer": 1,
+    "explanation": "The chapter explains this directly: EDE lets 3DES interoperate with single-DES systems by setting K1 = K2. The 'middle decryption' cancels out, leaving a single encryption. This allowed phased rollout of 3DES without breaking legacy deployments."
+  },
+  {
+    "question": "What is the only nonlinear component of DES?",
+    "options": [
+      "A. The Initial Permutation (IP)",
+      "B. The expansion function E",
+      "C. The eight S-boxes",
+      "D. The key schedule rotations"
+    ],
+    "answer": 2,
+    "explanation": "Every other operation in DES (IP, FP, expansion E, P-box, key schedule PC2) is a bit permutation or XOR, both of which are linear over GF(2). The S-boxes are the only nonlinear component, and their carefully chosen tables are what makes DES resistant to linear and differential cryptanalysis (chapter, section 8.2.5)."
+  }
+]

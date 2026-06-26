@@ -1,0 +1,48 @@
+{
+  "questions": [
+    {
+      "question": "In DNS redirection, what does the CDN authoritative name server inspect to choose which edge node IP to return?",
+      "options": [
+        "The HTTP Host header sent by the browser",
+        "The IP address of the client's local DNS resolver making the query",
+        "The TCP destination port of the request",
+        "The geographic coordinates embedded in the DNS query"
+      ],
+      "answer": 1,
+      "explanation": "The CDN name server looks at the source IP of the resolver asking the question, maps that IP prefix to a network region via its edge map, and returns the IP of the edge node nearest that region. A Sydney resolver gets the Sydney node."
+    },
+    {
+      "question": "A CDN's nearest edge node for a region is overloaded. What does a load-aware redirection policy do, and why?",
+      "options": [
+        "It queues the client's request at the nearest node until capacity frees up",
+        "It returns the origin server IP so the client bypasses the CDN",
+        "It spills the client to a slightly farther but lightly loaded edge node",
+        "It increases the DNS TTL so fewer redirection decisions are needed"
+      ],
+      "answer": 2,
+      "explanation": "If the nearest node is overloaded it will deliver slow responses, recreating the problem the CDN was built to avoid. A load-aware policy maps the client to the next nearest healthy node, trading a little distance for available capacity."
+    },
+    {
+      "question": "Why does the source say proxy caches alone cannot realize a CDN distribution tree?",
+      "options": [
+        "Proxies are too fast and starve the origin server",
+        "Clients in one region belong to different organizations using different proxies, only one CDN can be a client's single proxy, and clients configure their own proxies",
+        "Proxies cannot cache HTTP responses at all",
+        "Proxies only work for UDP traffic, not TCP"
+      ],
+      "answer": 1,
+      "explanation": "Proxy caches are configured by clients, are not shared across organizations, a client uses only one proxy so it cannot use multiple CDNs, and the CDN cannot control the configuration. DNS redirection sidesteps all three problems by putting the decision in a server the CDN runs."
+    },
+    {
+      "question": "A client's DNS resolver caches the answer for www.cdn.com with a TTL of 60 seconds. Five seconds later the assigned edge node fails. What happens to that client, and what would a fresh query do instead?",
+      "options": [
+        "The client is immediately redirected to a new node because the CDN pushes updates",
+        "The client keeps using the cached (now dead) node IP until the TTL expires; a fresh uncached query would be redirected to a healthy node",
+        "The client's browser automatically switches to the origin server",
+        "The DNS resolver retransmits the query every second until the node recovers"
+      ],
+      "answer": 1,
+      "explanation": "DNS caching pins the client to the returned IP for the TTL. Until it expires, the client keeps connecting to the dead node and sees failures. A fresh query (from a resolver without the cached answer) would get a healthy node, which is why short TTLs are used for failover agility."
+    }
+  ]
+}

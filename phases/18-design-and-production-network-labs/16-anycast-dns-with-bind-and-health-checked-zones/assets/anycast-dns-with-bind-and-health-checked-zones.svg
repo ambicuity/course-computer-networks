@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <rect width="800" height="500" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; font-family: monospace; font-size: 11px; }
+    .accent { fill: #E2557A; font-family: monospace; font-size: 11px; font-weight: bold; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.5; }
+    .box-accent { fill: #FFFFFF; stroke: #E2557A; stroke-width: 2; }
+    .line { stroke: #2A1A2E; stroke-width: 1.5; }
+    .line-accent { stroke: #E2557A; stroke-width: 2; }
+    .line-dash { stroke: #2A1A2E; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .label { fill: #2A1A2E; font-family: monospace; font-size: 9px; }
+  </style>
+
+  <text x="400" y="22" class="accent" text-anchor="middle" font-size="14">ANYCAST DNS - 12 PoPs ADVERTISING 192.0.2.0/24</text>
+
+  <!-- Hidden primary -->
+  <rect x="20" y="50" width="140" height="60" class="box"/>
+  <text x="90" y="70" class="ink" text-anchor="middle">HIDDEN PRIMARY</text>
+  <text x="90" y="85" class="label" text-anchor="middle">Frankfurt cage</text>
+  <text x="90" y="98" class="label" text-anchor="middle">10.0.0.53 (BIND)</text>
+
+  <!-- PoPs in clusters -->
+  <text x="170" y="170" class="ink">EUROPOPs</text>
+  <rect x="160" y="180" width="70" height="50" class="box-accent"/>
+  <text x="195" y="200" class="ink" text-anchor="middle">fra</text>
+  <text x="195" y="213" class="label" text-anchor="middle">192.0.2.1</text>
+  <text x="195" y="225" class="label" text-anchor="middle">RTT 12</text>
+
+  <rect x="240" y="180" width="70" height="50" class="box"/>
+  <text x="275" y="200" class="ink" text-anchor="middle">lon</text>
+  <text x="275" y="213" class="label" text-anchor="middle">192.0.2.2</text>
+  <text x="275" y="225" class="label" text-anchor="middle">RTT 14</text>
+
+  <rect x="320" y="180" width="70" height="50" class="box"/>
+  <text x="355" y="200" class="ink" text-anchor="middle">ams</text>
+  <text x="355" y="213" class="label" text-anchor="middle">192.0.2.3</text>
+  <text x="355" y="225" class="label" text-anchor="middle">RTT 11</text>
+
+  <rect x="400" y="180" width="70" height="50" class="box"/>
+  <text x="435" y="200" class="ink" text-anchor="middle">par</text>
+  <text x="435" y="213" class="label" text-anchor="middle">192.0.2.4</text>
+  <text x="435" y="225" class="label" text-anchor="middle">RTT 13</text>
+
+  <!-- North America -->
+  <text x="500" y="170" class="ink">NA PoPs</text>
+  <rect x="490" y="180" width="70" height="50" class="box"/>
+  <text x="525" y="200" class="ink" text-anchor="middle">nyc</text>
+  <text x="525" y="213" class="label" text-anchor="middle">192.0.2.5</text>
+  <text x="525" y="225" class="label" text-anchor="middle">RTT 18</text>
+
+  <rect x="570" y="180" width="70" height="50" class="box"/>
+  <text x="605" y="200" class="ink" text-anchor="middle">lax</text>
+  <text x="605" y="213" class="label" text-anchor="middle">192.0.2.6</text>
+  <text x="605" y="225" class="label" text-anchor="middle">RTT 22</text>
+
+  <rect x="650" y="180" width="70" height="50" class="box"/>
+  <text x="685" y="200" class="ink" text-anchor="middle">tor</text>
+  <text x="685" y="213" class="label" text-anchor="middle">192.0.2.7</text>
+  <text x="685" y="225" class="label" text-anchor="middle">RTT 20</text>
+
+  <!-- South America / Asia / Oceania -->
+  <rect x="160" y="260" width="70" height="50" class="box"/>
+  <text x="195" y="280" class="ink" text-anchor="middle">gru</text>
+  <text x="195" y="293" class="label" text-anchor="middle">192.0.2.8</text>
+  <text x="195" y="305" class="label" text-anchor="middle">RTT 35</text>
+
+  <rect x="320" y="260" width="70" height="50" class="box"/>
+  <text x="355" y="280" class="ink" text-anchor="middle">sin</text>
+  <text x="355" y="293" class="label" text-anchor="middle">192.0.2.9</text>
+  <text x="355" y="305" class="label" text-anchor="middle">RTT 28</text>
+
+  <rect x="400" y="260" width="70" height="50" class="box"/>
+  <text x="435" y="280" class="ink" text-anchor="middle">hkg</text>
+  <text x="435" y="293" class="label" text-anchor="middle">192.0.2.10</text>
+  <text x="435" y="305" class="label" text-anchor="middle">RTT 30</text>
+
+  <rect x="480" y="260" width="70" height="50" class="box"/>
+  <text x="515" y="280" class="ink" text-anchor="middle">tyo</text>
+  <text x="515" y="293" class="label" text-anchor="middle">192.0.2.11</text>
+  <text x="515" y="305" class="label" text-anchor="middle">RTT 25</text>
+
+  <rect x="560" y="260" width="70" height="50" class="box"/>
+  <text x="595" y="280" class="ink" text-anchor="middle">syd</text>
+  <text x="595" y="293" class="label" text-anchor="middle">192.0.2.12</text>
+  <text x="595" y="305" class="label" text-anchor="middle">RTT 32</text>
+
+  <!-- AXFR/IXFR from hidden primary -->
+  <line x1="160" y1="80" x2="195" y2="180" class="line-dash"/>
+  <line x1="160" y1="80" x2="275" y2="180" class="line-dash"/>
+  <line x1="160" y1="80" x2="355" y2="180" class="line-dash"/>
+  <line x1="160" y1="80" x2="435" y2="180" class="line-dash"/>
+  <line x1="160" y1="80" x2="525" y2="180" class="line-dash"/>
+  <line x1="160" y1="80" x2="605" y2="180" class="line-dash"/>
+  <line x1="160" y1="80" x2="685" y2="180" class="line-dash"/>
+  <line x1="160" y1="80" x2="195" y2="260" class="line-dash"/>
+  <line x1="160" y1="80" x2="355" y2="260" class="line-dash"/>
+  <line x1="160" y1="80" x2="435" y2="260" class="line-dash"/>
+  <line x1="160" y1="80" x2="515" y2="260" class="line-dash"/>
+  <line x1="160" y1="80" x2="595" y2="260" class="line-dash"/>
+  <text x="170" y="120" class="label" text-anchor="middle">AXFR/IXFR (TSIG-signed)</text>
+
+  <!-- Recursive resolvers -->
+  <rect x="20" y="380" width="200" height="50" class="box"/>
+  <text x="120" y="400" class="ink" text-anchor="middle">Resolver (Sydney)</text>
+  <text x="120" y="415" class="label" text-anchor="middle">query 192.0.2.53</text>
+  <text x="120" y="427" class="label" text-anchor="middle">RTT to nearest: 32ms (syd)</text>
+
+  <rect x="300" y="380" width="200" height="50" class="box"/>
+  <text x="400" y="400" class="ink" text-anchor="middle">Resolver (Frankfurt)</text>
+  <text x="400" y="415" class="label" text-anchor="middle">query 192.0.2.53</text>
+  <text x="400" y="427" class="label" text-anchor="middle">RTT to nearest: 12ms (fra)</text>
+
+  <rect x="580" y="380" width="200" height="50" class="box"/>
+  <text x="680" y="400" class="ink" text-anchor="middle">Resolver (Sao Paulo)</text>
+  <text x="680" y="415" class="label" text-anchor="middle">query 192.0.2.53</text>
+  <text x="680" y="427" class="label" text-anchor="middle">RTT to nearest: 35ms (gru)</text>
+
+  <line x1="120" y1="380" x2="595" y2="310" class="line-accent"/>
+  <line x1="400" y1="380" x2="195" y2="230" class="line-accent"/>
+  <line x1="680" y1="380" x2="195" y2="310" class="line-accent"/>
+
+  <!-- Health check / withdrawal -->
+  <rect x="20" y="450" width="760" height="40" class="box"/>
+  <text x="400" y="468" class="accent" text-anchor="middle">HEALTH CHECK</text>
+  <text x="40" y="482" class="label">dig @192.0.2.53 version.bind TXT CH every 5s; 3 failures = vtysh withdraw network 192.0.2.0/24; 3 successes = restore.</text>
+</svg>

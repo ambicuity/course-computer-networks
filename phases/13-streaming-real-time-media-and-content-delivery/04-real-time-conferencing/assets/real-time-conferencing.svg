@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" font-family="ui-monospace,Menlo,Consolas,monospace">
+  <rect width="880" height="600" fill="#FFF7EC"/>
+  <text x="440" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#2A1A2E">Real-Time Conferencing: H.323 vs SIP Signaling</text>
+  <text x="440" y="58" text-anchor="middle" font-size="12" fill="#2A1A2E">UDP media (RTP/RTCP) + 20 ms packetization + DSCP EF 0x2E + jitter buffer vs playout delay</text>
+
+  <!-- H.323 panel -->
+  <rect x="20" y="80" width="410" height="240" fill="#FFEFD8" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="40" y="104" font-size="14" font-weight="700" fill="#2A1A2E">H.323 call flow (monolithic, ITU-T)</text>
+  <text x="40" y="122" font-size="10" fill="#2A1A2E">PC &#8594; Gatekeeper (UDP 1718/1719) &#8594; Gateway &#8594; PSTN</text>
+
+  <line x1="60" y1="148" x2="400" y2="148" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="60" y="144" font-size="10" fill="#2A1A2E">step</text>
+  <text x="100" y="144" font-size="10" fill="#2A1A2E">protocol / port</text>
+  <text x="250" y="144" font-size="10" fill="#2A1A2E">purpose</text>
+
+  <g font-size="10" fill="#2A1A2E">
+    <text x="60" y="166">1</text><text x="100" y="166">UDP 1718</text><text x="250" y="166">Gatekeeper discovery (broadcast)</text>
+    <text x="60" y="184">2</text><text x="100" y="184" fill="#E2557A">RAS / UDP 1719</text><text x="250" y="184" fill="#E2557A">Registration</text>
+    <text x="60" y="202">3</text><text x="100" y="202" fill="#E2557A">RAS / UDP 1719</text><text x="250" y="202" fill="#E2557A">Admission / bandwidth request</text>
+    <text x="60" y="220">4</text><text x="100" y="220">Q.931 / TCP</text><text x="250" y="220">SETUP message to gatekeeper</text>
+    <text x="60" y="238">5</text><text x="100" y="238">Q.931 / TCP</text><text x="250" y="238">CALL PROCEEDING &#8594; ALERT &#8594; CONNECT</text>
+    <text x="60" y="256">6</text><text x="100" y="256" fill="#E2557A">H.245 / TCP</text><text x="250" y="256" fill="#E2557A">Capability exchange (G.711, H.264...)</text>
+    <text x="60" y="274">7</text><text x="100" y="274">RTP / UDP</text><text x="250" y="274">Two unidirectional media channels</text>
+    <text x="60" y="292">8</text><text x="100" y="292">RTCP / UDP</text><text x="250" y="292">Sender / receiver reports</text>
+    <text x="60" y="310">9</text><text x="100" y="310">Q.931 / TCP</text><text x="250" y="310">RELEASE on hangup</text>
+  </g>
+
+  <!-- SIP panel -->
+  <rect x="450" y="80" width="410" height="240" fill="#FFEFD8" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="470" y="104" font-size="14" font-weight="700" fill="#2A1A2E">SIP dialog (RFC 3261, modular)</text>
+  <text x="470" y="122" font-size="10" fill="#2A1A2E">Alice &#8594; Proxy &#8594; Bob, ASCII methods, runs over TCP or UDP</text>
+
+  <line x1="470" y1="148" x2="840" y2="148" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="470" y="144" font-size="10" fill="#2A1A2E">message</text>
+  <text x="640" y="144" font-size="10" fill="#2A1A2E">purpose</text>
+
+  <g font-size="10" fill="#2A1A2E">
+    <text x="470" y="166">REGISTER (out-of-band)</text><text x="640" y="166">Tell proxy Alice is at this IP</text>
+    <text x="470" y="184" fill="#E2557A">INVITE sip:bob@biloxi.example.com</text><text x="640" y="184" fill="#E2557A">Request session, SDP body</text>
+    <text x="470" y="202">100 Trying</text><text x="640" y="202">Proxy is processing</text>
+    <text x="470" y="220">180 Ringing</text><text x="640" y="220">Bob's phone is ringing</text>
+    <text x="470" y="238" fill="#E2557A">200 OK</text><text x="640" y="238" fill="#E2557A">Bob accepted, SDP body</text>
+    <text x="470" y="256" fill="#E2557A">ACK</text><text x="640" y="256" fill="#E2557A">Three-way handshake complete</text>
+    <text x="470" y="274">... RTP media ...</text><text x="640" y="274">DTLS-SRTP encrypted, DSCP EF</text>
+    <text x="470" y="292">BYE</text><text x="640" y="292">Hangup</text>
+    <text x="470" y="310">200 OK</text><text x="640" y="310">Session released</text>
+  </g>
+
+  <!-- Delay budget panel -->
+  <rect x="20" y="340" width="410" height="240" fill="#FFE7C2" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="40" y="364" font-size="14" font-weight="700" fill="#2A1A2E">One-way delay budget</text>
+  <text x="40" y="382" font-size="10" fill="#2A1A2E">G.711 64 kbps, 1 Mbps access link, 8,000 km fiber (Seattle &#8594; Amsterdam)</text>
+
+  <g font-size="10" fill="#2A1A2E">
+    <text x="40" y="406" font-weight="700">Component</text>
+    <text x="220" y="406" font-weight="700">Long pkt (1 KB)</text>
+    <text x="340" y="406" font-weight="700">Short pkt (160 B)</text>
+
+    <text x="40" y="424">Packetization (64 kbps)</text>
+    <text x="220" y="424">125 ms</text>
+    <text x="340" y="424" fill="#E2557A">20 ms</text>
+
+    <text x="40" y="442">TX delay (1 Mbps each end)</text>
+    <text x="220" y="442">16 ms</text>
+    <text x="340" y="442" fill="#E2557A">2.56 ms</text>
+
+    <text x="40" y="460">Propagation (fiber c/3)</text>
+    <text x="220" y="460">40 ms</text>
+    <text x="340" y="460">40 ms</text>
+
+    <text x="40" y="478">Queuing (DS EF marking)</text>
+    <text x="220" y="478">low</text>
+    <text x="340" y="478">low</text>
+
+    <text x="40" y="504" font-weight="700">Total one-way</text>
+    <text x="220" y="504" font-weight="700" fill="#E2557A">181 ms (over 150 ms budget)</text>
+    <text x="340" y="504" font-weight="700" fill="#2A1A2E">63 ms (OK)</text>
+  </g>
+
+  <text x="40" y="530" font-size="10" fill="#2A1A2E">Jitter buffer (40-60 ms) sits between this and the speaker</text>
+  <text x="40" y="546" font-size="10" fill="#2A1A2E">MOS target: 4.0+ ("toll") means packet loss &lt; 1%</text>
+  <text x="40" y="562" font-size="10" fill="#2A1A2E">DSCP EF (0x2E) lets the EF queue bypass bulk web traffic</text>
+
+  <!-- RTP/RTCP panel -->
+  <rect x="450" y="340" width="410" height="240" fill="#FFE7C2" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="470" y="364" font-size="14" font-weight="700" fill="#2A1A2E">RTP packet (RFC 3550, 12-byte fixed header)</text>
+
+  <g font-size="10" fill="#2A1A2E">
+    <text x="470" y="386">0                   1                   2                   3</text>
+    <text x="470" y="402">0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1</text>
+    <text x="470" y="416">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</text>
+    <text x="470" y="430">|V=2|P|X|  CC   |M|     PT      |       sequence number         |</text>
+    <text x="470" y="446">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</text>
+    <text x="470" y="460">|                           timestamp                           |</text>
+    <text x="470" y="476">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</text>
+    <text x="470" y="490">|           synchronization source (SSRC) identifier            |</text>
+    <text x="470" y="506">+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+</text>
+    <text x="470" y="522">|            contributing source (CSRC) identifiers             |</text>
+    <text x="470" y="538">|                             ....                              |</text>
+    <text x="470" y="554">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</text>
+  </g>
+
+  <text x="470" y="572" font-size="10" fill="#E2557A">Typical voice pkt: 12 (RTP) + 160 (G.711) + 8 (UDP) + 20 (IPv4) = 200 B on the wire</text>
+</svg>

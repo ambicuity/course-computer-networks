@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="ui-sans-serif, system-ui, sans-serif">
+  <rect width="880" height="620" fill="#FFF7EC"/>
+  <rect x="0" y="0" width="880" height="50" fill="#2A1A2E"/>
+  <text x="20" y="32" font-size="18" font-weight="700" fill="#FFF7EC">Slow Web Page Waterfall + Mail Delivery Failure</text>
+  <text x="20" y="74" font-size="13" fill="#2A1A2E" font-style="italic">A single broken DNS zone produces both web slowness (1.5s TXT lookups) and mail rejection (DKIM/SPF/DMARC fail).</text>
+
+  <!-- DNS zone table -->
+  <g>
+    <rect x="40" y="100" width="810" height="190" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="124" font-size="13" font-weight="700" fill="#2A1A2E">example.com zone (8 essential records):</text>
+    <g font-size="11" fill="#2A1A2E" font-family="ui-monospace, monospace">
+      <text x="60"  y="148">example.com                  A       93.184.216.34                      (OK)</text>
+      <text x="60"  y="166">example.com                  AAAA    2606:2800:220:1::1                  (OK)</text>
+      <text x="60"  y="184">example.com                  MX      10 mail.example.com                 (OK)</text>
+      <text x="60"  y="202">example.com                  TXT     "v=spf1 ip4:93.184.216.0/24 -all"    (OK)</text>
+      <text x="60"  y="220" fill="#E2557A">default._domainkey.example.com TXT "v=DKIM1; k=rsa; p=MII..."  (MISSING / SLOW)</text>
+      <text x="60"  y="238" fill="#E2557A">_dmarc.example.com           TXT     "v=DMARC1; p=reject; ..."             (MISSING / SLOW)</text>
+      <text x="60"  y="256" fill="#E2557A">cdn.example.com              CNAME   example.cdn.net                      (MISSING)</text>
+      <text x="60"  y="274">93.184.216.34                PTR     sender.example.com                   (OK)</text>
+    </g>
+  </g>
+
+  <!-- Waterfall chart -->
+  <g>
+    <rect x="40" y="310" width="810" height="160" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="334" font-size="13" font-weight="700" fill="#2A1A2E">Page-load waterfall (each row is a request):</text>
+    <g font-size="11" fill="#2A1A2E" font-family="ui-monospace, monospace">
+      <text x="60"  y="358">GET /             |DNS|TCP|TLS|wait|dl|     Total=68ms</text>
+      <text x="60"  y="376">GET /style.css    |<-------- 1.5s -------->|dl|    Total=1567ms  (DNS dominant)</text>
+      <text x="60"  y="394">GET /app.js       |<-------- 1.5s -------->|dl|    Total=1567ms</text>
+      <text x="60"  y="412">GET /logo.png     |<-------- 1.5s -------->|dl|    Total=1567ms</text>
+      <text x="60"  y="436">  Slow DNS adds 4.5s to page load.</text>
+    </g>
+    <g>
+      <rect x="100" y="370" width="320" height="14" fill="#E2557A"/>
+      <rect x="100" y="388" width="320" height="14" fill="#E2557A"/>
+      <rect x="100" y="406" width="320" height="14" fill="#E2557A"/>
+    </g>
+  </g>
+
+  <!-- SMTP session -->
+  <g>
+    <rect x="40" y="490" width="810" height="110" rx="6" fill="#F2E0CE" stroke="#E2557A" stroke-width="2"/>
+    <text x="60" y="514" font-size="13" font-weight="700" fill="#E2557A">SMTP session to mx.google.com (mail is rejected):</text>
+    <g font-size="11" fill="#2A1A2E" font-family="ui-monospace, monospace">
+      <text x="60"  y="538">S: 220 mx.google.com ESMTP ready</text>
+      <text x="60"  y="556">C: EHLO sender.example.com</text>
+      <text x="60"  y="574">S: 250 mx.google.com Hello sender.example.com</text>
+      <text x="60"  y="592">S: 550 5.7.1 ... does not designate 93.184.216.99 as a permitted sender  (DKIM+DMARC fail)</text>
+    </g>
+  </g>
+</svg>

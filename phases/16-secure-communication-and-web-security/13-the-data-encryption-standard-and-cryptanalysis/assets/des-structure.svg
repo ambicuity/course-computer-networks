@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="ui-monospace, Menlo, monospace">
+  <rect width="1100" height="720" fill="#FFF7EC"/>
+  <text x="550" y="40" text-anchor="middle" font-size="24" font-weight="700" fill="#2A1A2E">DES: 16-Round Feistel Cipher, 56-bit Key</text>
+  <text x="550" y="62" text-anchor="middle" font-size="12" fill="#2A1A2E">FIPS 46-3 (1977) — withdrawn by NIST 2005, 3DES deprecated 2023</text>
+
+  <!-- One Feistel round -->
+  <g transform="translate(40,100)">
+    <rect width="500" height="240" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">One DES round: f(R, K) = P(S(E(R) XOR K))</text>
+    <g transform="translate(20,40)">
+      <rect x="0" y="0" width="80" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="40" y="20" text-anchor="middle" font-size="11" fill="#2A1A2E">R (32b)</text>
+      <rect x="120" y="0" width="80" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="160" y="20" text-anchor="middle" font-size="11" fill="#2A1A2E">E (32->48)</text>
+      <circle cx="240" cy="16" r="14" fill="#E2557A"/>
+      <text x="240" y="20" text-anchor="middle" font-size="11" fill="#FFF7EC">XOR</text>
+      <rect x="284" y="0" width="80" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="324" y="20" text-anchor="middle" font-size="11" fill="#2A1A2E">8 S-boxes</text>
+      <rect x="384" y="0" width="80" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="424" y="20" text-anchor="middle" font-size="11" fill="#2A1A2E">P (32b)</text>
+      <text x="80" y="60" text-anchor="middle" font-size="11" fill="#E2557A">K_i (48b)</text>
+      <path d="M80 64 L226 30" stroke="#E2557A" fill="none" stroke-width="1.5"/>
+      <path d="M324 32 L324 100" stroke="#2A1A2E" fill="none" stroke-width="1.5"/>
+      <rect x="284" y="100" width="80" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="324" y="120" text-anchor="middle" font-size="11" fill="#2A1A2E">XOR L</text>
+      <path d="M40 32 L40 100 L284 116" stroke="#2A1A2E" fill="none" stroke-width="1.5"/>
+      <rect x="384" y="100" width="80" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="424" y="120" text-anchor="middle" font-size="11" fill="#FFF7EC">R_i+1</text>
+      <text x="14" y="160" font-size="10" fill="#2A1A2E">S-boxes are the only non-linear part;</text>
+      <text x="14" y="176" font-size="10" fill="#2A1A2E">P-box spreads their output across 32 bits.</text>
+    </g>
+  </g>
+
+  <!-- 16 rounds pipeline -->
+  <g transform="translate(560,100)">
+    <rect width="500" height="240" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">16 rounds: Feistel pipeline</text>
+    <g transform="translate(20,46)">
+      <rect x="0"   y="0" width="40" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <rect x="50"  y="0" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="100" y="0" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="150" y="0" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="200" y="0" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="250" y="0" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="300" y="0" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="350" y="0" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="400" y="0" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="450" y="0" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="20" y="20" text-anchor="middle" font-size="10" fill="#2A1A2E">IP</text>
+      <text x="70" y="20" text-anchor="middle" font-size="10" fill="#FFF7EC">R1</text>
+      <text x="120" y="20" text-anchor="middle" font-size="10" fill="#FFF7EC">R2</text>
+      <text x="170" y="20" text-anchor="middle" font-size="10" fill="#FFF7EC">R3</text>
+      <text x="220" y="20" text-anchor="middle" font-size="10" fill="#FFF7EC">R4</text>
+      <text x="270" y="20" text-anchor="middle" font-size="10" fill="#FFF7EC">R5</text>
+      <text x="320" y="20" text-anchor="middle" font-size="10" fill="#FFF7EC">R6</text>
+      <text x="370" y="20" text-anchor="middle" font-size="10" fill="#FFF7EC">R7</text>
+      <text x="420" y="20" text-anchor="middle" font-size="10" fill="#FFF7EC">R8</text>
+      <text x="470" y="20" text-anchor="middle" font-size="10" fill="#FFF7EC">R9</text>
+      <rect x="0"   y="60" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="50"  y="60" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="100" y="60" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="150" y="60" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="200" y="60" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="250" y="60" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="300" y="60" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="350" y="60" width="40" height="32" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="400" y="60" width="40" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="20" y="80" text-anchor="middle" font-size="10" fill="#FFF7EC">L1</text>
+      <text x="70" y="80" text-anchor="middle" font-size="10" fill="#FFF7EC">L2</text>
+      <text x="120" y="80" text-anchor="middle" font-size="10" fill="#FFF7EC">L3</text>
+      <text x="170" y="80" text-anchor="middle" font-size="10" fill="#FFF7EC">L4</text>
+      <text x="220" y="80" text-anchor="middle" font-size="10" fill="#FFF7EC">L5</text>
+      <text x="270" y="80" text-anchor="middle" font-size="10" fill="#FFF7EC">L6</text>
+      <text x="320" y="80" text-anchor="middle" font-size="10" fill="#FFF7EC">L7</text>
+      <text x="370" y="80" text-anchor="middle" font-size="10" fill="#FFF7EC">L8</text>
+      <text x="420" y="80" text-anchor="middle" font-size="10" fill="#2A1A2E">IP-1</text>
+      <text x="14" y="124" font-size="10" fill="#2A1A2E">Decryption runs the same rounds with the subkeys reversed:</text>
+      <text x="14" y="140" font-size="10" fill="#2A1A2E">K_16, K_15, ..., K_1. The Feistel structure is invertible</text>
+      <text x="14" y="156" font-size="10" fill="#2A1A2E">even though the S-boxes are not.</text>
+      <text x="14" y="190" font-size="10" font-weight="700" fill="#E2557A">Effective key = 56 bits; broken by exhaustive search in 1998.</text>
+    </g>
+  </g>
+
+  <!-- Key schedule -->
+  <g transform="translate(40,360)">
+    <rect width="500" height="200" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">Key schedule (PC-1, rotate, PC-2)</text>
+    <g transform="translate(20,40)" font-size="11" fill="#2A1A2E">
+      <text x="0" y="14">64-bit key -> PC-1 -> 56 bits -> split into C0, D0 (28 bits each)</text>
+      <text x="0" y="34">For round i, rotate C and D left by SHIFTS[i] bits:</text>
+      <text x="20" y="50">SHIFTS = [1,1,2,2,2,2,2,2, 1,2,2,2,2,2,2,1]</text>
+      <text x="0" y="70">Then K_i = PC-2(C_i || D_i) -> 48-bit subkey</text>
+      <text x="0" y="100">8 parity bits in the key are stripped by PC-1.</text>
+      <text x="0" y="120">Each key bit appears in ~14 of 16 rounds.</text>
+      <text x="0" y="150" font-weight="700" fill="#E2557A">No weak keys in DES; four semi-weak key pairs exist</text>
+      <text x="0" y="166" font-weight="700" fill="#E2557A">(E_K(E_K(P)) = P); 3DES avoids them by chaining.</text>
+    </g>
+  </g>
+
+  <!-- 3DES and timeline -->
+  <g transform="translate(560,360)">
+    <rect width="500" height="200" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="250" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">Triple DES (EDE) and its deprecation</text>
+    <g transform="translate(20,40)" font-size="11" fill="#2A1A2E">
+      <rect x="0"  y="0"  width="80" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="100" y="0" width="80" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="200" y="0" width="80" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="40"  y="18" text-anchor="middle" font-size="11" fill="#FFF7EC">E_K1</text>
+      <text x="140" y="18" text-anchor="middle" font-size="11" fill="#FFF7EC">D_K2</text>
+      <text x="240" y="18" text-anchor="middle" font-size="11" fill="#FFF7EC">E_K3</text>
+      <text x="0" y="50">C = E_K3(D_K2(E_K1(P)))  — Encrypt-Decrypt-Encrypt</text>
+      <text x="0" y="76">Backward compat: set K1=K2=K3 to get single DES.</text>
+      <text x="0" y="106">2-key 3DES: K1=K3, K2 independent; meet-in-the-middle</text>
+      <text x="0" y="122">reduces security to ~80 bits of work.</text>
+      <text x="0" y="148" font-weight="700" fill="#E2557A">NIST deprecation timeline:</text>
+      <text x="0" y="164">  2005: DES withdrawn</text>
+      <text x="0" y="180">  2017: 3DES disallowed in TLS 1.3</text>
+      <text x="0" y="194">  2023: 3DES disallowed in FIPS (SP 800-131A Rev. 2)</text>
+    </g>
+  </g>
+
+  <!-- Footer: cryptanalytic attacks -->
+  <g transform="translate(40,580)">
+    <rect width="1020" height="120" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="510" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">The cryptanalysis that broke DES</text>
+    <g transform="translate(20,38)" font-size="11" fill="#2A1A2E">
+      <text x="0" y="0">  Exhaustive search (1977-): 2^56 work. EFF Deep Crack (1998): 56 hours, $250K. COPACOBANA (2006): under $10K.</text>
+      <text x="0" y="18">  Differential (Biham-Shamir 1990): chosen-plaintext, 2^47 work. IBM/NSA knew since 1974; S-boxes designed to resist.</text>
+      <text x="0" y="36">  Linear (Matsui 1993): known-plaintext, 2^43 work. First practical cryptanalytic attack on DES.</text>
+      <text x="0" y="54" font-weight="700" fill="#E2557A">Lesson: key length is a forward commitment against Moore's Law. AES-128 (10^38 keys) is the modern design point.</text>
+    </g>
+  </g>
+</svg>

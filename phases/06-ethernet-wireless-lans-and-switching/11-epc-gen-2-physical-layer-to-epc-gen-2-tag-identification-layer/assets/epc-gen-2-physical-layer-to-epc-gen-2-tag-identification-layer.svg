@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    .t   { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .mono{ font-family: monospace; fill: #2A1A2E; }
+    .h   { font-family: Inter, sans-serif; fill: #2A1A2E; font-weight: 700; }
+    .acc { fill: #E2557A; }
+    .accs{ stroke: #E2557A; }
+    .ink { stroke: #2A1A2E; }
+  </style>
+
+  <text x="30" y="36" class="h" font-size="20">EPC Gen 2: backscatter link &amp; slotted-ALOHA identification</text>
+  <text x="30" y="56" class="t" font-size="12">902–928 MHz UHF ISM · reader hops &lt; 400 ms · passive tag harvests carrier · half duplex</text>
+
+  <!-- Handshake timeline -->
+  <text x="30" y="92" class="h" font-size="14">Query → RN16 → ACK → EPC handshake</text>
+
+  <line x1="120" y1="110" x2="120" y2="430" class="ink" stroke-width="2"/>
+  <line x1="540" y1="110" x2="540" y2="430" class="ink" stroke-width="2"/>
+  <text x="80"  y="106" class="h" font-size="12">Reader</text>
+  <text x="510" y="106" class="h" font-size="12">Tag</text>
+  <text x="92" y="124" class="t" font-size="10">(always TX carrier)</text>
+  <text x="498" y="124" class="t" font-size="10">(slot counter)</text>
+
+  <!-- messages -->
+  <line x1="120" y1="150" x2="540" y2="158" class="ink" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="150" y="146" class="mono" font-size="11">Query (slot 0, Q=4)</text>
+
+  <line x1="120" y1="186" x2="540" y2="194" class="ink" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="150" y="182" class="mono" font-size="11">QRepeat (slot 1)</text>
+
+  <line x1="120" y1="222" x2="540" y2="230" class="ink" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="150" y="218" class="mono" font-size="11">QRepeat (slot 2)</text>
+
+  <line x1="540" y1="262" x2="120" y2="270" class="accs" stroke-width="2" marker-end="url(#b)"/>
+  <text x="245" y="258" class="mono acc" font-size="11">RN16 (16-bit handle)</text>
+
+  <line x1="120" y1="302" x2="540" y2="310" class="ink" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="150" y="298" class="mono" font-size="11">ACK(RN16)</text>
+
+  <line x1="540" y1="342" x2="120" y2="350" class="accs" stroke-width="2" marker-end="url(#b)"/>
+  <text x="220" y="338" class="mono acc" font-size="11">EPC identifier (96–496 b)</text>
+
+  <line x1="120" y1="382" x2="540" y2="390" class="ink" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a)"/>
+  <text x="150" y="378" class="mono" font-size="11">QRepeat (slot 3…N)</text>
+  <text x="150" y="412" class="t" font-size="10" fill="#E2557A">tag now "inventoried" in this session — stays quiet</text>
+
+  <!-- Query frame format -->
+  <text x="30" y="466" class="h" font-size="14">Query frame (22 bits, Tanenbaum Fig. 4-40)</text>
+  <g font-size="10">
+    <rect x="30"  y="478" width="60" height="40" fill="#E2557A" class="ink" stroke-width="1"/>
+    <text x="60"  y="496" class="t" text-anchor="middle" fill="#FFF7EC">Command</text>
+    <text x="60"  y="510" class="mono" text-anchor="middle" fill="#FFF7EC">1000 · 4b</text>
+
+    <rect x="90"  y="478" width="30" height="40" fill="none" class="ink" stroke-width="1"/>
+    <text x="105" y="496" class="t" text-anchor="middle">DR</text><text x="105" y="510" class="mono" text-anchor="middle">1</text>
+    <rect x="120" y="478" width="30" height="40" fill="none" class="ink" stroke-width="1"/>
+    <text x="135" y="496" class="t" text-anchor="middle">M</text><text x="135" y="510" class="mono" text-anchor="middle">2</text>
+    <rect x="150" y="478" width="30" height="40" fill="none" class="ink" stroke-width="1"/>
+    <text x="165" y="496" class="t" text-anchor="middle">TR</text><text x="165" y="510" class="mono" text-anchor="middle">1</text>
+    <rect x="180" y="478" width="38" height="40" fill="none" class="ink" stroke-width="1"/>
+    <text x="199" y="496" class="t" text-anchor="middle">Sel</text><text x="199" y="510" class="mono" text-anchor="middle">2</text>
+    <rect x="218" y="478" width="60" height="40" fill="none" class="ink" stroke-width="1"/>
+    <text x="248" y="496" class="t" text-anchor="middle">Session</text><text x="248" y="510" class="mono" text-anchor="middle">2</text>
+    <rect x="278" y="478" width="50" height="40" fill="none" class="ink" stroke-width="1"/>
+    <text x="303" y="496" class="t" text-anchor="middle">Target</text><text x="303" y="510" class="mono" text-anchor="middle">1</text>
+
+    <rect x="328" y="478" width="44" height="40" fill="#E2557A" class="ink" stroke-width="1"/>
+    <text x="350" y="496" class="t" text-anchor="middle" fill="#FFF7EC">Q</text>
+    <text x="350" y="510" class="mono" text-anchor="middle" fill="#FFF7EC">4b</text>
+
+    <rect x="372" y="478" width="60" height="40" fill="none" class="accs ink" stroke-width="1"/>
+    <text x="402" y="496" class="t" text-anchor="middle">CRC-5</text><text x="402" y="510" class="mono" text-anchor="middle">5</text>
+  </g>
+  <text x="450" y="492" class="t" font-size="11" font-weight="700">Q tunes slots = 2^Q</text>
+  <text x="450" y="508" class="mono" font-size="10">Q=4→16 · Q=8→256 · Q=9→512</text>
+  <text x="450" y="524" class="t" font-size="10" fill="#E2557A">empty&gt;&gt; → lower Q · collisions&gt;&gt; → raise Q (QAdjust)</text>
+
+  <text x="30" y="544" class="t" font-size="10">Optimal when 2^Q ≈ tag count (≈1 tag/slot). 300 tags @ Q=4 → all 16 slots collide → tags dropped.</text>
+
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="b" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

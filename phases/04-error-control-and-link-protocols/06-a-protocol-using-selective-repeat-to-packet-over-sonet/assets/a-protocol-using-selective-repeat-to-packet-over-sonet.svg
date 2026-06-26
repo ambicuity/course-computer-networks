@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 600" width="860" height="600">
+  <rect width="860" height="600" fill="#FFF7EC"/>
+  <style>
+    .t  { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .m  { font-family: monospace; fill: #2A1A2E; }
+    .h  { font-family: Inter, sans-serif; fill: #2A1A2E; font-weight: 700; }
+    .a  { fill: #E2557A; }
+    .lbl{ font-family: Inter, sans-serif; fill: #2A1A2E; font-size: 11px; }
+  </style>
+
+  <text x="30" y="38" class="h" font-size="22">Selective Repeat &#8594; Packet over SONET</text>
+  <text x="30" y="60" class="t" font-size="13">From window math to the PPP frame on the fiber</text>
+
+  <!-- Section 1: Selective Repeat windows -->
+  <text x="30" y="98" class="h" font-size="15">1 &#183; Window rule: size &#8804; (MAX_SEQ+1)/2 = 2&#8319;&#8315;&#185;</text>
+
+  <!-- legal window cells -->
+  <text x="30" y="124" class="lbl">3-bit seq, NR_BUFS = 4 (legal)</text>
+  <g>
+    <rect x="30"  y="132" width="44" height="34" fill="#E2557A" opacity="0.18" stroke="#E2557A"/>
+    <rect x="74"  y="132" width="44" height="34" fill="#E2557A" opacity="0.18" stroke="#E2557A"/>
+    <rect x="118" y="132" width="44" height="34" fill="#E2557A" opacity="0.18" stroke="#E2557A"/>
+    <rect x="162" y="132" width="44" height="34" fill="#E2557A" opacity="0.18" stroke="#E2557A"/>
+    <rect x="206" y="132" width="44" height="34" fill="none" stroke="#2A1A2E" opacity="0.35"/>
+    <rect x="250" y="132" width="44" height="34" fill="none" stroke="#2A1A2E" opacity="0.35"/>
+    <rect x="294" y="132" width="44" height="34" fill="none" stroke="#2A1A2E" opacity="0.35"/>
+    <rect x="338" y="132" width="44" height="34" fill="none" stroke="#2A1A2E" opacity="0.35"/>
+    <text x="48"  y="154" class="m" font-size="14">0</text>
+    <text x="92"  y="154" class="m" font-size="14">1</text>
+    <text x="136" y="154" class="m" font-size="14">2</text>
+    <text x="180" y="154" class="m" font-size="14">3</text>
+    <text x="224" y="154" class="m" font-size="14">4</text>
+    <text x="268" y="154" class="m" font-size="14">5</text>
+    <text x="312" y="154" class="m" font-size="14">6</text>
+    <text x="356" y="154" class="m" font-size="14">7</text>
+  </g>
+  <text x="30" y="190" class="lbl"><tspan class="a" font-weight="700">accept window</tspan> [0,4) buffers out-of-order frames;</text>
+  <text x="30" y="206" class="lbl">a retransmitted old frame 0 falls outside &#8594; rejected, no corruption.</text>
+
+  <!-- Section 2: arrived bitmap delivery -->
+  <text x="450" y="98" class="h" font-size="15">2 &#183; arrived[] buffer &#8594; in-order delivery</text>
+  <g font-size="12">
+    <rect x="450" y="116" width="380" height="92" fill="none" stroke="#2A1A2E" opacity="0.4"/>
+    <text x="462" y="138" class="m">recv 0  &#8594; deliver P0          window [1,5)</text>
+    <text x="462" y="158" class="m">recv 2  &#8594; buffer  (gap at 1)</text>
+    <text x="462" y="178" class="m">recv 3  &#8594; buffer  (gap at 1)</text>
+    <text x="462" y="198" class="m"><tspan class="a" font-weight="700">recv 1</tspan>  &#8594; deliver P1,P2,P3    window [4,0)</text>
+  </g>
+
+  <!-- divider -->
+  <line x1="30" y1="232" x2="830" y2="232" stroke="#2A1A2E" opacity="0.25"/>
+
+  <!-- Section 3: protocol stack -->
+  <text x="30" y="262" class="h" font-size="15">3 &#183; Packet over SONET stack (RFC 2615)</text>
+  <g font-size="13">
+    <rect x="30" y="276" width="120" height="34" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="62" y="298" class="t">IP packet</text>
+    <rect x="30" y="314" width="120" height="34" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="58" y="336" class="t">PPP frame</text>
+    <rect x="30" y="352" width="120" height="34" fill="#E2557A" opacity="0.18" stroke="#E2557A"/>
+    <text x="40" y="374" class="t">SONET payload</text>
+    <text x="160" y="298" class="lbl">network layer</text>
+    <text x="160" y="336" class="lbl">data link &#8212; framing, CRC-32, scramble</text>
+    <text x="160" y="374" class="lbl">physical &#8212; OC-48 2.488 Gbps, 125 &#181;s payload</text>
+  </g>
+
+  <!-- Section 4: PPP frame format -->
+  <text x="30" y="424" class="h" font-size="15">4 &#183; PPP unnumbered frame &#8212; byte values</text>
+  <g font-size="11">
+    <!-- Flag -->
+    <rect x="30"  y="436" width="70"  height="46" fill="#E2557A" opacity="0.22" stroke="#E2557A"/>
+    <text x="50"  y="456" class="h">Flag</text>
+    <text x="40"  y="472" class="m">0x7E</text>
+    <!-- Address -->
+    <rect x="100" y="436" width="80"  height="46" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="116" y="456" class="h">Address</text>
+    <text x="124" y="472" class="m">0xFF</text>
+    <!-- Control -->
+    <rect x="180" y="436" width="80"  height="46" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="196" y="456" class="h">Control</text>
+    <text x="204" y="472" class="m">0x03</text>
+    <!-- Protocol -->
+    <rect x="260" y="436" width="90"  height="46" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="274" y="456" class="h">Protocol</text>
+    <text x="270" y="472" class="m">0x0021</text>
+    <!-- Payload -->
+    <rect x="350" y="436" width="200" height="46" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="415" y="456" class="h">Payload</text>
+    <text x="372" y="472" class="m">IP, scrambled x^43+1</text>
+    <!-- Checksum -->
+    <rect x="550" y="436" width="110" height="46" fill="#E2557A" opacity="0.22" stroke="#E2557A"/>
+    <text x="568" y="456" class="h">Checksum</text>
+    <text x="566" y="472" class="m">CRC-32</text>
+    <!-- Flag -->
+    <rect x="660" y="436" width="70"  height="46" fill="#E2557A" opacity="0.22" stroke="#E2557A"/>
+    <text x="680" y="456" class="h">Flag</text>
+    <text x="670" y="472" class="m">0x7E</text>
+    <!-- sizes -->
+    <text x="55"  y="496" class="lbl">1</text>
+    <text x="135" y="496" class="lbl">1</text>
+    <text x="215" y="496" class="lbl">1</text>
+    <text x="295" y="496" class="lbl">2</text>
+    <text x="435" y="496" class="lbl">&#8804;1500</text>
+    <text x="595" y="496" class="lbl">4</text>
+    <text x="690" y="496" class="lbl">1   bytes</text>
+  </g>
+
+  <!-- byte stuffing note -->
+  <text x="30" y="528" class="lbl"><tspan class="a" font-weight="700">Byte stuffing:</tspan> 0x7E in payload &#8594; 0x7D 0x5E,  0x7D &#8594; 0x7D 0x5D  (escaped = byte XOR 0x20)</text>
+
+  <!-- LCP state machine strip -->
+  <text x="30" y="560" class="h" font-size="13">LCP link:</text>
+  <g font-size="11">
+    <rect x="92"  y="548" width="70" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="108" y="563" class="t">DEAD</text>
+    <rect x="186" y="548" width="86" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="196" y="563" class="t">ESTABLISH</text>
+    <rect x="296" y="548" width="104" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="304" y="563" class="t">AUTHENTICATE</text>
+    <rect x="424" y="548" width="80" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="434" y="563" class="t">NETWORK</text>
+    <rect x="528" y="548" width="64" height="22" fill="#E2557A" opacity="0.22" stroke="#E2557A"/><text x="544" y="563" class="t">OPEN</text>
+    <rect x="616" y="548" width="86" height="22" fill="#FFF7EC" stroke="#2A1A2E"/><text x="626" y="563" class="t">TERMINATE</text>
+    <line x1="162" y1="559" x2="184" y2="559" class="a" stroke="#E2557A" stroke-width="1.5"/>
+    <line x1="272" y1="559" x2="294" y2="559" class="a" stroke="#E2557A" stroke-width="1.5"/>
+    <line x1="400" y1="559" x2="422" y2="559" class="a" stroke="#E2557A" stroke-width="1.5"/>
+    <line x1="504" y1="559" x2="526" y2="559" class="a" stroke="#E2557A" stroke-width="1.5"/>
+    <line x1="592" y1="559" x2="614" y2="559" class="a" stroke="#E2557A" stroke-width="1.5"/>
+  </g>
+</svg>

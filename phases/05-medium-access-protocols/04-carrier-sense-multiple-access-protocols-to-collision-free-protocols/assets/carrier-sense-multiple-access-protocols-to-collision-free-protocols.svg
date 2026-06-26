@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620">
+  <style>
+    .bg { fill: #FFF7EC; }
+    .stroke { fill: none; stroke: #2A1A2E; stroke-width: 2; }
+    .berry { fill: #E2557A; }
+    .berryStroke { fill: none; stroke: #E2557A; stroke-width: 2.5; }
+    .t { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .mono { font-family: monospace; fill: #2A1A2E; }
+    .title { font-family: Inter, sans-serif; fill: #2A1A2E; font-weight: 700; }
+    .lbl { font-family: Inter, sans-serif; fill: #2A1A2E; font-size: 12px; }
+    .acc { font-family: Inter, sans-serif; fill: #E2557A; font-weight: 700; }
+    .node { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 2; }
+    .hot { fill: #FBE3EA; stroke: #E2557A; stroke-width: 2.5; }
+  </style>
+  <rect class="bg" x="0" y="0" width="880" height="620"/>
+  <text class="title" x="28" y="36" font-size="22">Carrier Sense &#8594; Collision-Free Protocols</text>
+  <text class="lbl" x="28" y="56" font-size="13">Listen, decide, and either contend (CSMA/CD) or reserve (collision-free)</text>
+
+  <!-- ===== Panel 1: CSMA decision state machine ===== -->
+  <text class="title" x="28" y="92" font-size="15">1 &#183; CSMA decision rule</text>
+
+  <rect class="node" x="28" y="104" width="150" height="44" rx="8"/>
+  <text class="t" x="103" y="131" font-size="13" text-anchor="middle">Frame to send</text>
+
+  <line class="stroke" x1="103" y1="148" x2="103" y2="170" marker-end="url(#arrow)"/>
+  <rect class="hot" x="40" y="170" width="126" height="44" rx="8"/>
+  <text class="acc" x="103" y="190" font-size="13" text-anchor="middle">Sense carrier</text>
+  <text class="lbl" x="103" y="205" font-size="11" text-anchor="middle">idle or busy?</text>
+
+  <!-- idle branch -->
+  <line class="stroke" x1="103" y1="214" x2="103" y2="244" marker-end="url(#arrow)"/>
+  <text class="lbl" x="113" y="232" font-size="11">idle</text>
+  <rect class="node" x="20" y="244" width="166" height="60" rx="8"/>
+  <text class="t" x="103" y="263" font-size="11.5" text-anchor="middle">1-persist: send p=1</text>
+  <text class="t" x="103" y="279" font-size="11.5" text-anchor="middle">p-persist: send w/ prob p</text>
+  <text class="t" x="103" y="295" font-size="11.5" text-anchor="middle">else defer 1 slot</text>
+
+  <!-- busy branch -->
+  <line class="stroke" x1="166" y1="192" x2="250" y2="192" marker-end="url(#arrow)"/>
+  <text class="lbl" x="200" y="184" font-size="11">busy</text>
+  <rect class="node" x="250" y="168" width="170" height="48" rx="8"/>
+  <text class="t" x="335" y="186" font-size="11.5" text-anchor="middle">1-persist: keep sensing</text>
+  <text class="t" x="335" y="202" font-size="11.5" text-anchor="middle">nonpersist: random backoff</text>
+
+  <!-- collision -->
+  <line class="stroke" x1="103" y1="304" x2="103" y2="330" marker-end="url(#arrow)"/>
+  <rect class="berryStroke" x="36" y="330" width="134" height="40" rx="8"/>
+  <text class="acc" x="103" y="355" font-size="12.5" text-anchor="middle">Collision &#8594; abort</text>
+  <line class="stroke" x1="170" y1="350" x2="335" y2="350" marker-end="url(#arrow)"/>
+  <text class="lbl" x="252" y="343" font-size="11">CSMA/CD: stop within 2&#964;</text>
+
+  <!-- ===== Panel 2: CSMA/CD 2-tau timing ===== -->
+  <text class="title" x="470" y="92" font-size="15">2 &#183; CSMA/CD slot time = 2&#964;</text>
+  <line class="stroke" x1="490" y1="130" x2="850" y2="130"/>
+  <line class="stroke" x1="490" y1="200" x2="850" y2="200"/>
+  <text class="lbl" x="470" y="134" font-size="11">A</text>
+  <text class="lbl" x="470" y="204" font-size="11">B</text>
+
+  <!-- A starts -->
+  <circle class="berry" cx="500" cy="130" r="4"/>
+  <text class="lbl" x="500" y="120" font-size="10">t=0 A sends</text>
+  <!-- signal travels A->B (tau) -->
+  <line class="berryStroke" x1="500" y1="130" x2="680" y2="200" marker-end="url(#arrowB)"/>
+  <text class="acc" x="600" y="175" font-size="11">&#964;</text>
+  <circle class="berry" cx="680" cy="200" r="4"/>
+  <text class="lbl" x="660" y="222" font-size="10">B senses idle, sends</text>
+  <!-- collision echo B->A (tau) -->
+  <line class="berryStroke" x1="680" y1="200" x2="850" y2="130" marker-end="url(#arrowB)"/>
+  <text class="acc" x="780" y="155" font-size="11">&#964;</text>
+  <circle class="berry" cx="850" cy="130" r="4"/>
+  <text class="lbl" x="790" y="120" font-size="10">A detects collision</text>
+
+  <line class="stroke" x1="500" y1="240" x2="850" y2="240" stroke-dasharray="4 3"/>
+  <text class="acc" x="675" y="258" font-size="12" text-anchor="middle" font-weight="700">worst-case detection = 2&#964; (the contention slot)</text>
+  <text class="mono" x="675" y="278" font-size="11.5" text-anchor="middle">min frame bits = 2&#964; &#215; rate  &#8594;  10 Mbps: 512 b = 64 B</text>
+  <text class="lbl" x="675" y="296" font-size="11" text-anchor="middle">frames &lt; 64 B = runts; detected after 2&#964; = late collision</text>
+
+  <!-- ===== Panel 3: Binary countdown wired-OR ===== -->
+  <text class="title" x="28" y="412" font-size="15">3 &#183; Binary countdown (wired-OR bidding)</text>
+  <text class="lbl" x="28" y="430" font-size="12">MSB-first; channel OR-s bits; if your 0 is overwritten by a 1, you drop out. Highest address wins.</text>
+
+  <g class="mono" font-size="14" letter-spacing="9">
+    <text x="40" y="458" letter-spacing="0" class="lbl" font-family="Inter, sans-serif">station   b3 b2 b1 b0</text>
+    <text x="40" y="482">0010   0 &#8212; &#8212; &#8212;</text>
+    <text x="370" y="482" class="lbl" letter-spacing="0" font-family="Inter, sans-serif" font-size="12">out @ b3</text>
+    <text x="40" y="506">0100   0 &#8212; &#8212; &#8212;</text>
+    <text x="370" y="506" class="lbl" letter-spacing="0" font-family="Inter, sans-serif" font-size="12">out @ b3</text>
+    <text x="40" y="530">1001   1 0 0 &#8212;</text>
+    <text x="370" y="530" class="lbl" letter-spacing="0" font-family="Inter, sans-serif" font-size="12">out @ b1</text>
+    <text x="40" y="554" class="berry" font-weight="700">1010   1 0 1 0</text>
+    <text x="370" y="554" class="acc" letter-spacing="0" font-family="Inter, sans-serif" font-size="12">WINNER</text>
+  </g>
+  <line class="berryStroke" x1="30" y1="540" x2="345" y2="540"/>
+  <text x="40" y="578" class="acc mono" font-size="14" font-weight="700" letter-spacing="9">OR =   1 0 1 0</text>
+  <text x="370" y="578" class="lbl" font-size="12">efficiency d/(d+log&#8322;N) &#8594; up to 100%</text>
+
+  <!-- ===== Panel 4: contention vs collision-free crossover ===== -->
+  <text class="title" x="470" y="412" font-size="15">4 &#183; Pick by load</text>
+  <rect class="stroke" x="470" y="424" width="380" height="172" rx="10"/>
+  <line class="stroke" x1="500" y1="566" x2="830" y2="566"/>
+  <line class="stroke" x1="500" y1="566" x2="500" y2="440"/>
+  <text class="lbl" x="660" y="588" font-size="11" text-anchor="middle">offered load &#8594;</text>
+  <text class="lbl" x="486" y="450" font-size="11" transform="rotate(-90 486 450)" text-anchor="middle">delay</text>
+  <!-- contention curve: low then rising -->
+  <path class="stroke" d="M 510 555 Q 600 552 680 520 T 820 450"/>
+  <text class="lbl" x="700" y="500" font-size="11">CSMA / ALOHA</text>
+  <!-- collision-free: high flat -->
+  <path class="berryStroke" d="M 510 500 Q 640 495 760 492 T 820 490"/>
+  <text class="acc" x="540" y="490" font-size="11">collision-free</text>
+  <text class="lbl" x="660" y="446" font-size="10.5" text-anchor="middle">contention low @ light load; collision-free flat @ heavy load</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrowB" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

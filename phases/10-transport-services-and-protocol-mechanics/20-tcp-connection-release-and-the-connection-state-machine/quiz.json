@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why does the side that initiated an active close enter TIME_WAIT instead of going straight to CLOSED?",
+    "options": [
+      "A. Because TIME_WAIT lets the kernel flush its routing cache",
+      "B. Because the active closer needs 2 * MSL so delayed duplicates die and a lost final ACK can be retransmitted by the peer",
+      "C. Because TCP requires all FINs to be acknowledged twice",
+      "D. Because RFC 793 was written in 1981 and TIME_WAIT was the only option available"
+    ],
+    "answer": 1,
+    "explanation": "TIME_WAIT exists for two reasons: (1) let delayed duplicates from the connection die before the same 4-tuple can be reused, and (2) absorb the case where the final ACK is lost -- the peer retransmits its FIN, and the active closer must still be around to re-ACK. After 2 * MSL (typically 60 seconds) the peer will have given up, so any further segment is by definition a duplicate and can be dropped."
+  },
+  {
+    "question": "During a simultaneous close, both sides enter which state before TIME_WAIT?",
+    "options": [
+      "A. CLOSE_WAIT",
+      "B. LAST_ACK",
+      "C. CLOSING",
+      "D. FIN_WAIT_2"
+    ],
+    "answer": 2,
+    "explanation": "In a simultaneous close, both sides send FIN at the same time. Each receives the other's FIN before its own FIN is ACKed, which puts them in the CLOSING state (RFC 793 Figure 6-39). When the matching ACK finally arrives, both transition to TIME_WAIT and wait 2 * MSL."
+  },
+  {
+    "question": "A peer sends a TCP segment with the RST flag set. What happens on the receiver?",
+    "options": [
+      "A. The receiver enters CLOSE_WAIT and waits for the application to close",
+      "B. The receiver sends a FIN to confirm and then enters TIME_WAIT",
+      "C. The connection is dropped immediately, no FIN is sent, and the receiver returns to CLOSED without TIME_WAIT",
+      "D. The receiver treats RST as urgent data and signals the application"
+    ],
+    "answer": 2,
+    "explanation": "RST aborts the connection immediately. The receiver drops the connection, sends no FIN, releases the transmission control block, and goes back to CLOSED. No TIME_WAIT is needed because RST does not consume sequence space and there is no final ACK to deliver. RST is used when an application crashes or when a segment arrives for a non-existent connection."
+  }
+]

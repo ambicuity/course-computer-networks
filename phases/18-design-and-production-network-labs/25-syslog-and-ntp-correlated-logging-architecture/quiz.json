@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "How is the RFC 5424 PRI byte computed from facility and severity, and what does PRI 165 mean?",
+      "options": [
+        "A. PRI = severity * 8 + facility; 165 = severity 20 + facility 5",
+        "B. PRI = facility * 8 + severity; 165 = facility 20 (local4) + severity 5 (notice)",
+        "C. PRI is a random identifier; 165 has no meaning",
+        "D. PRI = facility + severity; 165 = facility 80 + severity 85"
+      ],
+      "correct": 1,
+      "explanation": "RFC 5424 §6.2.1: PRI byte = facility * 8 + severity. PRI 165 = 20 * 8 + 5 = facility 20 (`local4`) severity 5 (`notice`). The kernel / rsyslog use this to filter and route messages before the message body is even inspected."
+    },
+    {
+      "question": "Why does RFC 5424 specify an RFC 3339 timestamp with millisecond precision when RFC 3164 BSD syslog did not?",
+      "options": [
+        "A. The extra precision looks better in logs",
+        "B. Without a millisecond-precision timestamp from a synchronized clock, the SIEM cannot determine causal order across hosts -- it can only sort by arrival time",
+        "C. RFC 5424 is intended for video streaming",
+        "D. RFC 3164 could not be carried over TCP"
+      ],
+      "correct": 1,
+      "explanation": "RFC 3164 used `Mmm dd hh:mm:ss` -- no year, no timezone, no sub-second. RFC 5424 carries `2024-03-14T03:42:01.612Z` -- ISO 8601, UTC, milliseconds. With NTP-synced clocks this gives SIEMs the causal-ordering key for incident correlation. The first rule of incident response is 'the timestamp you have is wrong' unless NTP is in place."
+    },
+    {
+      "question": "What does chrony report when it loses all upstream NTP sources?",
+      "options": [
+        "A. It continues serving the last good time and reports `System time : +0.000001 seconds slow`",
+        "B. It immediately stops and refuses to answer queries",
+        "C. It rewinds to the last known RTC value",
+        "D. It logs the loss but keeps serving the last measured time and reports a step/sewing offset, drifting at the kernel's clock rate (~ppm)"
+      ],
+      "correct": 3,
+      "explanation": "chrony never blindly trusts the upstream -- it slews the clock gradually unless `makestep` allows a step. When NTP sources are lost, chronyd continues serving the last filtered estimate and `chronyc tracking` shows the offset of the system clock from chrony's internal estimate. Drift accumulates at the hardware's ppm rate (a few seconds per day on a typical x86)."
+    }
+  ]
+}

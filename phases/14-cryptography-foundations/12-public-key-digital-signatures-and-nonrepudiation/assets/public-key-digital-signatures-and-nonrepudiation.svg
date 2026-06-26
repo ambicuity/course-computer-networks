@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560">
+  <rect width="820" height="560" fill="#FFF7EC"/>
+  <style>
+    .t { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .mono { font-family: monospace; fill: #2A1A2E; }
+    .acc { fill: #E2557A; }
+    .accs { stroke: #E2557A; }
+    .ink { stroke: #2A1A2E; }
+  </style>
+
+  <text x="410" y="38" text-anchor="middle" class="t" font-size="24" font-weight="700">
+    Public-key signatures: Alice -&gt; Bob, no Big Brother
+  </text>
+  <text x="410" y="62" text-anchor="middle" class="t" font-size="13" opacity="0.7">
+    Alice sends P and S = D_A(P); Bob verifies by computing E_A(S)
+  </text>
+
+  <!-- Alice -->
+  <rect x="40" y="100" width="170" height="140" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <rect x="40" y="100" width="170" height="28" rx="10" class="acc"/>
+  <text x="125" y="119" text-anchor="middle" class="t" fill="#fff" font-size="14" font-weight="700">Alice</text>
+  <text x="125" y="148" class="mono" font-size="11">private key D_A</text>
+  <text x="125" y="166" class="mono" font-size="11">public key E_A (known)</text>
+  <text x="125" y="186" class="mono" font-size="11">plaintext P</text>
+  <text x="125" y="206" class="t" font-size="11" fill="#E2557A" font-weight="700">S = D_A(P)</text>
+  <text x="125" y="226" class="t" font-size="10" opacity="0.8">Bob cannot compute D_A</text>
+
+  <!-- Wire -->
+  <rect x="270" y="120" width="280" height="100" rx="10" fill="#FFF7EC" class="ink" stroke-width="1.5"/>
+  <text x="410" y="146" text-anchor="middle" class="t" font-size="13" font-weight="700">Wire</text>
+  <text x="410" y="172" text-anchor="middle" class="mono" font-size="11">P (plaintext, public)</text>
+  <text x="410" y="190" text-anchor="middle" class="mono" font-size="11">S = D_A(P) (signature)</text>
+  <text x="410" y="208" text-anchor="middle" class="t" font-size="10" opacity="0.8">Trudy sees both but cannot</text>
+  <text x="410" y="220" text-anchor="middle" class="t" font-size="10" opacity="0.8">forge a different S</text>
+
+  <!-- Bob -->
+  <rect x="610" y="100" width="170" height="140" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <rect x="610" y="100" width="170" height="28" rx="10" class="acc"/>
+  <text x="695" y="119" text-anchor="middle" class="t" fill="#fff" font-size="14" font-weight="700">Bob</text>
+  <text x="695" y="148" class="mono" font-size="11">archive S as Exhibit A</text>
+  <text x="695" y="168" class="mono" font-size="11">apply E_A(S)</text>
+  <text x="695" y="188" class="mono" font-size="11">check E_A(S) == P</text>
+  <text x="695" y="208" class="t" font-size="11" fill="#E2557A" font-weight="700">accept</text>
+  <text x="695" y="228" class="t" font-size="10" opacity="0.8">only Alice could sign</text>
+
+  <!-- Arrows -->
+  <line x1="210" y1="170" x2="270" y2="170" class="accs" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="550" y1="170" x2="610" y2="170" class="accs" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Court panel -->
+  <rect x="40" y="280" width="740" height="120" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <text x="60" y="304" class="t" font-size="14" font-weight="700">Courtroom: Bob produces P and S; judge verifies</text>
+  <text x="60" y="328" class="mono" font-size="11">judge computes E_A(S); if equal to P -&gt; signature is authentic</text>
+  <text x="60" y="348" class="t" font-size="11" opacity="0.85">Non-repudiation rests on D_A remaining Alice's secret. Fails if:</text>
+  <text x="60" y="368" class="t" font-size="11" opacity="0.85">1) D_A leaks (laptop stolen, malware, subpoena of cloud backup)</text>
+  <text x="60" y="388" class="t" font-size="11" opacity="0.85">2) Alice rotates key pair; old exhibits no longer verify under new E_A</text>
+
+  <!-- RSA vs DSS -->
+  <rect x="40" y="420" width="740" height="120" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <text x="60" y="444" class="t" font-size="14" font-weight="700">RSA vs DSS / El Gamal</text>
+
+  <rect x="60" y="460" width="340" height="60" rx="8" fill="#FFF7EC" class="accs" stroke-width="1.5"/>
+  <text x="230" y="480" text-anchor="middle" class="t" font-size="12" font-weight="700">RSA (de facto)</text>
+  <text x="230" y="498" text-anchor="middle" class="mono" font-size="10">security: factoring; sign = m^d mod n</text>
+  <text x="230" y="513" text-anchor="middle" class="t" font-size="10" opacity="0.8">signature size = modulus size</text>
+
+  <rect x="420" y="460" width="340" height="60" rx="8" fill="#FFF7EC" class="accs" stroke-width="1.5"/>
+  <text x="590" y="480" text-anchor="middle" class="t" font-size="12" font-weight="700">DSS / El Gamal (NIST)</text>
+  <text x="590" y="498" text-anchor="middle" class="mono" font-size="10">security: discrete log in Z_p*</text>
+  <text x="590" y="513" text-anchor="middle" class="t" font-size="10" opacity="0.8">signature size = 2x modulus size</text>
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

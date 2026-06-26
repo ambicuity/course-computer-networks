@@ -1,0 +1,35 @@
+[
+  {
+    "question": "What is the in-addr.arpa name used to look up PTR records for the IPv4 address 192.0.2.10?",
+    "options": [
+      "A. 192.0.2.10.in-addr.arpa.",
+      "B. 10.2.0.192.in-addr.arpa.",
+      "C. 10.in-addr.arpa.192.0.2",
+      "D. in-addr.arpa.10.2.0.192"
+    ],
+    "answer": 1,
+    "explanation": "IPv4 PTR lookups byte-reverse the address before appending in-addr.arpa. So 192.0.2.10 becomes 10.2.0.192.in-addr.arpa."
+  },
+  {
+    "question": "An SMTP receiver performs an FCrDNS check on a connection from IP 203.0.113.5. Which sequence of lookups must close the loop?",
+    "options": [
+      "A. A record first, then PTR record, then TXT record",
+      "B. PTR (5.113.0.203.in-addr.arpa.) -> name, then A (name) -> same IP 203.0.113.5",
+      "C. MX record, then A record, then PTR record",
+      "D. Only the PTR record needs to exist; the A lookup is optional"
+    ],
+    "answer": 1,
+    "explanation": "Forward-confirmed reverse DNS closes the loop: PTR(name) -> name, then A(name) -> same IP. RFC 5321 §5.1 makes this a SHOULD-level check used by major mail providers."
+  },
+  {
+    "question": "What is the ip6.arpa name used to look up PTR records for the IPv6 address 2001:db8::1?",
+    "options": [
+      "A. 2001:db8::1.ip6.arpa.",
+      "B. 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa.",
+      "C. 2.0.0.1.0.d.b.8.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.ip6.arpa.",
+      "D. 1::db8:2001.ip6.arpa."
+    ],
+    "answer": 1,
+    "explanation": "IPv6 reverses by nibble (4-bit half-byte), not by byte. Expanding 2001:db8::1 to its full 32-nibble form and reversing gives the long dotted name shown in option B (RFC 3596)."
+  }
+]

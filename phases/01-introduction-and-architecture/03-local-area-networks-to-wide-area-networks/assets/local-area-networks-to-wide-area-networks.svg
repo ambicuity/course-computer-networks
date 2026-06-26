@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" width="900" height="540">
+  <rect x="0" y="0" width="900" height="540" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .scale { font-size: 13px; font-weight: 700; fill: #E2557A; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .small { font-size: 10px; fill: #6b5a6e; }
+    .box { fill: #FFFDF8; stroke: #2A1A2E; stroke-width: 1.5; }
+    .node { fill: #FFFDF8; stroke: #2A1A2E; stroke-width: 1.2; }
+    .link { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+    .wan { stroke: #E2557A; stroke-width: 2.5; fill: none; stroke-dasharray: 6 4; }
+  </style>
+
+  <text x="30" y="38" class="title">From LAN to WAN: scale, switches, and routers</text>
+
+  <!-- scale ruler -->
+  <line x1="40" y1="70" x2="860" y2="70" class="link"/>
+  <g class="scale">
+    <text x="40" y="62">1 m</text>
+    <text x="195" y="62">100 m</text>
+    <text x="370" y="62">1 km</text>
+    <text x="545" y="62">10 km</text>
+    <text x="715" y="62">1000 km</text>
+  </g>
+  <g class="small">
+    <text x="40" y="86">PAN</text>
+    <text x="195" y="86">LAN  (building / campus)</text>
+    <text x="545" y="86">MAN (city)</text>
+    <text x="715" y="86">WAN (country)</text>
+  </g>
+
+  <!-- LAN box -->
+  <rect x="40" y="110" width="300" height="200" rx="8" class="box"/>
+  <text x="56" y="132" class="scale">LAN — switched Ethernet (802.3)</text>
+
+  <!-- switch -->
+  <rect x="140" y="225" width="100" height="40" rx="4" class="node" fill="#E2557A" fill-opacity="0.18"/>
+  <text x="190" y="250" class="lbl" text-anchor="middle" font-weight="700">Switch</text>
+  <text x="190" y="280" class="small" text-anchor="middle">learns MAC -&gt; port</text>
+
+  <!-- hosts -->
+  <rect x="60" y="150" width="60" height="34" rx="4" class="node"/>
+  <text x="90" y="171" class="lbl" text-anchor="middle">Host A</text>
+  <rect x="160" y="150" width="60" height="34" rx="4" class="node"/>
+  <text x="190" y="171" class="lbl" text-anchor="middle">Host B</text>
+  <rect x="260" y="150" width="60" height="34" rx="4" class="node"/>
+  <text x="290" y="171" class="lbl" text-anchor="middle">Host C</text>
+  <line x1="90"  y1="184" x2="160" y2="225" class="link"/>
+  <line x1="190" y1="184" x2="190" y2="225" class="link"/>
+  <line x1="290" y1="184" x2="220" y2="225" class="link"/>
+
+  <text x="56" y="302" class="mono">frame: | Dst MAC | Src MAC | Type | payload(46-1500) | FCS |</text>
+
+  <!-- Router (boundary device) -->
+  <rect x="395" y="225" width="110" height="46" rx="6" class="box" fill="#E2557A" fill-opacity="0.25"/>
+  <text x="450" y="245" class="lbl" text-anchor="middle" font-weight="700">Router</text>
+  <text x="450" y="261" class="small" text-anchor="middle">joins technologies</text>
+  <line x1="240" y1="245" x2="395" y2="248" class="link"/>
+  <text x="300" y="240" class="small">Ethernet</text>
+
+  <!-- WAN cloud / subnet -->
+  <text x="560" y="132" class="scale">WAN — communication subnet</text>
+  <ellipse cx="690" cy="200" rx="150" ry="80" fill="#FFFDF8" stroke="#E2557A" stroke-width="2"/>
+  <text x="690" y="150" class="lbl" text-anchor="middle" font-weight="700">leased lines + routers</text>
+
+  <circle cx="630" cy="200" r="16" class="node"/>
+  <text x="630" y="204" class="small" text-anchor="middle">R1</text>
+  <circle cx="745" cy="175" r="16" class="node"/>
+  <text x="745" y="179" class="small" text-anchor="middle">R2</text>
+  <circle cx="745" cy="235" r="16" class="node"/>
+  <text x="745" y="239" class="small" text-anchor="middle">R3</text>
+  <line x1="646" y1="200" x2="729" y2="178" class="link"/>
+  <line x1="646" y1="200" x2="729" y2="232" class="link"/>
+  <line x1="745" y1="191" x2="745" y2="219" class="link"/>
+  <line x1="505" y1="248" x2="614" y2="200" class="wan"/>
+  <text x="520" y="290" class="small">SONET / MPLS leased line</text>
+
+  <!-- remote office -->
+  <rect x="760" y="300" width="110" height="44" rx="6" class="box"/>
+  <text x="815" y="320" class="lbl" text-anchor="middle" font-weight="700">Brisbane LAN</text>
+  <text x="815" y="336" class="small" text-anchor="middle">remote office</text>
+  <line x1="745" y1="251" x2="800" y2="300" class="link"/>
+
+  <!-- VPN variant -->
+  <rect x="40" y="370" width="820" height="140" rx="8" class="box"/>
+  <text x="56" y="394" class="scale">Two WAN variants (replace the dedicated leased line)</text>
+
+  <text x="60" y="424" class="lbl" font-weight="700">VPN</text>
+  <text x="60" y="444" class="small">virtual links over the public Internet:</text>
+  <text x="60" y="460" class="small">flexible reuse, but inherits variable latency / jitter / loss</text>
+  <rect x="60" y="470" width="60" height="26" rx="4" class="node"/>
+  <text x="90" y="487" class="small" text-anchor="middle">Office</text>
+  <path d="M120 483 C 200 460, 280 460, 360 483" class="wan"/>
+  <text x="220" y="455" class="small" text-anchor="middle">Internet tunnel</text>
+  <rect x="360" y="470" width="60" height="26" rx="4" class="node"/>
+  <text x="390" y="487" class="small" text-anchor="middle">Office</text>
+
+  <line x1="470" y1="405" x2="470" y2="500" class="link" stroke-dasharray="3 3"/>
+  <text x="500" y="424" class="lbl" font-weight="700">ISP network</text>
+  <text x="500" y="444" class="small">subnet run by a 3rd party that also connects</text>
+  <text x="500" y="460" class="small">to the rest of the Internet — you buy reach,</text>
+  <text x="500" y="476" class="small">not build it; depends on the provider SLA.</text>
+
+  <text x="500" y="500" class="small" fill="#E2557A" font-weight="700">Key rule: switch = Layer 2 (MAC), router = Layer 3 (joins networks)</text>
+</svg>

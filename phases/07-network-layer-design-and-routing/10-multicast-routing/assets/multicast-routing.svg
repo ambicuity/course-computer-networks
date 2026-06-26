@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="760" height="520">
+  <rect width="760" height="520" fill="#FFF7EC"/>
+  <style>
+    .ink   { fill:#2A1A2E; }
+    .berry { fill:#E2557A; }
+    .t     { font-family:Inter, sans-serif; fill:#2A1A2E; }
+    .mono  { font-family:monospace; fill:#2A1A2E; }
+    .lnk   { stroke:#2A1A2E; stroke-width:2; }
+    .pruned{ stroke:#2A1A2E; stroke-width:2; stroke-dasharray:5 5; opacity:0.35; }
+    .keep  { stroke:#E2557A; stroke-width:3.5; }
+  </style>
+
+  <text x="30" y="36" class="t" font-size="22" font-weight="700">Multicast Routing: flood &#8594; prune &#8594; tree</text>
+  <text x="30" y="58" class="t" font-size="13" opacity="0.8">Source A floods via Reverse Path Forwarding; PRUNE removes links with no member below.</text>
+
+  <!-- legend -->
+  <line x1="470" y1="80" x2="500" y2="80" class="keep"/>
+  <text x="506" y="84" class="t" font-size="12">tree link (reaches a member)</text>
+  <line x1="470" y1="100" x2="500" y2="100" class="pruned"/>
+  <text x="506" y="104" class="t" font-size="12">pruned (PRUNE sent upstream)</text>
+  <circle cx="485" cy="120" r="7" class="berry"/>
+  <text x="506" y="124" class="t" font-size="12">group member (G, H, J)</text>
+
+  <!-- ===== topology ===== -->
+  <!-- coordinates -->
+  <!-- A(80,210) B(190,150) C(190,300) D(300,90) E(300,225) F(300,360) G(410,90) H(410,225) I(410,360) J(520,420) -->
+
+  <!-- links: pruned (group2 example removes D-G branch) -->
+  <line x1="80"  y1="210" x2="190" y2="150" class="keep"/>   <!-- A-B -->
+  <line x1="80"  y1="210" x2="190" y2="300" class="keep"/>   <!-- A-C -->
+  <line x1="190" y1="150" x2="300" y2="90"  class="pruned"/> <!-- B-D pruned -->
+  <line x1="190" y1="150" x2="300" y2="225" class="keep"/>   <!-- B-E -->
+  <line x1="190" y1="300" x2="300" y2="360" class="keep"/>   <!-- C-F -->
+  <line x1="300" y1="90"  x2="410" y2="90"  class="pruned"/> <!-- D-G pruned -->
+  <line x1="300" y1="225" x2="410" y2="225" class="keep"/>   <!-- E-H -->
+  <line x1="300" y1="360" x2="410" y2="360" class="keep"/>   <!-- F-I -->
+  <line x1="410" y1="360" x2="520" y2="420" class="keep"/>   <!-- I-J -->
+
+  <!-- routers -->
+  <g class="mono" font-size="13" text-anchor="middle">
+    <circle cx="80"  cy="210" r="18" fill="#2A1A2E"/>
+    <text x="80"  y="215" fill="#FFF7EC">A</text>
+    <text x="80"  y="248" class="t" font-size="10">source</text>
+
+    <circle cx="190" cy="150" r="16" fill="#FFF7EC" class="lnk" stroke="#2A1A2E"/>
+    <text x="190" y="155">B</text>
+    <circle cx="190" cy="300" r="16" fill="#FFF7EC" class="lnk" stroke="#2A1A2E"/>
+    <text x="190" y="305">C</text>
+
+    <circle cx="300" cy="90"  r="16" fill="#FFF7EC" class="lnk" stroke="#2A1A2E"/>
+    <text x="300" y="95">D</text>
+    <circle cx="300" cy="225" r="16" fill="#FFF7EC" class="lnk" stroke="#2A1A2E"/>
+    <text x="300" y="230">E</text>
+    <circle cx="300" cy="360" r="16" fill="#FFF7EC" class="lnk" stroke="#2A1A2E"/>
+    <text x="300" y="365">F</text>
+
+    <circle cx="410" cy="90"  r="16" fill="#FFF7EC" class="lnk" stroke="#2A1A2E"/>
+    <text x="410" y="95">G</text>
+    <circle cx="410" cy="225" r="16" class="berry"/>
+    <text x="410" y="230" fill="#FFF7EC">H</text>
+    <circle cx="410" cy="360" r="16" fill="#FFF7EC" class="lnk" stroke="#2A1A2E"/>
+    <text x="410" y="365">I</text>
+    <circle cx="520" cy="420" r="16" class="berry"/>
+    <text x="520" y="425" fill="#FFF7EC">J</text>
+  </g>
+
+  <!-- prune callout -->
+  <text x="430" y="80" class="t" font-size="11" fill="#2A1A2E" opacity="0.7">G: no member &#8594; PRUNE up to B</text>
+
+  <!-- RPF box -->
+  <rect x="30" y="430" width="700" height="72" rx="8" fill="#FFFFFF" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="44" y="454" class="t" font-size="13" font-weight="700">RPF check &#8226; accept iff packet arrives on the reverse-path interface to the source</text>
+  <text x="44" y="476" class="mono" font-size="12">  arrive on RPF iface (eth2 &#8594; A)  =&gt;  ACCEPT, replicate out all other ifaces</text>
+  <text x="44" y="492" class="mono" font-size="12">  arrive on any other iface          =&gt;  DROP  (loop copy or stale route)</text>
+</svg>

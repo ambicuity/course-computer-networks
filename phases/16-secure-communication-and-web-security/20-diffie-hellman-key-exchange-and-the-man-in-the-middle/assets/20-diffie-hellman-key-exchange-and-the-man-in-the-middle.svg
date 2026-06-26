@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" width="920" height="600">
+  <rect width="920" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 14px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="40" class="title">Diffie-Hellman and the man-in-the-middle</text>
+  <text x="40" y="62" class="sub">Public exponentials g^x and g^y over a safe prime give both sides g^(xy) -- unless Trudy splits the channel.</text>
+
+  <!-- Top half: clean exchange -->
+  <text x="40" y="100" class="node">Clean exchange (no attacker)</text>
+  <rect x="60" y="120" width="160" height="60" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="150" text-anchor="middle" class="node">Alice</text>
+  <text x="140" y="166" text-anchor="middle" class="mono">x in [2, p-2]</text>
+
+  <rect x="380" y="120" width="160" height="60" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="460" y="150" text-anchor="middle" class="node">Channel</text>
+  <text x="460" y="166" text-anchor="middle" class="mono">(p, g) public</text>
+
+  <rect x="700" y="120" width="160" height="60" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="780" y="150" text-anchor="middle" class="node">Bob</text>
+  <text x="780" y="166" text-anchor="middle" class="mono">y in [2, p-2]</text>
+
+  <line x1="220" y1="200" x2="380" y2="200" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="375,195 385,200 375,205" fill="#2A1A2E"/>
+  <text x="232" y="194" class="mono">A = g^x mod p</text>
+
+  <line x1="540" y1="230" x2="700" y2="230" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="695,225 705,230 695,235" fill="#2A1A2E"/>
+  <text x="552" y="224" class="mono">B = g^y mod p</text>
+
+  <text x="60" y="270" class="mono">Alice: S = B^x mod p = g^(xy) mod p</text>
+  <text x="60" y="288" class="mono">Bob:   S = A^y mod p = g^(xy) mod p  -- same secret</text>
+
+  <!-- Bottom half: MITM -->
+  <text x="40" y="330" class="node accent">MITM attack (Trudy splits the channel)</text>
+
+  <rect x="60" y="350" width="160" height="60" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="380" text-anchor="middle" class="node">Alice</text>
+  <text x="140" y="396" text-anchor="middle" class="mono">private x</text>
+
+  <rect x="380" y="350" width="160" height="80" rx="8" fill="#fff" stroke="#E2557A" stroke-width="3"/>
+  <text x="460" y="380" text-anchor="middle" class="node accent">Trudy</text>
+  <text x="460" y="396" text-anchor="middle" class="mono accent">z_1, z_2 picked</text>
+  <text x="460" y="412" text-anchor="middle" class="mono accent">two parallel DHs</text>
+
+  <rect x="700" y="350" width="160" height="60" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="780" y="380" text-anchor="middle" class="node">Bob</text>
+  <text x="780" y="396" text-anchor="middle" class="mono">private y</text>
+
+  <!-- crossing arrows -->
+  <line x1="220" y1="365" x2="380" y2="365" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="375,360 385,365 375,370" fill="#E2557A"/>
+  <line x1="220" y1="395" x2="380" y2="395" stroke="#E2557A" stroke-width="2" stroke-dasharray="4,3"/>
+  <polygon points="375,390 385,395 375,400" fill="#E2557A"/>
+
+  <line x1="540" y1="375" x2="700" y2="375" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="695,370 705,375 695,380" fill="#E2557A"/>
+  <line x1="540" y1="405" x2="700" y2="405" stroke="#E2557A" stroke-width="2" stroke-dasharray="4,3"/>
+  <polygon points="695,400 705,405 695,410" fill="#E2557A"/>
+
+  <text x="232" y="360" class="mono accent">A</text>
+  <text x="232" y="390" class="mono accent">A'=g^z1</text>
+  <text x="552" y="370" class="mono accent">B'=g^z2</text>
+  <text x="552" y="400" class="mono accent">B</text>
+
+  <text x="60" y="465" class="mono">Alice computes S_A = (B')^x = g^(x z_2)</text>
+  <text x="60" y="483" class="mono">Bob   computes S_B = (A')^y = g^(z_1 y)</text>
+  <text x="60" y="501" class="mono accent">Trudy holds both S_A and S_B -- reads every message in cleartext</text>
+
+  <rect x="60" y="525" width="800" height="55" rx="8" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="80" y="550" class="node accent">Fix: signed DH (SIGMA, TLS 1.3 CertificateVerify) or PSK binding</text>
+  <text x="80" y="568" class="mono">Each party signs (g^x || g^y) with their long-term key; Trudy cannot forge it.</text>
+</svg>

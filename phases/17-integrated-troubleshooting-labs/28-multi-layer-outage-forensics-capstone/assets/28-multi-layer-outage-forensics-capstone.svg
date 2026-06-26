@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">Multi-Layer Outage Forensics Capstone</text>
+  <text x="40" y="68" class="sub">5 simultaneous failures across L3 / L4 / L6 / L7; 30-step diagnostic; one runbook</text>
+
+  <rect x="40" y="120" width="200" height="80" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="140" y="148" text-anchor="middle" class="node accent">Web 502</text>
+  <text x="140" y="170" text-anchor="middle" class="mono accent">proxy MITM</text>
+
+  <rect x="260" y="120" width="200" height="80" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="360" y="148" text-anchor="middle" class="node accent">Mobile SSL</text>
+  <text x="360" y="170" text-anchor="middle" class="mono accent">PMTUD black hole</text>
+
+  <rect x="480" y="120" width="200" height="80" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="580" y="148" text-anchor="middle" class="node accent">Bulk 50%</text>
+  <text x="580" y="170" text-anchor="middle" class="mono accent">ECN marking</text>
+
+  <rect x="700" y="120" width="180" height="80" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="790" y="148" text-anchor="middle" class="node accent">SSH jump</text>
+  <text x="790" y="170" text-anchor="middle" class="mono accent">WG AllowedIPs</text>
+
+  <rect x="40" y="230" width="200" height="80" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="140" y="258" text-anchor="middle" class="node accent">DNS SERVFAIL</text>
+  <text x="140" y="280" text-anchor="middle" class="mono accent">DNSSEC chain</text>
+
+  <rect x="40" y="340" width="840" height="200" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="368" class="node">Runbook (4 columns: symptom, command, verdict, action)</text>
+
+  <text x="60" y="394" class="mono">Web 502        : openssl s_client -proxy ... -connect ...   bad=issuer=Corp    action=whitelist</text>
+  <text x="60" y="412" class="mono">Mobile SSL     : tracepath -m 5 ... ; ping -M do -s 1472 ...  bad=pmtu 1280      action=ICMP 3/4 or MSS clamp</text>
+  <text x="60" y="430" class="mono">Bulk 50%       : tc -s qdisc show dev eth0                     bad=ecn_mark 12345  action=remove `ecn`</text>
+  <text x="60" y="448" class="mono">SSH jump       : wg show wg0                                    bad=AllowedIPs .5/32 action=expand to .0/24</text>
+  <text x="60" y="466" class="mono">DNS SERVFAIL   : dig +dnssec host @127.0.0.1                    bad=SERVFAIL        action=publish new DS</text>
+
+  <text x="60" y="504" class="label">5 symptoms, 5 root causes, 5 fixes; all independent; resolve in any order.</text>
+</svg>

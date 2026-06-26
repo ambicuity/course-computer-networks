@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "How does RTSP differ from HTTP?",
+      "options": [
+        "RTSP is binary while HTTP is text",
+        "RTSP is stateful and controls streaming sessions with play/pause/stop semantics",
+        "RTSP runs over UDP only",
+        "RTSP is faster than HTTP"
+      ],
+      "correct": 1,
+      "explanation": "RTSP is text-based like HTTP but stateful: the server maintains a session across multiple requests, enabling PLAY, PAUSE, and TEARDOWN control."
+    },
+    {
+      "stage": "post",
+      "question": "Which RTSP method negotiates the transport (ports and protocol) and creates the session?",
+      "options": [
+        "DESCRIBE",
+        "SETUP",
+        "PLAY",
+        "TEARDOWN"
+      ],
+      "correct": 1,
+      "explanation": "SETUP negotiates the transport parameters (RTP/AVP, unicast, client_port) and returns the Session ID used in all subsequent requests."
+    },
+    {
+      "stage": "post",
+      "question": "Why does RTSP separate control (TCP) from media (RTP/UDP)?",
+      "options": [
+        "Because TCP is always faster",
+        "So control can be reliable while media uses low-latency UDP, and each can be optimized independently",
+        "Because the server cannot handle both",
+        "Because UDP cannot carry control messages"
+      ],
+      "correct": 1,
+      "explanation": "Control needs reliability (TCP) while media needs low latency (UDP). Separating them lets each channel use the best transport without compromise."
+    },
+    {
+      "stage": "post",
+      "question": "What is the purpose of the CSeq header in RTSP?",
+      "options": [
+        "It identifies the media codec",
+        "It is a sequence number that matches each request to its response",
+        "It sets the playback speed",
+        "It encrypts the session"
+      ],
+      "correct": 1,
+      "explanation": "CSeq (Command Sequence) is a per-request counter that lets the client match responses to requests, important over UDP or with pipelined requests."
+    }
+  ]
+}

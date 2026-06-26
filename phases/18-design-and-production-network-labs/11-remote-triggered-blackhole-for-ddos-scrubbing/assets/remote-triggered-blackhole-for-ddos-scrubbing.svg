@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <rect width="800" height="500" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; font-family: monospace; font-size: 11px; }
+    .accent { fill: #E2557A; font-family: monospace; font-size: 11px; font-weight: bold; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.5; }
+    .box-accent { fill: #FFFFFF; stroke: #E2557A; stroke-width: 2; }
+    .box-discard { fill: #E2557A; stroke: #2A1A2E; stroke-width: 1.5; opacity: 0.85; }
+    .line { stroke: #2A1A2E; stroke-width: 1.5; }
+    .line-dash { stroke: #2A1A2E; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .label { fill: #2A1A2E; font-family: monospace; font-size: 10px; }
+  </style>
+
+  <text x="400" y="25" class="accent" text-anchor="middle" font-size="14">RTBH DESTINATION-BLACKHOLE FLOW</text>
+
+  <!-- Attack sources -->
+  <rect x="20" y="60" width="120" height="60" class="box"/>
+  <text x="80" y="80" class="ink" text-anchor="middle">Attack sources</text>
+  <text x="80" y="95" class="label" text-anchor="middle">AS65999 botnet</text>
+  <text x="80" y="108" class="label" text-anchor="middle">600 Gbps UDP amp</text>
+
+  <!-- Upstream NorthCoast (RTBH receiver) -->
+  <rect x="220" y="60" width="160" height="100" class="box-accent"/>
+  <text x="300" y="82" class="accent" text-anchor="middle">NorthCoast AS64600</text>
+  <text x="300" y="100" class="label" text-anchor="middle">RTBH receiver peer</text>
+  <text x="300" y="115" class="label" text-anchor="middle">203.0.113.1 (peer IP)</text>
+  <text x="300" y="130" class="label" text-anchor="middle">community 64600:666</text>
+  <text x="300" y="145" class="label" text-anchor="middle">240 iBGP speakers</text>
+
+  <!-- NorthCoast edge with discard -->
+  <rect x="430" y="50" width="120" height="40" class="box-discard"/>
+  <text x="490" y="65" class="ink" text-anchor="middle" fill="#FFF7EC">NC Edge Router-1</text>
+  <text x="490" y="82" class="label" text-anchor="middle" fill="#FFF7EC">discard route</text>
+
+  <rect x="430" y="100" width="120" height="40" class="box-discard"/>
+  <text x="490" y="115" class="ink" text-anchor="middle" fill="#FFF7EC">NC Edge Router-2</text>
+  <text x="490" y="132" class="label" text-anchor="middle" fill="#FFF7EC">discard route</text>
+
+  <rect x="430" y="150" width="120" height="40" class="box-discard"/>
+  <text x="490" y="165" class="ink" text-anchor="middle" fill="#FFF7EC">NC Edge Router-3</text>
+  <text x="490" y="182" class="label" text-anchor="middle" fill="#FFF7EC">discard route</text>
+
+  <!-- Customer AS -->
+  <rect x="220" y="220" width="160" height="100" class="box"/>
+  <text x="300" y="240" class="accent" text-anchor="middle">Customer AS65020</text>
+  <text x="300" y="258" class="label" text-anchor="middle">Edge router CE-A</text>
+  <text x="300" y="273" class="label" text-anchor="middle">exabgp running</text>
+  <text x="300" y="288" class="label" text-anchor="middle">announces 203.0.113.10/32</text>
+  <text x="300" y="303" class="label" text-anchor="middle">community 64600:666</text>
+
+  <!-- Attacked target -->
+  <rect x="430" y="240" width="120" height="60" class="box"/>
+  <text x="490" y="260" class="ink" text-anchor="middle">Attacked target</text>
+  <text x="490" y="275" class="label" text-anchor="middle">203.0.113.10 (DNS)</text>
+  <text x="490" y="290" class="label" text-anchor="middle">unreachable but protected</text>
+
+  <!-- Controller / NOC -->
+  <rect x="20" y="220" width="160" height="100" class="box"/>
+  <text x="100" y="240" class="accent" text-anchor="middle">RTBH Controller</text>
+  <text x="100" y="258" class="label" text-anchor="middle">NOC / on-call trigger</text>
+  <text x="100" y="273" class="label" text-anchor="middle">HMAC-validated API</text>
+  <text x="100" y="288" class="label" text-anchor="middle">allowlist + deny-list</text>
+  <text x="100" y="303" class="label" text-anchor="middle">hash-chained audit log</text>
+
+  <!-- Attack flow (top) -->
+  <line x1="140" y1="90" x2="220" y2="90" class="line"/>
+  <text x="180" y="80" class="label" text-anchor="middle">attack 600G</text>
+  <line x1="380" y1="70" x2="430" y2="60" class="line"/>
+  <line x1="380" y1="90" x2="430" y2="115" class="line"/>
+  <line x1="380" y1="110" x2="430" y2="170" class="line"/>
+
+  <!-- Trigger flow (bottom) -->
+  <line x1="180" y1="270" x2="220" y2="270" class="line-dash"/>
+  <text x="200" y="262" class="label" text-anchor="middle">trigger</text>
+  <line x1="300" y1="220" x2="300" y2="160" class="line-dash"/>
+  <text x="305" y="190" class="label">/32 203.0.113.10</text>
+  <text x="305" y="200" class="label">comm 64600:666</text>
+
+  <!-- Time annotations -->
+  <rect x="40" y="380" width="720" height="100" class="box"/>
+  <text x="400" y="400" class="accent" text-anchor="middle">TRIGGER TIMELINE</text>
+  <text x="50" y="420" class="label">T+0s  detection (DDoS detection system fires)</text>
+  <text x="50" y="435" class="label">T+15s on-call confirms; submits trigger via HMAC API</text>
+  <text x="50" y="450" class="label">T+20s exabgp emits /32 with community 64600:666 to NorthCoast</text>
+  <text x="50" y="465" class="label">T+25s NorthCoast iBGP propagates /32 to 240 edges</text>
+  <text x="50" y="478" class="label">T+27s discard routes installed at edges; attack traffic dropped</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    .h  { font: 700 22px Inter, sans-serif; fill: #2A1A2E; }
+    .sh { font: 600 14px Inter, sans-serif; fill: #2A1A2E; }
+    .lbl{ font: 13px Inter, sans-serif; fill: #2A1A2E; }
+    .sm { font: 11px Inter, sans-serif; fill: #2A1A2E; }
+    .mono{ font: 11px monospace; fill: #2A1A2E; }
+    .acc{ fill: #E2557A; }
+    .accT{ font: 600 12px Inter, sans-serif; fill: #E2557A; }
+  </style>
+
+  <text x="32" y="40" class="h">Ethernet stability vs. 802.11 PHY churn</text>
+  <text x="32" y="62" class="sm">One MAC frame format outlived its physical layers. Wireless had to reinvent the PHY five times.</text>
+
+  <!-- timeline axis -->
+  <line x1="60" y1="110" x2="720" y2="110" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="98" class="sm">1997</text>
+  <text x="350" y="98" class="sm">2003</text>
+  <text x="690" y="98" class="sm">2009</text>
+
+  <!-- Ethernet track (stable) -->
+  <text x="32" y="150" class="sh">Ethernet (IEEE 802.3)</text>
+  <rect x="60" y="160" width="660" height="44" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="74" y="180" class="lbl">Same 64-1518 byte frame: 10BASE-T &#8594; 100M &#8594; 1G &#8594; 10G+</text>
+  <text x="74" y="197" class="sm">Connectionless (fits IP) &#183; twisted pair reused &#183; CSMA/CD dropped at 10G (full-duplex)</text>
+  <text x="612" y="188" class="accT">no rewrite</text>
+
+  <!-- Wireless track (five PHYs) -->
+  <text x="32" y="246" class="sh">802.11 physical layers (one LLC+MAC above)</text>
+
+  <!-- PHY boxes -->
+  <g>
+    <rect x="60" y="262" width="118" height="86" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="70" y="282" class="sh">FHSS / IR</text>
+    <text x="70" y="300" class="sm">2.4 GHz hop</text>
+    <text x="70" y="316" class="sm">+ infrared</text>
+    <text x="70" y="338" class="accT">1997 &#183; defunct</text>
+  </g>
+
+  <g>
+    <rect x="190" y="262" width="118" height="86" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="200" y="282" class="sh">802.11b</text>
+    <text x="200" y="300" class="sm">DSSS 2.4 GHz</text>
+    <text x="200" y="316" class="mono">Barker+CCK</text>
+    <text x="200" y="338" class="sm">1/2/5.5/11 Mbps</text>
+  </g>
+
+  <g>
+    <rect x="320" y="262" width="118" height="86" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="330" y="282" class="sh">802.11a</text>
+    <text x="330" y="300" class="sm">OFDM 5 GHz</text>
+    <text x="330" y="316" class="mono">48+4 carriers</text>
+    <text x="330" y="338" class="sm">6&#8211;54 Mbps</text>
+  </g>
+
+  <g>
+    <rect x="450" y="262" width="118" height="86" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="460" y="282" class="sh">802.11g</text>
+    <text x="460" y="300" class="sm">OFDM 2.4 GHz</text>
+    <text x="460" y="316" class="mono">b-compatible</text>
+    <text x="460" y="338" class="sm">6&#8211;54 Mbps</text>
+  </g>
+
+  <g>
+    <rect x="580" y="262" width="140" height="86" rx="8" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+    <text x="590" y="282" class="sh">802.11n</text>
+    <text x="590" y="300" class="sm">MIMO + 40 MHz</text>
+    <text x="590" y="316" class="mono">up to 4 streams</text>
+    <text x="590" y="338" class="accT">up to 600 Mbps</text>
+  </g>
+
+  <!-- tick markers from axis to PHY boxes -->
+  <line x1="119" y1="110" x2="119" y2="262" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="249" y1="110" x2="249" y2="262" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="379" y1="110" x2="379" y2="262" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="509" y1="110" x2="509" y2="262" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="650" y1="110" x2="650" y2="262" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- OFDM rate-build inset -->
+  <rect x="60" y="382" width="400" height="138" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="74" y="404" class="sh">How OFDM makes 54 Mbps (802.11a/g)</text>
+  <text x="74" y="426" class="mono">48 data subcarriers (of 52; 4 pilots)</text>
+  <text x="74" y="444" class="mono">x 6 bits/carrier  (64-QAM)</text>
+  <text x="74" y="462" class="mono">x 3/4  convolutional code rate</text>
+  <text x="74" y="480" class="mono">/ 4 us  symbol time</text>
+  <line x1="74" y1="490" x2="446" y2="490" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="74" y="510" class="accT">= 54 Mbps</text>
+
+  <!-- band trade-off inset -->
+  <rect x="480" y="382" width="240" height="138" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="494" y="404" class="sh">Band trade-off</text>
+  <circle cx="502" cy="424" r="5" class="acc"/>
+  <text x="516" y="428" class="sm">2.4 GHz: ~7x range, crowded</text>
+  <circle cx="502" cy="448" r="5" fill="#2A1A2E"/>
+  <text x="516" y="452" class="sm">5 GHz: cleaner, shorter reach</text>
+  <text x="494" y="480" class="sm">Rate adaptation picks a rate</text>
+  <text x="494" y="497" class="sm">to match signal &#8212; vendor-</text>
+  <text x="494" y="514" class="sm">specific, not in the standard.</text>
+</svg>

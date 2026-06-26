@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 340" width="560" height="340">
+<rect width="560" height="340" fill="#FFF7EC"/>
+<text x="280" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E" font-family="Inter,sans-serif">Mobile Code: Four Trust Models</text>
+<rect x="14" y="24" width="250" height="138" fill="#E8DCC8" stroke="#2A1A2E"/>
+<text x="139" y="40" text-anchor="middle" font-size="10" font-weight="bold" fill="#2A1A2E" font-family="Inter,sans-serif">Java Sandbox</text>
+<rect x="30" y="48" width="218" height="12" fill="#FFF7EC" stroke="#2A1A2E"/>
+<text x="139" y="57" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">untrusted bytecode</text>
+<rect x="30" y="64" width="218" height="12" fill="#D4C5A9" stroke="#2A1A2E"/>
+<text x="139" y="73" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">bytecode verifier</text>
+<rect x="30" y="80" width="218" height="12" fill="#E2557A" stroke="#2A1A2E"/>
+<text x="139" y="89" text-anchor="middle" font-size="8" fill="#FFF7EC" font-family="monospace">JVM interpreter</text>
+<rect x="30" y="96" width="218" height="12" fill="#E2557A" stroke="#2A1A2E"/>
+<text x="139" y="105" text-anchor="middle" font-size="8" fill="#FFF7EC" font-family="monospace">SecurityManager</text>
+<rect x="30" y="112" width="218" height="12" fill="#FFF7EC" stroke="#2A1A2E"/>
+<text x="139" y="121" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">java.policy default-deny</text>
+<text x="139" y="148" text-anchor="middle" font-size="8" fill="#E2557A" font-family="monospace">trust the runtime</text>
+<rect x="296" y="24" width="250" height="138" fill="#E8DCC8" stroke="#2A1A2E"/>
+<text x="421" y="40" text-anchor="middle" font-size="10" font-weight="bold" fill="#2A1A2E" font-family="Inter,sans-serif">ActiveX/Authenticode</text>
+<rect x="312" y="48" width="218" height="12" fill="#FFF7EC" stroke="#2A1A2E"/>
+<text x="421" y="57" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">x86 COM (.ocx)</text>
+<rect x="312" y="64" width="218" height="12" fill="#D4C5A9" stroke="#2A1A2E"/>
+<text x="421" y="73" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">Authenticode verify</text>
+<rect x="312" y="80" width="218" height="12" fill="#D4C5A9" stroke="#2A1A2E"/>
+<text x="421" y="89" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">cert chain?</text>
+<rect x="312" y="96" width="218" height="12" fill="#E2557A" stroke="#2A1A2E"/>
+<text x="421" y="105" text-anchor="middle" font-size="8" fill="#FFF7EC" font-family="monospace">run with user privs</text>
+<rect x="312" y="112" width="218" height="12" fill="#FFF7EC" stroke="#2A1A2E"/>
+<text x="421" y="121" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">no interpreter</text>
+<text x="421" y="148" text-anchor="middle" font-size="8" fill="#E2557A" font-family="monospace">trust the publisher</text>
+<rect x="14" y="178" width="250" height="148" fill="#E8DCC8" stroke="#2A1A2E"/>
+<text x="139" y="194" text-anchor="middle" font-size="10" font-weight="bold" fill="#2A1A2E" font-family="Inter,sans-serif">Same-Origin (RFC 6454)</text>
+<rect x="30" y="202" width="218" height="12" fill="#FFF7EC" stroke="#2A1A2E"/>
+<text x="139" y="211" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">scheme+host+port</text>
+<rect x="30" y="218" width="218" height="12" fill="#D4C5A9" stroke="#2A1A2E"/>
+<text x="139" y="227" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">same: DOM+cookies</text>
+<rect x="30" y="234" width="218" height="12" fill="#E2557A" stroke="#2A1A2E"/>
+<text x="139" y="243" text-anchor="middle" font-size="8" fill="#FFF7EC" font-family="monospace">cross: nothing</text>
+<rect x="30" y="250" width="218" height="12" fill="#FFF7EC" stroke="#2A1A2E"/>
+<text x="139" y="259" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">unless CORS</text>
+<rect x="30" y="266" width="218" height="12" fill="#FFF7EC" stroke="#2A1A2E"/>
+<text x="139" y="275" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">CSP / site-iso</text>
+<text x="139" y="316" text-anchor="middle" font-size="8" fill="#E2557A" font-family="monospace">trust the URL identity</text>
+<rect x="296" y="178" width="250" height="148" fill="#E8DCC8" stroke="#2A1A2E"/>
+<text x="421" y="194" text-anchor="middle" font-size="10" font-weight="bold" fill="#2A1A2E" font-family="Inter,sans-serif">Viruses + TPM</text>
+<rect x="312" y="202" width="218" height="12" fill="#FFF7EC" stroke="#2A1A2E"/>
+<text x="421" y="211" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">self-replicating</text>
+<rect x="312" y="218" width="218" height="12" fill="#D4C5A9" stroke="#2A1A2E"/>
+<text x="421" y="227" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">infects .exe/MBR</text>
+<rect x="312" y="234" width="218" height="12" fill="#E2557A" stroke="#2A1A2E"/>
+<text x="421" y="243" text-anchor="middle" font-size="8" fill="#FFF7EC" font-family="monospace">no install prompt</text>
+<rect x="312" y="250" width="218" height="12" fill="#E2557A" stroke="#2A1A2E"/>
+<text x="421" y="259" text-anchor="middle" font-size="8" fill="#FFF7EC" font-family="monospace">UEFI secure boot</text>
+<rect x="312" y="266" width="218" height="12" fill="#FFF7EC" stroke="#2A1A2E"/>
+<text x="421" y="275" text-anchor="middle" font-size="8" fill="#2A1A2E" font-family="monospace">TPM 2.0 measured</text>
+<text x="421" y="316" text-anchor="middle" font-size="8" fill="#E2557A" font-family="monospace">no consent; OS-level</text>
+</svg>

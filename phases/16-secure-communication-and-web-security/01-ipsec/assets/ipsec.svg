@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" width="720" height="520">
+  <rect width="720" height="520" fill="#FFF7EC"/>
+  <text x="360" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="bold" fill="#2A1A2E">IPsec: AH vs ESP — Transport and Tunnel Mode</text>
+
+  <!-- Transport mode -->
+  <text x="40" y="62" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">Transport Mode</text>
+  <!-- AH transport -->
+  <text x="40" y="84" font-family="monospace" font-size="11" fill="#2A1A2E">AH transport:</text>
+  <rect x="40" y="92" width="80" height="24" fill="#E8DCC8" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="80" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">IP hdr</text>
+  <rect x="120" y="92" width="60" height="24" fill="#E2557A" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="150" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFF7EC">AH</text>
+  <rect x="180" y="92" width="60" height="24" fill="#D4C5A9" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="210" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">TCP</text>
+  <rect x="240" y="92" width="100" height="24" fill="#D4C5A9" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="290" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">Payload+pad</text>
+  <text x="350" y="108" font-family="monospace" font-size="10" fill="#E2557A">← authenticated</text>
+  <text x="350" y="120" font-family="monospace" font-size="10" fill="#2A1A2E">  (no encryption)</text>
+
+  <!-- ESP transport -->
+  <text x="40" y="140" font-family="monospace" font-size="11" fill="#2A1A2E">ESP transport:</text>
+  <rect x="40" y="148" width="80" height="24" fill="#E8DCC8" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="80" y="164" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">IP hdr</text>
+  <rect x="120" y="148" width="60" height="24" fill="#E2557A" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="150" y="164" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFF7EC">ESP</text>
+  <rect x="180" y="148" width="60" height="24" fill="#B8A88C" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="210" y="164" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">TCP</text>
+  <rect x="240" y="148" width="80" height="24" fill="#B8A88C" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="280" y="164" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">Payload</text>
+  <rect x="320" y="148" width="50" height="24" fill="#E2557A" stroke="#2A1A2E" stroke-width="1" opacity="0.5"/>
+  <text x="345" y="164" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">HMAC</text>
+  <text x="380" y="164" font-family="monospace" font-size="10" fill="#2A1A2E">← encrypted</text>
+
+  <!-- Tunnel mode -->
+  <text x="40" y="200" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">Tunnel Mode (VPN)</text>
+  <text x="40" y="222" font-family="monospace" font-size="11" fill="#2A1A2E">ESP tunnel:</text>
+  <rect x="40" y="230" width="80" height="24" fill="#E8DCC8" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="80" y="246" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">New IP</text>
+  <rect x="120" y="230" width="60" height="24" fill="#E2557A" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="150" y="246" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFF7EC">ESP</text>
+  <rect x="180" y="230" width="60" height="24" fill="#B8A88C" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="210" y="246" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">Old IP</text>
+  <rect x="240" y="230" width="60" height="24" fill="#B8A88C" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="270" y="246" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">TCP</text>
+  <rect x="300" y="230" width="80" height="24" fill="#B8A88C" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="340" y="246" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">Payload</text>
+  <rect x="380" y="230" width="50" height="24" fill="#E2557A" stroke="#2A1A2E" stroke-width="1" opacity="0.5"/>
+  <text x="405" y="246" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">HMAC</text>
+  <text x="440" y="246" font-family="monospace" font-size="10" fill="#2A1A2E">← all encrypted</text>
+  <text x="440" y="258" font-family="monospace" font-size="10" fill="#2A1A2E">  hidden endpoints</text>
+
+  <!-- AH header fields -->
+  <text x="40" y="296" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">AH Header Fields</text>
+  <rect x="40" y="306" width="70" height="20" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="75" y="320" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Next Hdr</text>
+  <rect x="110" y="306" width="70" height="20" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="145" y="320" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Pay Len</text>
+  <rect x="180" y="306" width="70" height="20" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="215" y="320" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Reserved</text>
+  <rect x="250" y="306" width="90" height="20" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="295" y="320" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">SPI (32)</text>
+  <rect x="340" y="306" width="90" height="20" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="385" y="320" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">Seq (32)</text>
+  <rect x="430" y="306" width="120" height="20" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="490" y="320" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Auth Data (HMAC)</text>
+  <text x="40" y="338" font-family="monospace" font-size="9" fill="#2A1A2E">8b  8b  16b  32b  32b  variable</text>
+
+  <!-- ESP header fields -->
+  <text x="40" y="368" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">ESP Header Fields</text>
+  <rect x="40" y="378" width="100" height="20" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="90" y="392" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">SPI (32)</text>
+  <rect x="140" y="378" width="100" height="20" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="190" y="392" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">Seq (32)</text>
+  <rect x="240" y="378" width="100" height="20" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="290" y="392" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">IV (128)</text>
+  <rect x="340" y="378" width="100" height="20" fill="#B8A88C" stroke="#2A1A2E"/>
+  <text x="390" y="392" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Encrypted</text>
+  <rect x="440" y="378" width="60" height="20" fill="#E2557A" stroke="#2A1A2E" opacity="0.5"/>
+  <text x="470" y="392" text-anchor="middle" font-family="monospace" font-size="9" fill="#FFF7EC">HMAC</text>
+  <text x="40" y="410" font-family="monospace" font-size="9" fill="#2A1A2E">32b  32b  128b  variable  variable</text>
+
+  <!-- Legend -->
+  <rect x="40" y="440" width="16" height="12" fill="#E8DCC8" stroke="#2A1A2E"/>
+  <text x="62" y="450" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">IP header (clear)</text>
+  <rect x="180" y="440" width="16" height="12" fill="#B8A88C" stroke="#2A1A2E"/>
+  <text x="202" y="450" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">Encrypted</text>
+  <rect x="290" y="440" width="16" height="12" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="312" y="450" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">IPsec header / SPI / Seq</text>
+  <rect x="460" y="440" width="16" height="12" fill="#E2557A" opacity="0.5" stroke="#2A1A2E"/>
+  <text x="482" y="450" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">HMAC trailer</text>
+
+  <text x="360" y="500" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">SA = (SPI, dest IP, protocol) · IKEv2 negotiates keys · seq never wraps</text>
+</svg>

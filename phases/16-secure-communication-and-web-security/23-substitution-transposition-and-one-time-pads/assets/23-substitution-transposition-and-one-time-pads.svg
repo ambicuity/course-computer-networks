@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 620" width="920" height="620">
+  <rect width="920" height="620" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 14px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="40" class="title">Classical ciphers and their modern descendants</text>
+  <text x="40" y="62" class="sub">Substitution preserves statistics; transposition preserves letters; OTP is unbreakable when used correctly.</text>
+
+  <!-- 4-column layout -->
+  <!-- Caesar / Monoalphabetic -->
+  <rect x="40" y="100" width="200" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">Caesar (k=3)</text>
+  <text x="60" y="146" class="mono">a -&gt; D, b -&gt; E, c -&gt; F</text>
+  <text x="60" y="166" class="label">keyspace: 26</text>
+  <text x="60" y="184" class="label">attack: brute-force</text>
+
+  <text x="60" y="210" class="node">Monoalphabetic</text>
+  <text x="60" y="232" class="mono">26! permutation</text>
+  <text x="60" y="252" class="label">keyspace: 4 x 10^26</text>
+  <text x="60" y="270" class="label accent">attack: frequency analysis (e, t, a, o, i, n)</text>
+  <text x="60" y="290" class="label">broken by 100-200 chars</text>
+
+  <!-- Vigenere -->
+  <rect x="260" y="100" width="200" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="280" y="124" class="node">Vigenere</text>
+  <text x="280" y="146" class="mono">shift = key[j mod len]</text>
+  <text x="280" y="166" class="label">key: short word</text>
+  <text x="280" y="186" class="label">attack: Kasiski + Friedman</text>
+  <text x="280" y="208" class="label accent">Kasiski: distances between</text>
+  <text x="280" y="226" class="label accent">repeated digrams share LCM</text>
+  <text x="280" y="244" class="label accent">Friedman: IC ~= 0.066 English</text>
+  <text x="280" y="262" class="label">column Caesar breaks each column</text>
+  <text x="280" y="286" class="label">each column is a Caesar cipher</text>
+
+  <!-- Transposition -->
+  <rect x="480" y="100" width="200" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="500" y="124" class="node">Columnar transposition</text>
+  <text x="500" y="146" class="mono">keyword = column order</text>
+  <text x="500" y="166" class="label">letters unchanged</text>
+  <text x="500" y="186" class="label">attack: probable word hunt</text>
+  <text x="500" y="206" class="mono">  MEGABUCK</text>
+  <text x="500" y="222" class="mono">  7 4 5 1 2 8 3 6</text>
+  <text x="500" y="244" class="label">digram statistics identify</text>
+  <text x="500" y="262" class="label">column ordering</text>
+
+  <!-- OTP -->
+  <rect x="700" y="100" width="180" height="220" rx="10" fill="#fff" stroke="#E2557A" stroke-width="3"/>
+  <text x="720" y="124" class="node accent">One-time pad</text>
+  <text x="720" y="146" class="mono">c = m XOR k, |k| = |m|</text>
+  <text x="720" y="166" class="label accent">Shannon-secure: H(M|C) = H(M)</text>
+  <text x="720" y="186" class="label">every plaintext equally likely</text>
+  <text x="720" y="206" class="label accent">KEY REUSE = catastrophe</text>
+  <text x="720" y="224" class="mono">  c1 XOR c2 = m1 XOR m2</text>
+  <text x="720" y="244" class="label">known m1 leaks m2 directly</text>
+  <text x="720" y="264" class="label">this is the WEP attack</text>
+  <text x="720" y="284" class="label">and the CTR-mode nonce rule</text>
+
+  <!-- Modern connections -->
+  <rect x="40" y="345" width="840" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="370" class="node">Modern ciphers descend directly from these</text>
+
+  <text x="60" y="400" class="mono">AES round = SubBytes (substitution via S-box) | ShiftRows (permutation) | MixColumns (linear) | AddRoundKey (XOR)</text>
+  <text x="60" y="418" class="label">10 rounds for AES-128, 14 for AES-256 -- iterated substitution + permutation with diffusion</text>
+
+  <text x="60" y="450" class="mono">DES round = expansion | XOR subkey | S-box substitution | P-box permutation -- 16 rounds, 56-bit key (now weak)</text>
+  <text x="60" y="468" class="label">Differential/linear cryptanalysis (Biham-Shamir 1990, Matsui 1994) defeat reduced-round DES</text>
+
+  <text x="60" y="500" class="mono">AES-ECB (Electronic Code Book): same plaintext block -&gt; same ciphertext block, like monoalphabetic</text>
+  <text x="60" y="518" class="label">replaced by CBC/CTR/GCM in TLS 1.2+; ECB reveals patterns (the famous ECB penguin)</text>
+
+  <text x="60" y="550" class="mono">WEP RC4 keystream reuse: 24-bit IV -&gt; collision after ~5000 packets -&gt; key recovery via XOR + known plaintext</text>
+  <text x="60" y="568" class="label">exactly the OTP key-reuse attack, applied to Wi-Fi. Modern: WPA3 uses SAE / Dragonfly (PAKE).</text>
+</svg>

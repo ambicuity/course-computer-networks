@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="760" height="520" fill="#FFF7EC"/>
+  <text x="380" y="30" text-anchor="middle" font-size="16" font-weight="700" fill="#2A1A2E">Router Queue Buildup &amp; Utilization Curve</text>
+  <text x="380" y="48" text-anchor="middle" font-size="11" fill="#2A1A2E" opacity="0.6">M/M/1: λ arrivals · μ service · ρ = λ/μ · L = ρ/(1−ρ)</text>
+
+  <!-- Router queue diagram -->
+  <text x="40" y="78" font-size="12" font-weight="600" fill="#2A1A2E">Packets arriving at a router</text>
+  <line x1="40" y1="118" x2="170" y2="118" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="170,118 162,114 162,122" fill="#2A1A2E"/>
+  <text x="48" y="110" font-size="10" fill="#2A1A2E">λ = 4.9 pkt/s</text>
+  <rect x="72" y="130" width="18" height="13" rx="2" fill="#E2557A" opacity="0.8"/>
+  <rect x="95" y="130" width="18" height="13" rx="2" fill="#E2557A" opacity="0.8"/>
+  <rect x="118" y="130" width="18" height="13" rx="2" fill="#E2557A" opacity="0.8"/>
+
+  <rect x="180" y="88" width="180" height="118" rx="6" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="270" y="105" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">Router</text>
+  <text x="190" y="125" font-size="9" fill="#2A1A2E" opacity="0.7">queue (FIFO buffer)</text>
+  <rect x="190" y="130" width="160" height="20" fill="none" stroke="#2A1A2E" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <rect x="192" y="132" width="15" height="16" rx="2" fill="#E2557A"/>
+  <rect x="209" y="132" width="15" height="16" rx="2" fill="#E2557A"/>
+  <rect x="226" y="132" width="15" height="16" rx="2" fill="#E2557A"/>
+  <rect x="243" y="132" width="15" height="16" rx="2" fill="#E2557A"/>
+  <rect x="260" y="132" width="15" height="16" rx="2" fill="#E2557A" opacity="0.6"/>
+  <rect x="277" y="132" width="15" height="16" rx="2" fill="#E2557A" opacity="0.4"/>
+  <text x="318" y="144" font-size="9" fill="#2A1A2E" opacity="0.6">Lq = ρ²/(1−ρ)</text>
+
+  <circle cx="270" cy="178" r="14" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="270" y="182" text-anchor="middle" font-size="9" font-weight="600" fill="#2A1A2E">μ</text>
+  <text x="190" y="196" font-size="9" fill="#E2557A">drop (tail-drop/RED)</text>
+
+  <line x1="360" y1="178" x2="445" y2="178" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="445,178 437,174 437,182" fill="#2A1A2E"/>
+  <text x="378" y="170" font-size="10" fill="#2A1A2E">μ = 5.0 pkt/s</text>
+
+  <!-- Utilization curve -->
+  <text x="40" y="248" font-size="12" font-weight="600" fill="#2A1A2E">Queue length vs utilization: L = ρ/(1−ρ)</text>
+  <line x1="80" y1="480" x2="720" y2="480" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="80" y1="260" x2="80" y2="480" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="400" y="505" text-anchor="middle" font-size="10" fill="#2A1A2E">utilization ρ = λ/μ</text>
+  <text x="52" y="370" text-anchor="middle" font-size="10" fill="#2A1A2E" transform="rotate(-90 52 370)">L (packets in system)</text>
+
+  <g font-size="9" fill="#2A1A2E" opacity="0.7">
+    <text x="80" y="497" text-anchor="middle">0</text>
+    <text x="208" y="497" text-anchor="middle">0.2</text>
+    <text x="336" y="497" text-anchor="middle">0.4</text>
+    <text x="464" y="497" text-anchor="middle">0.6</text>
+    <text x="528" y="497" text-anchor="middle">0.8</text>
+    <text x="624" y="497" text-anchor="middle">0.9</text>
+    <text x="720" y="497" text-anchor="middle">1.0</text>
+    <text x="72" y="483" text-anchor="end">0</text>
+    <text x="72" y="423" text-anchor="end">5</text>
+    <text x="72" y="363" text-anchor="end">10</text>
+    <text x="72" y="303" text-anchor="end">15</text>
+    <text x="72" y="263" text-anchor="end">20</text>
+  </g>
+
+  <rect x="528" y="260" width="192" height="220" fill="#E2557A" opacity="0.08"/>
+  <text x="624" y="278" text-anchor="middle" font-size="9" fill="#E2557A">congestion knee ρ &gt; 0.8</text>
+  <line x1="528" y1="260" x2="528" y2="480" stroke="#E2557A" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+
+  <path d="M 80,480 L 208,476 L 336,466 L 464,444 L 528,420 L 592,372 L 624,340 L 656,293 L 672,266"
+        fill="none" stroke="#E2557A" stroke-width="2.5"/>
+  <circle cx="464" cy="444" r="3" fill="#2A1A2E"/>
+  <text x="470" y="438" font-size="9" fill="#2A1A2E">ρ=0.6 L=1.5</text>
+  <circle cx="528" cy="420" r="3" fill="#2A1A2E"/>
+  <text x="534" y="414" font-size="9" fill="#2A1A2E">ρ=0.8 L=4</text>
+  <circle cx="624" cy="340" r="3" fill="#2A1A2E"/>
+  <text x="572" y="336" font-size="9" fill="#2A1A2E">ρ=0.9 L=9</text>
+  <circle cx="656" cy="293" r="3" fill="#2A1A2E"/>
+  <text x="560" y="290" font-size="9" fill="#2A1A2E">ρ=0.95 L=19</text>
+
+  <text x="120" y="278" font-size="10" font-weight="600" fill="#2A1A2E">Little's law: L = λW</text>
+  <text x="120" y="293" font-size="9" fill="#2A1A2E" opacity="0.7">mean occupancy = arrival rate × dwell time</text>
+
+  <rect x="558" y="100" width="182" height="60" rx="4" fill="none" stroke="#2A1A2E" stroke-width="0.8" opacity="0.5"/>
+  <text x="566" y="115" font-size="9" font-weight="600" fill="#2A1A2E">Fragmentation note</text>
+  <text x="566" y="129" font-size="8" fill="#2A1A2E" opacity="0.75">MTU exceeded → fragments</text>
+  <text x="566" y="141" font-size="8" fill="#2A1A2E" opacity="0.75">each occupies a queue slot</text>
+  <text x="566" y="153" font-size="8" fill="#2A1A2E" opacity="0.75">→ amplifies congestion loss</text>
+</svg>

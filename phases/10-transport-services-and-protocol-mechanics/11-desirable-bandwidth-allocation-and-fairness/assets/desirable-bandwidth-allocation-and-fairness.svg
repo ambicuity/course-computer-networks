@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="820" height="480" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold">Desirable Bandwidth Allocation — Max-Min Fairness</text>
+    <text x="410" y="50" text-anchor="middle" font-size="11" font-weight="bold">Fluid model · water-filling · fair share under topology</text>
+  </g>
+
+  <!-- 4-link topology with max-min fair shares -->
+  <g>
+    <rect x="40" y="80" width="370" height="220" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="100" font-size="12" font-weight="bold" fill="#2A1A2E">Topology with shared links (capacities in Mbps)</text>
+
+    <rect x="80" y="120" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="100" y="140" text-anchor="middle" font-size="10" fill="#2A1A2E">S1</text>
+
+    <rect x="80" y="170" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="100" y="190" text-anchor="middle" font-size="10" fill="#2A1A2E">S2</text>
+
+    <rect x="80" y="220" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="100" y="240" text-anchor="middle" font-size="10" fill="#2A1A2E">S3</text>
+
+    <rect x="220" y="160" width="60" height="50" fill="#E2557A" opacity="0.5" stroke="#2A1A2E"/>
+    <text x="250" y="180" text-anchor="middle" font-size="10" font-weight="bold" fill="#2A1A2E">R1</text>
+    <text x="250" y="195" text-anchor="middle" font-size="9" fill="#2A1A2E">link L=20</text>
+
+    <rect x="350" y="120" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="370" y="140" text-anchor="middle" font-size="10" fill="#2A1A2E">S4</text>
+    <rect x="350" y="220" width="40" height="30" fill="none" stroke="#2A1A2E"/>
+    <text x="370" y="240" text-anchor="middle" font-size="10" fill="#2A1A2E">S5</text>
+
+    <line x1="120" y1="135" x2="220" y2="170" stroke="#2A1A2E" stroke-width="1"/>
+    <line x1="120" y1="185" x2="220" y2="190" stroke="#2A1A2E" stroke-width="1"/>
+    <line x1="120" y1="235" x2="220" y2="210" stroke="#2A1A2E" stroke-width="1"/>
+    <line x1="280" y1="180" x2="350" y2="135" stroke="#2A1A2E" stroke-width="1"/>
+    <line x1="280" y1="190" x2="350" y2="235" stroke="#2A1A2E" stroke-width="1"/>
+
+    <text x="60" y="280" font-size="10" fill="#2A1A2E">R1 is a bottleneck. Max-min gives S1=S2=S3=6.67 Mbps, S4=S5=10 Mbps.</text>
+  </g>
+
+  <!-- Water-filling / fair share ladder -->
+  <g>
+    <rect x="430" y="80" width="350" height="220" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="605" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">Water-filling procedure</text>
+
+    <line x1="460" y1="280" x2="760" y2="280" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="460" y1="120" x2="460" y2="280" stroke="#2A1A2E" stroke-width="1.5"/>
+
+    <text x="465" y="135" font-size="10" fill="#2A1A2E">Step 1: share C=20 among 5 → 4 Mbps each.</text>
+    <rect x="465" y="160" width="290" height="20" fill="#E2557A" opacity="0.4"/>
+    <text x="610" y="175" text-anchor="middle" font-size="10" fill="#2A1A2E">5 × 4 Mbps fills the pipe</text>
+
+    <text x="465" y="200" font-size="10" fill="#2A1A2E">Step 2: S1, S2, S3 only compete on R1's link; bump them to equal R1/3.</text>
+    <rect x="465" y="220" width="290" height="20" fill="#E2557A" opacity="0.6"/>
+    <text x="610" y="235" text-anchor="middle" font-size="10" fill="#FFF7EC">S1=S2=S3=6.67 · S4=S5=10</text>
+  </g>
+
+  <!-- Properties -->
+  <g>
+    <rect x="40" y="320" width="740" height="140" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="340" font-size="12" font-weight="bold" fill="#2A1A2E">Max-min fairness properties</text>
+    <g fill="#2A1A2E" font-size="10">
+      <text x="60" y="362">· No flow can be increased without decreasing a smaller one (Pareto-optimal under min criterion).</text>
+      <text x="60" y="380">· Bottleneck link is the constraint — fairness is a property of the network, not the sender.</text>
+      <text x="60" y="398">· TCP's AIMD converges to proportional fairness in the limit, not strict max-min (see lesson 12).</text>
+      <text x="60" y="416">· Weighted fair queueing (WFQ) approximates per-flow fair share per output port.</text>
+      <text x="60" y="434">· Routers use Deficit Round Robin (DRR) or Stochastic Fair Queueing (SFQ) to approximate.</text>
+    </g>
+  </g>
+</svg>

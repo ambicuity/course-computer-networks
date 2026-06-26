@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the ITU-T G.114 threshold for 'Good' one-way voice delay?",
+      "options": [
+        "Under 50 ms",
+        "Under 150 ms",
+        "Under 300 ms",
+        "Under 700 ms"
+      ],
+      "correct": 1,
+      "explanation": "G.114 classifies one-way delay up to 150 ms as Good: acceptable for nearly all users and unnoticeable. 150-300 ms is Acceptable; 300-700 ms is Poor."
+    },
+    {
+      "stage": "post",
+      "question": "If you increase the packetization interval from 20 ms to 60 ms for G.711, what happens?",
+      "options": [
+        "Delay decreases and overhead increases",
+        "Delay increases by 40 ms and header overhead drops because each packet carries more audio",
+        "Bandwidth increases",
+        "Nothing changes"
+      ],
+      "correct": 1,
+      "explanation": "The packetization interval adds directly to the delay budget. Going from 20 to 60 ms adds 40 ms of delay, but each packet carries three times the audio, so the fixed 40-byte IP/UDP/RTP header is amortized over more payload, reducing overhead."
+    },
+    {
+      "stage": "post",
+      "question": "Why do codecs like G.729 and Opus add look-ahead delay?",
+      "options": [
+        "They are slower to encode",
+        "They must inspect samples from the next frame before emitting the current frame, adding one frame time of delay",
+        "They use larger packets",
+        "They require TCP"
+      ],
+      "correct": 1,
+      "explanation": "Predictive codecs model the signal using future context, so they buffer the next frame before outputting the current one. This look-ahead adds roughly one frame time (5-10 ms) of unavoidable delay."
+    },
+    {
+      "stage": "post",
+      "question": "Which delay component usually dominates a VoIP budget and cannot be reduced by changing the codec?",
+      "options": [
+        "Codec encode time",
+        "Packetization interval",
+        "Network propagation and queuing delay",
+        "Decode time"
+      ],
+      "correct": 2,
+      "explanation": "Network delay (propagation plus queuing) is typically the largest component and is independent of the codec. Reducing it requires routing, QoS, or topology changes, not a codec swap."
+    }
+  ]
+}

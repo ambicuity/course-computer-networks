@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A host sends a 1500-byte IPv4 packet with DF=1. A router on the path has an MTU of 1420 and the egress firewall drops ICMP Type 3 Code 4 outbound. What does the host experience?",
+      "options": [
+        "A. The packet is fragmented",
+        "B. The packet is dropped silently; PMTUD does not converge; the host's TCP connection stalls for tcp_retries2 retransmissions (~30s default)",
+        "C. The host receives an ICMP redirect",
+        "D. The host falls back to IPv6"
+      ],
+      "answer": 1,
+      "explanation": "The router must drop the packet because DF=1 and the packet is too big. The ICMP Type 3 Code 4 message that would tell the host to lower the path MTU is filtered at the egress firewall. PMTUD does not converge, the host keeps retrying at 1500 bytes, and the connection gives up after ~15 retransmits."
+    },
+    {
+      "question": "What is the right MSS for a TCP connection that traverses a 1420-byte IPsec tunnel over IPv4?",
+      "options": [
+        "A. 1500",
+        "B. 1380 (1420 - 40 for IP + TCP headers)",
+        "C. 1420",
+        "D. 1460"
+      ],
+      "answer": 1,
+      "explanation": "MSS = path_MTU - IP_header - TCP_header. For IPv4 that is 1420 - 20 (IP) - 20 (TCP) = 1380. The tunnel's outer IP header is added on top, so the inner MTU is 1420 and the inner MSS is 1380. For IPv6 the overhead is 60, so MSS would be 1360."
+    },
+    {
+      "question": "What does the 'Next-Hop MTU' field in an ICMP Type 3 Code 4 message tell the sender?",
+      "options": [
+        "A. The MTU of the source's link",
+        "B. The MTU of the link that could not accept the packet, allowing the sender to skip the binary search and use the new ceiling directly",
+        "C. The MTU of the destination's link",
+        "D. The size of the next IP packet"
+      ],
+      "answer": 1,
+      "explanation": "RFC 1191 added the Next-Hop MTU field to ICMP Type 3 Code 4 to avoid forcing the sender to binary-search. The router that drops the packet knows the MTU of its own outgoing link and includes it in the ICMP reply, so the sender can update its path MTU cache in one round trip."
+    }
+  ]
+}

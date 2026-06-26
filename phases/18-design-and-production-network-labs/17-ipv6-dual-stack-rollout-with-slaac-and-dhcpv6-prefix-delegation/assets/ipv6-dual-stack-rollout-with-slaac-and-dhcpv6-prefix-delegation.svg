@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <rect width="800" height="500" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; font-family: monospace; font-size: 11px; }
+    .accent { fill: #E2557A; font-family: monospace; font-size: 11px; font-weight: bold; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.5; }
+    .box-accent { fill: #FFFFFF; stroke: #E2557A; stroke-width: 2; }
+    .line { stroke: #2A1A2E; stroke-width: 1.5; }
+    .line-accent { stroke: #E2557A; stroke-width: 2; }
+    .label { fill: #2A1A2E; font-family: monospace; font-size: 10px; }
+  </style>
+
+  <text x="400" y="22" class="accent" text-anchor="middle" font-size="14">IPv6 DUAL-STACK - PREFIX DELEGATION HIERARCHY</text>
+
+  <!-- Upstream -->
+  <rect x="20" y="50" width="160" height="60" class="box"/>
+  <text x="100" y="70" class="ink" text-anchor="middle">UPSTREAM (ISP)</text>
+  <text x="100" y="85" class="label" text-anchor="middle">/32 2001:db8::/32</text>
+  <text x="100" y="98" class="label" text-anchor="middle">delegates /48</text>
+
+  <!-- Customer edge -->
+  <rect x="280" y="50" width="200" height="60" class="box-accent"/>
+  <text x="380" y="70" class="accent" text-anchor="middle">CUSTOMER EDGE</text>
+  <text x="380" y="85" class="label" text-anchor="middle">DHCPv6-PD client</text>
+  <text x="380" y="98" class="label" text-anchor="middle">/48 2001:db8:1::/48</text>
+
+  <line x1="180" y1="80" x2="280" y2="80" class="line-accent"/>
+  <text x="230" y="73" class="label" text-anchor="middle">IA_PD /48</text>
+
+  <!-- Site routers (3) -->
+  <rect x="60" y="180" width="140" height="60" class="box"/>
+  <text x="130" y="200" class="ink" text-anchor="middle">SITE factory-01</text>
+  <text x="130" y="215" class="label" text-anchor="middle">/48 2001:db8:1::/48</text>
+  <text x="130" y="228" class="label" text-anchor="middle">delegates /56</text>
+
+  <rect x="280" y="180" width="140" height="60" class="box"/>
+  <text x="350" y="200" class="ink" text-anchor="middle">SITE factory-02</text>
+  <text x="350" y="215" class="label" text-anchor="middle">/48 2001:db8:2::/48</text>
+  <text x="350" y="228" class="label" text-anchor="middle">delegates /56</text>
+
+  <rect x="500" y="180" width="140" height="60" class="box"/>
+  <text x="570" y="200" class="ink" text-anchor="middle">SITE hq</text>
+  <text x="570" y="215" class="label" text-anchor="middle">/48 2001:db8:3::/48</text>
+  <text x="570" y="228" class="label" text-anchor="middle">delegates /56</text>
+
+  <line x1="350" y1="110" x2="130" y2="180" class="line"/>
+  <line x1="380" y1="110" x2="350" y2="180" class="line"/>
+  <line x1="400" y1="110" x2="570" y2="180" class="line"/>
+
+  <!-- VLANs per site -->
+  <text x="130" y="270" class="ink" text-anchor="middle">/56 per VLAN</text>
+  <rect x="40" y="280" width="60" height="30" class="box"/>
+  <text x="70" y="299" class="label" text-anchor="middle">mgmt /64</text>
+  <rect x="110" y="280" width="60" height="30" class="box"/>
+  <text x="140" y="299" class="label" text-anchor="middle">office /64</text>
+  <rect x="40" y="320" width="60" height="30" class="box"/>
+  <text x="70" y="339" class="label" text-anchor="middle">ics /64</text>
+  <rect x="110" y="320" width="60" height="30" class="box"/>
+  <text x="140" y="339" class="label" text-anchor="middle">guest /64</text>
+  <rect x="40" y="360" width="60" height="30" class="box"/>
+  <text x="70" y="379" class="label" text-anchor="middle">wifi /64</text>
+
+  <line x1="130" y1="240" x2="70" y2="280" class="line"/>
+  <line x1="130" y1="240" x2="140" y2="280" class="line"/>
+  <line x1="130" y1="240" x2="70" y2="320" class="line"/>
+  <line x1="130" y1="240" x2="140" y2="320" class="line"/>
+  <line x1="130" y1="240" x2="70" y2="360" class="line"/>
+
+  <text x="350" y="270" class="ink" text-anchor="middle">/56 per VLAN</text>
+  <rect x="260" y="280" width="60" height="30" class="box"/>
+  <text x="290" y="299" class="label" text-anchor="middle">mgmt /64</text>
+  <rect x="330" y="280" width="60" height="30" class="box"/>
+  <text x="360" y="299" class="label" text-anchor="middle">office /64</text>
+  <rect x="260" y="320" width="60" height="30" class="box"/>
+  <text x="290" y="339" class="label" text-anchor="middle">ics /64</text>
+  <rect x="330" y="320" width="60" height="30" class="box"/>
+  <text x="360" y="339" class="label" text-anchor="middle">guest /64</text>
+  <rect x="260" y="360" width="60" height="30" class="box"/>
+  <text x="290" y="379" class="label" text-anchor="middle">wifi /64</text>
+
+  <line x1="350" y1="240" x2="290" y2="280" class="line"/>
+  <line x1="350" y1="240" x2="360" y2="280" class="line"/>
+  <line x1="350" y1="240" x2="290" y2="320" class="line"/>
+  <line x1="350" y1="240" x2="360" y2="320" class="line"/>
+  <line x1="350" y1="240" x2="290" y2="360" class="line"/>
+
+  <!-- Hosts -->
+  <text x="680" y="270" class="ink" text-anchor="middle">/64 per subnet</text>
+  <rect x="620" y="280" width="120" height="50" class="box"/>
+  <text x="680" y="300" class="ink" text-anchor="middle">HOSTS</text>
+  <text x="680" y="313" class="label" text-anchor="middle">SLAAC + DHCPv6</text>
+  <text x="680" y="325" class="label" text-anchor="middle">2001:db8:1:0::/64</text>
+
+  <line x1="200" y1="295" x2="620" y2="305" class="line-accent"/>
+  <line x1="420" y1="295" x2="620" y2="305" class="line-accent"/>
+  <text x="500" y="290" class="label" text-anchor="middle">RA + DHCPv6</text>
+
+  <rect x="20" y="420" width="760" height="60" class="box"/>
+  <text x="400" y="440" class="accent" text-anchor="middle">RA FLAGS (A/M/O)</text>
+  <text x="40" y="458" class="label">A=1,M=0,O=0 = SLAAC only (default for office, wifi)</text>
+  <text x="40" y="471" class="label">A=1,M=1,O=1 = SLAAC + DHCPv6 DNS (default for ics, mgmt) ;  A=0,M=1,O=1 = DHCPv6 only (rare)</text>
+</svg>

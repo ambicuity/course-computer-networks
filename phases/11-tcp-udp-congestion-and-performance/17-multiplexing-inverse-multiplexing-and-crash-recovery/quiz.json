@@ -1,0 +1,35 @@
+[
+  {
+    "question": "What is the 5-tuple that the kernel uses to demultiplex an incoming segment to a socket?",
+    "options": [
+      "A. (proto, src_ip, src_port, dst_ip, dst_port)",
+      "B. (src_ip, dst_ip, ttl, tos, id)",
+      "C. (interface, src_mac, dst_mac, vlan, ethertype)",
+      "D. (process_pid, uid, fd, cgroup, namespace)"
+    ],
+    "answer": 0,
+    "explanation": "The 5-tuple (proto, src_ip, src_port, dst_ip, dst_port) is the unique identifier of a transport connection. The kernel keeps a hash table keyed on this tuple and routes each incoming segment to the matching TCB. The hash lookup is the demultiplexer: it lets the kernel sort thousands of concurrent connections without a linear scan."
+  },
+  {
+    "question": "What is the difference between SCTP's multi-homing and MPTCP's multi-path?",
+    "options": [
+      "A. SCTP multi-homing uses one path at a time (primary+failover); MPTCP multi-path uses all available paths simultaneously to aggregate bandwidth.",
+      "B. SCTP is for UDP and MPTCP is for TCP, so they are not comparable.",
+      "C. SCTP multi-homing is a misnomer; both protocols are the same.",
+      "D. MPTCP is for telecom signalling and SCTP is for mobile phones."
+    ],
+    "answer": 0,
+    "explanation": "SCTP's multi-homing is a 'primary + failover' model: data flows on the primary path until it fails, then the secondary is promoted. MPTCP's multi-path is 'use them all': segments are scheduled across all available paths to maximise aggregate throughput. The default MPTCP scheduler picks the path with the lowest smoothed RTT, but it can use all of them in parallel. Both protocols face the same reordering problem and need a reassembly buffer."
+  },
+  {
+    "question": "What does the chapter's Figure 6-18 prove about host crash recovery?",
+    "options": [
+      "A. The transport layer can always recover from a host crash by retransmitting the last segment.",
+      "B. For every (server-strategy x client-strategy) combination, at least one of the six possible event orderings causes a LOST or DUP message; recovery from a layer-N crash can only be done by layer N+1.",
+      "C. The 8x6 matrix proves that retransmission is unnecessary in the transport layer.",
+      "D. Figure 6-18 is a forward-error-correction scheme that prevents host crashes."
+    ],
+    "answer": 1,
+    "explanation": "The 8 (server x client) x 6 (event ordering) matrix has no cell that is uniformly 'OK' -- every cell has at least one LOST or DUP ordering. The conclusion, restated in the chapter, is structural: 'Recovery from a layer N crash can only be done by layer N+1'. In the Internet stack, the application is the layer above transport, so crash recovery is the application's responsibility, usually via idempotency keys, write-ahead logs, or two-phase commit."
+  }
+]

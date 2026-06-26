@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">MIME Content Types, Transfer Encodings, and Multipart</text>
+  <text x="40" y="68" class="sub">RFC 2045 / 2046: five new headers, type/subtype, base64 + quoted-printable, multipart/* tree</text>
+
+  <!-- Headers -->
+  <rect x="40" y="100" width="840" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">Five MIME headers (RFC 2045 §3)</text>
+  <text x="60" y="146" class="mono">MIME-Version: 1.0                       -- required to opt in</text>
+  <text x="60" y="164" class="mono">Content-Type: text/plain; charset=UTF-8  -- type/subtype + params</text>
+  <text x="60" y="182" class="mono">Content-Transfer-Encoding: base64        -- 7bit / 8bit / binary / quoted-printable / base64</text>
+  <text x="60" y="200" class="mono">Content-Id: &lt;part1@example.com&gt;           -- global id (for cid: in HTML)</text>
+  <text x="60" y="216" class="mono">Content-Description: photo of Barbara's hamster</text>
+
+  <!-- Type tree -->
+  <rect x="40" y="240" width="410" height="200" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="264" class="node">Content-Type tree</text>
+  <text x="60" y="290" class="mono">type/subtype (RFC 2046 / RFC 4288):</text>
+  <text x="80" y="312" class="mono">text/  plain, html, css, csv</text>
+  <text x="80" y="332" class="mono">image/ jpeg, png, gif, svg+xml</text>
+  <text x="80" y="352" class="mono">audio/ basic, mpeg, mp4</text>
+  <text x="80" y="372" class="mono">video/ mpeg, mp4</text>
+  <text x="80" y="392" class="mono">application/ pdf, json, zip, octet-stream</text>
+  <text x="80" y="412" class="mono">multipart/ mixed, alternative, related, digest</text>
+  <text x="80" y="432" class="mono">message/ rfc822, http, external-body</text>
+
+  <!-- Encoding -->
+  <rect x="470" y="240" width="410" height="200" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="490" y="264" class="node accent">Transfer encoding choice</text>
+  <text x="490" y="290" class="mono">7bit         -- pure ASCII, lines &lt;= 998 chars  (default)</text>
+  <text x="490" y="310" class="mono">8bit         -- 8-bit bytes, lines &lt;= 998        (RFC 6152)</text>
+  <text x="490" y="330" class="mono">binary       -- arbitrary bytes, no line limit   (RFC 3030)</text>
+  <text x="490" y="354" class="mono accent">quoted-printable -- '=XX' for non-ASCII, '=\\r\\n' soft break</text>
+  <text x="490" y="374" class="mono accent">                 compact for mostly-ASCII text (RFC 2045 §6.7)</text>
+  <text x="490" y="398" class="mono accent">base64       -- 6 bits per char, A-Za-z0-9+/</text>
+  <text x="490" y="418" class="mono accent">                 safe for any binary (RFC 4648 §4)</text>
+
+  <!-- Multipart example -->
+  <rect x="40" y="460" width="840" height="80" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="484" class="node">multipart/mixed example (RFC 2046 §5.1)</text>
+  <text x="60" y="508" class="mono">--abc1234</text>
+  <text x="80" y="524" class="mono">Content-Type: text/plain; charset=UTF-8     |     --abc1234</text>
+  <text x="100" y="538" class="mono">... body ...                                     Content-Type: application/pdf; name="invoice.pdf"</text>
+</svg>

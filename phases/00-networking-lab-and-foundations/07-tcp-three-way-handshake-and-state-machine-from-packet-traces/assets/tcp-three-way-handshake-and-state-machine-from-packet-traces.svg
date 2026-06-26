@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="820" height="560" fill="#FFF7EC"/>
+
+  <text x="410" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">TCP Three-Way Handshake &amp; Connection State Machine</text>
+  <text x="410" y="54" text-anchor="middle" font-size="12" fill="#6A5566">RFC 793 — seq/ack arithmetic and 11-state FSM</text>
+
+  <!-- Ladder: client (left) and server (right) -->
+  <line x1="170" y1="80" x2="170" y2="300" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="650" y1="80" x2="650" y2="300" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="170" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="#2A1A2E">Client (active open)</text>
+  <text x="650" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="#2A1A2E">Server (passive open)</text>
+
+  <!-- SYN -->
+  <line x1="176" y1="120" x2="644" y2="120" stroke="#E2557A" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="410" y="112" text-anchor="middle" font-size="11" fill="#2A1A2E">1. SYN  seq=ISN_c  (no ACK)  win=64240</text>
+  <text x="178" y="138" font-size="10" fill="#6A5566">CLOSED → SYN_SENT</text>
+  <text x="560" y="138" font-size="10" fill="#6A5566" text-anchor="end">LISTEN</text>
+
+  <!-- SYN,ACK -->
+  <line x1="644" y1="180" x2="176" y2="180" stroke="#E2557A" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="410" y="172" text-anchor="middle" font-size="11" fill="#2A1A2E">2. SYN,ACK  seq=ISN_s  ack=ISN_c+1</text>
+  <text x="178" y="198" font-size="10" fill="#6A5566">SYN_SENT</text>
+  <text x="560" y="198" font-size="10" fill="#6A5566" text-anchor="end">LISTEN → SYN_RCVD</text>
+
+  <!-- ACK -->
+  <line x1="176" y1="240" x2="644" y2="240" stroke="#E2557A" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="410" y="232" text-anchor="middle" font-size="11" fill="#2A1A2E">3. ACK  seq=ISN_c+1  ack=ISN_s+1</text>
+  <text x="178" y="258" font-size="10" fill="#6A5566">SYN_SENT → ESTABLISHED</text>
+  <text x="560" y="258" font-size="10" fill="#6A5566" text-anchor="end">SYN_RCVD → ESTABLISHED</text>
+
+  <text x="410" y="288" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">data: seq=ISN_c+1 …  ack=ISN_s+1 …</text>
+
+  <!-- State machine graph -->
+  <text x="410" y="334" text-anchor="middle" font-size="15" font-weight="700" fill="#2A1A2E">Connection State Machine</text>
+
+  <g font-size="11" fill="#2A1A2E">
+    <rect x="40"  y="360" width="92" height="34" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="86"  y="382" text-anchor="middle">CLOSED</text>
+
+    <rect x="170" y="360" width="92" height="34" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="216" y="382" text-anchor="middle">LISTEN</text>
+
+    <rect x="300" y="360" width="100" height="34" rx="6" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+    <text x="350" y="382" text-anchor="middle">SYN_SENT</text>
+
+    <rect x="430" y="360" width="100" height="34" rx="6" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+    <text x="480" y="382" text-anchor="middle">SYN_RCVD</text>
+
+    <rect x="560" y="360" width="116" height="34" rx="6" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="618" y="382" text-anchor="middle" fill="#FFF7EC" font-weight="700">ESTABLISHED</text>
+
+    <rect x="700" y="360" width="92" height="34" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="746" y="382" text-anchor="middle">FIN_WAIT_1</text>
+
+    <rect x="700" y="430" width="92" height="34" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="746" y="452" text-anchor="middle">FIN_WAIT_2</text>
+
+    <rect x="560" y="500" width="116" height="34" rx="6" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+    <text x="618" y="522" text-anchor="middle">TIME_WAIT (2·MSL)</text>
+
+    <rect x="430" y="430" width="100" height="34" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="480" y="452" text-anchor="middle">CLOSE_WAIT</text>
+
+    <rect x="300" y="430" width="100" height="34" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+    <text x="350" y="452" text-anchor="middle">LAST_ACK</text>
+  </g>
+
+  <g stroke="#2A1A2E" stroke-width="1" fill="none" marker-end="url(#arrow)">
+    <line x1="132" y1="377" x2="170" y2="377"/>
+    <line x1="262" y1="377" x2="300" y2="377"/>
+    <line x1="400" y1="377" x2="430" y2="377"/>
+    <line x1="530" y1="377" x2="560" y2="377"/>
+    <line x1="676" y1="377" x2="700" y2="377"/>
+    <line x1="746" y1="394" x2="746" y2="430"/>
+    <line x1="746" y1="464" x2="676" y2="500"/>
+    <line x1="560" y1="377" x2="530" y2="430"/>
+    <line x1="430" y1="447" x2="400" y2="447"/>
+    <line x1="300" y1="464" x2="132" y2="394"/>
+  </g>
+
+  <g font-size="9" fill="#6A5566">
+    <text x="151" y="372" text-anchor="middle">open</text>
+    <text x="281" y="372" text-anchor="middle">send SYN</text>
+    <text x="415" y="372" text-anchor="middle">recv SYN,ACK</text>
+    <text x="545" y="372" text-anchor="middle">send ACK</text>
+    <text x="700" y="414">FIN</text>
+    <text x="545" y="410" text-anchor="end">recv FIN</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

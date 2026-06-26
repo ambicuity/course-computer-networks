@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">TXT, SPF, and DMARC Mail Authentication Records</text>
+  <text x="40" y="68" class="sub">DNS TXT records carry the policies that authenticate outbound mail (RFC 1035 §3.3.14 / 6376 / 7208 / 7489)</text>
+
+  <!-- Apex SPF -->
+  <rect x="40" y="100" width="270" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">example.com  (apex)</text>
+  <text x="60" y="146" class="mono">TXT  "v=spf1 ip4:192.0.2.0/24</text>
+  <text x="60" y="162" class="mono">            ip4:198.51.100.5</text>
+  <text x="60" y="178" class="mono">            include:_spf.google.com</text>
+  <text x="60" y="194" class="mono">            ~all"</text>
+  <text x="60" y="212" class="label">RFC 7208. Only ONE SPF record allowed.</text>
+
+  <!-- DKIM -->
+  <rect x="40" y="240" width="270" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="264" class="node">selector1._domainkey.example.com</text>
+  <text x="60" y="286" class="mono">TXT  "v=DKIM1; k=rsa;</text>
+  <text x="60" y="302" class="mono">      p=MIIBIjANBgkqhkiG9w0B..."</text>
+  <text x="60" y="324" class="label">RFC 6376. Receivers fetch to verify</text>
+  <text x="60" y="340" class="label">the per-message DKIM-Signature.</text>
+
+  <!-- DMARC -->
+  <rect x="40" y="380" width="270" height="140" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="60" y="404" class="node accent">_dmarc.example.com</text>
+  <text x="60" y="426" class="mono">TXT  "v=DMARC1; p=reject;</text>
+  <text x="60" y="442" class="mono">      rua=mailto:dmarc-reports@...</text>
+  <text x="60" y="458" class="mono">      ruf=mailto:forensics@...</text>
+  <text x="60" y="474" class="mono">      pct=100; aspf=r; adkim=r"</text>
+  <text x="60" y="500" class="label accent">RFC 7489. Aligns SPF/DKIM with From:.</text>
+  <text x="60" y="516" class="label accent">Aggregate reports to rua daily.</text>
+
+  <!-- Receiver flow -->
+  <rect x="340" y="100" width="560" height="420" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="360" y="124" class="node">Receiver evaluation pipeline</text>
+
+  <rect x="360" y="146" width="520" height="40" rx="6" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="370" y="172" class="mono">1. Reverse DNS  (RFC 5321 §5.1):   PTR(192.0.2.10) -&gt; name -&gt; A -&gt; 192.0.2.10  ?  pass/fail</text>
+
+  <rect x="360" y="196" width="520" height="40" rx="6" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="370" y="222" class="mono">2. SPF  (RFC 7208):                v=spf1 match for sender IP?         pass/fail/softfail</text>
+
+  <rect x="360" y="246" width="520" height="40" rx="6" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="370" y="272" class="mono">3. DKIM  (RFC 6376):              fetch &lt;selector&gt;._domainkey.example.com TXT,</text>
+  <text x="380" y="288" class="mono">                                 verify signature over signed headers and body.</text>
+
+  <rect x="360" y="306" width="520" height="40" rx="6" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="370" y="332" class="mono">4. DMARC  (RFC 7489):             align SPF or DKIM domain with From: header.</text>
+  <text x="380" y="348" class="mono">                                 if aligned and at least one passes -&gt; accept.</text>
+
+  <rect x="360" y="372" width="520" height="40" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="370" y="398" class="mono">5. Receiver verdict  (RFC 8601 Authentication-Results header):</text>
+  <text x="380" y="416" class="mono">       spf=pass dkim=pass dmarc=pass  -&gt; INBOX</text>
+  <text x="380" y="434" class="mono">       spf=fail dkim=pass dmarc=pass  -&gt; INBOX (alignment still holds via DKIM)</text>
+  <text x="380" y="452" class="mono">       spf=fail dkim=fail dmarc=fail  -&gt; reject (or quarantine per p=)</text>
+
+  <text x="360" y="490" class="label">Publish order: SPF &quot;none&quot; first -&gt; DKIM signing -&gt; DMARC p=none with rua -&gt;</text>
+  <text x="360" y="506" class="label">watch reports -&gt; p=quarantine pct=10 -&gt; pct=100 -&gt; p=reject.</text>
+
+  <!-- Anti-patterns -->
+  <rect x="60" y="540" width="840" height="0" rx="6" fill="#FFF0F4"/>
+  <text x="60" y="538" class="label accent">Anti-patterns: two v=spf1 records (permerror), +all on a production domain, DKIM selector without p=, DMARC p=reject before SPF/DKIM are clean.</text>
+</svg>

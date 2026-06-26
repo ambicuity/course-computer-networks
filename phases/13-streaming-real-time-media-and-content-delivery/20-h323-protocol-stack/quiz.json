@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Which organization developed H.323, and what was its telecom lineage?",
+      "options": [
+        "IETF, based on HTTP",
+        "ITU, adapted from ISDN Q.931 signaling",
+        "ISO, based on OSI",
+        "IEEE, based on 802"
+      ],
+      "correct": 1,
+      "explanation": "H.323 was developed by the ITU (telecom world) by adapting ISDN Q.931 call signaling for packet-switched IP networks."
+    },
+    {
+      "stage": "post",
+      "question": "What are the three main H.323 protocol phases for call setup?",
+      "options": [
+        "DNS, TCP, HTTP",
+        "RAS (admission), Q.931 (call signaling), H.245 (control + media channel setup)",
+        "REGISTER, INVITE, ACK",
+        "SYN, SYN-ACK, ACK"
+      ],
+      "correct": 1,
+      "explanation": "H.323 uses H.225 RAS for gatekeeper admission, H.225 Q.931 for call signaling, and H.245 for capability exchange and logical channel opening."
+    },
+    {
+      "stage": "post",
+      "question": "Why did SIP eventually displace H.323 in most VoIP deployments?",
+      "options": [
+        "SIP is faster",
+        "SIP uses a single text-based protocol that is simpler to implement, debug, and extend than H.323's multiple binary protocols",
+        "H.323 does not support video",
+        "SIP uses less bandwidth"
+      ],
+      "correct": 1,
+      "explanation": "H.323 uses ASN.1 binary encoding across multiple protocols (Q.931, H.245, RAS), making it complex. SIP's single text-based protocol is simpler to implement and debug, leading to wider adoption."
+    },
+    {
+      "stage": "post",
+      "question": "What is the role of an H.323 gatekeeper?",
+      "options": [
+        "It encodes audio",
+        "It provides address translation, admission control, and bandwidth management for H.323 terminals",
+        "It routes IP packets",
+        "It encrypts calls"
+      ],
+      "correct": 1,
+      "explanation": "The gatekeeper is an optional H.323 entity that manages terminals: it translates aliases to addresses, controls call admission (ARQ/ACF), and manages bandwidth allocation."
+    }
+  ]
+}

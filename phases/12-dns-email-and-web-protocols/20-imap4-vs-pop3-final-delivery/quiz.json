@@ -1,0 +1,35 @@
+[
+  {
+    "question": "An IMAP client sets the \\Deleted flag on a message but does not issue EXPUNGE. What happens?",
+    "options": [
+      "A. The message is removed from the server immediately",
+      "B. The message stays on the server; \\Deleted is just a flag, not a delete",
+      "C. The server moves it to the Trash folder automatically",
+      "D. The IMAP connection is closed with an error"
+    ],
+    "answer": 1,
+    "explanation": "RFC 3501 §2.3.2 specifies that \\Deleted is just a flag. The message is only physically removed on EXPUNGE (or implicit EXPUNGE via CLOSE or the OBJECTID extension)."
+  },
+  {
+    "question": "An IMAP client opens an IDLE command on the server. A new message arrives in the mailbox. What does the client see?",
+    "options": [
+      "A. Nothing -- IDLE is one-way; the server only sends updates when the client issues another command",
+      "B. An unsolicited server response such as '* 6 EXISTS' pushed without further client action",
+      "C. The connection is closed",
+      "D. A DELE command for the new message"
+    ],
+    "answer": 1,
+    "explanation": "RFC 2177 IDLE puts the server in a state where it pushes unsolicited updates (e.g., '* n EXISTS' for a new message) without further client commands. The client sends DONE to exit IDLE and resume normal command mode."
+  },
+  {
+    "question": "Which RFC recommends implicit TLS (ports 993 / 995) for IMAP and POP3, deprecating STARTTLS for new deployments?",
+    "options": [
+      "A. RFC 3501",
+      "B. RFC 1939",
+      "C. RFC 8314",
+      "D. RFC 7817"
+    ],
+    "answer": 2,
+    "explanation": "RFC 8314 (Cleartext Considered Obsolete: Use TLS) recommends implicit TLS on ports 993 and 995 for IMAP and POP3, deprecating the plain ports plus STARTTLS combination for new deployments."
+  }
+]

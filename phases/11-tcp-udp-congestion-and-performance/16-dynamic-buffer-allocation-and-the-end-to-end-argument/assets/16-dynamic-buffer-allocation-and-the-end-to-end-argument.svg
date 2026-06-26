@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" width="920" height="600">
+  <rect width="920" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .small { font-size: 11px; fill: #6b5560; }
+    .accent { fill: #E2557A; }
+  </style>
+
+  <text x="40" y="40" class="title">Variable Sliding Window &amp; End-to-End</text>
+  <text x="40" y="60" class="sub">Tanenbaum Fig. 6-16 trace, persist-timer fix, and the end-to-end argument</text>
+
+  <!-- A box -->
+  <rect x="40" y="100" width="160" height="380" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="120" y="128" text-anchor="middle" class="node">A  (sender)</text>
+  <text x="120" y="148" text-anchor="middle" class="small">credits, next_seq, in_flight</text>
+
+  <rect x="60" y="170" width="120" height="32" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="120" y="190" text-anchor="middle" class="mono accent">credits=0</text>
+
+  <rect x="60" y="220" width="120" height="32" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="120" y="240" text-anchor="middle" class="mono">in_flight={0,1,2,3,4}</text>
+
+  <rect x="60" y="270" width="120" height="32" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="120" y="290" text-anchor="middle" class="mono">next_seq=5</text>
+
+  <rect x="60" y="320" width="120" height="32" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="120" y="340" text-anchor="middle" class="mono accent">BLOCKED</text>
+
+  <rect x="60" y="370" width="120" height="32" rx="4" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="390" text-anchor="middle" class="mono">persist timer</text>
+  <text x="120" y="406" text-anchor="middle" class="small">probes every 5s</text>
+
+  <rect x="60" y="430" width="120" height="32" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="120" y="450" text-anchor="middle" class="mono">unblocked</text>
+
+  <!-- B box -->
+  <rect x="720" y="100" width="160" height="380" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="800" y="128" text-anchor="middle" class="node">B  (receiver)</text>
+  <text x="800" y="148" text-anchor="middle" class="small">buffers, next_expected</text>
+
+  <rect x="740" y="170" width="120" height="32" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="800" y="190" text-anchor="middle" class="mono accent">buffers=0</text>
+
+  <rect x="740" y="220" width="120" height="32" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="800" y="240" text-anchor="middle" class="mono">next_exp=5</text>
+
+  <rect x="740" y="270" width="120" height="32" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="800" y="290" text-anchor="middle" class="mono">delivered={0,1,2,3,4}</text>
+
+  <rect x="740" y="320" width="120" height="32" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="800" y="340" text-anchor="middle" class="mono">app reads data</text>
+
+  <rect x="740" y="370" width="120" height="32" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="800" y="390" text-anchor="middle" class="mono">finds 4 buffers</text>
+
+  <rect x="740" y="430" width="120" height="32" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="800" y="450" text-anchor="middle" class="mono accent">SEND: ack=6, buf=4</text>
+
+  <!-- Spine lines for the segments -->
+  <line x1="200" y1="190" x2="720" y2="190" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="460" y="184" text-anchor="middle" class="mono">req 8 buf</text>
+
+  <line x1="720" y1="200" x2="200" y2="200" stroke="#E2557A" stroke-width="2" marker-end="url(#a)"/>
+  <text x="460" y="216" text-anchor="middle" class="mono accent">ack=15, buf=4</text>
+
+  <line x1="200" y1="260" x2="720" y2="260" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="460" y="254" text-anchor="middle" class="mono">seq=2, m2 (LOST)</text>
+
+  <line x1="720" y1="320" x2="200" y2="320" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="460" y="314" text-anchor="middle" class="mono">persist-timer probe</text>
+
+  <line x1="720" y1="450" x2="200" y2="450" stroke="#E2557A" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#a)"/>
+  <text x="460" y="444" text-anchor="middle" class="mono accent">ack=6, buf=4 (LOST -- line 16)</text>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- End-to-end argument -->
+  <rect x="40" y="500" width="840" height="84" rx="8" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="60" y="524" class="node accent">End-to-end argument (Saltzer, Reed &amp; Clark, 1984)</text>
+  <text x="60" y="544" class="mono">A bit-flip INSIDE a router escapes every link-layer CRC. The CRC on the previous</text>
+  <text x="60" y="560" class="mono">hop passed (the wire was clean); the CRC on the next hop is computed over the</text>
+  <text x="60" y="576" class="mono">corrupted bytes (also clean). Only an end-to-end check (TCP checksum, TLS MAC)</text>
+  <text x="60" y="592" class="mono">can detect the in-router corruption. Lower-layer checks are performance, not correctness.</text>
+</svg>

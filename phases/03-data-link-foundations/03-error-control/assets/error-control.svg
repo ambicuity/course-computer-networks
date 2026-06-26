@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="760" height="520">
+  <rect x="0" y="0" width="760" height="520" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .lbl { font-size: 13px; }
+    .mono { font-family: monospace; font-size: 12px; }
+    .berry { fill: #E2557A; }
+    .strk { stroke: #2A1A2E; stroke-width: 1.6; fill: none; }
+    .bstrk { stroke: #E2557A; stroke-width: 1.8; fill: none; }
+    .dash { stroke: #E2557A; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+  </style>
+
+  <text x="32" y="38" class="title">Stop-and-Wait ARQ: Timeline + Sequence Logic</text>
+  <text x="32" y="58" class="sub">One frame outstanding at a time. Timer + 1-bit seq number = exactly-once delivery.</text>
+
+  <!-- timeline lifelines -->
+  <text x="120" y="92" class="lbl" font-weight="700" text-anchor="middle">SENDER</text>
+  <text x="640" y="92" class="lbl" font-weight="700" text-anchor="middle">RECEIVER</text>
+  <line x1="120" y1="100" x2="120" y2="470" class="strk"/>
+  <line x1="640" y1="100" x2="640" y2="470" class="strk"/>
+
+  <!-- 1: frame 0 delivered, ACK ok -->
+  <text x="20" y="124" class="mono">send 0</text>
+  <line x1="120" y1="126" x2="640" y2="150" class="strk"/>
+  <polygon points="640,150 628,143 630,153" fill="#2A1A2E"/>
+  <text x="380" y="132" class="mono" text-anchor="middle">frame seq=0</text>
+  <text x="660" y="150" class="mono">DELIVER 0</text>
+  <line x1="640" y1="158" x2="120" y2="182" class="bstrk"/>
+  <polygon points="120,182 132,175 130,185" fill="#E2557A"/>
+  <text x="380" y="160" class="mono berry" text-anchor="middle">ACK 0</text>
+  <text x="20" y="190" class="mono">seq -&gt; 1</text>
+
+  <!-- 2: lost ACK -> duplicate received, dropped -->
+  <text x="20" y="218" class="mono">send 1</text>
+  <line x1="120" y1="220" x2="640" y2="244" class="strk"/>
+  <polygon points="640,244 628,237 630,247" fill="#2A1A2E"/>
+  <text x="380" y="226" class="mono" text-anchor="middle">frame seq=1</text>
+  <text x="660" y="244" class="mono">DELIVER 1</text>
+  <!-- ACK lost -->
+  <line x1="640" y1="252" x2="380" y2="264" class="dash"/>
+  <text x="430" y="248" class="mono berry">ACK 1 LOST</text>
+  <circle cx="380" cy="264" r="5" class="bstrk"/>
+
+  <!-- timeout box -->
+  <rect x="60" y="276" width="120" height="22" rx="4" class="bstrk"/>
+  <text x="120" y="291" class="mono berry" text-anchor="middle">RTO timeout</text>
+
+  <!-- retransmit duplicate -->
+  <text x="20" y="320" class="mono">resend 1</text>
+  <line x1="120" y1="322" x2="640" y2="346" class="strk"/>
+  <polygon points="640,346 628,339 630,349" fill="#2A1A2E"/>
+  <text x="380" y="328" class="mono" text-anchor="middle">frame seq=1 (dup)</text>
+  <text x="660" y="342" class="mono">DUP: re-ACK,</text>
+  <text x="660" y="356" class="mono">do NOT deliver</text>
+  <line x1="640" y1="362" x2="120" y2="386" class="bstrk"/>
+  <polygon points="120,386 132,379 130,389" fill="#E2557A"/>
+  <text x="380" y="364" class="mono berry" text-anchor="middle">ACK 1</text>
+  <text x="20" y="394" class="mono">seq -&gt; 0</text>
+
+  <!-- divider -->
+  <line x1="32" y1="412" x2="728" y2="412" class="strk" stroke-dasharray="3 3"/>
+
+  <!-- receiver rule box -->
+  <rect x="430" y="424" width="298" height="78" rx="6" class="strk"/>
+  <text x="444" y="444" class="lbl" font-weight="700">Receiver rule (expected = e)</text>
+  <text x="444" y="464" class="mono">frame(e)   -&gt; deliver; ACK(e); e = 1 - e</text>
+  <text x="444" y="482" class="mono">frame(1-e) -&gt; ACK(1-e); DROP (no deliver)</text>
+  <text x="444" y="498" class="mono berry">duplicate never reaches network layer</text>
+
+  <!-- failure-mode legend -->
+  <rect x="32" y="424" width="370" height="78" rx="6" class="strk"/>
+  <text x="46" y="444" class="lbl" font-weight="700">Four failure modes</text>
+  <text x="46" y="463" class="mono">lost frame   : timeout, retransmit same seq</text>
+  <text x="46" y="479" class="mono">lost ACK     : duplicate frame, re-ACK</text>
+  <text x="46" y="495" class="mono berry">premature TO : RTO &lt; RTT, ACK in flight</text>
+</svg>

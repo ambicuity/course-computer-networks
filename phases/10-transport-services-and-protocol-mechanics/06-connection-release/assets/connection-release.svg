@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <rect width="800" height="560" fill="#FFF7EC"/>
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="40" font-size="22" font-weight="700">Connection Release — symmetric close, four failure modes</text>
+    <text x="32" y="62" font-size="13" fill="#7A5478">Tanenbaum 6.2.3, Fig. 6-12, 6-14 — DR/DR/ACK with per-side retransmit timers</text>
+  </g>
+
+  <!-- Fig 6-12: asymmetric release data loss -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="100" font-size="14" font-weight="700">Asymmetric release — data loss (Fig. 6-12)</text>
+    <line x1="120" y1="120" x2="120" y2="220" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="650" y1="120" x2="650" y2="220" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="116" font-size="12" font-weight="700">host 1</text>
+    <text x="610" y="116" font-size="12" font-weight="700">host 2</text>
+
+    <line x1="120" y1="138" x2="650" y2="138" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="650,138 640,134 640,142" fill="#E2557A"/>
+    <text x="350" y="132" font-size="11">CR / ACK (omitted for brevity)</text>
+
+    <line x1="120" y1="158" x2="650" y2="158" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="650,158 640,154 640,162" fill="#E2557A"/>
+    <text x="350" y="152" font-size="11">DATA  —  delivered</text>
+
+    <line x1="120" y1="178" x2="650" y2="178" stroke="#7A5478" stroke-width="2" stroke-dasharray="4,4"/>
+    <polygon points="650,178 640,174 640,182" fill="#7A5478"/>
+    <text x="350" y="172" font-size="11">DATA  —  in flight (will be dropped)</text>
+
+    <line x1="650" y1="200" x2="120" y2="200" stroke="#2A1A2E" stroke-width="2"/>
+    <polygon points="120,200 130,196 130,204" fill="#2A1A2E"/>
+    <text x="350" y="194" font-size="11">DR  —  tears down connection (asymmetric)</text>
+
+    <text x="32" y="244" font-size="11" fill="#7A5478">Asymmetric release = phone system. One hangup, connection gone. In-flight DATA is lost. UNSAFE for data transport.</text>
+  </g>
+
+  <!-- Fig 6-14: three-way release (normal case a) -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="280" font-size="14" font-weight="700">Symmetric three-way release — normal case (Fig. 6-14(a))</text>
+    <line x1="120" y1="300" x2="120" y2="430" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="650" y1="300" x2="650" y2="430" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="296" font-size="12" font-weight="700">host 1</text>
+    <text x="610" y="296" font-size="12" font-weight="700">host 2</text>
+
+    <line x1="120" y1="320" x2="650" y2="320" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="650,320 640,316 640,324" fill="#E2557A"/>
+    <text x="350" y="314" font-size="11">Send DR, start timer T1</text>
+
+    <line x1="650" y1="346" x2="120" y2="346" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="120,346 130,342 130,350" fill="#E2557A"/>
+    <text x="350" y="340" font-size="11">Send DR, start timer T2</text>
+
+    <line x1="120" y1="372" x2="650" y2="372" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="650,372 640,368 640,376" fill="#E2557A"/>
+    <text x="350" y="366" font-size="11">Send ACK — release</text>
+
+    <line x1="650" y1="396" x2="120" y2="396" stroke="#E2557A" stroke-width="2" stroke-dasharray="3,3"/>
+    <polygon points="120,396 130,392 130,400" fill="#E2557A"/>
+    <text x="350" y="390" font-size="11">receive ACK — release</text>
+
+    <text x="32" y="430" font-size="11" fill="#7A5478">Symmetric release = each direction closed separately. T1 catches a lost response DR; T2 catches a lost final ACK.</text>
+  </g>
+
+  <!-- Failure-mode table -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="462" font-size="14" font-weight="700">Four failure scenarios (Fig. 6-14)</text>
+
+    <rect x="32" y="476" width="736" height="68" rx="4" fill="#FFE9D6" stroke="#E2557A"/>
+    <text x="42" y="496" font-size="12" font-weight="700">(a) Normal</text>
+    <text x="42" y="514" font-size="11">DR -> DR -> ACK -> both release. No timer needed.</text>
+    <text x="42" y="530" font-size="11">(b) Final ACK lost: receiver's T2 fires -> release. (c) Response DR lost: initiator's T1 fires -> retransmit DR -> (a). (d) All DRs lost: both T1 and T2 fire -> both release independently; half-open on responder's side until its timer expires.</text>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why is a monoalphabetic substitution cipher with a 26-letter permutation key broken in minutes even though the key space is ~4 x 10^26?",
+    "options": [
+      "A. Modern GPUs can iterate 4 x 10^26 keys per second",
+      "B. English has stable letter, digram, and trigram statistics; a single confirmed crib word often recovers the mapping",
+      "C. The cipher leaks the key in the first block's padding",
+      "D. AES is mathematically equivalent so the substitution can be inverted"
+    ],
+    "answer": 1,
+    "explanation": "Brute force is hopeless, but frequency analysis on single letters, digrams, and trigrams identifies likely plaintext fragments. A probable word like 'financial' slid across the ciphertext frequently recovers the entire mapping in one step (chapter, section 8.1.2)."
+  },
+  {
+    "question": "What does a columnar transposition cipher preserve about the plaintext that a monoalphabetic substitution cipher does not?",
+    "options": [
+      "A. The block size of the underlying cipher",
+      "B. The original letter frequencies, only the order changes",
+      "C. The byte values used to encode each character",
+      "D. The XOR parity of adjacent bytes"
+    ],
+    "answer": 1,
+    "explanation": "Transposition only rearranges positions; each ciphertext letter is a plaintext letter. Letter frequencies remain those of English, which is the cue that tells the analyst they are looking at a transposition cipher (chapter, section 8.1.3)."
+  },
+  {
+    "question": "For the chapter example with key 'MEGABUCK', what is the column rank vector?",
+    "options": [
+      "A. [1, 2, 3, 4, 5, 6, 7, 8]",
+      "B. [4, 7, 5, 1, 2, 8, 3, 6]",
+      "C. [7, 4, 5, 1, 2, 8, 3, 6]",
+      "D. [7, 4, 5, 1, 8, 2, 6, 3]"
+    ],
+    "answer": 2,
+    "explanation": "Sorting MEGABUCK alphabetically gives A,B,C,E,G,K,M,U as columns 1..8 of the rank. Mapping back: M=7, E=4, G=5, A=1, B=2, U=8, C=3, K=6."
+  }
+]

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <rect width="900" height="620" fill="#FFF7EC"/>
+  <text x="40" y="44" fill="#2A1A2E" font-size="22" font-weight="700">TLS 1.3 Handshake — 1-RTT flight, encryption turns on at ServerHello</text>
+  <text x="40" y="68" fill="#2A1A2E" font-size="13" opacity="0.75">Client                                                      Server</text>
+
+  <!-- lifelines -->
+  <line x1="120" y1="86" x2="120" y2="560" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="780" y1="86" x2="780" y2="560" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- flight 1: ClientHello (plaintext) -->
+  <line x1="120" y1="120" x2="780" y2="120" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="130" y="112" fill="#2A1A2E" font-size="12" font-weight="600">ClientHello  (plaintext, ContentType=22)</text>
+  <text x="130" y="138" fill="#2A1A2E" font-size="11">legacy_version=0x0303 · random[32] · cipher_suites[0x1301–0x1305]</text>
+  <text x="130" y="154" fill="#2A1A2E" font-size="11">ext: key_share(X25519,32B) · supported_versions(0x0304) · signature_algorithms</text>
+
+  <!-- flight 2: ServerHello (plaintext) then encrypted block -->
+  <line x1="780" y1="206" x2="120" y2="206" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="200" y="198" fill="#2A1A2E" font-size="12" font-weight="600">ServerHello  (plaintext)</text>
+  <text x="200" y="224" fill="#2A1A2E" font-size="11">chosen cipher_suite · server key_share · supported_versions=0x0304</text>
+
+  <!-- encryption gate marker -->
+  <line x1="60" y1="250" x2="840" y2="250" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="60" y="244" fill="#E2557A" font-size="11" font-weight="700">── handshake keys derived (HKDF-Expand-Label “c/b hs traffic”) → encryption ON ──</text>
+
+  <line x1="780" y1="288" x2="120" y2="288" stroke="#E2557A" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="200" y="280" fill="#2A1A2E" font-size="12" font-weight="600">ChangeCipherSpec  (legacy no-op, ContentType=20)</text>
+
+  <line x1="780" y1="326" x2="120" y2="326" stroke="#E2557A" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="200" y="318" fill="#2A1A2E" font-size="12" font-weight="600">EncryptedExtensions  (ALPN h2, SNI ack)</text>
+
+  <line x1="780" y1="364" x2="120" y2="364" stroke="#E2557A" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="200" y="356" fill="#2A1A2E" font-size="12" font-weight="600">Certificate · CertificateVerify · Finished</text>
+  <text x="200" y="380" fill="#2A1A2E" font-size="11">Finished = HMAC over transcript hash with finished_key (integrity proof)</text>
+
+  <!-- flight 3: client finished (encrypted) -->
+  <line x1="120" y1="430" x2="780" y2="430" stroke="#E2557A" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="200" y="422" fill="#2A1A2E" font-size="12" font-weight="600">[client] Finished  (encrypted)</text>
+
+  <!-- application data gate -->
+  <line x1="60" y1="468" x2="840" y2="468" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="60" y="462" fill="#E2557A" font-size="11" font-weight="700">── master_secret → “c/b ap traffic” → application data ──</text>
+
+  <line x1="120" y1="504" x2="780" y2="504" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="200" y="496" fill="#2A1A2E" font-size="12" font-weight="600">ApplicationData  (ContentType=23, AEAD)</text>
+
+  <!-- legend -->
+  <rect x="40" y="540" width="820" height="62" fill="none" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="56" y1="558" x2="92" y2="558" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="100" y="562" fill="#2A1A2E" font-size="11">plaintext (visible in Wireshark without keys)</text>
+  <line x1="330" y1="558" x2="366" y2="558" stroke="#E2557A" stroke-width="2"/>
+  <text x="374" y="562" fill="#2A1A2E" font-size="11">encrypted under handshake / application traffic keys</text>
+  <text x="56" y="586" fill="#2A1A2E" font-size="11">1-RTT: first app byte after flight 3.  0-RTT resumption bundles app data into flight 1 under a PSK key (replayable).</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

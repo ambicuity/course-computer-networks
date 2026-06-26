@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" font-family="ui-monospace,Menlo,Consolas,monospace">
+  <rect width="880" height="600" fill="#FFF7EC"/>
+  <text x="440" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#2A1A2E">Internet Traffic Composition and Zipf Popularity</text>
+  <text x="440" y="58" text-anchor="middle" font-size="12" fill="#2A1A2E">Four eras, two facts: traffic changes fast, and it is highly skewed</text>
+
+  <!-- Stacked composition bar chart (left) -->
+  <rect x="20" y="80" width="430" height="240" fill="#FFEFD8" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="40" y="104" font-size="14" font-weight="700" fill="#2A1A2E">Composition over time (stacked %)</text>
+  <text x="40" y="122" font-size="10" fill="#2A1A2E">2010 P2P-heavy &#8594; 2025 video-dominated</text>
+
+  <!-- y-axis -->
+  <line x1="80" y1="140" x2="80" y2="300" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="80" y1="300" x2="420" y2="300" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="60" y="144" font-size="9" text-anchor="end" fill="#2A1A2E">100%</text>
+  <text x="60" y="220" font-size="9" text-anchor="end" fill="#2A1A2E">50%</text>
+  <text x="60" y="300" font-size="9" text-anchor="end" fill="#2A1A2E">0%</text>
+
+  <!-- 2010 bar: Web 40 P2P 35 Video 15 Other 10 -->
+  <g>
+    <rect x="100" y="180" width="60" height="40" fill="#E2557A" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="100" y="220" width="60" height="35" fill="#F2A0B5" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="100" y="255" width="60" height="15" fill="#FFC2A0" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="100" y="270" width="60" height="30" fill="#D9D9D9" stroke="#2A1A2E" stroke-width="0.6"/>
+    <text x="130" y="316" text-anchor="middle" font-size="10" fill="#2A1A2E">2010</text>
+    <text x="130" y="200" text-anchor="middle" font-size="9" fill="#2A1A2E">Web</text>
+    <text x="130" y="240" text-anchor="middle" font-size="9" fill="#2A1A2E">P2P</text>
+  </g>
+
+  <!-- 2015 bar: Web 35 P2P 25 Video 30 Other 10 -->
+  <g>
+    <rect x="180" y="195" width="60" height="35" fill="#E2557A" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="180" y="230" width="60" height="25" fill="#F2A0B5" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="180" y="255" width="60" height="30" fill="#FFC2A0" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="180" y="285" width="60" height="15" fill="#D9D9D9" stroke="#2A1A2E" stroke-width="0.6"/>
+    <text x="210" y="316" text-anchor="middle" font-size="10" fill="#2A1A2E">2015</text>
+    <text x="210" y="270" text-anchor="middle" font-size="9" fill="#2A1A2E">Video 30%</text>
+  </g>
+
+  <!-- 2020 bar: Web 25 P2P 15 Video 50 Other 10 -->
+  <g>
+    <rect x="260" y="225" width="60" height="25" fill="#E2557A" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="260" y="250" width="60" height="15" fill="#F2A0B5" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="260" y="265" width="60" height="20" fill="#FFC2A0" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="260" y="285" width="60" height="15" fill="#D9D9D9" stroke="#2A1A2E" stroke-width="0.6"/>
+    <text x="290" y="316" text-anchor="middle" font-size="10" fill="#2A1A2E">2020</text>
+    <text x="290" y="275" text-anchor="middle" font-size="9" fill="#2A1A2E">Video 50%</text>
+  </g>
+
+  <!-- 2025 bar: Web 20 P2P 10 Video 65 Other 5 -->
+  <g>
+    <rect x="340" y="240" width="60" height="20" fill="#E2557A" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="340" y="260" width="60" height="10" fill="#F2A0B5" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="340" y="270" width="60" height="20" fill="#FFC2A0" stroke="#2A1A2E" stroke-width="0.6"/>
+    <rect x="340" y="290" width="60" height="10" fill="#D9D9D9" stroke="#2A1A2E" stroke-width="0.6"/>
+    <text x="370" y="316" text-anchor="middle" font-size="10" fill="#2A1A2E">2025</text>
+    <text x="370" y="282" text-anchor="middle" font-size="9" fill="#E2557A">Video 65%</text>
+  </g>
+
+  <!-- Legend -->
+  <g font-size="10" fill="#2A1A2E">
+    <rect x="100" y="332" width="14" height="10" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="120" y="341">Web</text>
+    <rect x="170" y="332" width="14" height="10" fill="#F2A0B5" stroke="#2A1A2E"/>
+    <text x="190" y="341">P2P</text>
+    <rect x="240" y="332" width="14" height="10" fill="#FFC2A0" stroke="#2A1A2E"/>
+    <text x="260" y="341">Video</text>
+    <rect x="320" y="332" width="14" height="10" fill="#D9D9D9" stroke="#2A1A2E"/>
+    <text x="340" y="341">Other</text>
+  </g>
+
+  <!-- Zipf curve (right) -->
+  <rect x="470" y="80" width="390" height="240" fill="#FFEFD8" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="490" y="104" font-size="14" font-weight="700" fill="#2A1A2E">Zipf popularity (log-log plot)</text>
+  <text x="490" y="122" font-size="10" fill="#2A1A2E">P(k) = C / k, slope -1 on log-log</text>
+
+  <!-- axes -->
+  <line x1="540" y1="140" x2="540" y2="300" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="540" y1="300" x2="840" y2="300" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="538" y="146" font-size="9" text-anchor="end" fill="#2A1A2E">1.0</text>
+  <text x="538" y="220" font-size="9" text-anchor="end" fill="#2A1A2E">0.1</text>
+  <text x="538" y="296" font-size="9" text-anchor="end" fill="#2A1A2E">0.01</text>
+
+  <text x="560" y="316" font-size="9" fill="#2A1A2E">1</text>
+  <text x="700" y="316" font-size="9" fill="#2A1A2E">10</text>
+  <text x="830" y="316" font-size="9" text-anchor="end" fill="#2A1A2E">100</text>
+  <text x="690" y="334" text-anchor="middle" font-size="10" fill="#2A1A2E">rank k (log scale)</text>
+
+  <!-- straight line for Zipf: from (540,140) to (840,300) = slope -1 visually -->
+  <line x1="540" y1="140" x2="840" y2="300" stroke="#E2557A" stroke-width="2.4"/>
+  <text x="700" y="200" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="700">Zipf: P(k) = C / k</text>
+
+  <!-- exponential curve for contrast -->
+  <path d="M 540 140 Q 600 145, 660 175 T 780 250 L 840 295" fill="none" stroke="#2A1A2E" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <text x="780" y="240" font-size="11" fill="#2A1A2E">Exp: e^(-k/&#945;)</text>
+
+  <!-- Composition narrative panel (bottom) -->
+  <rect x="20" y="350" width="840" height="230" fill="#FFE7C2" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="40" y="374" font-size="14" font-weight="700" fill="#2A1A2E">Two essential facts about Internet traffic</text>
+
+  <g font-size="11" fill="#2A1A2E">
+    <text x="40" y="400" font-weight="700">Fact 1: traffic changes fast</text>
+    <text x="40" y="418">pre-1994: FTP / email</text>
+    <text x="280" y="418">&#8594; 1994-2000: Web (HTTP)</text>
+    <text x="40" y="436">2000-2007: P2P (Napster, BitTorrent)</text>
+    <text x="280" y="436">&#8594; 2007+: video (YouTube, Netflix)</text>
+    <text x="40" y="454">2014 (Cisco VNI forecast): 90% of traffic is video</text>
+
+    <text x="40" y="484" font-weight="700">Fact 2: traffic is highly skewed (Zipf / power law)</text>
+    <text x="40" y="502">- small number of popular items, vast number of unpopular items</text>
+    <text x="40" y="518">- top 1% of items &#8594; ~30% of accesses (Web caching benchmark)</text>
+    <text x="40" y="534">- top 10% of items &#8594; ~80% of accesses (Pareto 80/20)</text>
+    <text x="40" y="550">- long tail: aggregate of unpopular items is comparable in weight to the head</text>
+    <text x="40" y="566" fill="#E2557A">- consequence: design for both the head AND the long tail</text>
+  </g>
+</svg>

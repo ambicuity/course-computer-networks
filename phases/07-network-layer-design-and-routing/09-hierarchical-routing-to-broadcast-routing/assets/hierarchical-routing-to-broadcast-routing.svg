@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    .t  { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .m  { font-family: monospace; fill: #2A1A2E; }
+    .h  { font-family: Inter, sans-serif; fill: #2A1A2E; font-weight: 700; }
+    .acc{ fill: #E2557A; }
+    .lnk{ stroke: #2A1A2E; stroke-width: 1.5; opacity: 0.45; }
+    .pref{ stroke: #E2557A; stroke-width: 2.5; }
+  </style>
+
+  <text x="30" y="38" class="h" font-size="22">Reverse Path Forwarding: accept on the preferred link, discard duplicates</text>
+  <text x="30" y="62" class="t" font-size="13" opacity="0.8">Broadcast source = router I. Berry edges are the sink tree (preferred path to I). 24 packets sent vs 14 over the tree.</text>
+
+  <!-- sink tree from I (left panel) -->
+  <text x="60" y="100" class="h" font-size="15">Sink tree toward I</text>
+
+  <g class="pref">
+    <line x1="150" y1="140" x2="80"  y2="210"/>
+    <line x1="150" y1="140" x2="150" y2="210"/>
+    <line x1="150" y1="140" x2="220" y2="210"/>
+    <line x1="150" y1="140" x2="290" y2="210"/>
+    <line x1="80"  y1="210" x2="50"  y2="290"/>
+    <line x1="80"  y1="210" x2="110" y2="290"/>
+    <line x1="80"  y1="210" x2="170" y2="290"/>
+    <line x1="150" y1="210" x2="230" y2="290"/>
+    <line x1="220" y1="210" x2="290" y2="290"/>
+    <line x1="290" y1="210" x2="350" y2="290"/>
+    <line x1="110" y1="290" x2="90"  y2="365"/>
+    <line x1="110" y1="290" x2="150" y2="365"/>
+  </g>
+  <g class="lnk">
+    <line x1="170" y1="290" x2="150" y2="210"/>
+    <line x1="230" y1="290" x2="220" y2="210"/>
+  </g>
+
+  <!-- helper: node = circle + label -->
+  <!-- root I -->
+  <circle cx="150" cy="140" r="17" fill="#E2557A"/>
+  <text x="150" y="145" class="t" font-size="15" text-anchor="middle" fill="#FFF7EC">I</text>
+
+  <!-- hop 1 -->
+  <g>
+    <circle cx="80"  cy="210" r="15" fill="#FFF7EC" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="80"  y="215" class="t" font-size="14" text-anchor="middle">F</text>
+    <circle cx="150" cy="210" r="15" fill="#FFF7EC" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="150" y="215" class="t" font-size="14" text-anchor="middle">H</text>
+    <circle cx="220" cy="210" r="15" fill="#FFF7EC" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="220" y="215" class="t" font-size="14" text-anchor="middle">J</text>
+    <circle cx="290" cy="210" r="15" fill="#FFF7EC" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="290" y="215" class="t" font-size="14" text-anchor="middle">N</text>
+  </g>
+
+  <!-- hop 2 -->
+  <g>
+    <circle cx="50"  cy="290" r="14" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="50"  y="295" class="t" font-size="13" text-anchor="middle">A</text>
+    <circle cx="110" cy="290" r="14" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="110" y="295" class="t" font-size="13" text-anchor="middle">G</text>
+    <circle cx="170" cy="290" r="14" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="170" y="295" class="t" font-size="13" text-anchor="middle">L</text>
+    <circle cx="230" cy="290" r="14" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="230" y="295" class="t" font-size="13" text-anchor="middle">K</text>
+    <circle cx="290" cy="290" r="14" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="290" y="295" class="t" font-size="13" text-anchor="middle">O</text>
+    <circle cx="350" cy="290" r="14" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="350" y="295" class="t" font-size="13" text-anchor="middle">M</text>
+  </g>
+
+  <!-- hop 3 -->
+  <g>
+    <circle cx="90"  cy="365" r="14" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="90"  y="370" class="t" font-size="13" text-anchor="middle">D</text>
+    <circle cx="150" cy="365" r="14" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="150" y="370" class="t" font-size="13" text-anchor="middle">C</text>
+  </g>
+
+  <text x="60" y="420" class="m" font-size="12">circled = preferred-link arrival (ACCEPT)</text>
+  <text x="60" y="438" class="m" font-size="12" opacity="0.6">grey edge = non-tree link -&gt; DISCARD</text>
+
+  <!-- right panel: the RPF rule -->
+  <rect x="430" y="90" width="300" height="220" rx="10" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="118" class="h" font-size="15">The RPF decision at each router</text>
+  <text x="450" y="148" class="m" font-size="12.5">copy arrives on link L</text>
+  <text x="450" y="170" class="m" font-size="12.5">L == next_hop_to(source) ?</text>
+  <rect x="450" y="184" width="120" height="34" rx="6" fill="#E2557A"/>
+  <text x="510" y="206" class="t" font-size="12.5" text-anchor="middle" fill="#FFF7EC">yes - ACCEPT</text>
+  <rect x="588" y="184" width="120" height="34" rx="6" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="648" y="206" class="t" font-size="12.5" text-anchor="middle">no - DISCARD</text>
+  <text x="450" y="248" class="m" font-size="11.5">ACCEPT: forward on all other links</text>
+  <text x="450" y="270" class="m" font-size="11.5">DISCARD: drop as duplicate</text>
+  <text x="450" y="292" class="m" font-size="11.5">no seq#, no dest list needed</text>
+
+  <!-- bottom comparison bar -->
+  <rect x="430" y="335" width="300" height="180" rx="10" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="362" class="h" font-size="15">Packet count, same network</text>
+  <text x="450" y="392" class="m" font-size="12.5">separate addressing : N copies</text>
+  <text x="450" y="414" class="m" font-size="12.5">flooding (seq#)     : many dups</text>
+  <text x="450" y="436" class="acc m" font-size="12.5" font-weight="700">reverse path forward: 24 packets</text>
+  <text x="450" y="458" class="m" font-size="12.5">spanning tree       : 14 = N-1</text>
+  <text x="450" y="490" class="t" font-size="11.5" opacity="0.85">RPF: +10 packets, 0 extra state.</text>
+  <text x="450" y="506" class="t" font-size="11.5" opacity="0.85">Tree: optimal, needs a shared tree.</text>
+</svg>

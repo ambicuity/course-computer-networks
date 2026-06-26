@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" width="920" height="600">
+  <rect width="920" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 14px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="40" class="title">Mutual public-key challenge-response</text>
+  <text x="40" y="62" class="sub">Two nonces; each side signs (R_A || R_B || algorithm || ids); algorithm binding defeats downgrade attacks.</text>
+
+  <!-- Alice / Bob swim lanes -->
+  <rect x="60" y="100" width="160" height="60" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="130" text-anchor="middle" class="node">Alice</text>
+  <text x="140" y="148" text-anchor="middle" class="mono">priv A, pub A</text>
+
+  <rect x="700" y="100" width="160" height="60" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="780" y="130" text-anchor="middle" class="node">Bob</text>
+  <text x="780" y="148" text-anchor="middle" class="mono">priv B, pub B</text>
+
+  <!-- message 1 -->
+  <line x1="220" y1="200" x2="700" y2="200" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="695,195 705,200 695,205" fill="#2A1A2E"/>
+  <text x="280" y="194" class="mono">R_A (32 random bytes)</text>
+
+  <!-- message 2 -->
+  <line x1="700" y1="250" x2="220" y2="250" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="225,245 215,250 225,255" fill="#2A1A2E"/>
+  <text x="280" y="244" class="mono">R_B</text>
+
+  <!-- message 3 -->
+  <line x1="220" y1="300" x2="700" y2="300" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="695,295 705,300 695,305" fill="#2A1A2E"/>
+  <text x="280" y="294" class="mono">SIG_A(R_A || R_B || algo || "alice" || "bob")</text>
+  <text x="280" y="312" class="label">Alice's long-term private key</text>
+
+  <!-- message 4 -->
+  <line x1="700" y1="350" x2="220" y2="350" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="225,345 215,350 225,355" fill="#2A1A2E"/>
+  <text x="280" y="344" class="mono">SIG_B(R_A || R_B || algo || "alice" || "bob")</text>
+  <text x="280" y="362" class="label">Bob's long-term private key</text>
+
+  <!-- final state -->
+  <rect x="60" y="395" width="800" height="55" rx="8" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="80" y="418" class="node accent">Session key material = HKDF-Extract(R_A || R_B, info = "mutual-auth-v1")</text>
+  <text x="80" y="438" class="mono">Both sides derive the same 256-bit key; symmetric encryption starts here.</text>
+
+  <!-- Real-world deployments -->
+  <rect x="60" y="465" width="800" height="115" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="80" y="490" class="node">Where this pattern appears</text>
+  <text x="80" y="512" class="mono">SSH publickey (RFC 4252 §7): signs (session_id || user || svc || pubkey_blob || nonce)</text>
+  <text x="80" y="530" class="mono">TLS 1.3 mutual (RFC 8446 §4.4.3): signs (64 zero bytes || context || SHA-256(transcript))</text>
+  <text x="80" y="548" class="mono">WebAuthn (W3C): signs (authenticatorData || SHA-256(clientDataJSON))</text>
+  <text x="80" y="566" class="mono">FIDO2 / passkeys: signs (authData || clientDataHash) with per-credential ECDSA</text>
+</svg>

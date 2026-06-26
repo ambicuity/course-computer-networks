@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 480" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="780" height="480" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="390" y="30" text-anchor="middle" font-size="20" font-weight="bold">802.11 Monitor-Mode Capture Lab</text>
+    <text x="390" y="50" text-anchor="middle" font-size="11" font-weight="bold">Beacon · Probe · Auth · Assoc  (subtypes 0x08 / 0x04 / 0x0B / 0x00)</text>
+  </g>
+
+  <!-- Capture setup -->
+  <g>
+    <rect x="40" y="80" width="220" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="150" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">Capture host (mon0)</text>
+    <text x="150" y="120" text-anchor="middle" font-size="10" fill="#2A1A2E">iw dev mon0 info</text>
+    <text x="150" y="135" text-anchor="middle" font-size="10" fill="#2A1A2E">channel 36 / 5 GHz</text>
+    <text x="150" y="150" text-anchor="middle" font-size="10" fill="#2A1A2E">type monitor</text>
+    <text x="150" y="170" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="bold">tshark -i mon0 -w cap.pcap</text>
+    <text x="150" y="186" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="bold">-f "wlan[0] &gt; 0"</text>
+    <text x="150" y="210" text-anchor="middle" font-size="10" fill="#2A1A2E">frames: mgmt/data/ctrl</text>
+    <text x="150" y="226" text-anchor="middle" font-size="10" fill="#2A1A2E">RSSI per frame, channel</text>
+    <text x="150" y="242" text-anchor="middle" font-size="10" fill="#2A1A2E">PCAP-NG file format</text>
+  </g>
+
+  <!-- 802.11 management frame structure -->
+  <g>
+    <rect x="290" y="80" width="450" height="320" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="515" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">Beacon body — Information Elements (IE)</text>
+    <line x1="290" y1="106" x2="740" y2="106" stroke="#2A1A2E" stroke-width="1"/>
+  </g>
+
+  <!-- IE rows -->
+  <g fill="#2A1A2E" font-size="10">
+    <text x="300" y="124">Tag</text>
+    <text x="340" y="124">Name</text>
+    <text x="490" y="124">Contents</text>
+    <text x="660" y="124">Filter</text>
+    <line x1="290" y1="130" x2="740" y2="130" stroke="#2A1A2E" stroke-width="0.5"/>
+
+    <text x="300" y="148">0</text>
+    <text x="340" y="148">SSID</text>
+    <text x="490" y="148">"corpnet" or &lt;hidden&gt;</text>
+    <text x="660" y="148">wlan.ssid</text>
+
+    <text x="300" y="168">1</text>
+    <text x="340" y="168">Supported Rates</text>
+    <text x="490" y="168">6/9/12/18/24/36/48/54 Mbps</text>
+    <text x="660" y="168">wlan.supported_rates</text>
+
+    <text x="300" y="188">3</text>
+    <text x="340" y="188">DS Param Set</text>
+    <text x="490" y="188">channel = 36</text>
+    <text x="660" y="188">wlan.channel</text>
+
+    <text x="300" y="208">5</text>
+    <text x="340" y="208">TIM</text>
+    <text x="490" y="208">AID bit map, traffic for doze STAs</text>
+    <text x="660" y="208">wlan.tim</text>
+
+    <text x="300" y="228">45</text>
+    <text x="340" y="228">HT Capabilities</text>
+    <text x="490" y="228">MCS, 20/40 MHz, short GI</text>
+    <text x="660" y="228">wlan.ht.capabilities</text>
+
+    <text x="300" y="248">48</text>
+    <text x="340" y="228">RSN</text>
+    <text x="490" y="248">AES-CCM-128, PMKID, AKMs</text>
+    <text x="660" y="248">wlan.rsn</text>
+
+    <text x="300" y="268">50</text>
+    <text x="340" y="268">Extended Rates</text>
+    <text x="490" y="268">rates above 54 Mbps</text>
+    <text x="660" y="268">wlan.extended_rates</text>
+
+    <text x="300" y="288">191</text>
+    <text x="340" y="288">HT Information</text>
+    <text x="490" y="288">secondary channel, RIFS</text>
+    <text x="660" y="288">wlan.ht_info</text>
+
+    <text x="300" y="308">221</text>
+    <text x="340" y="308">Vendor Specific</text>
+    <text x="490" y="308">WMM, P2P, OUI extensions</text>
+    <text x="660" y="308">wlan.vendor.oui</text>
+  </g>
+
+  <!-- Frame Control -->
+  <g>
+    <rect x="290" y="416" width="450" height="56" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="515" y="436" text-anchor="middle" font-size="11" font-weight="bold" fill="#2A1A2E">Frame Control: Type/Subtype decode</text>
+    <text x="515" y="454" text-anchor="middle" font-size="10" fill="#2A1A2E">Type=00 mgmt, 01 ctl, 10 data  · Subtype 0x08=beacon 0x04=probe-req 0x0B=auth 0x00=assoc-req</text>
+    <text x="515" y="468" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="bold">wlan.fc.type_subtype == 0x08</text>
+  </g>
+
+  <!-- Filter / commands -->
+  <g>
+    <rect x="40" y="280" width="220" height="160" fill="none" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="150" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">tshark recipes</text>
+    <text x="50" y="320" font-size="10" fill="#2A1A2E">-Y "wlan.fc.type==0"  # mgmt only</text>
+    <text x="50" y="338" font-size="10" fill="#2A1A2E">-Y "wlan.fc.type_subtype==0x08"</text>
+    <text x="50" y="356" font-size="10" fill="#2A1A2E">-Y "wlan.bssid==aa:bb:.."</text>
+    <text x="50" y="374" font-size="10" fill="#2A1A2E">-Y "wlan.ssid==\"corpnet\""</text>
+    <text x="50" y="392" font-size="10" fill="#2A1A2E">-T fields -e wlan.sa -e wlan.da</text>
+    <text x="50" y="410" font-size="10" fill="#2A1A2E">-f "ether dst ff:ff:ff:ff:ff:ff"</text>
+    <text x="50" y="428" font-size="10" fill="#2A1A2E">-i mon0 -c 200 -w cap.pcap</text>
+  </g>
+</svg>

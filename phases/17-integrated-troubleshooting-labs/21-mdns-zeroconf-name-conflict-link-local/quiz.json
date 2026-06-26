@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "Two hosts on the same Wi-Fi both claim 'laptop.local' via mDNS. What must happen?",
+      "options": [
+        "A. The host with the lowest IP wins",
+        "B. Both detect the conflict during the probe phase (3 queries 250 ms apart) and MUST pick a new name per RFC 6762 sec. 9.2",
+        "C. The kernel randomly picks one",
+        "D. Both keep the name; the last writer wins"
+      ],
+      "answer": 1,
+      "explanation": "RFC 6762 sec. 9.2: 'If a host receives a response to a probe for a name, it MUST NOT use that name.' The standard Linux avahi-daemon implements this by appending -2, -3, etc. To defend, both hosts would need to be on the same IP (impossible) and have a strong reason to believe the other answer is stale (RFC 6762 sec. 9.3)."
+    },
+    {
+      "question": "What multicast group and port does mDNS use?",
+      "options": [
+        "A. 224.0.0.1:53",
+        "B. 224.0.0.251:5353 (IPv4) and ff02::fb:5353 (IPv6) with IP TTL 255",
+        "C. 239.255.255.250:1900 (UPnP)",
+        "D. 8.8.8.8:53"
+      ],
+      "answer": 1,
+      "explanation": "mDNS uses 224.0.0.251 on IPv4 and ff02::fb on IPv6, port 5353, with IP TTL / hop limit 255 to ensure packets do not leak across a router. The TTL is the link-local scope boundary."
+    },
+    {
+      "question": "An mDNS SRV record has TTL 4500 s. A printer is unplugged and a new printer at the same name is plugged in. How long until stale cache entries expire, and what is the corrective action?",
+      "options": [
+        "A. 75 s, do nothing",
+        "B. 4500 s, send a cache-flush query (RFC 6762 sec. 10.2) to force peers to replace the entry",
+        "C. 1 s, do nothing",
+        "D. mDNS does not cache"
+      ],
+      "answer": 1,
+      "explanation": "RFC 6762 sec. 10 specifies the standard mDNS TTLs: A/AAAA 75 s, SRV 4500 s, PTR/TXT 120 s. Until the TTL elapses, clients resolve the old printer. The corrective action is a cache-flush query (RFC 6762 sec. 10.2) which carries a bit in the response telling peers to replace, not merge, cache entries."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">Reverse DNS and in-addr.arpa Lookups</text>
+  <text x="40" y="68" class="sub">Byte-reversal for IPv4, nibble-reversal for IPv6, PTR records ride the same delegation tree</text>
+
+  <!-- Forward tree -->
+  <rect x="40" y="100" width="420" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">Forward tree  --  mail.example.com.</text>
+  <text x="60" y="150" class="mono">root (.)</text>
+  <text x="80" y="170" class="mono">+-- com</text>
+  <text x="100" y="190" class="mono">+-- example</text>
+  <text x="120" y="210" class="mono">+-- mail  --A 192.0.2.10</text>
+  <text x="60" y="240" class="mono">Q: mail.example.com A   -&gt; 192.0.2.10</text>
+  <text x="60" y="260" class="label">Owned by the registrant of example.com.</text>
+  <text x="60" y="280" class="label">Delegated through the .com NS set down to</text>
+  <text x="60" y="300" class="label">example.com's authoritative name servers.</text>
+  <text x="60" y="324" class="mono accent">QTYPE=A, CLASS=IN, RD=1 (RFC 1035)</text>
+
+  <!-- Reverse tree -->
+  <rect x="480" y="100" width="420" height="240" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="500" y="124" class="node accent">Reverse tree  --  in-addr.arpa.</text>
+  <text x="500" y="150" class="mono">root (.)</text>
+  <text x="520" y="170" class="mono">+-- in-addr.arpa.</text>
+  <text x="540" y="190" class="mono">+-- 192  (delegated by IANA to ARIN/RIPE/APNIC)</text>
+  <text x="560" y="210" class="mono">+-- 0   (delegated to operator)</text>
+  <text x="580" y="230" class="mono">+-- 2</text>
+  <text x="600" y="250" class="mono">+-- 10  IN PTR mail.example.com.</text>
+  <text x="500" y="280" class="mono">Q: 10.2.0.192.in-addr.arpa. PTR  -&gt; mail.example.com.</text>
+  <text x="500" y="300" class="label">Owned by the IP allocator (RIR or upstream ISP).</text>
+  <text x="500" y="320" class="label">Delegated downward through the same NS hierarchy.</text>
+
+  <!-- FCrDNS loop -->
+  <rect x="40" y="370" width="860" height="160" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="394" class="node">Forward-Confirmed Reverse DNS loop (RFC 5321 &#167;5.1)</text>
+  <text x="60" y="418" class="mono">1. mail arrives from IP 192.0.2.10</text>
+  <text x="60" y="436" class="mono">2. lookup 10.2.0.192.in-addr.arpa. PTR -&gt; mail.example.com.</text>
+  <text x="60" y="454" class="mono">3. lookup mail.example.com. A -&gt; 192.0.2.10</text>
+  <text x="60" y="472" class="mono">4. matches step-1 IP?  yes -&gt; FCrDNS pass.  no  -&gt; FCrDNS fail.</text>
+  <text x="60" y="500" class="label">Many MTAs (RFC 5321 SHOULD) reject or score failures here.</text>
+  <text x="60" y="518" class="label">Pair FCrDNS with SPF (RFC 7208), DKIM (RFC 6376), and DMARC (RFC 7489).</text>
+
+  <!-- IPv6 nibble note -->
+  <text x="60" y="552" class="mono">IPv6: nibble-reverse 2001:db8::1  -&gt;  1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa.  (RFC 3596)</text>
+</svg>

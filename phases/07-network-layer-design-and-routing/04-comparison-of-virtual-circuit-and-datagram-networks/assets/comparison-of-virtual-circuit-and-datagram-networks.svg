@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" width="920" height="600">
+  <rect width="920" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 700; fill: #E2557A; letter-spacing: 0.5px; }
+    .node { font-size: 14px; font-weight: 700; fill: #FFF7EC; }
+    .lbl { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .acc { font-family: monospace; font-size: 12px; fill: #E2557A; font-weight: 700; }
+    .cap { font-size: 12px; fill: #2A1A2E; }
+  </style>
+
+  <text x="40" y="44" class="title">Datagram vs. Virtual-Circuit Forwarding</text>
+  <line x1="40" y1="58" x2="880" y2="58" stroke="#E2557A" stroke-width="2"/>
+
+  <!-- DATAGRAM PANEL -->
+  <text x="40" y="92" class="sub">DATAGRAM — full address, longest-prefix match, no state</text>
+
+  <!-- routers A C E F -->
+  <g>
+    <circle cx="110" cy="160" r="26" fill="#2A1A2E"/><text x="110" y="165" text-anchor="middle" class="node">A</text>
+    <circle cx="320" cy="160" r="26" fill="#2A1A2E"/><text x="320" y="165" text-anchor="middle" class="node">C</text>
+    <circle cx="530" cy="160" r="26" fill="#2A1A2E"/><text x="530" y="165" text-anchor="middle" class="node">E</text>
+    <circle cx="740" cy="160" r="26" fill="#2A1A2E"/><text x="740" y="165" text-anchor="middle" class="node">F</text>
+  </g>
+  <line x1="136" y1="160" x2="294" y2="160" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="346" y1="160" x2="504" y2="160" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="556" y1="160" x2="714" y2="160" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- each hop re-parses full dst address -->
+  <text x="215" y="135" text-anchor="middle" class="lbl">dst=10.2.5.9</text>
+  <text x="425" y="135" text-anchor="middle" class="lbl">dst=10.2.5.9</text>
+  <text x="635" y="135" text-anchor="middle" class="lbl">dst=10.2.5.9</text>
+  <text x="215" y="200" text-anchor="middle" class="acc">LPM</text>
+  <text x="425" y="200" text-anchor="middle" class="acc">LPM</text>
+  <text x="635" y="200" text-anchor="middle" class="acc">LPM</text>
+  <text x="800" y="165" class="cap">10.2/16</text>
+  <text x="40" y="230" class="cap">Same 64-bit src+dst in every packet · longest-prefix match each hop · routers hold no per-flow state.</text>
+
+  <!-- divider -->
+  <line x1="40" y1="262" x2="880" y2="262" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- VC PANEL -->
+  <text x="40" y="296" class="sub">VIRTUAL CIRCUIT — setup pins the route, short label swapped per hop</text>
+
+  <g>
+    <circle cx="110" cy="370" r="26" fill="#2A1A2E"/><text x="110" y="375" text-anchor="middle" class="node">A</text>
+    <circle cx="320" cy="370" r="26" fill="#2A1A2E"/><text x="320" y="375" text-anchor="middle" class="node">C</text>
+    <circle cx="530" cy="370" r="26" fill="#2A1A2E"/><text x="530" y="375" text-anchor="middle" class="node">E</text>
+    <circle cx="740" cy="370" r="26" fill="#2A1A2E"/><text x="740" y="375" text-anchor="middle" class="node">F</text>
+  </g>
+  <line x1="136" y1="370" x2="294" y2="370" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="346" y1="370" x2="504" y2="370" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="556" y1="370" x2="714" y2="370" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- label swap per hop -->
+  <text x="215" y="345" text-anchor="middle" class="lbl">label 1</text>
+  <text x="425" y="345" text-anchor="middle" class="lbl">label 3</text>
+  <text x="635" y="345" text-anchor="middle" class="lbl">label 1</text>
+  <text x="215" y="410" text-anchor="middle" class="acc">swap 1&#8594;3</text>
+  <text x="425" y="410" text-anchor="middle" class="acc">swap 3&#8594;1</text>
+  <text x="635" y="410" text-anchor="middle" class="acc">swap 1&#8594;1</text>
+  <text x="40" y="440" class="cap">Short local label indexed per hop and rewritten (label switching) · one swap-table entry per circuit per router.</text>
+
+  <!-- CRASH BOX -->
+  <rect x="40" y="470" width="840" height="106" rx="10" fill="none" stroke="#E2557A" stroke-width="2"/>
+  <text x="58" y="496" class="sub">ROUTER C CRASHES — the decisive asymmetry</text>
+  <text x="58" y="522" class="cap">Datagram: stateless. Routing reconverges onto backup A&#8594;B&#8594;E. Flows with a backup heal;</text>
+  <text x="58" y="540" class="cap">senders retransmit the few queued packets. Blast radius = packets in C only.</text>
+  <text x="58" y="564" class="lbl">Virtual circuit: per-hop state lost &#8594; <tspan class="acc">EVERY VC through C terminated</tspan>, re-set-up end to end.</text>
+</svg>

@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why can you not directly read the congestion window (cwnd) from a packet capture?",
+      "options": [
+        "cwnd is encrypted inside the TCP payload",
+        "cwnd is internal sender state and never appears on the wire",
+        "Wireshark does not support TCP analysis",
+        "cwnd is only in IPv6 packets"
+      ],
+      "correct": 1,
+      "explanation": "The congestion window is a sender-side variable. It must be inferred from the number of unacknowledged bytes in flight per RTT."
+    },
+    {
+      "stage": "post",
+      "question": "What evidence in a trace indicates a fast retransmit event in TCP Reno?",
+      "options": [
+        "A single duplicate ACK",
+        "Three duplicate ACKs acknowledging the same sequence number",
+        "An ICMP source quench message",
+        "A window advertisement of zero"
+      ],
+      "correct": 1,
+      "explanation": "Reno triggers fast retransmit after receiving three duplicate ACKs for the same sequence number, indicating a segment was lost."
+    },
+    {
+      "stage": "post",
+      "question": "After a timeout-based loss, what happens to cwnd and ssthresh?",
+      "options": [
+        "cwnd stays the same, ssthresh doubles",
+        "cwnd resets to 1 MSS, ssthresh is set to half the previous flight size",
+        "Both cwnd and ssthresh are set to zero",
+        "cwnd doubles, ssthresh stays the same"
+      ],
+      "correct": 1,
+      "explanation": "On timeout, Reno sets ssthresh to half the current flight size and resets cwnd to 1 MSS, restarting slow-start."
+    },
+    {
+      "stage": "post",
+      "question": "How do you distinguish slow-start from congestion avoidance when reconstructing cwnd from a trace?",
+      "options": [
+        "Slow start has linear growth; congestion avoidance has exponential growth",
+        "Slow start has exponential cwnd growth per RTT; congestion avoidance has linear growth of 1 MSS per RTT",
+        "They are identical phases with different names",
+        "Slow start only occurs after loss"
+      ],
+      "correct": 1,
+      "explanation": "During slow start, cwnd doubles every RTT (exponential). In congestion avoidance, cwnd increases by approximately 1 MSS per RTT (linear)."
+    },
+    {
+      "stage": "post",
+      "question": "What is bytes-in-flight and why is it central to cwnd reconstruction?",
+      "options": [
+        "Bytes waiting in the send buffer; it limits throughput",
+        "The difference between highest sequence sent and highest ack received; it approximates cwnd when sampled at its peak per RTT",
+        "The TCP window advertisement; it sets the receiver limit",
+        "The number of retransmitted segments; it indicates loss"
+      ],
+      "correct": 1,
+      "explanation": "Bytes-in-flight = highest_seq_sent - highest_ack_received. Its peak within an RTT window approximates the effective cwnd, bounded by the receiver advertised window."
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 16px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .small { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+    .head { font-size: 13px; font-weight: 700; }
+  </style>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="46" class="title">TLS 1.2 Handshake + Record Protocol</text>
+  <text x="40" y="68" class="sub">7-message handshake derives a 48-byte master secret; 5-byte record header carries 16 KB max fragment</text>
+
+  <!-- participants -->
+  <rect x="40" y="100" width="160" height="80" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="120" y="126" text-anchor="middle" class="node">Client</text>
+  <text x="120" y="148" text-anchor="middle" class="small">R_A (32 B)</text>
+  <text x="120" y="166" text-anchor="middle" class="label">chooses premaster</text>
+
+  <rect x="720" y="100" width="160" height="80" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="800" y="126" text-anchor="middle" class="node">Server</text>
+  <text x="800" y="148" text-anchor="middle" class="small">R_B (32 B), cert, key</text>
+  <text x="800" y="166" text-anchor="middle" class="label">decrypts premaster</text>
+
+  <!-- 7-message ladder -->
+  <text x="40" y="208" class="head">TLS 1.2 Handshake (RFC 5246):</text>
+  <line x1="210" y1="220" x2="210" y2="430" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="710" y1="220" x2="710" y2="430" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <text x="220" y="232" class="small">1  ClientHello      --&gt;</text>
+  <text x="465" y="232" class="label">version, R_A, ciphers</text>
+  <line x1="210" y1="240" x2="708" y2="240" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="220" y="262" class="small">2  ServerHello      &lt;--</text>
+  <text x="465" y="262" class="label">version, R_B, suite</text>
+  <line x1="710" y1="270" x2="212" y2="270" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="220" y="292" class="small">3  Certificate      &lt;--</text>
+  <text x="465" y="292" class="label">X.509 chain</text>
+  <line x1="710" y1="300" x2="212" y2="300" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="220" y="322" class="small">4  ServerHelloDone  &lt;--</text>
+  <line x1="710" y1="330" x2="212" y2="330" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <line x1="212" y1="360" x2="708" y2="360" stroke="#E2557A" stroke-width="2.5" marker-end="url(#arrr)"/>
+  <text x="220" y="354" class="small accent">5  ClientKeyExchange --&gt;</text>
+  <text x="220" y="376" class="small">RSA-encrypted premaster (46 B)</text>
+
+  <line x1="212" y1="390" x2="708" y2="390" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="220" y="408" class="small">6  ChangeCipherSpec --&gt;</text>
+
+  <line x1="710" y1="420" x2="212" y2="420" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="220" y="438" class="small">7  Finished  &lt;--  verify_data = PRF over transcript</text>
+
+  <!-- Record header layout -->
+  <text x="40" y="468" class="head">TLS Record header (every record on the wire):</text>
+  <g transform="translate(40, 478)">
+    <rect x="0"   y="0" width="20" height="34" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="10"  y="14" text-anchor="middle" class="small">CT</text>
+    <text x="10"  y="28" text-anchor="middle" class="label">8 b</text>
+
+    <rect x="20"  y="0" width="40" height="34" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="40"  y="14" text-anchor="middle" class="small">Ver</text>
+    <text x="40"  y="28" text-anchor="middle" class="label">16 b</text>
+
+    <rect x="60"  y="0" width="40" height="34" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="80"  y="14" text-anchor="middle" class="small">Len</text>
+    <text x="80"  y="28" text-anchor="middle" class="label">16 b</text>
+
+    <rect x="100" y="0" width="600" height="34" fill="#FFE0EA" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="400" y="14" text-anchor="middle" class="small">Fragment (up to 16 KB; MAC-then-encrypt for TLS 1.2 CBC)</text>
+    <text x="400" y="28" text-anchor="middle" class="label">CT: 22 Handshake | 23 AppData | 20 CCS | 21 Alert</text>
+  </g>
+
+  <!-- key derivation summary -->
+  <text x="40" y="538" class="small">master_secret = PRF(P, "master secret", R_A || R_B)   -- 48 B   |   key_block = PRF(ms, "key expansion", R_B || R_A)   -- 104 B (AES-128 + SHA-1)</text>
+</svg>

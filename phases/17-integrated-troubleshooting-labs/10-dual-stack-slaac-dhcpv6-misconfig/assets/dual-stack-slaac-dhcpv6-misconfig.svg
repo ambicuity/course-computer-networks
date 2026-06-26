@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 580" width="920" height="580">
+  <rect width="920" height="580" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+    .bad { fill: #E2557A; }
+    .good { fill: #2A1A2E; }
+  </style>
+
+  <text x="40" y="46" class="title">Dual-Stack SLAAC + Rogue DHCPv6</text>
+  <text x="40" y="68" class="sub">RA on cafe::/64 (routed), rogue DHCPv6 on face::/64 (unrouted), host picks per RFC 6724</text>
+
+  <!-- Router (top) -->
+  <rect x="340" y="100" width="240" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="460" y="126" text-anchor="middle" class="node good">L3 Router</text>
+  <text x="460" y="148" text-anchor="middle" class="mono">2001:db8:cafe::1</text>
+  <text x="460" y="170" text-anchor="middle" class="mono">radvd: A=1 M=0 O=0</text>
+  <text x="460" y="190" text-anchor="middle" class="mono">advertises cafe::/64</text>
+  <text x="460" y="210" text-anchor="middle" class="label">[routed upstream]</text>
+
+  <!-- Rogue DHCPv6 (right of router) -->
+  <rect x="640" y="100" width="240" height="120" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="760" y="126" text-anchor="middle" class="node bad">Rogue DHCPv6 (IoT leftover)</text>
+  <text x="760" y="148" text-anchor="middle" class="mono">2001:db8:face::53</text>
+  <text x="760" y="170" text-anchor="middle" class="mono">M=1 (advertised separately)</text>
+  <text x="760" y="190" text-anchor="middle" class="mono">leases 2001:db8:face::/64</text>
+  <text x="760" y="210" text-anchor="middle" class="label bad">[not routed upstream]</text>
+
+  <!-- Hosts (bottom row) -->
+  <!-- Host 1: SLAAC works -->
+  <rect x="60" y="300" width="240" height="170" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="180" y="326" text-anchor="middle" class="node">macOS / Win10 host</text>
+  <text x="180" y="348" text-anchor="middle" class="mono">cafe::beef:cafe   (SLAAC)</text>
+  <text x="180" y="368" text-anchor="middle" class="mono">A=1 honored, M=1 ignored</text>
+  <text x="180" y="390" text-anchor="middle" class="mono">RFC 6724 picks cafe:: for</text>
+  <text x="180" y="408" text-anchor="middle" class="mono">any global destination</text>
+  <text x="180" y="432" text-anchor="middle" class="label good">[IPv6 works]</text>
+
+  <!-- Host 2: DHCPv6 wins -->
+  <rect x="340" y="300" width="240" height="170" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="460" y="326" text-anchor="middle" class="node bad">Ubuntu 22.04 host</text>
+  <text x="460" y="348" text-anchor="middle" class="mono">face::1234:5678  (DHCPv6)</text>
+  <text x="460" y="368" text-anchor="middle" class="mono">NetworkManager: dhcpv6</text>
+  <text x="460" y="390" text-anchor="middle" class="mono">RFC 6724 rule 6 picks face::</text>
+  <text x="460" y="408" text-anchor="middle" class="mono">because of prefixpolicy</text>
+  <text x="460" y="432" text-anchor="middle" class="label bad">[IPv6 broken hop 2+]</text>
+
+  <!-- Host 3: depends on policy -->
+  <rect x="620" y="300" width="240" height="170" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="740" y="326" text-anchor="middle" class="node">CentOS 7 host</text>
+  <text x="740" y="348" text-anchor="middle" class="mono">cafe::9999:aaaa   (SLAAC)</text>
+  <text x="740" y="368" text-anchor="middle" class="mono">+ face::aaaa:0000 (DHCPv6)</text>
+  <text x="740" y="390" text-anchor="middle" class="mono">prefixpolicy: face before cafe</text>
+  <text x="740" y="408" text-anchor="middle" class="mono">RFC 6724 rule 6 picks face::</text>
+  <text x="740" y="432" text-anchor="middle" class="label bad">[IPv6 broken hop 2+]</text>
+
+  <!-- Lines: RA -->
+  <line x1="460" y1="220" x2="180" y2="300" stroke="#2A1A2E" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="270" y="260" class="label">RA (cafe::/64, A=1, M=0)</text>
+
+  <line x1="460" y1="220" x2="460" y2="300" stroke="#2A1A2E" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="468" y="270" class="label">RA</text>
+
+  <line x1="460" y1="220" x2="740" y2="300" stroke="#2A1A2E" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="600" y="260" class="label">RA</text>
+
+  <!-- Lines: rogue DHCPv6 -->
+  <line x1="700" y1="220" x2="460" y2="300" stroke="#E2557A" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="540" y="252" class="label bad">DHCPv6 (face::/64, M=1)</text>
+
+  <line x1="700" y1="220" x2="740" y2="300" stroke="#E2557A" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="780" y="270" class="label bad">DHCPv6</text>
+
+  <!-- Bottom: fix -->
+  <rect x="40" y="500" width="840" height="60" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="524" class="node">Fix: align DHCPv6 pool to cafe::/64 and decommission rogue server</text>
+  <text x="60" y="546" class="mono">Or set M=0 A=1 O=1 (stateless DHCPv6) and use dhcp6 only for DNS, with RDNSS fallback</text>
+</svg>

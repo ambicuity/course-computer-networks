@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 460" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="820" height="460" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold">ARP &amp; ICMP — discovery and error layer</text>
+    <text x="410" y="50" text-anchor="middle" font-size="11" font-weight="bold">RFC 826 (ARP) · RFC 792 (ICMP) · RFC 4443 (ICMPv6) · RFC 4861 (NDP)</text>
+  </g>
+
+  <!-- ARP request/reply -->
+  <g>
+    <rect x="40" y="80" width="370" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="225" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">ARP request / reply on a LAN</text>
+
+    <rect x="80" y="140" width="50" height="40" fill="none" stroke="#2A1A2E"/>
+    <text x="105" y="158" text-anchor="middle" font-size="10" fill="#2A1A2E">A</text>
+    <text x="105" y="172" text-anchor="middle" font-size="9" fill="#2A1A2E">10.0.0.1</text>
+
+    <rect x="180" y="140" width="50" height="40" fill="none" stroke="#2A1A2E"/>
+    <text x="205" y="158" text-anchor="middle" font-size="10" fill="#2A1A2E">B</text>
+    <text x="205" y="172" text-anchor="middle" font-size="9" fill="#2A1A2E">10.0.0.2</text>
+
+    <rect x="280" y="140" width="50" height="40" fill="#E2557A"/>
+    <text x="305" y="158" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">T</text>
+    <text x="305" y="172" text-anchor="middle" font-size="9" fill="#FFF7EC">10.0.0.7</text>
+
+    <line x1="130" y1="155" x2="280" y2="155" stroke="#E2557A" stroke-width="1.5" marker-end="url(#arr1)"/>
+    <text x="205" y="148" text-anchor="middle" font-size="9" fill="#2A1A2E" font-weight="bold">1. ARP request (broadcast)</text>
+
+    <line x1="280" y1="170" x2="130" y2="170" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr2)"/>
+    <text x="205" y="200" text-anchor="middle" font-size="9" fill="#2A1A2E" font-weight="bold">2. ARP reply (unicast)</text>
+
+    <text x="60" y="240" font-size="10" fill="#2A1A2E">"who has 10.0.0.7? tell 10.0.0.1"</text>
+    <text x="60" y="254" font-size="10" fill="#2A1A2E">"10.0.0.7 is at aa:bb:cc:dd:ee:07"</text>
+  </g>
+
+  <!-- 28-byte ARP packet -->
+  <g>
+    <rect x="430" y="80" width="350" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="605" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">28-byte ARP packet</text>
+
+    <g fill="#2A1A2E" font-size="10">
+      <text x="445" y="124">HTYPE=1 (Ethernet)  PTYPE=0x0800 (IPv4)</text>
+      <text x="445" y="142">HLEN=6   PLEN=4   Opcode 1=req 2=reply</text>
+      <text x="445" y="160">SHA 6B | SPA 4B | THA 6B | TPA 4B</text>
+      <text x="445" y="180">encap: Eth 0x0806, dst ff:ff:.. (req) or DA (reply)</text>
+      <text x="445" y="200">cache timeout 15-20 min (Linux 20m REACHABLE)</text>
+    </g>
+    <text x="445" y="240" font-size="10" fill="#2A1A2E" font-weight="bold">Code path:</text>
+    <text x="445" y="254" font-size="9" fill="#2A1A2E">arp -an; arp -d 10.0.0.7; ip neigh flush all</text>
+  </g>
+
+  <!-- ICMP types table -->
+  <g>
+    <rect x="40" y="280" width="740" height="160" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="405" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">ICMP / ICMPv6 types</text>
+    <g fill="#2A1A2E" font-size="10">
+      <text x="50" y="320" font-weight="bold">Type</text>
+      <text x="100" y="320" font-weight="bold">v4/v6</text>
+      <text x="180" y="320" font-weight="bold">Name</text>
+      <text x="380" y="320" font-weight="bold">Use</text>
+      <text x="560" y="320" font-weight="bold">ICMPv6 ext</text>
+      <line x1="40" y1="326" x2="780" y2="326" stroke="#2A1A2E" stroke-width="0.5"/>
+
+      <text x="50" y="344">0/8</text>
+      <text x="100" y="344">v4</text>
+      <text x="180" y="344">Echo Reply / Req</text>
+      <text x="380" y="344">ping</text>
+      <text x="560" y="344">128/129 ping6</text>
+
+      <text x="50" y="364">3</text>
+      <text x="100" y="364">v4</text>
+      <text x="180" y="364">Destination Unreach</text>
+      <text x="380" y="364">net/host/port/frag-needed-DF</text>
+      <text x="560" y="364">1</text>
+
+      <text x="50" y="384">11</text>
+      <text x="100" y="384">v4</text>
+      <text x="180" y="384">Time Exceeded</text>
+      <text x="380" y="384">traceroute TTL=1..N</text>
+      <text x="560" y="384">3</text>
+
+      <text x="50" y="404">5</text>
+      <text x="100" y="404">v4</text>
+      <text x="180" y="404">Redirect</text>
+      <text x="380" y="404">use better first hop</text>
+      <text x="560" y="404">137</text>
+
+      <text x="50" y="424">N/A</text>
+      <text x="100" y="424">v6</text>
+      <text x="180" y="424">NDP NS/NA</text>
+      <text x="380" y="424">replaces ARP</text>
+      <text x="560" y="424">135/136</text>
+    </g>
+  </g>
+
+  <defs>
+    <marker id="arr1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#E2557A"/>
+    </marker>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

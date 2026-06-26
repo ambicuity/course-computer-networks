@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420">
+  <rect width="880" height="420" fill="#FFF7EC"/>
+  <style>
+    .ink { fill:#2A1A2E; font-family:Inter, ui-sans-serif, system-ui, sans-serif; }
+    .berry { fill:#E2557A; }
+    .mono { font-family: ui-monospace, Menlo, Consolas, monospace; fill:#2A1A2E; }
+    .small { font-size:11px; }
+    .sec { font-size:18px; font-weight:700; }
+    .tag { font-size:10px; font-weight:700; fill:#FFF7EC; }
+  </style>
+  <text x="440" y="32" text-anchor="middle" class="ink sec">IPv4 Header — 20 bytes minimum (RFC 791)</text>
+
+  <!-- Bit-level field strip -->
+  <g>
+    <!-- Row 1 -->
+    <rect x="40" y="60" width="120" height="40" fill="#2A1A2E"/>
+    <text x="50" y="74" class="tag">VER (4)</text>
+    <text x="70" y="92" class="tag">IHL (4)</text>
+    <rect x="160" y="60" width="160" height="40" fill="#E2557A"/>
+    <text x="180" y="78" class="tag">DSCP(6) + ECN(2)</text>
+    <rect x="320" y="60" width="160" height="40" fill="#2A1A2E"/>
+    <text x="360" y="78" class="tag">Total Length (16)</text>
+
+    <!-- Row 2 -->
+    <rect x="40" y="110" width="200" height="40" fill="#E2557A"/>
+    <text x="80" y="128" class="tag">Identification (16)</text>
+    <rect x="240" y="110" width="200" height="40" fill="#2A1A2E"/>
+    <text x="270" y="128" class="tag">Flags (3): R|DF|MF</text>
+    <text x="270" y="144" class="tag" >+ Fragment Offset (13)</text>
+    <rect x="440" y="110" width="80" height="40" fill="#E2557A"/>
+    <text x="468" y="128" class="tag">TTL (8)</text>
+    <rect x="520" y="110" width="120" height="40" fill="#2A1A2E"/>
+    <text x="548" y="128" class="tag">Protocol (8)</text>
+
+    <!-- Row 3 -->
+    <rect x="40" y="170" width="240" height="40" fill="#E2557A"/>
+    <text x="80" y="188" class="tag">Header Checksum (16)</text>
+    <rect x="280" y="170" width="160" height="40" fill="#2A1A2E"/>
+    <text x="320" y="188" class="tag">Source IP (32)</text>
+    <rect x="440" y="170" width="160" height="40" fill="#E2557A"/>
+    <text x="480" y="188" class="tag">Destination IP (32)</text>
+  </g>
+
+  <text x="40" y="240" class="ink sec">Worked hex dump</text>
+  <g class="mono small">
+    <text x="40" y="268" class="ink">45 00 00 3c 1c 46 40 00 40 06 b1 e6 ac 10 00 01 ac 10 00 02</text>
+    <text x="40" y="288" class="ink">VER=4  IHL=5 (20B)  DSCP=0  TotalLen=60  ID=0x1c46</text>
+    <text x="40" y="306" class="ink">Flags=0x4 (DF=1, MF=0)  OFF=0  TTL=64  Proto=6 (TCP)</text>
+    <text x="40" y="324" class="ink">Cksum=0xb1e6  Src=172.16.0.1  Dst=172.16.0.2</text>
+  </g>
+
+  <text x="40" y="358" class="ink sec">Diagnostic clues</text>
+  <g class="mono small">
+    <text x="40" y="384" class="ink">DF=1 + small MTU ahead ⇒ ICMP type 3 code 4 (fragment needed)</text>
+    <text x="40" y="402" fill="#E2557A">TTL hits 0 ⇒ ICMP type 11 (traceroute engine)</text>
+  </g>
+</svg>

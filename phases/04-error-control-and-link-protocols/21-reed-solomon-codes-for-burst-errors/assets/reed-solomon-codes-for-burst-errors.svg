@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+
+  <text x="440" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">Reed-Solomon (255, 223) over GF(2^8) — symbol vs. bit burst correction</text>
+  <text x="440" y="56" text-anchor="middle" font-size="12" fill="#2A1A2E">A 16-symbol burst = 128 consecutive bits; the decoder sees 16 symbol errors, corrects all.</text>
+
+  <!-- Codeword bar -->
+  <g id="codeword">
+    <text x="40" y="92" font-size="12" font-weight="600" fill="#2A1A2E">Codeword: 255 symbols (bytes)</text>
+    <!-- data symbols -->
+    <rect x="40" y="100" width="352" height="34" fill="#E2557A" fill-opacity="0.18" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="216" y="121" text-anchor="middle" font-size="12" fill="#2A1A2E">223 data symbols  (k = 223)</text>
+    <!-- parity symbols -->
+    <rect x="392" y="100" width="64" height="34" fill="#E2557A" fill-opacity="0.45" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="424" y="121" text-anchor="middle" font-size="11" fill="#2A1A2E">2t = 32</text>
+    <line x1="40" y1="100" x2="40" y2="134" stroke="#2A1A2E" stroke-width="2"/>
+    <line x1="456" y1="100" x2="456" y2="134" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="40" y="148" font-size="10" fill="#2A1A2E">symbol 0</text>
+    <text x="456" y="148" text-anchor="end" font-size="10" fill="#2A1A2E">symbol 254</text>
+    <text x="216" y="148" text-anchor="middle" font-size="10" fill="#2A1A2E">code rate k/n ≈ 0.875</text>
+  </g>
+
+  <!-- Burst mapping: bit burst -> symbol errors -->
+  <g id="mapping">
+    <text x="40" y="184" font-size="12" font-weight="600" fill="#2A1A2E">Bit burst → symbol errors (why RS is a burst specialist)</text>
+
+    <!-- bit row -->
+    <text x="40" y="206" font-size="10" fill="#2A1A2E">128-bit burst on the wire</text>
+    <g>
+      <rect x="160" y="196" width="512" height="20" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1"/>
+      <!-- 16 byte cells -->
+      <g>
+        <rect x="160" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="192" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="224" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="256" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="288" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="320" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="352" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="384" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="416" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="448" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="480" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="512" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="544" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="576" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="608" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+        <rect x="640" y="196" width="32" height="20" fill="#E2557A" fill-opacity="0.35"/>
+      </g>
+      <text x="416" y="232" text-anchor="middle" font-size="10" fill="#2A1A2E">16 bytes × 8 bits = 128 consecutive bits</text>
+    </g>
+
+    <!-- arrows down -->
+    <g stroke="#2A1A2E" stroke-width="1" fill="none">
+      <line x1="176" y1="240" x2="176" y2="258"/>
+      <line x1="208" y1="240" x2="208" y2="258"/>
+      <line x1="240" y1="240" x2="240" y2="258"/>
+      <line x1="272" y1="240" x2="272" y2="258"/>
+      <line x1="304" y1="240" x2="304" y2="258"/>
+      <line x1="336" y1="240" x2="336" y2="258"/>
+      <line x1="368" y1="240" x2="368" y2="258"/>
+      <line x1="400" y1="240" x2="400" y2="258"/>
+      <line x1="432" y1="240" x2="432" y2="258"/>
+      <line x1="464" y1="240" x2="464" y2="258"/>
+      <line x1="496" y1="240" x2="496" y2="258"/>
+      <line x1="528" y1="240" x2="528" y2="258"/>
+      <line x1="560" y1="240" x2="560" y2="258"/>
+      <line x1="592" y1="240" x2="592" y2="258"/>
+      <line x1="624" y1="240" x2="624" y2="258"/>
+      <line x1="656" y1="240" x2="656" y2="258"/>
+    </g>
+
+    <!-- symbol row -->
+    <text x="40" y="274" font-size="10" fill="#2A1A2E">As seen by RS decoder</text>
+    <g>
+      <rect x="160" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="192" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="224" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="256" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="288" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="320" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="352" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="384" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="416" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="448" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="480" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="512" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="544" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="576" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="608" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <rect x="640" y="260" width="32" height="24" fill="#E2557A" fill-opacity="0.55" stroke="#2A1A2E"/>
+      <text x="416" y="276" text-anchor="middle" font-size="10" fill="#2A1A2E" font-weight="600">16 symbol errors  (= t, fully correctable)</text>
+    </g>
+  </g>
+
+  <!-- Decode pipeline -->
+  <g id="pipeline">
+    <text x="40" y="316" font-size="12" font-weight="600" fill="#2A1A2E">Decode pipeline (code/main.py)</text>
+
+    <g font-size="11" fill="#2A1A2E">
+      <rect x="40"  y="326" width="150" height="44" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="115" y="344" text-anchor="middle" font-weight="600">1. Syndromes</text>
+      <text x="115" y="360" text-anchor="middle" font-size="10">S_i = r(α^i), i=1..32</text>
+
+      <rect x="200" y="326" width="150" height="44" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="275" y="344" text-anchor="middle" font-weight="600">2. Berlekamp-Massey</text>
+      <text x="275" y="360" text-anchor="middle" font-size="10">Λ(x), degree ν ≤ t</text>
+
+      <rect x="360" y="326" width="150" height="44" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="435" y="344" text-anchor="middle" font-weight="600">3. Chien search</text>
+      <text x="435" y="360" text-anchor="middle" font-size="10">error positions</text>
+
+      <rect x="520" y="326" width="150" height="44" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="595" y="344" text-anchor="middle" font-weight="600">4. Forney</text>
+      <text x="595" y="360" text-anchor="middle" font-size="10">error magnitudes</text>
+
+      <rect x="680" y="326" width="150" height="44" rx="6" fill="#E2557A" fill-opacity="0.30" stroke="#2A1A2E"/>
+      <text x="755" y="344" text-anchor="middle" font-weight="600">5. Correct</text>
+      <text x="755" y="360" text-anchor="middle" font-size="10">strip 32 parity → data</text>
+
+      <g stroke="#2A1A2E" stroke-width="1" fill="none" marker-end="url(#arr)">
+        <line x1="190" y1="348" x2="200" y2="348"/>
+        <line x1="350" y1="348" x2="360" y2="348"/>
+        <line x1="510" y1="348" x2="520" y2="348"/>
+        <line x1="670" y1="348" x2="680" y2="348"/>
+      </g>
+    </g>
+  </g>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- Budget table -->
+  <g id="budget">
+    <text x="40" y="404" font-size="12" font-weight="600" fill="#2A1A2E">Correction budget (parity = 2t = 32 symbols)</text>
+    <g font-size="11" fill="#2A1A2E">
+      <rect x="40" y="414" width="380" height="26" fill="#E2557A" fill-opacity="0.12" stroke="#2A1A2E"/>
+      <text x="60" y="431" font-weight="600">Unknown errors</text>
+      <text x="280" y="431">up to t = 16 symbols  (≤ 128-bit burst)</text>
+
+      <rect x="40" y="440" width="380" height="26" fill="#E2557A" fill-opacity="0.12" stroke="#2A1A2E"/>
+      <text x="60" y="457" font-weight="600">Erasures (locs known)</text>
+      <text x="280" y="457">up to 2t = 32 symbols  (≤ 256-bit burst)</text>
+
+      <rect x="40" y="466" width="380" height="26" fill="#E2557A" fill-opacity="0.12" stroke="#2A1A2E"/>
+      <text x="60" y="483" font-weight="600">Cliff</text>
+      <text x="280" y="483">17 symbol errors → uncorrectable</text>
+    </g>
+
+    <!-- Concatenation note -->
+    <g font-size="11" fill="#2A1A2E">
+      <rect x="440" y="414" width="400" height="78" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="456" y="434" font-weight="600">Concatenated link (CCSDS 131.0-B)</text>
+      <text x="456" y="452">inner: rate-1/2 convolutional (Viterbi)</text>
+      <text x="456" y="470">interleaver spreads Viterbi bursts across RS codewords</text>
+      <text x="456" y="486">outer: (255, 223) RS mops up ≤ 16 symbols / codeword</text>
+    </g>
+  </g>
+
+  <text x="40" y="520" font-size="10" fill="#2A1A2E">Field GF(2^8): p(x) = x^8 + x^4 + x^3 + x^2 + 1 (0x11D), primitive α = 0x02.  g(x) = (x−α^1)(x−α^2)…(x−α^32).</text>
+  <text x="40" y="538" font-size="10" fill="#2A1A2E">Deployed: CD CIRC, DVD/Blu-ray ECC, DVB (204,188), ATSC (207,187), DSL G.992, deep-space links.</text>
+</svg>

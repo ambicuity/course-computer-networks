@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">HTTP Headers, Cookies, and Content Negotiation</text>
+  <text x="40" y="68" class="sub">The header block is the protocol surface: identity, auth, negotiation, cache, cookies, body (RFC 7230-7235 / 6265)</text>
+
+  <!-- Accept family -->
+  <rect x="40" y="100" width="430" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">Content negotiation (RFC 7231 §5.3)</text>
+  <text x="60" y="148" class="mono">Accept: text/html, application/json;q=0.9, */*;q=0.5</text>
+  <text x="60" y="166" class="mono">Accept-Charset: utf-8, iso-8859-1;q=0.5</text>
+  <text x="60" y="184" class="mono">Accept-Encoding: gzip, br;q=0.9</text>
+  <text x="60" y="202" class="mono">Accept-Language: en-US, en;q=0.9, ja;q=0.8</text>
+  <text x="60" y="222" class="label">Server picks best match.  No match -&gt; 406 Not Acceptable.</text>
+  <text x="60" y="238" class="label">Server echoes choice with Content-Type,</text>
+  <text x="60" y="254" class="label">Content-Encoding, Content-Language.</text>
+  <text x="60" y="270" class="label">Vary header advertises which Accept* values</text>
+  <text x="60" y="286" class="label">actually affected the response (cache key).</text>
+
+  <!-- Cookies -->
+  <rect x="490" y="100" width="390" height="220" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="510" y="124" class="node accent">Cookies (RFC 6265)</text>
+  <text x="510" y="148" class="mono accent">Set-Cookie: sid=xyz789; Domain=example.com; Path=/;</text>
+  <text x="510" y="164" class="mono accent">             Secure; HttpOnly; SameSite=Lax; Max-Age=3600</text>
+  <text x="510" y="190" class="mono">Cookie: sid=xyz789; theme=dark</text>
+  <text x="510" y="220" class="label">Domain / Path  scope the cookie's reach.</text>
+  <text x="510" y="236" class="label">Secure         send only over HTTPS.</text>
+  <text x="510" y="252" class="label">HttpOnly       hidden from JavaScript (XSS).</text>
+  <text x="510" y="268" class="label">SameSite       CSRF defense (Strict / Lax / None).</text>
+  <text x="510" y="284" class="label">Max-Age        lifetime in seconds (preferred over Expires).</text>
+  <text x="510" y="306" class="label">Browser sends Cookie: on every matching request.</text>
+
+  <!-- Cache + conditional -->
+  <rect x="40" y="340" width="430" height="200" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="364" class="node">Freshness and conditional GET (RFC 7234 / 7232)</text>
+  <text x="60" y="388" class="mono">Cache-Control: max-age=300  -- seconds the response is fresh</text>
+  <text x="60" y="406" class="mono">Expires: Thu, 25 Jun 2026 14:32:11 GMT</text>
+  <text x="60" y="424" class="mono">Last-Modified: Thu, 25 Jun 2026 13:00:00 GMT</text>
+  <text x="60" y="442" class="mono">ETag: "5e9c1a3a-1f0"</text>
+  <text x="60" y="460" class="mono">If-None-Match: "5e9c1a3a-1f0"  -- server replies 304 if tag matches</text>
+  <text x="60" y="478" class="mono">If-Modified-Since: Thu, 25 Jun 2026 13:00:00 GMT</text>
+  <text x="60" y="500" class="label">Vary: Accept-Encoding -- caches must key on the header too.</text>
+
+  <!-- Auth + connection -->
+  <rect x="490" y="340" width="390" height="200" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="510" y="364" class="node">Auth + connection state</text>
+  <text x="510" y="388" class="mono">Authorization: Basic dXNlcjpwYXNz   (RFC 7617)</text>
+  <text x="510" y="406" class="mono">WWW-Authenticate: Basic realm="users"</text>
+  <text x="510" y="424" class="mono">Authorization: Bearer eyJhbGciOi...  (RFC 6750 OAuth 2.0)</text>
+  <text x="510" y="446" class="mono">Connection: keep-alive</text>
+  <text x="510" y="464" class="mono">Upgrade: websocket   (RFC 8441)</text>
+  <text x="510" y="482" class="mono">Transfer-Encoding: chunked</text>
+  <text x="510" y="510" class="label">Note the misspelled Referer: header (RFC 7231 §5.5.2).</text>
+</svg>

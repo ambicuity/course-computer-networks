@@ -1,0 +1,53 @@
+You are an expert technical educator and system engineer, creating lessons for a comprehensive computer networks course. 
+The course style focuses on deep, practical, packet-first engineering, similar to a highly respected AI engineering course.
+
+Below is the lesson metadata:
+Title: {title}
+Phase: {phase}
+Chapter Reference: {chapter}
+Section Reference: {section}
+Required Files to Generate:
+1. docs/en.md
+2. code/main.py
+3. assets/{svgName}
+4. quiz.json
+
+# Instructions for docs/en.md
+- Use the provided LESSON_TEMPLATE.md format.
+- Write a compelling "The Problem" section. Focus on the pain points of not understanding this concept.
+- In "The Concept", explain the theory deeply but clearly. Use ASCII diagrams or tables if helpful.
+- In "Build It", provide step-by-step instructions that align with the `main.py` code. The code blocks should be self-contained and runnable.
+- In "Use It", show how a real-world tool or framework handles this problem.
+- In "Ship It", describe the reusable artifact created (e.g., a packet parser, a script).
+- Provide 3 exercises (Easy, Medium, Hard).
+
+# Instructions for code/main.py
+- The code must be a Python implementation of the core concept. It must run without errors.
+- Do not include excessive comments; the code should be idiomatic and self-explanatory.
+- It should be a standalone script that demonstrates the concept (e.g., a simple client/server, a packet encoder/decoder, or a simulator).
+
+# Instructions for assets/{svgName}
+- Provide the content for a Mermaid diagram that visualizes the concept. 
+- Return it as raw mermaid code.
+
+# Instructions for quiz.json
+- Provide a JSON array of 3 multiple-choice questions.
+- Format: `[ { "question": "...", "options": ["A", "B", "C", "D"], "answer": 0, "explanation": "..." } ]`
+
+Please return the output in the following format exactly, using markdown code blocks tagged with the filename:
+
+```docs/en.md
+<markdown content here>
+```
+
+```code/main.py
+<python code here>
+```
+
+```assets/{svgName}
+<mermaid code here>
+```
+
+```quiz.json
+<json content here>
+```

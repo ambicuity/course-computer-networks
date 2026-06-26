@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-label="UDP datagram format and pseudo-header">
+  <defs>
+    <style>
+      .bg { fill: #FFF7EC; }
+      .ink { fill: #2A1A2E; }
+      .accent { fill: #E2557A; }
+      .stroke-ink { stroke: #2A1A2E; fill: none; stroke-width: 1.6; }
+      .stroke-accent { stroke: #E2557A; fill: none; stroke-width: 2.0; }
+      .stroke-dash { stroke: #2A1A2E; fill: none; stroke-width: 1.2; stroke-dasharray: 4 3; }
+      .label { font: 600 12px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+      .label-accent { font: 700 12px ui-sans-serif, system-ui, sans-serif; fill: #E2557A; }
+      .title { font: 700 22px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+      .sub { font: 500 11px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+      .mono { font: 500 11px ui-monospace, Menlo, monospace; fill: #2A1A2E; }
+      .small { font: 500 10px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="960" height="620"/>
+
+  <text class="title" x="36" y="44">UDP Datagram Format + IPv4 Pseudo-Header</text>
+  <text class="sub" x="36" y="64">8-byte fixed header; checksum is ones-complement sum over pseudo-header + UDP + payload</text>
+
+  <!-- Top half: datagram header -->
+  <g transform="translate(36, 92)">
+    <text class="label" x="0" y="0">UDP HEADER (RFC 768) - 8 BYTES</text>
+    <g transform="translate(0, 16)">
+      <rect class="stroke-ink" x="0"   y="0" width="180" height="48"/>
+      <text class="label" x="90"  y="20" text-anchor="middle">Source Port</text>
+      <text class="small" x="90"  y="38" text-anchor="middle">16 bits</text>
+      <rect class="stroke-ink" x="180" y="0" width="180" height="48"/>
+      <text class="label" x="270" y="20" text-anchor="middle">Dest Port</text>
+      <text class="small" x="270" y="38" text-anchor="middle">16 bits</text>
+      <rect class="stroke-accent" x="360" y="0" width="180" height="48"/>
+      <text class="label-accent" x="450" y="20" text-anchor="middle">Length</text>
+      <text class="small" x="450" y="38" text-anchor="middle">header+payload</text>
+      <rect class="stroke-accent" x="540" y="0" width="180" height="48"/>
+      <text class="label-accent" x="630" y="20" text-anchor="middle">Checksum</text>
+      <text class="small" x="630" y="38" text-anchor="middle">0 = disabled (IPv4)</text>
+
+      <rect class="stroke-dash" x="0" y="48" width="720" height="80"/>
+      <text class="label" x="14" y="68">Payload</text>
+      <text class="small" x="14" y="84">0 to 65527 bytes</text>
+      <text class="small" x="14" y="100">total datagram: 8 + payload bytes</text>
+
+      <g transform="translate(0, 150)">
+        <rect class="stroke-ink" x="0" y="0" width="720" height="36"/>
+        <text class="label" x="360" y="22" text-anchor="middle">WELL-KNOWN PORTS (examples)</text>
+        <text class="small" x="14"  y="50">53 DNS    67/68 DHCP    123 NTP    443 QUIC    3478 STUN    5060 SIP    5353 mDNS</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom half: pseudo-header -->
+  <g transform="translate(36, 320)">
+    <text class="label" x="0" y="0">IPv4 PSEUDO-HEADER (NOT TRANSMITTED, USED FOR CHECKSUM)</text>
+    <g transform="translate(0, 16)">
+      <rect class="stroke-ink" x="0"   y="0" width="180" height="48"/>
+      <text class="label" x="90"  y="20" text-anchor="middle">Src IPv4</text>
+      <text class="small" x="90"  y="38" text-anchor="middle">32 bits</text>
+      <rect class="stroke-ink" x="180" y="0" width="180" height="48"/>
+      <text class="label" x="270" y="20" text-anchor="middle">Dst IPv4</text>
+      <text class="small" x="270" y="38" text-anchor="middle">32 bits</text>
+      <rect class="stroke-ink" x="360" y="0" width="90"  height="48"/>
+      <text class="label" x="405" y="20" text-anchor="middle">zero</text>
+      <text class="small" x="405" y="38" text-anchor="middle">8 bits</text>
+      <rect class="stroke-accent" x="450" y="0" width="90"  height="48"/>
+      <text class="label-accent" x="495" y="20" text-anchor="middle">17</text>
+      <text class="small" x="495" y="38" text-anchor="middle">proto</text>
+      <rect class="stroke-ink" x="540" y="0" width="180" height="48"/>
+      <text class="label" x="630" y="20" text-anchor="middle">UDP Length</text>
+      <text class="small" x="630" y="38" text-anchor="middle">header+payload</text>
+    </g>
+
+    <!-- Self-consistency rule -->
+    <g transform="translate(0, 100)">
+      <rect class="stroke-dash" x="0" y="0" width="720" height="160" rx="6"/>
+      <text class="label" x="14" y="22">CHECKSUM ALGORITHM (RFC 1071)</text>
+      <text class="mono" x="14" y="44">1. build pseudo + UDP header (cksum=0) + payload</text>
+      <text class="mono" x="14" y="62">2. pad to even length with one zero byte if needed</text>
+      <text class="mono" x="14" y="80">3. sum 16-bit words; fold high 16 into low 16 (carry)</text>
+      <text class="mono" x="14" y="98">4. checksum = ones-complement of final 32-bit accumulator</text>
+      <text class="mono" x="14" y="116">5. self-consistency: sum of all 16-bit words INCL cksum == 0xFFFF</text>
+      <text class="label-accent" x="14" y="142">IPv4: checksum 0x0000 means sender did NOT compute it (legal)</text>
+      <text class="label-accent" x="14" y="158">IPv6: checksum is mandatory (RFC 8200) - 0x0000 is invalid</text>
+    </g>
+  </g>
+</svg>

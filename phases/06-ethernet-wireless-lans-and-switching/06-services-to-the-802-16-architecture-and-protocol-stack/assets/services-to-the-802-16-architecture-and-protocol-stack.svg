@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560">
+  <style>
+    text { font-family: Inter, system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .h { font-size: 13px; font-weight: 700; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: ui-monospace, monospace; font-size: 11px; }
+    .small { font-size: 10px; fill: #5a4a5e; }
+    .box { fill: #ffffff; stroke: #2A1A2E; stroke-width: 1.5; }
+    .accent { fill: #E2557A; }
+    .accentbox { fill: #fce4ea; stroke: #E2557A; stroke-width: 1.5; }
+    .stroke { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+  </style>
+  <rect x="0" y="0" width="820" height="560" fill="#FFF7EC"/>
+
+  <text class="title" x="30" y="38">IEEE 802.16 (WiMAX): Protocol Stack and TDD/OFDMA Frame</text>
+
+  <!-- ===== Left: protocol stack ===== -->
+  <text class="h" x="30" y="74">Air-interface stack</text>
+
+  <rect class="box" x="30" y="86" width="250" height="40"/>
+  <text class="lbl" x="42" y="105">Upper layers</text>
+  <text class="small" x="42" y="119">IP (connectionless)</text>
+
+  <rect class="accentbox" x="30" y="132" width="250" height="46"/>
+  <text class="h" x="42" y="151">Service-specific convergence</text>
+  <text class="small" x="42" y="167">maps IP address &#8596; 16-bit CID</text>
+
+  <rect class="box" x="30" y="184" width="250" height="46"/>
+  <text class="h" x="42" y="203">MAC common part (CPS)</text>
+  <text class="small" x="42" y="219">scheduling, packing, generic header</text>
+
+  <rect class="box" x="30" y="236" width="250" height="46"/>
+  <text class="h" x="42" y="255">Security sublayer</text>
+  <text class="small" x="42" y="271">RSA/X.509 auth, AES payload (hdr clear)</text>
+
+  <rect class="box" x="30" y="288" width="250" height="46"/>
+  <text class="h" x="42" y="307">Physical: OFDM / Scalable OFDMA</text>
+  <text class="small" x="42" y="323">QPSK / QAM-16 / QAM-64, TDD</text>
+
+  <text class="small" x="30" y="346">Data link = 3 sublayers (connection-oriented)</text>
+
+  <!-- ===== Right: TDD frame ===== -->
+  <text class="h" x="320" y="74">TDD frame (repeats ~5 ms)  &#8594; time</text>
+  <line class="stroke" x1="320" y1="200" x2="800" y2="200"/>
+  <polygon class="accent" points="800,200 790,195 790,205"/>
+
+  <!-- downlink subframe -->
+  <rect class="box" x="320" y="100" width="30" height="90"/>
+  <text class="mono" x="335" y="150" transform="rotate(-90 335 150)" text-anchor="middle">Preamble</text>
+
+  <rect class="accentbox" x="350" y="100" width="40" height="90"/>
+  <text class="mono" x="370" y="150" transform="rotate(-90 370 150)" text-anchor="middle">DL-MAP</text>
+  <rect class="accentbox" x="390" y="100" width="40" height="90"/>
+  <text class="mono" x="410" y="150" transform="rotate(-90 410 150)" text-anchor="middle">UL-MAP</text>
+
+  <rect class="box" x="430" y="100" width="130" height="90"/>
+  <text class="lbl" x="495" y="135" text-anchor="middle">Downlink bursts</text>
+  <text class="small" x="495" y="152" text-anchor="middle">BS &#8594; SS</text>
+  <text class="small" x="495" y="167" text-anchor="middle">per DL-MAP</text>
+
+  <rect class="box" x="560" y="100" width="22" height="90"/>
+  <text class="small" x="571" y="148" transform="rotate(-90 571 148)" text-anchor="middle">Guard</text>
+
+  <rect class="box" x="582" y="100" width="150" height="90"/>
+  <text class="lbl" x="657" y="135" text-anchor="middle">Uplink bursts</text>
+  <text class="small" x="657" y="152" text-anchor="middle">SS &#8594; BS</text>
+  <text class="small" x="657" y="167" text-anchor="middle">per UL-MAP</text>
+
+  <rect class="accentbox" x="732" y="100" width="58" height="90"/>
+  <text class="small" x="761" y="148" transform="rotate(-90 761 148)" text-anchor="middle">Ranging</text>
+
+  <text class="small" x="320" y="225">BS owns DL-MAP/UL-MAP: no CSMA/CA. Ranging slot = only contention (new SS).</text>
+
+  <!-- ===== Bottom-right: generic MAC header ===== -->
+  <text class="h" x="320" y="262">Generic MAC header (6 bytes, Fig. 4-33a)</text>
+  <g>
+    <rect class="box" x="320" y="274" width="36" height="34"/>
+    <text class="small" x="338" y="294" text-anchor="middle">HT</text>
+    <text class="small" x="338" y="305" text-anchor="middle">EC</text>
+    <rect class="box" x="356" y="274" width="60" height="34"/>
+    <text class="small" x="386" y="295" text-anchor="middle">Type/CI</text>
+    <text class="small" x="386" y="305" text-anchor="middle">EK</text>
+    <rect class="box" x="416" y="274" width="64" height="34"/>
+    <text class="small" x="448" y="295" text-anchor="middle">Length</text>
+    <text class="small" x="448" y="305" text-anchor="middle">11 bits</text>
+    <rect class="accentbox" x="480" y="274" width="120" height="34"/>
+    <text class="small" x="540" y="295" text-anchor="middle">Connection ID</text>
+    <text class="small" x="540" y="305" text-anchor="middle">16 bits</text>
+    <rect class="box" x="600" y="274" width="80" height="34"/>
+    <text class="small" x="640" y="295" text-anchor="middle">HCS x&#8312;+x&#178;+x+1</text>
+    <text class="small" x="640" y="305" text-anchor="middle">8 bits</text>
+  </g>
+
+  <!-- bandwidth request header -->
+  <text class="h" x="320" y="338">Bandwidth-request header (6 bytes, HT=1, no payload)</text>
+  <g>
+    <rect class="box" x="320" y="350" width="50" height="34"/>
+    <text class="small" x="345" y="371" text-anchor="middle">HT=1</text>
+    <rect class="box" x="370" y="350" width="110" height="34"/>
+    <text class="small" x="425" y="371" text-anchor="middle">Bytes needed (16)</text>
+    <rect class="accentbox" x="480" y="350" width="120" height="34"/>
+    <text class="small" x="540" y="371" text-anchor="middle">Connection ID (16)</text>
+    <rect class="box" x="600" y="350" width="80" height="34"/>
+    <text class="small" x="640" y="371" text-anchor="middle">HCS (8)</text>
+  </g>
+
+  <!-- ===== Bottom: QoS classes ===== -->
+  <text class="h" x="30" y="420">Uplink QoS classes (grant behavior)</text>
+  <rect class="accentbox" x="30" y="432" width="180" height="48"/>
+  <text class="h" x="40" y="451">UGS</text>
+  <text class="small" x="40" y="466">standing grants,</text>
+  <text class="small" x="40" y="476">no request (voice)</text>
+
+  <rect class="box" x="220" y="432" width="180" height="48"/>
+  <text class="h" x="230" y="451">rtPS</text>
+  <text class="small" x="230" y="466">polled fixed interval</text>
+  <text class="small" x="230" y="476">(compressed video)</text>
+
+  <rect class="box" x="410" y="432" width="180" height="48"/>
+  <text class="h" x="420" y="451">nrtPS</text>
+  <text class="small" x="420" y="466">polled loosely</text>
+  <text class="small" x="420" y="476">(file transfer)</text>
+
+  <rect class="box" x="600" y="432" width="190" height="48"/>
+  <text class="h" x="610" y="451">BE</text>
+  <text class="small" x="610" y="466">contends, binary</text>
+  <text class="small" x="610" y="476">exponential backoff</text>
+
+  <text class="small" x="30" y="512">All connections are connection-oriented; class is fixed at connection setup. VoIP on UGS is immune to a neighbor's upload; on BE it is starved.</text>
+  <text class="small" x="30" y="534">Source: Tanenbaum &amp; Wetherall, Computer Networks 5e, sec. 4.5.2&#8211;4.5.5.  Diagram for course-computer-networks.</text>
+</svg>

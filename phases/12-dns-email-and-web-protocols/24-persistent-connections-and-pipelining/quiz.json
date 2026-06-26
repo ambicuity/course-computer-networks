@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Which RFC codified the default persistent (keep-alive) connection in HTTP, and what does it require for response framing on a persistent connection?",
+    "options": [
+      "A. RFC 1945: no keep-alive by default; framing is Connection: close",
+      "B. RFC 7230: keep-alive is the default; every response must have Content-Length, Transfer-Encoding: chunked, or Connection: close",
+      "C. RFC 7540: HTTP/2 multiplexed framing replaces Content-Length",
+      "D. RFC 9114: HTTP/3 over QUIC needs no framing"
+    ],
+    "answer": 1,
+    "explanation": "RFC 7230 §6 makes persistent connections the HTTP/1.1 default and requires that responses on a persistent connection be delimited by Content-Length, Transfer-Encoding: chunked, or Connection: close."
+  },
+  {
+    "question": "A pipelining HTTP/1.1 client sends three requests back-to-back. Response 1 is a 5 MB download, responses 2 and 3 are small. What happens?",
+    "options": [
+      "A. Responses 2 and 3 are interleaved with response 1 on the wire",
+      "B. Responses 2 and 3 are blocked until response 1 fully arrives at the client (head-of-line blocking)",
+      "C. The server cancels responses 2 and 3",
+      "D. The server closes the connection"
+    ],
+    "answer": 1,
+    "explanation": "RFC 7230 §6.3 specifies pipelining, but the server must deliver responses in order. A slow first response blocks all later pipelined responses on the same connection -- the head-of-line blocking problem that HTTP/2 multiplexing was designed to solve."
+  },
+  {
+    "question": "What mechanism does HTTP/2 use to avoid the head-of-line blocking of HTTP/1.1 pipelining?",
+    "options": [
+      "A. HTTP/2 sends only one request at a time, like HTTP/1.0",
+      "B. HTTP/2 frames many independent streams over a single connection",
+      "C. HTTP/2 opens a new TCP connection per request",
+      "D. HTTP/2 disables pipelining altogether with a 409 Conflict"
+    ],
+    "answer": 1,
+    "explanation": "RFC 7540 HTTP/2 replaces the HTTP/1.1 request-response-per-connection model with binary frames; each request is an independent stream multiplexed on the same connection, so a slow stream does not block faster ones."
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why is the one-time pad considered information-theoretically secure?",
+    "options": [
+      "A. Because AES is built into the pad",
+      "B. Because for a ciphertext of length n, every one of the 2^n possible plaintexts is equally likely under a uniformly random pad",
+      "C. Because the XOR operation is one-way",
+      "D. Because the key is hashed with SHA-256 before use"
+    ],
+    "answer": 1,
+    "explanation": "Shannon (1949) showed that with a uniformly random key as long as the message, the ciphertext is independent of the plaintext: every candidate plaintext decrypts to some valid pad. The chapter illustrates this with 'I love you.' and 'Elvis lives' as equally valid decryptions of the same ciphertext under different pads."
+  },
+  {
+    "question": "In BB84, what fraction of bits survive the sifting step on average?",
+    "options": [
+      "A. ~100% because Bob knows Alice's basis",
+      "B. ~50% because Alice and Bob pick bases independently",
+      "C. ~25% because Trudy intercepts every other photon",
+      "D. ~10% due to fiber attenuation"
+    ],
+    "answer": 1,
+    "explanation": "Alice and Bob each pick a basis uniformly at random for every photon; their bases match with probability 1/2. The matched-basis bits form the sifted key, so roughly half the photons survive sifting (chapter, section 8.1.4)."
+  },
+  {
+    "question": "An intercept-resend eavesdropper on BB84 introduces approximately what QBER on the sifted key?",
+    "options": [
+      "A. 0% (Eve learns nothing)",
+      "B. ~5% (small perturbation)",
+      "C. ~25% (half the time wrong basis, half of those bits then misread)",
+      "D. 50% (every other bit flipped)"
+    ],
+    "answer": 2,
+    "explanation": "Eve guesses the basis wrong half the time. When wrong, Bob measures a re-projected photon and gets the right bit with probability 1/2. So Bob's error rate on the sifted key is 0.5 x 0.5 = 0.25. A QBER much above ~10% is unambiguous evidence of eavesdropping."
+  }
+]

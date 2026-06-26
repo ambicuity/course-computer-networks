@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="760" height="460" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="380" y="30" text-anchor="middle" font-size="20" font-weight="bold">802.11 Association + WPA2 4-Way Handshake</text>
+    <text x="380" y="50" text-anchor="middle" font-size="11" font-weight="bold">Probe → Auth → Assoc → EAPOL 1/2/3/4 → Data  (RFC 802.11i, 4-way handshake)</text>
+  </g>
+
+  <!-- Timeline -->
+  <line x1="120" y1="110" x2="640" y2="110" stroke="#2A1A2E" stroke-width="2"/>
+  <g fill="#2A1A2E" font-size="11">
+    <text x="120" y="100" text-anchor="middle">STA</text>
+    <text x="640" y="100" text-anchor="middle">AP</text>
+    <circle cx="120" cy="110" r="4" fill="#E2557A"/>
+    <circle cx="640" cy="110" r="4" fill="#E2557A"/>
+  </g>
+
+  <!-- Probe Req / Resp -->
+  <g>
+    <line x1="120" y1="130" x2="640" y2="130" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="380" y="125" text-anchor="middle" font-size="11" fill="#2A1A2E">1. Probe Request (subtype 0x04)</text>
+  </g>
+  <g>
+    <line x1="640" y1="150" x2="120" y2="150" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="380" y="166" text-anchor="middle" font-size="11" fill="#2A1A2E">2. Probe Response (SSID, rates, RSN)</text>
+  </g>
+
+  <!-- Open Auth -->
+  <g>
+    <line x1="120" y1="186" x2="640" y2="186" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="380" y="181" text-anchor="middle" font-size="11" fill="#2A1A2E">3. Auth (open, algo 0, seq 1)</text>
+  </g>
+  <g>
+    <line x1="640" y1="206" x2="120" y2="206" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="380" y="222" text-anchor="middle" font-size="11" fill="#2A1A2E">4. Auth (open, algo 0, seq 2, success)</text>
+  </g>
+
+  <!-- Assoc -->
+  <g>
+    <line x1="120" y1="242" x2="640" y2="242" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="380" y="237" text-anchor="middle" font-size="11" fill="#2A1A2E">5. Assoc Req (subtype 0x00, listen interval, rates)</text>
+  </g>
+  <g>
+    <line x1="640" y1="262" x2="120" y2="262" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="380" y="278" text-anchor="middle" font-size="11" fill="#2A1A2E">6. Assoc Resp (subtype 0x01, AID, capabilities)</text>
+  </g>
+
+  <!-- EAPOL 4-way -->
+  <g>
+    <line x1="640" y1="298" x2="120" y2="298" stroke="#E2557A" stroke-width="2" marker-end="url(#arrA)"/>
+    <text x="380" y="293" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="bold">7. EAPOL msg1: ANonce → STA</text>
+  </g>
+  <g>
+    <line x1="120" y1="318" x2="640" y2="318" stroke="#E2557A" stroke-width="2" marker-end="url(#arrA)"/>
+    <text x="380" y="334" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="bold">8. EAPOL msg2: SNonce + MIC(PTK)</text>
+  </g>
+  <g>
+    <line x1="640" y1="354" x2="120" y2="354" stroke="#E2557A" stroke-width="2" marker-end="url(#arrA)"/>
+    <text x="380" y="349" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="bold">9. EAPOL msg3: ANonce + GTK (encrypted) + MIC</text>
+  </g>
+  <g>
+    <line x1="120" y1="374" x2="640" y2="374" stroke="#E2557A" stroke-width="2" marker-end="url(#arrA)"/>
+    <text x="380" y="390" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="bold">10. EAPOL msg4: ACK (MIC of msg3)</text>
+  </g>
+
+  <!-- Data after keys -->
+  <g>
+    <rect x="60" y="410" width="640" height="40" fill="#2A1A2E" opacity="0.1"/>
+    <text x="380" y="434" text-anchor="middle" font-size="12" fill="#2A1A2E" font-weight="bold">After msg4: data frames use CCMP (AES-128-CCM) with PTK · broadcast uses GTK · PN (48-bit) replay counter</text>
+  </g>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

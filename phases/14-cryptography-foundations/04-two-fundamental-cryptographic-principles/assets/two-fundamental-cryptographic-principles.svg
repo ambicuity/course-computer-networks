@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520">
+  <rect width="800" height="520" fill="#FFF7EC"/>
+  <style>
+    text{font-family:Inter,Helvetica,Arial,sans-serif;fill:#2A1A2E}
+    .m{font-family:'SF Mono',Consolas,monospace}
+    .s{font-size:12px}.md{font-size:14px}.bg{font-size:16px;font-weight:600}
+    .tt{font-size:18px;font-weight:700}
+    .ln{stroke:#2A1A2E;stroke-width:1.5;fill:none}
+    .bl{stroke:#E2557A;stroke-width:2;fill:none}
+    .b{fill:#E2557A}
+  </style>
+  <text x="400" y="30" text-anchor="middle" class="tt">Two Fundamental Cryptographic Principles</text>
+
+  <!-- Principle 1 -->
+  <text x="200" y="62" text-anchor="middle" class="bg">Principle 1: Redundancy</text>
+  <rect x="40" y="80" width="320" height="170" rx="8" fill="#E2557A" opacity="0.1"/>
+  <text x="200" y="105" text-anchor="middle" class="md">No redundancy: 3-byte order</text>
+  <text x="200" y="125" text-anchor="middle" class="m s">Random ciphertext -> ~100% valid</text>
+  <text x="200" y="145" text-anchor="middle" class="m s">-> ships 837 swings to customer</text>
+  <text x="200" y="175" text-anchor="middle" class="md">With 9-zero prefix: 12-byte msg</text>
+  <text x="200" y="195" text-anchor="middle" class="m s">Random ciphertext -> 1 in 2^72</text>
+  <text x="200" y="215" text-anchor="middle" class="m s">-> attack fails (negligible)</text>
+  <text x="200" y="240" text-anchor="middle" class="s">Redundancy = CRC or HMAC, not zeros</text>
+
+  <!-- Principle 2 -->
+  <text x="600" y="62" text-anchor="middle" class="bg">Principle 2: Freshness</text>
+  <rect x="440" y="80" width="320" height="170" rx="8" fill="#E2557A" opacity="0.1"/>
+  <text x="600" y="105" text-anchor="middle" class="md">No freshness: replay old order</text>
+  <text x="600" y="125" text-anchor="middle" class="m s">Attacker replays valid msg</text>
+  <text x="600" y="145" text-anchor="middle" class="m s">-> system processes it again</text>
+  <text x="600" y="175" text-anchor="middle" class="md">With timestamp (10s window)</text>
+  <text x="600" y="195" text-anchor="middle" class="m s">Msg older than 10s -> REJECT</text>
+  <text x="600" y="215" text-anchor="middle" class="m s">-> replay attack blocked</text>
+  <text x="600" y="240" text-anchor="middle" class="s">Nonce / seq number also works</text>
+
+  <!-- Attack flow: no redundancy -->
+  <text x="400" y="282" text-anchor="middle" class="bg">Active Intruder Attack (no redundancy)</text>
+  <rect x="40" y="295" width="120" height="30" rx="4" class="ln"/>
+  <text x="100" y="315" text-anchor="middle" class="s">Steal customer list</text>
+  <rect x="200" y="295" width="120" height="30" rx="4" class="ln"/>
+  <text x="260" y="315" text-anchor="middle" class="s">Send random 3-byte CT</text>
+  <rect x="360" y="295" width="120" height="30" rx="4" class="ln"/>
+  <text x="420" y="315" text-anchor="middle" class="s">Decrypt with key</text>
+  <rect x="520" y="295" width="120" height="30" rx="4" class="ln"/>
+  <text x="580" y="315" text-anchor="middle" class="s">~All valid orders</text>
+  <rect x="660" y="295" width="100" height="30" rx="4" fill="#E2557A"/>
+  <text x="710" y="315" text-anchor="middle" class="s" fill="#FFF7EC">Ship goods!</text>
+  <path d="M160 310 L200 310" class="bl" marker-end="url(#ab)"/>
+  <path d="M320 310 L360 310" class="bl" marker-end="url(#ab)"/>
+  <path d="M480 310 L520 310" class="bl" marker-end="url(#ab)"/>
+  <path d="M640 310 L660 310" class="bl" marker-end="url(#ab)"/>
+
+  <!-- Fix flow -->
+  <text x="400" y="362" text-anchor="middle" class="bg">Fix: 9-Zero Prefix + Timestamp</text>
+  <rect x="40" y="375" width="140" height="30" rx="4" class="ln"/>
+  <text x="110" y="395" text-anchor="middle" class="s">9 zero bytes required</text>
+  <rect x="220" y="375" width="140" height="30" rx="4" class="ln"/>
+  <text x="290" y="395" text-anchor="middle" class="s">Random CT fails (2^-72)</text>
+  <rect x="400" y="375" width="140" height="30" rx="4" class="ln"/>
+  <text x="470" y="395" text-anchor="middle" class="s">Timestamp in every msg</text>
+  <rect x="580" y="375" width="140" height="30" rx="4" fill="#E2557A"/>
+  <text x="650" y="395" text-anchor="middle" class="s" fill="#FFF7EC">Both attacks blocked</text>
+  <path d="M180 390 L220 390" class="bl" marker-end="url(#ab)"/>
+  <path d="M360 390 L400 390" class="bl" marker-end="url(#ab)"/>
+  <path d="M540 390 L580 390" class="bl" marker-end="url(#ab)"/>
+
+  <!-- Real protocol table -->
+  <text x="400" y="440" text-anchor="middle" class="bg">Real Protocols Implement Both</text>
+  <text x="100" y="465" class="m s">TLS 1.3: AEAD tag + seq nonce</text>
+  <text x="340" y="465" class="m s">Kerberos: ticket + timestamp</text>
+  <text x="560" y="465" class="m s">IPsec: ICV + replay window</text>
+  <text x="400" y="500" text-anchor="middle" class="s">Encryption without these two principles = locked door with no frame</text>
+
+  <defs><marker id="ab" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/></marker></defs>
+</svg>

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .lbl { font-size: 13px; }
+    .mono { font-family: monospace; font-size: 12px; }
+    .small { font-size: 11px; fill: #6b5560; }
+    .box { fill: #fff; stroke: #2A1A2E; stroke-width: 1.5; }
+    .accent { fill: #E2557A; }
+    .accentbox { fill: #fbe3ea; stroke: #E2557A; stroke-width: 1.5; }
+  </style>
+
+  <text x="30" y="38" class="title">ADSL data path: one IP packet to a row of 53-byte ATM cells</text>
+
+  <!-- Topology row -->
+  <g>
+    <rect x="30" y="62" width="120" height="44" rx="6" class="box"/>
+    <text x="90" y="82" text-anchor="middle" class="lbl">PC</text>
+    <text x="90" y="98" text-anchor="middle" class="small">IP / Ethernet</text>
+
+    <line x1="150" y1="84" x2="220" y2="84" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="185" y="78" text-anchor="middle" class="small">Ethernet</text>
+
+    <rect x="220" y="62" width="130" height="44" rx="6" class="box"/>
+    <text x="285" y="82" text-anchor="middle" class="lbl">DSL modem</text>
+    <text x="285" y="98" text-anchor="middle" class="small">home side</text>
+
+    <line x1="350" y1="84" x2="470" y2="84" stroke="#E2557A" stroke-width="3"/>
+    <text x="410" y="78" text-anchor="middle" class="small accent">ADSL local loop (DMT/OFDM)</text>
+
+    <rect x="470" y="62" width="140" height="44" rx="6" class="box"/>
+    <text x="540" y="82" text-anchor="middle" class="lbl">DSLAM</text>
+    <text x="540" y="98" text-anchor="middle" class="small">telco office</text>
+
+    <line x1="610" y1="84" x2="680" y2="84" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="680" y="62" width="120" height="44" rx="6" class="box"/>
+    <text x="740" y="82" text-anchor="middle" class="lbl">ISP / Internet</text>
+    <text x="740" y="98" text-anchor="middle" class="small">extracts IP</text>
+  </g>
+
+  <!-- Stack column -->
+  <text x="30" y="148" class="lbl" font-weight="700">Protocol stack over the loop</text>
+  <g>
+    <rect x="30" y="160" width="180" height="34" class="box"/><text x="120" y="182" text-anchor="middle" class="lbl">IP</text>
+    <rect x="30" y="196" width="180" height="34" class="box"/><text x="120" y="218" text-anchor="middle" class="lbl">PPP (PPPoA, RFC 2364)</text>
+    <rect x="30" y="232" width="180" height="34" class="accentbox"/><text x="120" y="254" text-anchor="middle" class="lbl">AAL5 trailer + CRC-32</text>
+    <rect x="30" y="268" width="180" height="34" class="box"/><text x="120" y="290" text-anchor="middle" class="lbl">ATM (53-byte cells)</text>
+    <rect x="30" y="304" width="180" height="34" class="box"/><text x="120" y="326" text-anchor="middle" class="lbl">ADSL phys: RS-FEC + CRC</text>
+  </g>
+
+  <!-- Encapsulation pipeline (100-byte example) -->
+  <text x="260" y="148" class="lbl" font-weight="700">Encapsulation of a 100-byte IP packet</text>
+
+  <!-- step 1: PPPoA -->
+  <text x="260" y="178" class="small">1. PPPoA payload = PPP Protocol (0x0021) + IP = 102 B</text>
+  <rect x="260" y="184" width="60" height="26" class="accentbox"/><text x="290" y="201" text-anchor="middle" class="mono">PPP</text>
+  <rect x="320" y="184" width="300" height="26" class="box"/><text x="470" y="201" text-anchor="middle" class="mono">IP packet (100 B)</text>
+
+  <!-- step 2: AAL5 -->
+  <text x="260" y="238" class="small">2. AAL5 frame = payload + PAD(34) + trailer(8) = 144 B  (= 3 x 48)</text>
+  <rect x="260" y="244" width="50" height="26" class="accentbox"/><text x="285" y="261" text-anchor="middle" class="mono">PPP</text>
+  <rect x="310" y="244" width="250" height="26" class="box"/><text x="435" y="261" text-anchor="middle" class="mono">IP (100 B)</text>
+  <rect x="560" y="244" width="60" height="26" class="box"/><text x="590" y="261" text-anchor="middle" class="mono">PAD 34</text>
+  <rect x="620" y="244" width="200" height="26" class="accentbox"/>
+  <text x="720" y="261" text-anchor="middle" class="mono">UU CPI Len=102 CRC32</text>
+
+  <!-- step 3: cells -->
+  <text x="260" y="298" class="small">3. Segment into 3 ATM cells: 5-byte header (VPI/VCI 8/35) + 48-byte payload</text>
+  <g>
+    <rect x="260" y="304" width="34" height="30" class="accentbox"/><text x="277" y="324" text-anchor="middle" class="mono">hdr</text>
+    <rect x="294" y="304" width="130" height="30" class="box"/><text x="359" y="324" text-anchor="middle" class="mono">payload 0..47</text>
+
+    <rect x="440" y="304" width="34" height="30" class="accentbox"/><text x="457" y="324" text-anchor="middle" class="mono">hdr</text>
+    <rect x="474" y="304" width="130" height="30" class="box"/><text x="539" y="324" text-anchor="middle" class="mono">payload 48..95</text>
+
+    <rect x="620" y="304" width="34" height="30" class="accentbox"/><text x="637" y="324" text-anchor="middle" class="mono">hdr</text>
+    <rect x="654" y="304" width="130" height="30" class="box"/><text x="719" y="324" text-anchor="middle" class="mono">96..143 (last)</text>
+  </g>
+
+  <!-- Numbers / takeaway -->
+  <rect x="30" y="366" width="840" height="80" rx="8" fill="#fbe3ea" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="50" y="392" class="lbl" font-weight="700">Cell tax</text>
+  <text x="50" y="414" class="lbl">3 cells x 53 B = 159 wire bytes for 100 useful IP bytes  ->  efficiency = 62.9%</text>
+  <text x="50" y="434" class="small">PPP flags and FCS are dropped: ATM/AAL5 already frame and check. AAL5 CRC-32 = same 0x04C11DB7 as Ethernet.</text>
+
+  <!-- Failure modes -->
+  <text x="30" y="478" class="lbl" font-weight="700">Where it breaks (sync up, no IP):</text>
+  <text x="30" y="500" class="small">- Wrong VPI/VCI -> cells never reach the AAL5 reassembler at the DSLAM.</text>
+  <text x="30" y="518" class="small">- AAL5 Length/CRC-32 mismatch in the trailer -> whole frame dropped, recovery left to TCP above.</text>
+  <text x="30" y="536" class="small">- DMT bit-loading collapse on noisy copper -> Reed-Solomon FEC exhausted, line retrains or loses sync.</text>
+</svg>

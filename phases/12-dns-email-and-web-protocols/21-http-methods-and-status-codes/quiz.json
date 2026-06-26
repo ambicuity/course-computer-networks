@@ -1,0 +1,35 @@
+[
+  {
+    "question": "According to RFC 7230, what does the response reason phrase (e.g., 'OK', 'Not Found') communicate to a client?",
+    "options": [
+      "A. The numeric code is optional if the reason phrase is present",
+      "B. It is human-readable decoration; clients MUST ignore it and branch on the numeric code",
+      "C. It must match the numeric code exactly or the response is malformed",
+      "D. It is mandatory and clients should display it verbatim"
+    ],
+    "answer": 1,
+    "explanation": "RFC 7230 §3.1.2 says the reason phrase is optional and clients should not parse it. Servers should still send one for human readers; clients branch on the numeric status code."
+  },
+  {
+    "question": "Which HTTP method is safe but not in the default idempotent set, or vice versa?",
+    "options": [
+      "A. GET is safe and idempotent; POST is neither",
+      "B. GET is safe but not idempotent",
+      "C. POST is safe but not idempotent",
+      "D. PUT is unsafe"
+    ],
+    "answer": 0,
+    "explanation": "GET is both safe (no side effects) and idempotent (repeating it has the same effect). POST is neither safe nor idempotent. PUT/DELETE are idempotent but not safe because they modify state."
+  },
+  {
+    "question": "A client receives 307 Temporary Redirect from POST /api/items. What does the next request look like?",
+    "options": [
+      "A. The client changes the method to GET and retries the new URL",
+      "B. The client retries the same method (POST) against the URL in the Location header",
+      "C. The client discards the request body and retries with HEAD",
+      "D. The client gives up; 307 is a fatal error"
+    ],
+    "answer": 1,
+    "explanation": "RFC 7231 §6.4.7 codifies 307: a temporary redirect that preserves the request method and body. The client retries POST against the Location header. This contrasts with 303, which requires switching to GET."
+  }
+]

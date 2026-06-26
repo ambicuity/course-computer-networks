@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-label="RTP header and RTCP Sender Report">
+  <defs>
+    <style>
+      .bg { fill: #FFF7EC; }
+      .ink { fill: #2A1A2E; }
+      .accent { fill: #E2557A; }
+      .stroke-ink { stroke: #2A1A2E; fill: none; stroke-width: 1.6; }
+      .stroke-accent { stroke: #E2557A; fill: none; stroke-width: 2.0; }
+      .stroke-dash { stroke: #2A1A2E; fill: none; stroke-width: 1.2; stroke-dasharray: 4 3; }
+      .label { font: 600 12px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+      .label-accent { font: 700 12px ui-sans-serif, system-ui, sans-serif; fill: #E2557A; }
+      .title { font: 700 22px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+      .sub { font: 500 11px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+      .mono { font: 500 11px ui-monospace, Menlo, monospace; fill: #2A1A2E; }
+      .small { font: 500 10px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="960" height="620"/>
+
+  <text class="title" x="36" y="44">RTP Header (RFC 3550) and RTCP Sender Report</text>
+  <text class="sub" x="36" y="64">12-byte RTP header + CSRCs; SR carries NTP/RTP timestamp pair for lip-sync + RTT</text>
+
+  <!-- Top half: RTP header -->
+  <g transform="translate(36, 92)">
+    <text class="label" x="0" y="0">RTP HEADER (12 BYTES FIXED, 32-BIT ALIGNED)</text>
+    <g transform="translate(0, 16)">
+      <rect class="stroke-ink" x="0"   y="0" width="40" height="48"/>
+      <text class="label" x="20"  y="20" text-anchor="middle">V=2</text>
+      <text class="small" x="20"  y="36" text-anchor="middle">2b</text>
+      <rect class="stroke-ink" x="40"  y="0" width="20" height="48"/>
+      <text class="label" x="50"  y="20" text-anchor="middle">P</text>
+      <text class="small" x="50"  y="36" text-anchor="middle">1b</text>
+      <rect class="stroke-ink" x="60"  y="0" width="20" height="48"/>
+      <text class="label" x="70"  y="20" text-anchor="middle">X</text>
+      <text class="small" x="70"  y="36" text-anchor="middle">1b</text>
+      <rect class="stroke-ink" x="80"  y="0" width="40" height="48"/>
+      <text class="label" x="100" y="20" text-anchor="middle">CC</text>
+      <text class="small" x="100" y="36" text-anchor="middle">4b</text>
+      <rect class="stroke-ink" x="120" y="0" width="20" height="48"/>
+      <text class="label" x="130" y="20" text-anchor="middle">M</text>
+      <text class="small" x="130" y="36" text-anchor="middle">1b</text>
+      <rect class="stroke-accent" x="140" y="0" width="80" height="48"/>
+      <text class="label-accent" x="180" y="20" text-anchor="middle">PT</text>
+      <text class="small" x="180" y="36" text-anchor="middle">7b codec</text>
+      <rect class="stroke-ink" x="220" y="0" width="120" height="48"/>
+      <text class="label" x="280" y="20" text-anchor="middle">Sequence</text>
+      <text class="small" x="280" y="36" text-anchor="middle">16b</text>
+      <rect class="stroke-ink" x="340" y="0" width="160" height="48"/>
+      <text class="label" x="420" y="20" text-anchor="middle">Timestamp</text>
+      <text class="small" x="420" y="36" text-anchor="middle">32b media clock</text>
+      <rect class="stroke-accent" x="500" y="0" width="200" height="48"/>
+      <text class="label-accent" x="600" y="20" text-anchor="middle">SSRC</text>
+      <text class="small" x="600" y="36" text-anchor="middle">32b random</text>
+
+      <rect class="stroke-dash" x="0" y="48" width="700" height="36"/>
+      <text class="label" x="350" y="68" text-anchor="middle">CSRC list (0-15 x 32b) - contributing sources</text>
+      <rect class="stroke-dash" x="0" y="84" width="700" height="36"/>
+      <text class="label" x="350" y="104" text-anchor="middle">Header extension (X=1) - profile/length/data</text>
+      <rect class="stroke-ink" x="0" y="120" width="700" height="36"/>
+      <text class="label" x="350" y="140" text-anchor="middle">Payload (variable, codec bytes)</text>
+    </g>
+  </g>
+
+  <!-- Bottom half: RTCP SR -->
+  <g transform="translate(36, 320)">
+    <text class="label" x="0" y="0">RTCP SENDER REPORT (PT=200, 28 BYTES FIXED + 24-B REPORT BLOCKS)</text>
+    <g transform="translate(0, 16)">
+      <rect class="stroke-ink" x="0"   y="0" width="80"  height="36"/>
+      <text class="label" x="40"  y="14" text-anchor="middle">V=2 P RC</text>
+      <text class="small" x="40"  y="28" text-anchor="middle">4 B</text>
+      <rect class="stroke-accent" x="80"  y="0" width="60" height="36"/>
+      <text class="label-accent" x="110" y="14" text-anchor="middle">PT=200</text>
+      <text class="small" x="110" y="28" text-anchor="middle">1 B</text>
+      <rect class="stroke-ink" x="140" y="0" width="80"  height="36"/>
+      <text class="label" x="180" y="14" text-anchor="middle">length</text>
+      <text class="small" x="180" y="28" text-anchor="middle">2 B</text>
+      <rect class="stroke-ink" x="220" y="0" width="120" height="36"/>
+      <text class="label" x="280" y="14" text-anchor="middle">SSRC of sender</text>
+      <text class="small" x="280" y="28" text-anchor="middle">4 B</text>
+      <rect class="stroke-accent" x="340" y="0" width="160" height="36"/>
+      <text class="label-accent" x="420" y="14" text-anchor="middle">NTP timestamp (hi)</text>
+      <text class="small" x="420" y="28" text-anchor="middle">4 B</text>
+      <rect class="stroke-accent" x="500" y="0" width="200" height="36"/>
+      <text class="label-accent" x="600" y="14" text-anchor="middle">NTP timestamp (lo)</text>
+      <text class="small" x="600" y="28" text-anchor="middle">4 B</text>
+
+      <rect class="stroke-ink" x="0"   y="36" width="160" height="36"/>
+      <text class="label" x="80"  y="50" text-anchor="middle">RTP timestamp</text>
+      <text class="small" x="80"  y="64" text-anchor="middle">4 B media clock</text>
+      <rect class="stroke-ink" x="160" y="36" width="120" height="36"/>
+      <text class="label" x="220" y="50" text-anchor="middle">packet count</text>
+      <text class="small" x="220" y="64" text-anchor="middle">4 B</text>
+      <rect class="stroke-ink" x="280" y="36" width="120" height="36"/>
+      <text class="label" x="340" y="50" text-anchor="middle">octet count</text>
+      <text class="small" x="340" y="64" text-anchor="middle">4 B</text>
+      <rect class="stroke-dash" x="400" y="36" width="300" height="36"/>
+      <text class="label" x="550" y="50" text-anchor="middle">SSRC | frac | cum_lost | ehs | jitter | LSR | DLSR</text>
+      <text class="small" x="550" y="64" text-anchor="middle">reception report block (24 B)</text>
+    </g>
+
+    <!-- PT table -->
+    <g transform="translate(0, 130)">
+      <rect class="stroke-ink" x="0" y="0" width="888" height="180"/>
+      <line class="stroke-ink" x1="0"   y1="30" x2="888" y2="30"/>
+      <line class="stroke-ink" x1="100" y1="0"  x2="100" y2="180"/>
+      <line class="stroke-ink" x1="220" y1="0"  x2="220" y2="180"/>
+
+      <text class="label" x="50"  y="20" text-anchor="middle">PT</text>
+      <text class="label" x="160" y="20" text-anchor="middle">RTCP</text>
+      <text class="label" x="554" y="20" text-anchor="middle">Purpose</text>
+
+      <text class="mono" x="14"  y="50">200</text>
+      <text class="mono" x="14"  y="74">201</text>
+      <text class="mono" x="14"  y="98">202</text>
+      <text class="mono" x="14"  y="122">203</text>
+      <text class="mono" x="14"  y="146">204</text>
+      <text class="mono" x="14"  y="170">96-127</text>
+
+      <text class="mono" x="110" y="50">SR</text>
+      <text class="mono" x="110" y="74">RR</text>
+      <text class="mono" x="110" y="98">SDES</text>
+      <text class="mono" x="110" y="122">BYE</text>
+      <text class="mono" x="110" y="146">APP</text>
+      <text class="mono" x="110" y="170">RTP dynamic</text>
+
+      <text class="mono" x="230" y="50">Sender Report: NTP/RTP + report blocks</text>
+      <text class="mono" x="230" y="74">Receiver Report: report blocks only</text>
+      <text class="mono" x="230" y="98">Source Description: CNAME, NAME, EMAIL, ...</text>
+      <text class="mono" x="230" y="122">End of participation</text>
+      <text class="mono" x="230" y="146">Application-defined packet</text>
+      <text class="mono" x="230" y="170">SDP-negotiated audio/video payload</text>
+    </g>
+  </g>
+</svg>

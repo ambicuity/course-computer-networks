@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">The Hybrid Reference Model</text>
+  <text x="380" y="56" text-anchor="middle" font-size="13" fill="#2A1A2E">OSI layering (minus Presentation &amp; Session) + TCP/IP protocols — five layers</text>
+
+  <!-- Faded dropped OSI layers -->
+  <g opacity="0.42">
+    <rect x="60" y="76" width="320" height="38" rx="5" fill="none" stroke="#2A1A2E" stroke-dasharray="4 4"/>
+    <text x="78" y="100" font-size="13" fill="#2A1A2E">L6  Presentation</text>
+    <text x="380" y="100" text-anchor="end" font-size="11" fill="#2A1A2E">dropped (HTTP Content-Type handles it)</text>
+
+    <rect x="60" y="120" width="320" height="38" rx="5" fill="none" stroke="#2A1A2E" stroke-dasharray="4 4"/>
+    <text x="78" y="144" font-size="13" fill="#2A1A2E">L5  Session</text>
+    <text x="380" y="144" text-anchor="end" font-size="11" fill="#2A1A2E">dropped (apps run their own dialog)</text>
+  </g>
+
+  <text x="220" y="174" text-anchor="middle" font-size="11" font-style="italic" fill="#E2557A">OSI layers folded into the application layer below</text>
+
+  <!-- Hybrid stack -->
+  <g font-size="14" fill="#2A1A2E">
+    <rect x="60" y="186" width="320" height="56" rx="6" fill="#E2557A" opacity="0.16" stroke="#2A1A2E"/>
+    <text x="78" y="210" font-weight="700">L5  Application</text>
+    <text x="78" y="230" font-size="11">user-facing protocols &amp; services</text>
+
+    <rect x="60" y="248" width="320" height="56" rx="6" fill="#E2557A" opacity="0.10" stroke="#2A1A2E"/>
+    <text x="78" y="272" font-weight="700">L4  Transport</text>
+    <text x="78" y="292" font-size="11">end-to-end delivery, reliability, flow control</text>
+
+    <rect x="60" y="310" width="320" height="56" rx="6" fill="#E2557A" opacity="0.10" stroke="#2A1A2E"/>
+    <text x="78" y="334" font-weight="700">L3  Network</text>
+    <text x="78" y="354" font-size="11">routing across many hops, congestion, QoS</text>
+
+    <rect x="60" y="372" width="320" height="56" rx="6" fill="#E2557A" opacity="0.10" stroke="#2A1A2E"/>
+    <text x="78" y="396" font-weight="700">L2  Link</text>
+    <text x="78" y="416" font-size="11">framing, error control, medium access (MAC)</text>
+
+    <rect x="60" y="434" width="320" height="56" rx="6" fill="#E2557A" opacity="0.10" stroke="#2A1A2E"/>
+    <text x="78" y="458" font-weight="700">L1  Physical</text>
+    <text x="78" y="478" font-size="11">bits as signals on a medium</text>
+  </g>
+
+  <line x1="400" y1="214" x2="430" y2="214" stroke="#2A1A2E"/>
+  <line x1="400" y1="276" x2="430" y2="276" stroke="#2A1A2E"/>
+  <line x1="400" y1="338" x2="430" y2="338" stroke="#2A1A2E"/>
+  <line x1="400" y1="400" x2="430" y2="400" stroke="#2A1A2E"/>
+  <line x1="400" y1="462" x2="430" y2="462" stroke="#2A1A2E"/>
+
+  <!-- Example protocols column -->
+  <g font-size="12" fill="#2A1A2E">
+    <text x="440" y="210" font-weight="600">HTTP, SMTP, DNS, RTP</text>
+    <text x="440" y="272" font-weight="600">TCP, UDP</text>
+    <text x="440" y="334" font-weight="600">IP, ICMP, routing</text>
+    <text x="440" y="396" font-weight="600">Ethernet, 802.11, DSL</text>
+    <text x="440" y="458" font-weight="600">fiber, SONET, PSTN, cable</text>
+  </g>
+
+  <!-- Unit conventions panel -->
+  <g>
+    <rect x="440" y="332" width="280" height="150" rx="6" fill="none" stroke="#2A1A2E"/>
+    <text x="452" y="352" font-size="13" font-weight="700" fill="#2A1A2E">Two prefix conventions</text>
+    <text x="452" y="374" font-size="11" fill="#2A1A2E">Line rate (decimal):</text>
+    <text x="612" y="374" font-size="11" fill="#E2557A" font-weight="600">kbps=10^3, Mbps=10^6 b/s</text>
+    <text x="452" y="392" font-size="11" fill="#2A1A2E">Storage (binary):</text>
+    <text x="612" y="392" font-size="11" fill="#E2557A" font-weight="600">KB=2^10, MB=2^20 bytes</text>
+    <text x="452" y="414" font-size="11" fill="#2A1A2E">lowercase b = bit</text>
+    <text x="612" y="414" font-size="11" fill="#2A1A2E">uppercase B = byte (8 b)</text>
+    <text x="452" y="442" font-size="11" fill="#2A1A2E">4 GB / 10 Mbps floor:</text>
+    <text x="612" y="442" font-size="11" fill="#E2557A" font-weight="600">~3436 s (~57.3 min)</text>
+    <text x="452" y="464" font-size="10" fill="#2A1A2E">never swap byte/bit or decimal/binary</text>
+  </g>
+
+  <text x="380" y="518" text-anchor="middle" font-size="11" fill="#2A1A2E">Chapters climb the stack: 2 Physical · 3–4 Link · 5 Network · 6 Transport · 7 Application · 8 Security</text>
+  <text x="380" y="538" text-anchor="middle" font-size="10" fill="#2A1A2E">Tanenbaum, Feamster &amp; Wetherall, Computer Networks 6/e — Fig. 1-23 hybrid model</text>
+</svg>

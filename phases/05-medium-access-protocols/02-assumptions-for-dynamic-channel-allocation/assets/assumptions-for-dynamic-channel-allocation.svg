@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="760" height="520">
+  <rect x="0" y="0" width="760" height="520" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 21px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5563; }
+    .lbl { font-size: 13px; font-weight: 600; }
+    .mono { font-family: ui-monospace, monospace; font-size: 12px; }
+    .small { font-size: 11px; fill: #6b5563; }
+  </style>
+
+  <text class="title" x="32" y="40">Five Assumptions: Slot Outcomes &amp; Vulnerable Period</text>
+  <text class="sub" x="32" y="60">One shared channel. A slot holds 0, 1, or &gt;=2 frames. Continuous time doubles the collision window.</text>
+
+  <!-- SLOTTED row -->
+  <text class="lbl" x="32" y="104">Slotted time — vulnerable period = 1 frame-time</text>
+  <line x1="32" y1="170" x2="600" y2="170" stroke="#2A1A2E" stroke-width="1.5"/>
+  <!-- slot boundaries -->
+  <g stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3" opacity="0.5">
+    <line x1="32" y1="116" x2="32" y2="172"/>
+    <line x1="127" y1="116" x2="127" y2="172"/>
+    <line x1="222" y1="116" x2="222" y2="172"/>
+    <line x1="317" y1="116" x2="317" y2="172"/>
+    <line x1="412" y1="116" x2="412" y2="172"/>
+    <line x1="507" y1="116" x2="507" y2="172"/>
+  </g>
+  <!-- idle slot -->
+  <text class="small" x="56" y="160">idle</text>
+  <text class="small" x="56" y="190">0 frames</text>
+  <!-- success slot -->
+  <rect x="129" y="124" width="91" height="44" rx="4" fill="#2A1A2E" opacity="0.12" stroke="#2A1A2E"/>
+  <text class="small" x="148" y="150">success</text>
+  <text class="small" x="151" y="190">1 frame</text>
+  <!-- collision slot (two overlapping) -->
+  <rect x="319" y="120" width="91" height="22" rx="4" fill="#E2557A" opacity="0.85"/>
+  <rect x="319" y="146" width="91" height="22" rx="4" fill="#E2557A" opacity="0.55"/>
+  <text class="small" x="333" y="190" fill="#E2557A" font-weight="700">collision &gt;=2</text>
+  <!-- success slot 2 -->
+  <rect x="414" y="124" width="91" height="44" rx="4" fill="#2A1A2E" opacity="0.12" stroke="#2A1A2E"/>
+  <text class="small" x="433" y="150">success</text>
+
+  <!-- PURE / continuous row -->
+  <text class="lbl" x="32" y="262">Continuous time — vulnerable period = 2 frame-times</text>
+  <line x1="32" y1="330" x2="600" y2="330" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- reference frame F -->
+  <rect x="250" y="300" width="120" height="30" rx="4" fill="#2A1A2E" opacity="0.12" stroke="#2A1A2E"/>
+  <text class="mono" x="295" y="320">frame F</text>
+
+  <!-- vulnerable window shading: one frame-time before start to one after start -->
+  <rect x="130" y="288" width="240" height="54" fill="#E2557A" opacity="0.14"/>
+  <line x1="130" y1="284" x2="130" y2="346" stroke="#E2557A" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="370" y1="284" x2="370" y2="346" stroke="#E2557A" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text class="small" x="158" y="372" fill="#E2557A" font-weight="700">vulnerable period = 2 t  (any start here destroys F)</text>
+
+  <!-- colliding frame starting late -->
+  <rect x="330" y="334" width="120" height="0" />
+  <line x1="370" y1="300" x2="370" y2="278" stroke="#E2557A" stroke-width="2"/>
+  <text class="small" x="378" y="276" fill="#E2557A">competing start</text>
+  <text class="mono" x="42" y="305">t-1</text>
+  <text class="mono" x="252" y="350" fill="#6b5563">F.start</text>
+
+  <!-- assumptions legend box -->
+  <rect x="32" y="398" width="696" height="98" rx="8" fill="#ffffff" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text class="lbl" x="48" y="420">The five assumptions</text>
+  <text class="mono" x="48" y="442">1  Independent Traffic   Poisson arrivals, rate lambda; station blocks per frame   [structural]</text>
+  <text class="mono" x="48" y="460">2  Single Channel        one shared medium, no side channel                        [structural]</text>
+  <text class="mono" x="48" y="478">3  Observable Collisions   4  Continuous/Slotted   5  Carrier Sense / none          [switches]</text>
+
+  <text class="small" x="630" y="170">channel</text>
+  <text class="small" x="630" y="330">channel</text>
+</svg>

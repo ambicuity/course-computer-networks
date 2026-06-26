@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: ui-monospace, Menlo, monospace; font-size: 11px; }
+    .accent { fill: #E2557A; }
+  </style>
+
+  <text class="title" x="32" y="40">Ethernet Performance &#8594; Fast Ethernet</text>
+  <text class="lbl" x="32" y="60" fill="#6A5A6E">Contention slot = round-trip 2&#964;; efficiency = 1 / (1 + 2BLe/cF)</text>
+
+  <!-- ===== Panel A: slot-vs-frame timeline ===== -->
+  <text class="sub" x="32" y="96">A. One contention + frame on the shared medium</text>
+
+  <!-- time axis -->
+  <line x1="40" y1="180" x2="700" y2="180" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="mono" x="660" y="200">time &#8594;</text>
+
+  <!-- contention slots (each = 2 tau) -->
+  <g>
+    <rect x="40"  y="150" width="46" height="30" fill="#E2557A" opacity="0.30" stroke="#E2557A"/>
+    <rect x="86"  y="150" width="46" height="30" fill="#E2557A" opacity="0.30" stroke="#E2557A"/>
+    <rect x="132" y="150" width="46" height="30" fill="#E2557A" opacity="0.30" stroke="#E2557A"/>
+    <text class="mono accent" x="58" y="143">slot</text>
+    <text class="mono accent" x="104" y="143">slot</text>
+    <text class="mono accent" x="150" y="143">slot</text>
+    <text class="lbl accent" x="40" y="222">contention &#8776; e &#183; 2&#964; (&#8804; 5.4&#964;)</text>
+  </g>
+
+  <!-- successful frame -->
+  <rect x="178" y="150" width="430" height="30" fill="#2A1A2E" opacity="0.85"/>
+  <text class="mono" x="350" y="170" fill="#FFF7EC">successful frame (P = F/B)</text>
+  <text class="lbl" x="178" y="222">useful time</text>
+
+  <!-- brace markers -->
+  <line x1="40" y1="135" x2="178" y2="135" stroke="#E2557A" stroke-width="1.2"/>
+  <line x1="178" y1="135" x2="608" y2="135" stroke="#2A1A2E" stroke-width="1.2"/>
+
+  <text class="mono" x="40" y="252">one slot = 2&#964; = 512 bits = 64 B (min frame) @ 10 Mbps</text>
+
+  <!-- ===== Panel B: efficiency curve ===== -->
+  <text class="sub" x="32" y="300">B. Channel efficiency vs frame size (10 Mbps, full diameter)</text>
+
+  <!-- axes -->
+  <line x1="80" y1="500" x2="420" y2="500" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="80" y1="500" x2="80" y2="330" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="lbl" x="180" y="525">frame size (bytes) &#8594;</text>
+  <text class="lbl" x="20" y="345">eff%</text>
+  <text class="mono" x="58" y="335">100</text>
+  <text class="mono" x="64" y="503">0</text>
+
+  <!-- gridline 85% -->
+  <line x1="80" y1="355" x2="420" y2="355" stroke="#6A5A6E" stroke-width="0.5" stroke-dasharray="3 3"/>
+  <text class="mono" x="58" y="358">85</text>
+
+  <!-- curve: 64->27, 256->60, 512->75, 1024->85  (y = 500 - eff*1.7) -->
+  <polyline points="100,454 180,398 260,373 400,355" fill="none" stroke="#E2557A" stroke-width="2.5"/>
+  <circle cx="100" cy="454" r="4" fill="#E2557A"/>
+  <circle cx="180" cy="398" r="4" fill="#E2557A"/>
+  <circle cx="260" cy="373" r="4" fill="#E2557A"/>
+  <circle cx="400" cy="355" r="4" fill="#E2557A"/>
+  <text class="mono" x="92"  y="448">64&#8594;27%</text>
+  <text class="mono" x="168" y="392">256&#8594;60%</text>
+  <text class="mono" x="252" y="367">512&#8594;75%</text>
+  <text class="mono" x="372" y="349">1024&#8594;85%</text>
+
+  <!-- ===== Panel C: hub vs switch + Fast Ethernet ===== -->
+  <text class="sub" x="460" y="300">C. Fix the medium</text>
+
+  <rect x="460" y="318" width="270" height="74" rx="6" fill="#FFFFFF" stroke="#2A1A2E"/>
+  <text class="lbl" x="472" y="338"><tspan class="accent" font-weight="700">HUB</tspan>: 1 collision domain, CSMA/CD,</text>
+  <text class="lbl" x="472" y="356">  shares fixed capacity (= old coax)</text>
+  <text class="lbl" x="472" y="378"><tspan class="accent" font-weight="700">SWITCH</tspan>: 1 domain/port, full duplex,</text>
+  <text class="lbl" x="472" y="386">  no CSMA/CD, frames in parallel</text>
+
+  <rect x="460" y="402" width="270" height="98" rx="6" fill="#FFFFFF" stroke="#E2557A"/>
+  <text class="sub accent" x="472" y="422">Fast Ethernet &#183; 802.3u (1995)</text>
+  <text class="lbl" x="472" y="442">bit time 100 ns &#8594; 10 ns</text>
+  <text class="lbl" x="472" y="460">diameter 2500 m &#8594; ~250 m</text>
+  <text class="lbl" x="472" y="478">frame format unchanged</text>
+  <text class="mono" x="472" y="495">TX: Cat5 / 2 pr / 4B5B / full</text>
+
+  <text class="lbl" x="32" y="548" fill="#6A5A6E">Late collisions + FCS errors + runts on one side only &#8594; duplex mismatch.</text>
+</svg>

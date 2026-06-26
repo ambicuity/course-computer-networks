@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 600" width="860" height="600">
+  <style>
+    text { font-family: 'Inter', system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; fill: #E2557A; }
+    .field { font-size: 12px; font-weight: 600; }
+    .size { font-size: 10.5px; font-family: monospace; fill: #6b4a5e; }
+    .note { font-size: 11px; fill: #4a3a4e; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.4; }
+    .accent { fill: #FBE3EA; stroke: #E2557A; stroke-width: 1.6; }
+    .state { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.6; }
+    .estate { fill: #FBE3EA; stroke: #E2557A; stroke-width: 1.8; }
+    .arrow { stroke: #2A1A2E; stroke-width: 1.6; fill: none; }
+    .earrow { stroke: #E2557A; stroke-width: 1.8; fill: none; }
+  </style>
+  <rect x="0" y="0" width="860" height="600" fill="#FFF7EC"/>
+
+  <text class="title" x="30" y="38">Classic Ethernet: Frame Format + CSMA/CD Backoff</text>
+  <text class="note" x="30" y="58">IEEE 802.3 / DIX  ·  10 Mbps  ·  Manchester coded  ·  shared coax</text>
+
+  <!-- ============ FRAME LAYOUT ============ -->
+  <text class="sub" x="30" y="92">Frame layout (bytes, transmission order)</text>
+
+  <!-- field boxes -->
+  <g>
+    <rect class="accent" x="30"  y="104" width="92"  height="48"/>
+    <text class="field" x="76"  y="128" text-anchor="middle">Preamble</text>
+    <text class="size"  x="76"  y="143" text-anchor="middle">7 B (0xAA)</text>
+
+    <rect class="accent" x="122" y="104" width="48"  height="48"/>
+    <text class="field" x="146" y="125" text-anchor="middle">SFD</text>
+    <text class="size"  x="146" y="143" text-anchor="middle">1B AB</text>
+
+    <rect class="box" x="170" y="104" width="84"  height="48"/>
+    <text class="field" x="212" y="125" text-anchor="middle">Dest addr</text>
+    <text class="size"  x="212" y="143" text-anchor="middle">6 B</text>
+
+    <rect class="box" x="254" y="104" width="84"  height="48"/>
+    <text class="field" x="296" y="125" text-anchor="middle">Src addr</text>
+    <text class="size"  x="296" y="143" text-anchor="middle">6 B</text>
+
+    <rect class="box" x="338" y="104" width="92"  height="48"/>
+    <text class="field" x="384" y="120" text-anchor="middle">Type /</text>
+    <text class="field" x="384" y="134" text-anchor="middle">Length</text>
+    <text class="size"  x="384" y="148" text-anchor="middle">2 B</text>
+
+    <rect class="box" x="430" y="104" width="150" height="48"/>
+    <text class="field" x="505" y="125" text-anchor="middle">Data</text>
+    <text class="size"  x="505" y="143" text-anchor="middle">0-1500 B</text>
+
+    <rect class="box" x="580" y="104" width="86"  height="48"/>
+    <text class="field" x="623" y="125" text-anchor="middle">Pad</text>
+    <text class="size"  x="623" y="143" text-anchor="middle">0-46 B</text>
+
+    <rect class="accent" x="666" y="104" width="84"  height="48"/>
+    <text class="field" x="708" y="125" text-anchor="middle">CRC-32</text>
+    <text class="size"  x="708" y="143" text-anchor="middle">4 B</text>
+  </g>
+
+  <!-- 64-byte minimum bracket -->
+  <line class="earrow" x1="170" y1="166" x2="750" y2="166"/>
+  <line class="earrow" x1="170" y1="160" x2="170" y2="172"/>
+  <line class="earrow" x1="750" y1="160" x2="750" y2="172"/>
+  <text class="note" x="460" y="184" text-anchor="middle" fill="#E2557A">minimum frame = 64 bytes (Dest..CRC) = slot time = 512 bit-times</text>
+
+  <!-- ============ DERIVATION ============ -->
+  <text class="sub" x="30" y="220">Why 64 bytes? The physical geometry sets it</text>
+  <rect class="box" x="30" y="232" width="375" height="120"/>
+  <text class="mono" x="46" y="258">2&#964; round trip = ~50 &#181;s (2500 m, &#8804;4 reps)</text>
+  <text class="mono" x="46" y="282">bit time @10 Mbps = 100 ns</text>
+  <text class="mono" x="46" y="306">50 &#181;s / 100 ns = 500 bits</text>
+  <text class="mono" x="46" y="334" fill="#E2557A">round up &#8594; 512 bits = 64 B = 51.2 &#181;s slot</text>
+
+  <!-- Type vs Length note -->
+  <rect class="box" x="425" y="232" width="405" height="120"/>
+  <text class="field" x="442" y="256">Type / Length field (the 0x600 rule, IEEE 1997)</text>
+  <text class="mono" x="442" y="282">&#8804; 0x600 (1536) &#8594; Length (802.3)</text>
+  <text class="mono" x="442" y="306">&gt; 0x600 &#8594; Type (DIX): 0800 IPv4, 0806 ARP</text>
+  <text class="note" x="442" y="334" fill="#E2557A">Dest 1st TX bit: 0=unicast 1=group; all-1s=broadcast</text>
+
+  <!-- ============ STATE MACHINE ============ -->
+  <text class="sub" x="30" y="394">CSMA/CD with binary exponential backoff</text>
+
+  <!-- states -->
+  <ellipse class="state" cx="115" cy="460" rx="62" ry="34"/>
+  <text class="field" x="115" y="456" text-anchor="middle">Sense</text>
+  <text class="note"  x="115" y="472" text-anchor="middle">wait idle</text>
+
+  <ellipse class="state" cx="320" cy="460" rx="68" ry="34"/>
+  <text class="field" x="320" y="456" text-anchor="middle">Transmit</text>
+  <text class="note"  x="320" y="472" text-anchor="middle">1-persistent</text>
+
+  <ellipse class="estate" cx="320" cy="556" rx="74" ry="32"/>
+  <text class="field" x="320" y="552" text-anchor="middle">Collision!</text>
+  <text class="note"  x="320" y="568" text-anchor="middle">48-bit jam burst</text>
+
+  <ellipse class="estate" cx="555" cy="556" rx="92" ry="32"/>
+  <text class="field" x="555" y="552" text-anchor="middle">Backoff</text>
+  <text class="note"  x="555" y="568" text-anchor="middle">wait k slots, k++</text>
+
+  <ellipse class="state" cx="730" cy="460" rx="62" ry="34"/>
+  <text class="field" x="730" y="456" text-anchor="middle">Done</text>
+  <text class="note"  x="730" y="472" text-anchor="middle">no ACK</text>
+
+  <!-- arrows -->
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="ahe" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <line class="arrow" x1="177" y1="460" x2="248" y2="460" marker-end="url(#ah)"/>
+  <text class="note" x="212" y="450" text-anchor="middle">idle</text>
+
+  <line class="arrow" x1="388" y1="460" x2="666" y2="460" marker-end="url(#ah)"/>
+  <text class="note" x="525" y="450" text-anchor="middle">no collision</text>
+
+  <line class="earrow" x1="320" y1="494" x2="320" y2="522" marker-end="url(#ahe)"/>
+  <line class="earrow" x1="394" y1="556" x2="461" y2="556" marker-end="url(#ahe)"/>
+
+  <!-- backoff back to sense -->
+  <path class="earrow" d="M555,524 C555,420 250,400 130,426" marker-end="url(#ahe)"/>
+  <text class="note" x="430" y="408" text-anchor="middle" fill="#E2557A">retry: random delay in [0, 2^min(k,10)-1] slots</text>
+
+  <text class="note" x="555" y="596" text-anchor="middle">freeze window at 1023 slots (k&#8805;10) &#183; give up after 16 collisions</text>
+</svg>

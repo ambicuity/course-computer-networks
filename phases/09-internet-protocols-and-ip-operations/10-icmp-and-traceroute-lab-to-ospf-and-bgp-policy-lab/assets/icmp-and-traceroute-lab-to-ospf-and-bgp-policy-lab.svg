@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540">
+  <rect width="880" height="540" fill="#FFF7EC"/>
+  <style>
+    .ink { fill:#2A1A2E; font-family:Inter, ui-sans-serif, system-ui, sans-serif; }
+    .berry { fill:#E2557A; }
+    .stroke-ink { stroke:#2A1A2E; fill:none; }
+    .mono { font-family: ui-monospace, Menlo, Consolas, monospace; fill:#2A1A2E; }
+    .small { font-size:11px; }
+    .sec { font-size:18px; font-weight:700; }
+  </style>
+  <text x="440" y="32" text-anchor="middle" class="ink sec">Integrative lab: ICMP/Traceroute · OSPF · BGP policy</text>
+
+  <!-- Traceroute columns -->
+  <text x="40" y="64" class="ink sec">traceroute: probe TTL k, read ICMP TIME EXCEEDED (type 11)</text>
+  <g class="mono small">
+    <text x="40" y="90" class="ink">host ─TTL 1─→ R1 ─back─ ICMP TE → host learns R1</text>
+    <text x="40" y="108" class="ink">host ─TTL 2─→ R2 ─back─ ICMP TE → host learns R2</text>
+    <text x="40" y="126" class="ink">host ─TTL 3─→ R3 → ICMP ECHO REPLY (reached)</text>
+    <text x="40" y="152" class="ink">traceroute -I  (ICMP probe)  some firewalls drop</text>
+    <text x="40" y="170" class="ink">traceroute -U  (UDP probe)   default; some paths drop UDP</text>
+    <text x="40" y="188" class="ink">tcptraceroute -T -p 80       bypasses UDP/ICMP filters</text>
+    <text x="40" y="216" fill="#E2557A">Asterisks in column k ≠ lost data traffic — only lost probes.</text>
+  </g>
+
+  <!-- OSPF cost flip -->
+  <text x="500" y="64" class="ink sec">OSPF cost flip → blackhole, then recover</text>
+  <g class="mono small">
+    <text x="500" y="90" class="ink">add cost 65535 on R1→R2 → SPF recomputes (≈30s)</text>
+    <text x="500" y="108" class="ink"> During recompute: traffic to R2-hosts drops</text>
+    <text x="500" y="126" class="ink">Trace shows hop 2 missing during outage, then rerouted via R3</text>
+    <text x="500" y="152" class="ink">Recovery time ≈ HELLO dead (40s) + SPF delay (5s) + FIB</text>
+  </g>
+
+  <!-- BGP policy -->
+  <text x="40" y="280" class="ink sec">BGP policy: hot-potato on LOCAL_PREF</text>
+  <g class="mono small">
+    <text x="40" y="306" class="ink">border R1: LOCAL_PREF 200 (route-map on inbound Cust-A)</text>
+    <text x="40" y="324" class="ink">border R2: LOCAL_PREF 150 (default)</text>
+    <text x="40" y="342" class="ink">→ all AS-egress picks R1 — even if R2 is physically closer</text>
+    <text x="40" y="368" class="ink">Prefix hijack: announce /24 with shorter AS_PATH than owner</text>
+    <text x="40" y="386" class="ink">  Confirm via RADB/IRR — published route ≠ received route</text>
+  </g>
+
+  <!-- Artifact deliverable -->
+  <text x="40" y="440" class="ink sec">Lab artifacts</text>
+  <g class="mono small">
+    <text x="40" y="466" class="ink">1. traceroute before/after an OSPF cost flip</text>
+    <text x="40" y="484" class="ink">2. tcpdump on border showing hot-potato exit changing</text>
+    <text x="40" y="502" class="ink">3. AS_PATH of received /24 vs IRR/RADB published</text>
+    <text x="40" y="520" class="ink" fill="#E2557A">4. one-page runbook "is it OSPF or is it BGP?"</text>
+  </g>
+</svg>

@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" width="900" height="540" font-family="ui-monospace,Menlo,monospace">
+  <rect width="900" height="540" fill="#FFF7EC"/>
+  <text x="450" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#2A1A2E">Blue / Green / Canary Cutover with Auto Rollback</text>
+  <text x="450" y="46" text-anchor="middle" font-size="11" fill="#2A1A2E">Weighted shift 1% to 100% green; SloGate aborts on 5s windowed 5xx &gt; 1.0%</text>
+
+  <!-- Clients -->
+  <rect x="30" y="80" width="120" height="56" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="90" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Clients</text>
+  <text x="90" y="122" text-anchor="middle" font-size="10" fill="#2A1A2E">synthetic RPS</text>
+
+  <!-- LB -->
+  <rect x="200" y="70" width="170" height="80" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="285" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Weighted Load Balancer</text>
+  <text x="285" y="110" text-anchor="middle" font-size="10" fill="#2A1A2E">NGINX / Envoy / HAProxy</text>
+  <text x="285" y="126" text-anchor="middle" font-size="10" fill="#E2557A">canary: 1 / 5 / 25 / 50 / 100</text>
+  <text x="285" y="140" text-anchor="middle" font-size="10" fill="#2A1A2E">session cookie hash</text>
+
+  <line x1="150" y1="108" x2="200" y2="108" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="175" y="103" text-anchor="middle" font-size="9" fill="#2A1A2E">HTTPS</text>
+
+  <!-- BLUE pool -->
+  <rect x="410" y="60" width="180" height="110" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <rect x="410" y="60" width="180" height="20" rx="6" fill="#2A1A2E"/>
+  <text x="500" y="75" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">BLUE (current v1)</text>
+  <rect x="425" y="90" width="68" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="459" y="108" text-anchor="middle" font-size="10" fill="#2A1A2E">edge-b-1a</text>
+  <rect x="505" y="90" width="68" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="539" y="108" text-anchor="middle" font-size="10" fill="#2A1A2E">edge-b-1b</text>
+  <rect x="425" y="128" width="68" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="459" y="146" text-anchor="middle" font-size="10" fill="#2A1A2E">edge-b-1c</text>
+  <rect x="505" y="128" width="68" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="539" y="146" text-anchor="middle" font-size="10" fill="#2A1A2E">edge-b-1d</text>
+
+  <!-- GREEN pool -->
+  <rect x="660" y="60" width="180" height="110" rx="8" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+  <rect x="660" y="60" width="180" height="20" rx="6" fill="#E2557A"/>
+  <text x="750" y="75" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">GREEN (candidate v2)</text>
+  <rect x="675" y="90" width="68" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="709" y="108" text-anchor="middle" font-size="10" fill="#2A1A2E">edge-g-2a</text>
+  <rect x="755" y="90" width="68" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="789" y="108" text-anchor="middle" font-size="10" fill="#2A1A2E">edge-g-2b</text>
+  <rect x="675" y="128" width="68" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="709" y="146" text-anchor="middle" font-size="10" fill="#2A1A2E">edge-g-2c</text>
+  <rect x="755" y="128" width="68" height="28" rx="4" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="789" y="146" text-anchor="middle" font-size="10" fill="#2A1A2E">edge-g-2d</text>
+
+  <line x1="370" y1="100" x2="410" y2="100" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="390" y="94" text-anchor="middle" font-size="9" fill="#2A1A2E">~99%</text>
+  <line x1="370" y1="140" x2="410" y2="140" stroke="#E2557A" stroke-width="1.8" stroke-dasharray="4 3"/>
+  <text x="390" y="134" text-anchor="middle" font-size="9" fill="#E2557A">canary 1-5%</text>
+  <line x1="370" y1="118" x2="660" y2="118" stroke="#E2557A" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="510" y="112" text-anchor="middle" font-size="9" fill="#E2557A">canary ramp 1% to 100%</text>
+
+  <!-- SloGate -->
+  <rect x="200" y="200" width="380" height="80" rx="8" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+  <text x="390" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#E2557A">SloGate Controller (auto rollback)</text>
+  <text x="390" y="240" text-anchor="middle" font-size="10" fill="#2A1A2E">5s sliding window, 5xx &gt; 1.0% burns budget -&gt; weight -&gt; 0%</text>
+  <text x="390" y="256" text-anchor="middle" font-size="10" fill="#2A1A2E">3 consecutive failed /healthz checks -&gt; immediate abort</text>
+  <text x="390" y="272" text-anchor="middle" font-size="10" fill="#2A1A2E">min_requests = 50 warmup guard before SLO enforcement</text>
+
+  <line x1="285" y1="150" x2="285" y2="200" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <line x1="390" y1="280" x2="390" y2="310" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="400" y="298" font-size="9" fill="#2A1A2E">weight control</text>
+
+  <!-- Rollback arrow -->
+  <path d="M 200 340 C 200 380, 580 380, 580 340" fill="none" stroke="#E2557A" stroke-width="2" marker-end="url(#a)"/>
+  <text x="390" y="396" text-anchor="middle" font-size="11" font-weight="700" fill="#E2557A">ROLLBACK - green weight 0%, blue serves 100%</text>
+
+  <!-- Runbook + Observability cards -->
+  <rect x="30" y="330" width="155" height="100" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="108" y="350" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Change Mgmt</text>
+  <text x="108" y="368" text-anchor="middle" font-size="9" fill="#2A1A2E">CHG ticket + CAB</text>
+  <text x="108" y="382" text-anchor="middle" font-size="9" fill="#2A1A2E">ServiceNow / Jira</text>
+  <text x="108" y="396" text-anchor="middle" font-size="9" fill="#2A1A2E">PagerDuty freeze</text>
+  <text x="108" y="410" text-anchor="middle" font-size="9" fill="#2A1A2E">maint. window</text>
+
+  <rect x="610" y="330" width="155" height="100" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="688" y="350" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Fallback Ops</text>
+  <text x="688" y="368" text-anchor="middle" font-size="9" fill="#2A1A2E">iptables drain</text>
+  <text x="688" y="382" text-anchor="middle" font-size="9" fill="#2A1A2E">BGP MED withdraw</text>
+  <text x="688" y="396" text-anchor="middle" font-size="9" fill="#2A1A2E">DNS weight &gt; 0</text>
+  <text x="688" y="410" text-anchor="middle" font-size="9" fill="#2A1A2E">conn-drain 30s</text>
+
+  <rect x="780" y="330" width="80" height="100" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="820" y="350" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Obs.</text>
+  <text x="820" y="368" text-anchor="middle" font-size="9" fill="#2A1A2E">Prom</text>
+  <text x="820" y="382" text-anchor="middle" font-size="9" fill="#2A1A2E">Grafana</text>
+  <text x="820" y="396" text-anchor="middle" font-size="9" fill="#2A1A2E">DD SLO</text>
+  <text x="820" y="410" text-anchor="middle" font-size="9" fill="#2A1A2E">tracing</text>
+
+  <rect x="30" y="445" width="830" height="80" rx="6" fill="none" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="45" y="465" font-size="11" font-weight="700" fill="#2A1A2E">Validation matrix (rehearsed in staging the week before)</text>
+  <text x="45" y="485" font-size="9" fill="#2A1A2E">synthetic 200 on /healthz (3 consecutive)</text>
+  <text x="320" y="485" font-size="9" fill="#2A1A2E">5xx &lt; 0.5% over 5s window at prod RPS</text>
+  <text x="600" y="485" font-size="9" fill="#2A1A2E">p50/p95 latency within 10% of blue</text>
+  <text x="45" y="502" font-size="9" fill="#2A1A2E">BGP session Established (Cisco IOS-XE / Junos)</text>
+  <text x="320" y="502" font-size="9" fill="#2A1A2E">ECMP hash has both blue and green next-hops</text>
+  <text x="600" y="502" font-size="9" fill="#2A1A2E">conn-drain 30s on LB (NGINX drain directive)</text>
+  <text x="45" y="519" font-size="9" fill="#2A1A2E">rollback script returns blue to 100% in &lt; 30s (rehearsed)</text>
+  <text x="450" y="519" font-size="9" fill="#2A1A2E">iptables fallback applied/removed in &lt; 1s</text>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

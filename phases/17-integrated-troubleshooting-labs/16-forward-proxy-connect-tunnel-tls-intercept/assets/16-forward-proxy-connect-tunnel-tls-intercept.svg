@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">Forward Proxy CONNECT and TLS Interception</text>
+  <text x="40" y="68" class="sub">Tunnel mode = passthrough; MITM mode = corporate CA in the leaf cert chain</text>
+
+  <rect x="40" y="120" width="160" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="120" y="150" text-anchor="middle" class="node">Browser</text>
+  <text x="120" y="172" text-anchor="middle" class="mono">10.0.0.42</text>
+  <text x="120" y="194" text-anchor="middle" class="label">https://api.partner.example</text>
+
+  <rect x="380" y="120" width="160" height="160" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="460" y="150" text-anchor="middle" class="node">Proxy</text>
+  <text x="460" y="172" text-anchor="middle" class="mono">proxy.corp.example</text>
+  <text x="460" y="192" text-anchor="middle" class="mono">:3128</text>
+  <text x="460" y="212" text-anchor="middle" class="label">CONNECT api.partner.example:443</text>
+  <text x="460" y="232" text-anchor="middle" class="label">HTTP/1.1 200 Connection Established</text>
+  <text x="460" y="252" text-anchor="middle" class="label accent">tunnel byte-pump or MITM</text>
+
+  <rect x="720" y="120" width="160" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="800" y="150" text-anchor="middle" class="node">Origin</text>
+  <text x="800" y="172" text-anchor="middle" class="mono">198.51.100.10</text>
+  <text x="800" y="194" text-anchor="middle" class="label">api.partner.example</text>
+
+  <line x1="200" y1="170" x2="380" y2="180" stroke="#2A1A2E" stroke-width="2.5"/>
+  <text x="290" y="166" text-anchor="middle" class="label">CONNECT (plaintext HTTP/1.1)</text>
+
+  <line x1="540" y1="200" x2="720" y2="170" stroke="#2A1A2E" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <text x="630" y="186" text-anchor="middle" class="label">TCP tunnel to origin</text>
+
+  <rect x="40" y="320" width="840" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="348" class="node">openssl s_client -proxy proxy.corp.example:3128 -connect api.partner.example:443</text>
+
+  <text x="60" y="378" class="mono">Tunnel mode (passthrough):</text>
+  <text x="60" y="398" class="mono">  0 s:CN = api.partner.example</text>
+  <text x="60" y="414" class="mono">    i:CN = DigiCert Global G2     &lt;-- public CA</text>
+  <text x="60" y="434" class="mono">  1 s:CN = DigiCert Global G2</text>
+  <text x="60" y="450" class="mono">    i:CN = DigiCert Root CA</text>
+
+  <text x="60" y="476" class="mono accent">MITM mode (interception):</text>
+  <text x="60" y="492" class="mono">  0 s:CN = api.partner.example</text>
+  <text x="60" y="508" class="mono accent">    i:CN = Corp Internal Sub-CA   &lt;-- corporate CA, no name constraints</text>
+  <text x="60" y="524" class="mono">  1 s:CN = Corp Internal Sub-CA, O = Corp</text>
+</svg>

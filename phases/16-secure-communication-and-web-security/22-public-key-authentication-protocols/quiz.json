@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why does mutual challenge-response use two independent nonces (R_A from Alice, R_B from Bob) instead of one?",
+    "options": [
+      "A. Two nonces fit into the RSA signature; one does not",
+      "B. With only one nonce, an attacker can mount a reflection attack by replaying Alice's challenge back to Alice; two independent nonces bind each signature to a specific peer",
+      "C. RFC 5246 mandates two nonces for TLS 1.2 only",
+      "D. Two nonces provide forward secrecy"
+    ],
+    "answer": 1,
+    "explanation": "With a single nonce, Trudy opens a connection to Alice, captures her challenge response, then opens a connection to Alice pretending to be Bob and replays the captured response. Alice authenticates herself to herself. Two independent nonces, each included in both signatures, defeat reflection: Bob's R_B is bound into Alice's signature and only Bob (the holder of R_B) can verify it."
+  },
+  {
+    "question": "In TLS 1.3 mutual authentication (RFC 8446 §4.4.3), what exactly is signed in the CertificateVerify message?",
+    "options": [
+      "A. Only the server's nonce",
+      "B. The SHA-256 hash of the entire handshake transcript, prefixed with 64 zero bytes and a context-specific ASCII string",
+      "C. The client's IP address and timestamp",
+      "D. The symmetric session key derived from the ECDHE exchange"
+    ],
+    "answer": 1,
+    "explanation": "TLS 1.3 CertificateVerify signs 64 zero bytes || context string (e.g. 'TLS 1.3, client CertificateVerify\\x00') || SHA-256(transcript). The transcript hash covers every ClientHello, ServerHello, Finished, and extension byte. Any downgrade attempt that rewrites a negotiated algorithm, cipher suite, or extension invalidates both signatures."
+  },
+  {
+    "question": "What property does TOFU (Trust On First Use) provide in SSH publickey authentication?",
+    "options": [
+      "A. The server authenticates itself via a one-time password",
+      "B. The client pins the server's public key fingerprint on first connect and rejects any future connection presenting a different key for the same hostname",
+      "C. The session key is generated from a password",
+      "D. The connection is encrypted but the server is not authenticated"
+    ],
+    "answer": 1,
+    "explanation": "On first connection to a host, the SSH client accepts whatever key the server presents, saves its fingerprint to known_hosts, and from then on refuses to connect if the host presents a different key. This trades PKI for an out-of-band fingerprint comparison the first time, and provides effective MITM protection afterward as long as the first connect was not itself attacked."
+  }
+]

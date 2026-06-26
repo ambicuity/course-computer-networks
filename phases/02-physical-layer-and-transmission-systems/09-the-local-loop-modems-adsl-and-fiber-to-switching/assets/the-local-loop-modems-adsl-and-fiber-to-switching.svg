@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .box { fill: #FFF7EC; stroke: #2A1A2E; stroke-width: 1.5; }
+    .abox { fill: #FFF7EC; stroke: #E2557A; stroke-width: 2; }
+    .ln { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+    .aln { stroke: #E2557A; stroke-width: 2; fill: none; }
+  </style>
+
+  <text x="30" y="34" class="title">The Local Loop: ADSL/DMT spectrum and the equipment path</text>
+
+  <!-- ===== TOP: DMT spectrum ===== -->
+  <text x="30" y="68" class="sub">ADSL DMT spectrum: 256 channels &#215; 4312.5 Hz over ~1.1 MHz</text>
+
+  <!-- axis -->
+  <line x1="60" y1="180" x2="780" y2="180" class="ln"/>
+  <text x="788" y="184" class="lbl">kHz</text>
+
+  <!-- POTS channel 0 -->
+  <rect x="60" y="150" width="20" height="30" class="abox"/>
+  <text x="70" y="200" class="lbl" text-anchor="middle">POTS</text>
+  <text x="70" y="214" class="mono" text-anchor="middle">ch0</text>
+
+  <!-- guard 1-5 -->
+  <rect x="80" y="158" width="26" height="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="93" y="232" class="mono" text-anchor="middle">ch1-5</text>
+  <text x="93" y="246" class="mono" text-anchor="middle">guard</text>
+
+  <!-- upstream band -->
+  <rect x="106" y="120" width="120" height="60" class="box"/>
+  <text x="166" y="200" class="lbl" text-anchor="middle">Upstream</text>
+  <text x="166" y="214" class="mono" text-anchor="middle">~32 ch</text>
+
+  <!-- downstream band -->
+  <rect x="226" y="90" width="554" height="90" class="box"/>
+  <text x="503" y="200" class="lbl" text-anchor="middle">Downstream (most channels &#8594; the "A" in ADSL)</text>
+
+  <!-- per-channel bit-loading sketch (bars shrink with frequency) -->
+  <g class="accent">
+    <rect x="240" y="120" width="8" height="60" opacity="0.85"/>
+    <rect x="300" y="124" width="8" height="56" opacity="0.85"/>
+    <rect x="380" y="132" width="8" height="48" opacity="0.85"/>
+    <rect x="470" y="142" width="8" height="38" opacity="0.85"/>
+    <rect x="560" y="152" width="8" height="28" opacity="0.85"/>
+    <rect x="650" y="164" width="8" height="16" opacity="0.85"/>
+    <rect x="720" y="174" width="8" height="6" opacity="0.85"/>
+  </g>
+  <text x="240" y="84" class="mono accent">15 b/sym</text>
+  <text x="688" y="84" class="mono accent">2&#8594;0 b/sym (attenuated)</text>
+
+  <text x="60" y="262" class="mono">0</text>
+  <text x="160" y="262" class="mono">26 kHz (data starts)</text>
+  <text x="730" y="262" class="mono">1100 kHz</text>
+
+  <text x="60" y="288" class="lbl">DMT = OFDM + QAM; each channel's SNR sets bits/symbol. Distance kills the high-frequency channels first.</text>
+
+  <!-- divider -->
+  <line x1="30" y1="308" x2="870" y2="308" stroke="#2A1A2E" stroke-width="0.75" stroke-dasharray="4 4"/>
+
+  <!-- ===== BOTTOM: equipment path ===== -->
+  <text x="30" y="338" class="sub">Equipment path: customer premises &#8594; local loop &#8594; end office</text>
+
+  <!-- customer premises box -->
+  <rect x="40" y="360" width="300" height="170" fill="none" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="50" y="356" class="mono">Customer premises</text>
+
+  <rect x="60" y="380" width="90" height="36" class="box"/>
+  <text x="105" y="403" class="lbl" text-anchor="middle">Telephone</text>
+
+  <rect x="60" y="470" width="90" height="36" class="abox"/>
+  <text x="105" y="493" class="lbl accent" text-anchor="middle">ADSL modem</text>
+
+  <rect x="190" y="420" width="70" height="50" class="box"/>
+  <text x="225" y="450" class="lbl" text-anchor="middle">Splitter</text>
+
+  <!-- NID marker -->
+  <circle cx="320" cy="445" r="6" class="accent"/>
+  <text x="320" y="490" class="mono accent" text-anchor="middle">NID</text>
+
+  <path d="M150 398 H190 V435" class="ln"/>
+  <text x="158" y="392" class="mono">0-4 kHz POTS</text>
+  <path d="M150 488 H190 V455" class="aln"/>
+  <text x="158" y="513" class="mono accent">&gt;26 kHz data</text>
+
+  <!-- local loop -->
+  <path d="M260 445 H560" class="ln"/>
+  <circle cx="320" cy="445" r="6" fill="none" stroke="#E2557A" stroke-width="2"/>
+  <text x="410" y="438" class="lbl" text-anchor="middle">local loop (twisted pair, ~1 MHz)</text>
+
+  <!-- end office box -->
+  <rect x="560" y="360" width="300" height="170" fill="none" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="570" y="356" class="mono">End office</text>
+
+  <rect x="580" y="420" width="70" height="50" class="box"/>
+  <text x="615" y="450" class="lbl" text-anchor="middle">Splitter</text>
+
+  <rect x="690" y="380" width="100" height="36" class="box"/>
+  <text x="740" y="403" class="lbl" text-anchor="middle">Voice switch</text>
+
+  <rect x="690" y="470" width="100" height="36" class="abox"/>
+  <text x="740" y="493" class="lbl accent" text-anchor="middle">DSLAM</text>
+
+  <path d="M650 432 H690 V398" class="ln"/>
+  <path d="M650 458 H690 V488" class="aln"/>
+  <path d="M790 488 H830" class="aln"/>
+  <text x="836" y="492" class="mono accent">&#8594; ISP / packets</text>
+
+  <text x="40" y="552" class="lbl">DSLAM = Digital Subscriber Line Access Multiplexer &#8226; NID = Network Interface Device &#8226; G.lite omits the customer splitter (microfilter per jack)</text>
+</svg>

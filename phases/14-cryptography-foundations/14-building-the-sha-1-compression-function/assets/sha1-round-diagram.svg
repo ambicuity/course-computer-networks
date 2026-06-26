@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <text x="450" y="44" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#2A1A2E">SHA-1 Compression Function (FIPS 180-4)</text>
+  <text x="450" y="72" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#2A1A2E">160-bit chaining value + 512-bit block  -&gt;  80 rounds  -&gt;  160-bit chaining value</text>
+
+  <!-- Inputs -->
+  <rect x="40" y="120" width="220" height="320" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="150" y="146" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2A1A2E">Block M (512 bits)</text>
+  <text x="150" y="172" text-anchor="middle" font-family="monospace" font-size="12" fill="#2A1A2E">16 words  W[0..15]</text>
+
+  <rect x="40" y="120" width="220" height="22" fill="#E2557A"/>
+  <text x="150" y="136" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#FFF7EC">Message Schedule W[t]</text>
+  <text x="150" y="200" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2A1A2E">W[t] = ROTL1(</text>
+  <text x="150" y="218" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2A1A2E">  W[t-3] ^ W[t-8] ^</text>
+  <text x="150" y="236" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2A1A2E">  W[t-14] ^ W[t-16] )</text>
+  <text x="150" y="266" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">t = 16..79</text>
+
+  <rect x="40" y="296" width="220" height="120" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="150" y="320" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#2A1A2E">Round Constants K[t]</text>
+  <text x="150" y="342" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">0x5A827999  0..19</text>
+  <text x="150" y="360" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">0x6ED9EBA1  20..39</text>
+  <text x="150" y="378" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">0x8F1BBCDC  40..59</text>
+  <text x="150" y="396" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">0xCA62C1D6  60..79</text>
+
+  <!-- Center: 80 rounds -->
+  <rect x="320" y="100" width="320" height="380" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="480" y="126" text-anchor="middle" font-family="Georgia, serif" font-size="15" font-weight="700" fill="#2A1A2E">80 Compression Rounds</text>
+  <text x="480" y="148" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">T = ROTL5(A) + f(B,C,D) + E + K[t] + W[t]</text>
+
+  <text x="480" y="180" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#E2557A">Round Function f(B,C,D)</text>
+  <text x="480" y="200" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">t 0..19:  (B &amp; C) | (~B &amp; D)</text>
+  <text x="480" y="218" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">t 20..39: B ^ C ^ D</text>
+  <text x="480" y="236" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">t 40..59: (B&amp;C)|(B&amp;D)|(C&amp;D)</text>
+  <text x="480" y="254" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">t 60..79: B ^ C ^ D</text>
+
+  <text x="480" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#E2557A">State Pipeline</text>
+  <text x="480" y="310" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">E = D</text>
+  <text x="480" y="328" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">D = C</text>
+  <text x="480" y="346" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">C = ROTL30(B)</text>
+  <text x="480" y="364" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">B = A</text>
+  <text x="480" y="382" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">A = T</text>
+
+  <text x="480" y="416" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#2A1A2E">80 iterations, then add back</text>
+  <text x="480" y="436" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">H0' = H0 + A  ...  H4' = H4 + E  (mod 2^32)</text>
+
+  <!-- Output -->
+  <rect x="700" y="180" width="170" height="200" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="785" y="208" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#FFF7EC">H(i+1)</text>
+  <text x="785" y="232" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">H0' = 32 bits</text>
+  <text x="785" y="250" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">H1' = 32 bits</text>
+  <text x="785" y="268" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">H2' = 32 bits</text>
+  <text x="785" y="286" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">H3' = 32 bits</text>
+  <text x="785" y="304" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">H4' = 32 bits</text>
+  <text x="785" y="334" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#FFF7EC">160-bit chaining</text>
+  <text x="785" y="354" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#FFF7EC">value ready for the</text>
+  <text x="785" y="370" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#FFF7EC">next block, or</text>
+  <text x="785" y="386" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#FFF7EC">finalised after</text>
+  <text x="785" y="402" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#FFF7EC">the last block.</text>
+
+  <!-- Arrows -->
+  <line x1="260" y1="270" x2="320" y2="270" stroke="#E2557A" stroke-width="3"/>
+  <polygon points="320,270 312,266 312,274" fill="#E2557A"/>
+  <line x1="640" y1="280" x2="700" y2="280" stroke="#E2557A" stroke-width="3"/>
+  <polygon points="700,280 692,276 692,284" fill="#E2557A"/>
+
+  <text x="450" y="510" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">FIPS 180-4 Sec. 6.1.2  |  160-bit digest  |  broken for collision resistance (Wang et al., 2005)</text>
+  <text x="450" y="530" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">NIST SP 800-131A Rev. 2: SHA-1 disallowed for digital signatures since 2014.</text>
+</svg>

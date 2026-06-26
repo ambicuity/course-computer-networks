@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "An IPv6 connection stalls when a large file is transferred. tcpdump shows the client sending packets with the Fragment extension header (Next Header = 44), but the server never sees them. The edge firewall has 'ip6tables -A FORWARD -m exthdr --hdr frag -j DROP'. What is the diagnosis?",
+      "options": [
+        "A. IPv6 fragments are illegal and must be dropped",
+        "B. The firewall is dropping legitimate fragments; either remove the rule, allow stateful fragment tracking, or clamp the TCP MSS so fragments are never needed",
+        "C. The server has a buggy IPv6 stack",
+        "D. The DNS is wrong"
+      ],
+      "answer": 1,
+      "explanation": "RFC 8200 sec. 4.5 makes fragmentation legal in IPv6. The fragment-drop rule is a leftover from CVE-2003-0001 (Windows XP buffer overflow). The fix is to remove the rule, use stateful fragment tracking, or clamp the MSS to path_MTU - 40 - 8 so the kernel never sends a segment that requires fragmentation."
+    },
+    {
+      "question": "What is the canonical order of IPv6 extension headers per RFC 8200 sec. 4.1?",
+      "options": [
+        "A. Hop-by-Hop (0), Destination (60), Routing (43), Fragment (44), AH (51), ESP (50)",
+        "B. Fragment (44), Hop-by-Hop (0), Routing (43), Destination (60), AH (51), ESP (50)",
+        "C. AH (51), ESP (50), Fragment (44), Routing (43), Hop-by-Hop (0), Destination (60)",
+        "D. Any order is allowed"
+      ],
+      "answer": 0,
+      "explanation": "RFC 8200 sec. 4.1 specifies the canonical order: Hop-by-Hop (0) first, then Destination (60), Routing (43), Fragment (44), Authentication (51), ESP (50). The Fragment header must come after Routing because routing decisions are made before fragmentation."
+    },
+    {
+      "question": "What is an RFC 6946 'atomic fragment'?",
+      "options": [
+        "A. A single, unfragmented packet with a Fragment Header whose offset=0 and M=0; used for PMTUD probing",
+        "B. A packet whose payload is exactly one byte",
+        "C. A fragment that is not reassembled",
+        "D. A packet with no Fragment Header at all"
+      ],
+      "answer": 0,
+      "explanation": "RFC 6946 defines the 'atomic fragment' as a Fragment Header with offset=0 and M=0, carrying the entire (unfragmented) payload. It is used by some PMTUD implementations to probe the path MTU without actually fragmenting. Some firewalls that drop fragments allow atomic fragments through; many do not."
+    }
+  ]
+}

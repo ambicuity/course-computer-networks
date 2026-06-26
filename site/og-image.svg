@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+<title id="title">Course: Computer Networks</title>
+<desc id="desc">A technical banner with network paths, routers, packets, and protocol layers.</desc>
+<rect width="1200" height="320" fill="#F7FBFF"/>
+<g fill="none" stroke="#D5E7F7" stroke-width="1">
+  <path d="M0 64H1200M0 128H1200M0 192H1200M0 256H1200"/>
+  <path d="M120 0V320M240 0V320M360 0V320M480 0V320M600 0V320M720 0V320M840 0V320M960 0V320M1080 0V320"/>
+</g>
+<g stroke="#1B365D" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M160 210C260 110 335 250 440 150S645 65 750 160 930 245 1040 110"/>
+  <path d="M220 150H360M520 110H670M820 210H980" stroke="#2F80ED"/>
+</g>
+<g fill="#F7FBFF" stroke="#1B365D" stroke-width="4">
+  <circle cx="160" cy="210" r="24"/><circle cx="440" cy="150" r="24"/><circle cx="750" cy="160" r="24"/><circle cx="1040" cy="110" r="24"/>
+  <rect x="220" y="128" width="72" height="44" rx="4"/><rect x="520" y="88" width="72" height="44" rx="4"/><rect x="860" y="188" width="72" height="44" rx="4"/>
+</g>
+<text x="64" y="88" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#2F80ED">COURSE</text>
+<text x="64" y="144" font-family="Georgia, serif" font-size="62" font-weight="700" fill="#1B365D">Computer Networks</text>
+<text x="66" y="190" font-family="Inter, Arial, sans-serif" font-size="22" fill="#395B78">signals - frames - packets - transport - applications - security</text>
+<g font-family="JetBrains Mono, monospace" font-size="16" fill="#1B365D">
+  <text x="214" y="272">PHY</text><text x="356" y="272">LINK</text><text x="506" y="272">IP</text><text x="640" y="272">TCP</text><text x="780" y="272">DNS</text><text x="930" y="272">TLS</text>
+</g>
+</svg>

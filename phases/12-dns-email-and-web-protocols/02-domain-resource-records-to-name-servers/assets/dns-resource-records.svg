@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" width="1100" height="700">
+  <rect width="1100" height="700" fill="#FFF7EC"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <text x="40" y="44" font-size="28" font-weight="700" fill="#2A1A2E">DNS Resource Records (RFC 1035)</text>
+    <text x="40" y="70" font-size="14" fill="#2A1A2E">Five-tuple (Name, TTL, Class, Type, Value) per zone file; wire format is 32-bit aligned.</text>
+  </g>
+
+  <!-- Five-tuple header boxes -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13">
+    <g transform="translate(40,100)">
+      <rect width="190" height="80" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+      <text x="12" y="22" font-weight="700" fill="#E2557A">Name</text>
+      <text x="12" y="46" fill="#2A1A2E">flits.cs.vu.nl.</text>
+      <text x="12" y="66" fill="#2A1A2E" opacity="0.7">primary key</text>
+    </g>
+    <g transform="translate(240,100)">
+      <rect width="190" height="80" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+      <text x="12" y="22" font-weight="700" fill="#E2557A">TTL</text>
+      <text x="12" y="46" fill="#2A1A2E">86400 (1 day)</text>
+      <text x="12" y="66" fill="#2A1A2E" opacity="0.7">cache seconds</text>
+    </g>
+    <g transform="translate(440,100)">
+      <rect width="190" height="80" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+      <text x="12" y="22" font-weight="700" fill="#E2557A">Class</text>
+      <text x="12" y="46" fill="#2A1A2E">IN (Internet)</text>
+      <text x="12" y="66" fill="#2A1A2E" opacity="0.7">also CH, HS</text>
+    </g>
+    <g transform="translate(640,100)">
+      <rect width="190" height="80" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+      <text x="12" y="22" font-weight="700" fill="#E2557A">Type</text>
+      <text x="12" y="46" fill="#2A1A2E">A (or AAAA, MX, NS, ...)</text>
+      <text x="12" y="66" fill="#2A1A2E" opacity="0.7">16-bit code</text>
+    </g>
+    <g transform="translate(840,100)">
+      <rect width="220" height="80" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+      <text x="12" y="22" font-weight="700" fill="#E2557A">Value</text>
+      <text x="12" y="46" fill="#2A1A2E">130.37.16.112</text>
+      <text x="12" y="66" fill="#2A1A2E" opacity="0.7">type-dependent</text>
+    </g>
+  </g>
+
+  <!-- Connector arrows between five fields -->
+  <g stroke="#E2557A" stroke-width="2" fill="none">
+    <line x1="230" y1="140" x2="240" y2="140" marker-end="url(#arr)"/>
+    <line x1="430" y1="140" x2="440" y2="140" marker-end="url(#arr)"/>
+    <line x1="630" y1="140" x2="640" y2="140" marker-end="url(#arr)"/>
+    <line x1="830" y1="140" x2="840" y2="140" marker-end="url(#arr)"/>
+  </g>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <!-- Record type table -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" transform="translate(40,220)">
+    <text x="0" y="0" font-size="20" font-weight="700" fill="#2A1A2E">Principal RR Types</text>
+    <g transform="translate(0,20)">
+      <rect width="1020" height="40" fill="#2A1A2E"/>
+      <text x="14" y="26" fill="#FFF7EC" font-weight="700">Type</text>
+      <text x="120" y="26" fill="#FFF7EC" font-weight="700">Code</text>
+      <text x="220" y="26" fill="#FFF7EC" font-weight="700">Value format</text>
+      <text x="540" y="26" fill="#FFF7EC" font-weight="700">RFC</text>
+      <text x="700" y="26" fill="#FFF7EC" font-weight="700">Example</text>
+    </g>
+    <g transform="translate(0,60)">
+      <rect width="1020" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="22" fill="#2A1A2E">SOA</text>
+      <text x="120" y="22" fill="#2A1A2E">6</text>
+      <text x="220" y="22" fill="#2A1A2E">mname rname serial refresh retry expire min</text>
+      <text x="540" y="22" fill="#2A1A2E">1035 §3.3.13</text>
+      <text x="700" y="22" fill="#2A1A2E">@ IN SOA star. hostmaster. (1 7200 7200 2419200 86400)</text>
+    </g>
+    <g transform="translate(0,92)">
+      <rect width="1020" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="22" fill="#2A1A2E">A</text>
+      <text x="120" y="22" fill="#2A1A2E">1</text>
+      <text x="220" y="22" fill="#2A1A2E">32-bit IPv4</text>
+      <text x="540" y="22" fill="#2A1A2E">1035 §3.4.1</text>
+      <text x="700" y="22" fill="#2A1A2E">flits IN A 130.37.16.112</text>
+    </g>
+    <g transform="translate(0,124)">
+      <rect width="1020" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="22" fill="#2A1A2E">AAAA</text>
+      <text x="120" y="22" fill="#2A1A2E">28</text>
+      <text x="220" y="22" fill="#2A1A2E">128-bit IPv6</text>
+      <text x="540" y="22" fill="#2A1A2E">3596</text>
+      <text x="700" y="22" fill="#2A1A2E">flits IN AAAA 2001:610:108:4015::112</text>
+    </g>
+    <g transform="translate(0,156)">
+      <rect width="1020" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="22" fill="#2A1A2E">NS</text>
+      <text x="120" y="22" fill="#2A1A2E">2</text>
+      <text x="220" y="22" fill="#2A1A2E">domain-name (target server)</text>
+      <text x="540" y="22" fill="#2A1A2E">1035 §3.3.11</text>
+      <text x="700" y="22" fill="#2A1A2E">@ IN NS star.cs.vu.nl.</text>
+    </g>
+    <g transform="translate(0,188)">
+      <rect width="1020" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="22" fill="#2A1A2E">MX</text>
+      <text x="120" y="22" fill="#2A1A2E">15</text>
+      <text x="220" y="22" fill="#2A1A2E">16-bit pref + domain-name</text>
+      <text x="540" y="22" fill="#2A1A2E">1035 §3.3.9</text>
+      <text x="700" y="22" fill="#2A1A2E">@ IN MX 10 zephyr.cs.vu.nl.</text>
+    </g>
+    <g transform="translate(0,220)">
+      <rect width="1020" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="22" fill="#2A1A2E">CNAME</text>
+      <text x="120" y="22" fill="#2A1A2E">5</text>
+      <text x="220" y="22" fill="#2A1A2E">domain-name (alias target)</text>
+      <text x="540" y="22" fill="#2A1A2E">1035 §3.3.1</text>
+      <text x="700" y="22" fill="#2A1A2E">www IN CNAME star.cs.vu.nl.</text>
+    </g>
+    <g transform="translate(0,252)">
+      <rect width="1020" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="22" fill="#2A1A2E">PTR</text>
+      <text x="120" y="22" fill="#2A1A2E">12</text>
+      <text x="220" y="22" fill="#2A1A2E">domain-name (reverse)</text>
+      <text x="540" y="22" fill="#2A1A2E">1035 §3.3.12</text>
+      <text x="700" y="22" fill="#2A1A2E">112.16.37.130.in-addr.arpa. IN PTR flits</text>
+    </g>
+    <g transform="translate(0,284)">
+      <rect width="1020" height="32" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="22" fill="#2A1A2E">TXT</text>
+      <text x="120" y="22" fill="#2A1A2E">16</text>
+      <text x="220" y="22" fill="#2A1A2E">one or more character-strings</text>
+      <text x="540" y="22" fill="#2A1A2E">1035 §3.3.14</text>
+      <text x="700" y="22" fill="#2A1A2E">@ IN TXT "v=spf1 ip4:130.37/16 -all"</text>
+    </g>
+  </g>
+
+  <!-- Resolution sequence diagram -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" transform="translate(40,540)">
+    <text x="0" y="0" font-size="16" font-weight="700" fill="#2A1A2E">Iterative resolution path for robot.cs.washington.edu</text>
+    <line x1="40" y1="20" x2="40" y2="130" stroke="#2A1A2E" stroke-width="2"/>
+    <line x1="240" y1="20" x2="240" y2="130" stroke="#2A1A2E" stroke-width="2"/>
+    <line x1="440" y1="20" x2="440" y2="130" stroke="#2A1A2E" stroke-width="2"/>
+    <line x1="640" y1="20" x2="640" y2="130" stroke="#2A1A2E" stroke-width="2"/>
+    <line x1="840" y1="20" x2="840" y2="130" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="40" y="14" text-anchor="middle" fill="#2A1A2E" font-weight="700">Client</text>
+    <text x="240" y="14" text-anchor="middle" fill="#2A1A2E" font-weight="700">Recursive</text>
+    <text x="440" y="14" text-anchor="middle" fill="#2A1A2E" font-weight="700">Root .</text>
+    <text x="640" y="14" text-anchor="middle" fill="#2A1A2E" font-weight="700">.edu</text>
+    <text x="840" y="14" text-anchor="middle" fill="#2A1A2E" font-weight="700">cs.washington.edu</text>
+
+    <g stroke="#E2557A" stroke-width="2" fill="none">
+      <line x1="240" y1="40" x2="440" y2="40" marker-end="url(#arr)"/>
+      <line x1="440" y1="60" x2="240" y2="60" marker-end="url(#arr)"/>
+      <line x1="240" y1="80" x2="640" y2="80" marker-end="url(#arr)"/>
+      <line x1="640" y1="100" x2="240" y2="100" marker-end="url(#arr)"/>
+      <line x1="240" y1="120" x2="840" y2="120" marker-end="url(#arr)"/>
+    </g>
+    <g font-size="10" fill="#2A1A2E">
+      <text x="250" y="36">1. query A robot...</text>
+      <text x="450" y="56">2. NS .edu</text>
+      <text x="250" y="76">3. query A</text>
+      <text x="650" y="96">4. NS uw.edu</text>
+      <text x="250" y="116">5. query A cs.washington.edu</text>
+    </g>
+  </g>
+</svg>

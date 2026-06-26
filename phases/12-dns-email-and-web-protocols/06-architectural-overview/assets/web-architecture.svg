@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" width="1100" height="720">
+  <rect width="1100" height="720" fill="#FFF7EC"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <text x="40" y="44" font-size="28" font-weight="700" fill="#2A1A2E">Web Architecture (HTTP over TCP/IP)</text>
+    <text x="40" y="70" font-size="14" fill="#2A1A2E">Three components: browser, network (DNS + TCP), Web server. Stateless HTTP, stateful cookies.</text>
+  </g>
+
+  <!-- 9-step click sequence -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" transform="translate(40,100)">
+    <rect width="1020" height="290" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="14" y="24" font-weight="700" fill="#E2557A">Click sequence for http://www.cs.washington.edu/index.html (Tanenbaum Fig. 7-18)</text>
+    <g transform="translate(14,46)" font-size="12" fill="#2A1A2E">
+      <text y="0">1. Browser parses URL.</text>
+      <text y="22">2. Browser asks DNS for the IP of www.cs.washington.edu.</text>
+      <text y="44">3. DNS replies with 128.208.3.88.</text>
+      <text y="66">4. Browser opens TCP connection to 128.208.3.88:80.</text>
+      <text y="88">5. Browser sends HTTP request: GET /index.html HTTP/1.1.</text>
+      <text y="110">6. Server returns HTTP response with body (HTML).</text>
+      <text y="132">7. Browser parses HTML, fetches each subresource (40+ typical): images, scripts, video.</text>
+      <text y="154">8. Browser renders the page.</text>
+      <text y="176">9. TCP connection released after idle timeout (or reused for pipelining).</text>
+    </g>
+    <text x="14" y="270" fill="#2A1A2E" opacity="0.7">Each step is observable in the browser dev tools Network tab.</text>
+  </g>
+
+  <!-- URL anatomy -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" transform="translate(40,410)">
+    <text x="0" y="0" font-size="20" font-weight="700" fill="#2A1A2E">URL anatomy (RFC 3986)</text>
+    <g transform="translate(0,20)">
+      <rect width="1020" height="60" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+      <g transform="translate(14,18)">
+        <rect width="80" height="26" fill="#E2557A"/>
+        <text x="14" y="20" fill="#FFF7EC" font-weight="700">scheme</text>
+        <rect x="90" width="180" height="26" fill="#2A1A2E"/>
+        <text x="104" y="20" fill="#FFF7EC" font-weight="700">authority</text>
+        <rect x="280" width="160" height="26" fill="#FFFFFF" stroke="#2A1A2E"/>
+        <text x="294" y="20" fill="#2A1A2E" font-weight="700">path</text>
+        <rect x="450" width="100" height="26" fill="#2A1A2E"/>
+        <text x="464" y="20" fill="#FFF7EC" font-weight="700">query</text>
+        <rect x="560" width="100" height="26" fill="#FFFFFF" stroke="#2A1A2E"/>
+        <text x="574" y="20" fill="#2A1A2E" font-weight="700">fragment</text>
+      </g>
+    </g>
+    <g transform="translate(0,90)" font-size="12" fill="#2A1A2E">
+      <text>https://www.example.com:8443/path/to/page?q=hello&amp;page=2#section-3</text>
+    </g>
+    <g transform="translate(0,114)" font-size="12" fill="#2A1A2E">
+      <text>scheme=https | authority=www.example.com:8443 | path=/path/to/page | query=?q=hello&amp;page=2 | fragment=#section-3</text>
+    </g>
+  </g>
+
+  <!-- Cookies panel -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" transform="translate(40,560)">
+    <text x="0" y="0" font-size="20" font-weight="700" fill="#2A1A2E">Cookie fields (RFC 6265)</text>
+    <g transform="translate(0,20)">
+      <rect width="1020" height="32" fill="#2A1A2E"/>
+      <text x="14" y="22" fill="#FFF7EC" font-weight="700">Domain</text>
+      <text x="180" y="22" fill="#FFF7EC" font-weight="700">Path</text>
+      <text x="280" y="22" fill="#FFF7EC" font-weight="700">Content (name=value)</text>
+      <text x="640" y="22" fill="#FFF7EC" font-weight="700">Expires</text>
+      <text x="800" y="22" fill="#FFF7EC" font-weight="700">Secure</text>
+    </g>
+    <g transform="translate(0,52)">
+      <rect width="1020" height="28" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="20" fill="#2A1A2E">toms-casino.com</text>
+      <text x="180" y="20" fill="#2A1A2E">/</text>
+      <text x="280" y="20" fill="#2A1A2E">CustomerID=297793521</text>
+      <text x="640" y="20" fill="#2A1A2E">15-10-10 17:00</text>
+      <text x="800" y="20" fill="#2A1A2E">Yes</text>
+    </g>
+    <g transform="translate(0,80)">
+      <rect width="1020" height="28" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="20" fill="#2A1A2E">jills-store.com</text>
+      <text x="180" y="20" fill="#2A1A2E">/</text>
+      <text x="280" y="20" fill="#2A1A2E">Cart=1-00501;1-07031</text>
+      <text x="640" y="20" fill="#2A1A2E">11-1-11 14:22</text>
+      <text x="800" y="20" fill="#2A1A2E">No</text>
+    </g>
+    <g transform="translate(0,108)">
+      <rect width="1020" height="28" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="20" fill="#2A1A2E">aportal.com</text>
+      <text x="180" y="20" fill="#2A1A2E">/</text>
+      <text x="280" y="20" fill="#2A1A2E">Prefs=Stk:CSCO+ORCL</text>
+      <text x="640" y="20" fill="#2A1A2E">31-12-20 23:59</text>
+      <text x="800" y="20" fill="#2A1A2E">No</text>
+    </g>
+  </g>
+</svg>

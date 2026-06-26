@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" width="720" height="520" font-family="Inter, sans-serif">
+  <rect width="720" height="520" fill="#FFF7EC"/>
+  <text x="360" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#2A1A2E">DNS Namespace Hierarchy</text>
+  <!-- Root node -->
+  <circle cx="360" cy="70" r="22" fill="#E2557A" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="360" y="75" text-anchor="middle" font-size="13" font-weight="bold" fill="#FFF7EC">root</text>
+  <text x="360" y="55" text-anchor="middle" font-size="10" fill="#2A1A2E">(.)</text>
+  <!-- Lines from root to TLDs -->
+  <line x1="340" y1="88" x2="140" y2="130" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="360" y1="92" x2="360" y2="130" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="380" y1="88" x2="580" y2="130" stroke="#2A1A2E" stroke-width="1.5"/>
+  <!-- Generic TLDs group -->
+  <rect x="80" y="130" width="140" height="30" rx="5" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="150" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#FFF7EC">Generic TLDs</text>
+  <text x="150" y="178" text-anchor="middle" font-size="10" fill="#2A1A2E">com edu gov org net</text>
+  <line x1="150" y1="198" x2="100" y2="230" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="150" y1="198" x2="200" y2="230" stroke="#2A1A2E" stroke-width="1"/>
+  <!-- com branch -->
+  <rect x="65" y="230" width="70" height="26" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="100" y="247" text-anchor="middle" font-size="11" fill="#2A1A2E">cisco.</text>
+  <line x1="100" y1="256" x2="100" y2="285" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="60" y="285" width="80" height="26" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="100" y="302" text-anchor="middle" font-size="11" fill="#2A1A2E">eng.</text>
+  <!-- edu branch -->
+  <rect x="165" y="230" width="80" height="26" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="205" y="247" text-anchor="middle" font-size="11" fill="#2A1A2E">washington.</text>
+  <line x1="205" y1="256" x2="205" y2="285" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="170" y="285" width="70" height="26" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="205" y="302" text-anchor="middle" font-size="11" fill="#2A1A2E">cs.</text>
+  <line x1="205" y1="311" x2="205" y2="340" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="165" y="340" width="80" height="26" rx="4" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="205" y="357" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">robot.</text>
+  <!-- Country TLDs group -->
+  <rect x="300" y="130" width="120" height="30" rx="5" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="360" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#FFF7EC">Country TLDs</text>
+  <text x="360" y="178" text-anchor="middle" font-size="10" fill="#2A1A2E">ISO 3166: uk jp us nl au</text>
+  <line x1="360" y1="198" x2="320" y2="230" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="360" y1="198" x2="400" y2="230" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="285" y="230" width="70" height="26" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="320" y="247" text-anchor="middle" font-size="11" fill="#2A1A2E">vu.</text>
+  <line x1="320" y1="256" x2="320" y2="285" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="280" y="285" width="80" height="26" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="320" y="302" text-anchor="middle" font-size="11" fill="#2A1A2E">cs.</text>
+  <line x1="320" y1="311" x2="320" y2="340" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="280" y="340" width="80" height="26" rx="4" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="320" y="357" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">flits.</text>
+  <rect x="370" y="230" width="70" height="26" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="405" y="247" text-anchor="middle" font-size="11" fill="#2A1A2E">jp.</text>
+  <line x1="405" y1="256" x2="405" y2="285" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="370" y="285" width="70" height="26" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="405" y="302" text-anchor="middle" font-size="11" fill="#2A1A2E">ac.</text>
+  <line x1="405" y1="311" x2="405" y2="340" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="370" y="340" width="70" height="26" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="405" y="357" text-anchor="middle" font-size="11" fill="#2A1A2E">keio.</text>
+  <!-- Delegation note -->
+  <rect x="470" y="130" width="220" height="90" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="580" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#2A1A2E">Naming Rules</text>
+  <text x="480" y="170" font-size="10" fill="#2A1A2E">Component max: 63</text>
+  <text x="480" y="186" font-size="10" fill="#2A1A2E">Path max: 255</text>
+  <text x="480" y="202" font-size="10" fill="#2A1A2E">Case-insensitive</text>
+  <text x="480" y="218" font-size="10" fill="#2A1A2E">Trailing dot = FQDN</text>
+  <!-- Resolution path -->
+  <rect x="50" y="390" width="620" height="110" rx="6" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="60" y="410" font-size="12" font-weight="bold" fill="#2A1A2E">Resolution Path: robot.cs.washington.edu.</text>
+  <text x="60" y="430" font-size="10" fill="#2A1A2E">1. root → NS for edu</text>
+  <text x="60" y="448" font-size="10" fill="#2A1A2E">2. edu → NS for washington.edu</text>
+  <text x="60" y="466" font-size="10" fill="#2A1A2E">3. washington.edu → NS for cs</text>
+  <text x="60" y="484" font-size="10" fill="#2A1A2E">4. cs → A record for robot</text>
+  <text x="60" y="500" font-size="10" font-weight="bold" fill="#E2557A">Organizational, not physical</text>
+</svg>

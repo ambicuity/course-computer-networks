@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Which RFC defines AXFR (full zone transfer) and what transport does it use?",
+    "options": [
+      "A. RFC 1035, UDP/53",
+      "B. RFC 5936, TCP/53",
+      "C. RFC 1995, TCP/53",
+      "D. RFC 2308, UDP/53"
+    ],
+    "answer": 1,
+    "explanation": "RFC 5936 codifies AXFR and mandates TCP/53 because the full zone typically will not fit in a single 512-byte UDP datagram and reliable ordered delivery matters."
+  },
+  {
+    "question": "An administrator accidentally writes a smaller SOA serial number into the primary's zone file and reloads. What happens?",
+    "options": [
+      "A. Secondaries silently accept the rollback; the zone appears to rewind",
+      "B. Secondaries treat the smaller serial as stale and refuse to load or fall back to emergency AXFR",
+      "C. The new serial wraps modulo 2^32 and is treated as newer",
+      "D. NOTIFY is sent with the new SOA and the secondary immediately expires the zone"
+    ],
+    "answer": 1,
+    "explanation": "Serial number arithmetic (RFC 1982) treats a strictly smaller serial as older (within a 2^31 window). Secondaries will not IXFR backward; they will either ignore the smaller serial or trigger an emergency AXFR to verify."
+  },
+  {
+    "question": "A SOA record has REFRESH=3600, RETRY=1800, EXPIRE=1209600. After roughly how long with no successful refresh does the secondary drop the zone?",
+    "options": [
+      "A. 1 hour (3600 s)",
+      "B. 30 minutes (1800 s)",
+      "C. 14 days (1209600 s)",
+      "D. 5 minutes (300 s, the MINIMUM)"
+    ],
+    "answer": 2,
+    "explanation": "EXPIRE bounds the total time the secondary will keep serving a zone without a successful refresh. With EXPIRE=1209600 s (14 days), the secondary answers authoritatively for up to two weeks before dropping the zone."
+  }
+]

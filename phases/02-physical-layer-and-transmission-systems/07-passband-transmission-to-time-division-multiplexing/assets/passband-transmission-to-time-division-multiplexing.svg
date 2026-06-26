@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    .t  { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .mono { font-family: monospace; fill: #2A1A2E; }
+    .acc { fill: #E2557A; }
+    .lbl { font-family: Inter, sans-serif; fill: #2A1A2E; font-size: 13px; }
+    .sm  { font-family: monospace; fill: #2A1A2E; font-size: 11px; }
+  </style>
+
+  <text x="30" y="38" class="t" font-size="22" font-weight="700">Passband Transmission &#8594; FDM &#8594; TDM</text>
+  <text x="30" y="58" class="lbl" font-size="13">Baseband bits become passband symbols, then share one line in frequency or time.</text>
+
+  <!-- Stage 1: baseband bits -->
+  <rect x="30" y="82" width="150" height="58" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="105" y="104" class="t" font-size="13" font-weight="600" text-anchor="middle">Baseband bits</text>
+  <text x="105" y="124" class="sm" text-anchor="middle">0 to B Hz</text>
+
+  <line x1="180" y1="111" x2="225" y2="111" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="225,111 217,107 217,115" fill="#E2557A"/>
+
+  <!-- Stage 2: modulate carrier -->
+  <rect x="225" y="82" width="170" height="58" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="310" y="104" class="t" font-size="13" font-weight="600" text-anchor="middle">Modulate carrier</text>
+  <text x="310" y="124" class="sm" text-anchor="middle">ASK / FSK / PSK / QAM</text>
+
+  <line x1="395" y1="111" x2="440" y2="111" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="440,111 432,107 432,115" fill="#E2557A"/>
+
+  <!-- Stage 3: passband -->
+  <rect x="440" y="82" width="290" height="58" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="585" y="104" class="t" font-size="13" font-weight="600" text-anchor="middle">Passband signal</text>
+  <text x="585" y="124" class="sm" text-anchor="middle">S to S+B Hz &#183; same capacity, shifted up</text>
+
+  <!-- Constellation panel -->
+  <text x="30" y="178" class="t" font-size="15" font-weight="700">Gray-coded QAM-16 constellation</text>
+  <rect x="30" y="190" width="200" height="200" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <!-- axes -->
+  <line x1="130" y1="200" x2="130" y2="380" stroke="#2A1A2E" stroke-width="1" opacity="0.4"/>
+  <line x1="40" y1="290" x2="220" y2="290" stroke="#2A1A2E" stroke-width="1" opacity="0.4"/>
+  <text x="222" y="294" class="sm">I</text>
+  <text x="134" y="200" class="sm">Q</text>
+  <!-- 16 Gray-labelled points; adjacent labels differ by 1 bit -->
+  <circle cx="70" cy="225" r="5" class="acc"/><text x="58" y="218" class="sm">0010</text>
+  <circle cx="110" cy="225" r="5" class="acc"/><text x="98" y="218" class="sm">0110</text>
+  <circle cx="150" cy="225" r="5" class="acc"/><text x="138" y="218" class="sm">1110</text>
+  <circle cx="190" cy="225" r="5" class="acc"/><text x="178" y="218" class="sm">1010</text>
+  <circle cx="70" cy="265" r="5" class="acc"/><circle cx="110" cy="265" r="5" class="acc"/>
+  <circle cx="150" cy="265" r="5" class="acc"/><circle cx="190" cy="265" r="5" class="acc"/>
+  <circle cx="70" cy="305" r="5" class="acc"/><circle cx="110" cy="305" r="5" class="acc"/>
+  <circle cx="150" cy="305" r="5" class="acc"/><circle cx="190" cy="305" r="5" class="acc"/>
+  <circle cx="70" cy="345" r="5" class="acc"/><text x="58" y="368" class="sm">0000</text>
+  <circle cx="110" cy="345" r="5" class="acc"/><text x="98" y="368" class="sm">0001</text>
+  <circle cx="150" cy="345" r="5" class="acc"/><text x="138" y="368" class="sm">0011</text>
+  <circle cx="190" cy="345" r="5" class="acc"/><text x="178" y="368" class="sm">0010</text>
+  <text x="30" y="408" class="lbl">4 bits/symbol &#183; adjacent points differ in 1 bit &#8594; 1 symbol slip = 1 bit error</text>
+
+  <!-- FDM panel -->
+  <text x="270" y="178" class="t" font-size="15" font-weight="700">FDM: split spectrum</text>
+  <rect x="270" y="190" width="200" height="120" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="285" y="210" width="42" height="80" fill="#E2557A" opacity="0.85"/>
+  <rect x="335" y="210" width="42" height="80" fill="#E2557A" opacity="0.6"/>
+  <rect x="385" y="210" width="42" height="80" fill="#E2557A" opacity="0.4"/>
+  <text x="306" y="304" class="sm" text-anchor="middle">60</text>
+  <text x="356" y="304" class="sm" text-anchor="middle">64</text>
+  <text x="406" y="304" class="sm" text-anchor="middle">68 kHz</text>
+  <text x="270" y="330" class="lbl">3100 Hz usable + 900 Hz guard band</text>
+  <text x="270" y="348" class="lbl">= 4000 Hz allocated per voice channel</text>
+
+  <!-- TDM panel -->
+  <text x="490" y="178" class="t" font-size="15" font-weight="700">TDM: split time</text>
+  <rect x="490" y="190" width="240" height="120" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <!-- round-robin slots -->
+  <g>
+    <rect x="500" y="230" width="32" height="34" fill="#E2557A" opacity="0.85"/><text x="516" y="252" class="sm" fill="#fff" text-anchor="middle">1</text>
+    <rect x="534" y="230" width="32" height="34" fill="#E2557A" opacity="0.6"/><text x="550" y="252" class="sm" text-anchor="middle">2</text>
+    <rect x="568" y="230" width="32" height="34" fill="#E2557A" opacity="0.4"/><text x="584" y="252" class="sm" text-anchor="middle">3</text>
+    <rect x="602" y="230" width="32" height="34" fill="#E2557A" opacity="0.85"/><text x="618" y="252" class="sm" fill="#fff" text-anchor="middle">1</text>
+    <rect x="636" y="230" width="32" height="34" fill="#E2557A" opacity="0.6"/><text x="652" y="252" class="sm" text-anchor="middle">2</text>
+    <rect x="670" y="230" width="32" height="34" fill="#E2557A" opacity="0.4"/><text x="686" y="252" class="sm" text-anchor="middle">3</text>
+  </g>
+  <line x1="500" y1="280" x2="710" y2="280" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="710,280 702,276 702,284" fill="#2A1A2E"/>
+  <text x="500" y="298" class="lbl">round-robin slots &#183; aggregate at sum rate</text>
+
+  <!-- comparison strip -->
+  <rect x="30" y="430" width="700" height="100" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="45" y="454" class="t" font-size="13" font-weight="700">How they share one line</text>
+  <text x="45" y="478" class="lbl"><tspan class="acc" font-weight="700">FDM</tspan>  each user owns a frequency band for all time (AM radio, DSL, cellular).</text>
+  <text x="45" y="500" class="lbl"><tspan class="acc" font-weight="700">TDM</tspan>  each user owns the whole band in a fixed repeating time slot (T1/E1, GSM).</text>
+  <text x="45" y="522" class="lbl"><tspan class="acc" font-weight="700">STDM</tspan> slots assigned on demand, not on a fixed schedule &#8212; packet switching by another name.</text>
+</svg>

@@ -1,0 +1,35 @@
+[
+  {
+    "question": "A sender has SND.UNA = 1000, SND.NXT = 3500, SND.WND = 8192. How many bytes are in flight, and how many more may the sender send?",
+    "options": [
+      "A. 2500 bytes in flight, 5692 bytes may be sent",
+      "B. 3500 bytes in flight, 4692 bytes may be sent",
+      "C. 1000 bytes in flight, 7192 bytes may be sent",
+      "D. 8192 bytes in flight, 0 bytes may be sent"
+    ],
+    "answer": 0,
+    "explanation": "Bytes in flight = SND.NXT - SND.UNA = 3500 - 1000 = 2500. Usable window = SND.WND - bytes_in_flight = 8192 - 2500 = 5692. The sender may push up to 5692 more bytes before it must wait for an ACK."
+  },
+  {
+    "question": "A 1 Gbps cross-country link has a 40 ms RTT. Without the Window Scale option, what is the maximum throughput the legacy 64 KB window can sustain?",
+    "options": [
+      "A. ~13 Mbps (the window caps in-flight bytes at 64 KB; throughput = window / RTT)",
+      "B. ~1 Gbps because the link determines throughput, not the window",
+      "C. ~120 Mbps because the MSS is 1460 bytes",
+      "D. ~512 Kbps because the window field is 16 bits"
+    ],
+    "answer": 0,
+    "explanation": "Without Window Scale, the legacy 16-bit Window field caps the sender at 65,535 bytes outstanding. With a 40 ms RTT, max throughput = 65,535 B / 0.040 s = ~1.64 MB/s = ~13 Mbps -- only 1.3% of the 1 Gbps link. Window Scale (RFC 1323) shifts the field up to 14 bits, giving a 1 GB effective window."
+  },
+  {
+    "question": "The receiver sets WIN=0 and the subsequent window-update segment is lost. What is the defense against the resulting deadlock?",
+    "options": [
+      "A. The sender assumes the receiver has crashed and sends RST",
+      "B. The persistence timer fires; the sender transmits a 1-byte window probe to elicit a fresh window advertisement",
+      "C. The receiver retransmits the WIN=0 segment until the sender ACKs it",
+      "D. There is no defense -- TCP relies on the application to recover"
+    ],
+    "answer": 1,
+    "explanation": "When WIN=0 the sender stops and starts its persistence timer. The timer fires at exponentially increasing intervals (typically 5 s, 10 s, 20 s, ...) and the sender transmits a 1-byte window probe. The receiver must respond with its current WIN even if the value is still zero -- that response alone keeps the persistence timer ticking. When the receiver eventually drains buffer space, the next response carries a non-zero WIN and the sender resumes."
+  }
+]

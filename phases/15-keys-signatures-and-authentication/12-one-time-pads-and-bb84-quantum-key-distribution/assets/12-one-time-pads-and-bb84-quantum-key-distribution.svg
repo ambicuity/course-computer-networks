@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .h { font-size: 16px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 13px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .dim { fill: #6b5560; font-size: 12px; }
+    .cell { fill: #fff; stroke: #2A1A2E; stroke-width: 1; }
+    .hit { fill: #FFF0F4; stroke: #E2557A; stroke-width: 1.5; }
+  </style>
+
+  <text x="40" y="46" class="title">BB84 Quantum Key Distribution</text>
+  <text x="40" y="68" class="sub">Alice sends polarized photons; Bob and Trudy both guess the basis; only matched bases survive.</text>
+
+  <!-- Table reproducing Fig. 8-5 -->
+  <g transform="translate(40,100)">
+    <text x="0" y="14" class="h">Fig. 8-5 walkthrough (16 photons, Trudy intercepts)</text>
+
+    <g transform="translate(0,30)">
+      <text x="0" y="14" class="dim">Bit #       0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15</text>
+      <text x="0" y="36" class="mono">Alice data   1  0  0  1  1  1  0  0  1  0  1  0  0  1  1  0</text>
+      <text x="0" y="56" class="mono">Alice bases  x  +  x  +  x  x  +  +  x  +  x  +  x  +  +  x</text>
+      <text x="0" y="76" class="mono">Bob   bases  x  x  +  +  x  +  x  +  +  x  +  x  +  +  x  +</text>
+      <text x="0" y="96" class="mono">Bob   bits   1  x  0  1  x  x  x  0  1  x  1  0  0  x  1  x</text>
+      <text x="0" y="116" class="mono accent">Match?       Y  N  N  Y  N  N  N  Y  Y  N  Y  Y  Y  N  Y  N</text>
+      <text x="0" y="136" class="mono accent">Sifted key   1  .  .  1  .  .  .  0  1  .  1  0  0  .  1  .</text>
+    </g>
+  </g>
+
+  <!-- Highlighted matched bases -->
+  <g transform="translate(220,260)">
+    <text x="0" y="0" class="h">Sifting result</text>
+    <text x="0" y="20" class="dim">Alice and Bob keep only the bits where their bases match.</text>
+    <text x="0" y="42" class="mono accent">Raw sifted key (8 bits): 1 0 1 0 0 1 0 1</text>
+    <text x="0" y="62" class="dim">Used as the seed for the one-time pad.</text>
+  </g>
+
+  <!-- QBER callout -->
+  <rect x="40" y="340" width="400" height="180" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="60" y="368" class="h">QBER check</text>
+  <text x="60" y="392" class="dim">Alice and Bob publicly compare a subset:</text>
+  <text x="60" y="412" class="mono">Clean link:       QBER ~ 0%</text>
+  <text x="60" y="432" class="mono">Trudy intercept:  QBER ~ 25%</text>
+  <text x="60" y="452" class="mono accent">If QBER &gt; 11% -&gt; abort the key.</text>
+  <text x="60" y="478" class="dim">No-cloning theorem means Trudy cannot copy</text>
+  <text x="60" y="496" class="dim">the photon and forward an untampered copy.</text>
+
+  <!-- Privacy amplification callout -->
+  <rect x="480" y="340" width="400" height="180" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="500" y="368" class="h">Privacy amplification</text>
+  <text x="500" y="392" class="dim">Shrink the sifted key so Trudy's partial</text>
+  <text x="500" y="412" class="dim">knowledge becomes useless.</text>
+  <text x="500" y="432" class="mono">Block size:   1024 bits</text>
+  <text x="500" y="452" class="mono">Per block:    n -&gt; n^2 (2048 bits)</text>
+  <text x="500" y="472" class="mono accent">Output:       final OTP key</text>
+  <text x="500" y="496" class="dim">Real systems use Toeplitz hashing, not squaring.</text>
+</svg>

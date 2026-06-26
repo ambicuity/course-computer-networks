@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" width="760" height="460">
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#E2557A"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="760" height="460" fill="#FFF7EC"/>
+
+  <text x="380" y="34" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#2A1A2E" text-anchor="middle">Anycast Routing: one address, nearest instance</text>
+  <text x="380" y="56" font-family="Inter, sans-serif" font-size="13" fill="#2A1A2E" text-anchor="middle">Two instances S1, S2 both advertise address S. Shortest path picks the closest one.</text>
+
+  <!-- LEFT: real topology -->
+  <text x="190" y="92" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#2A1A2E" text-anchor="middle">(a) Real topology</text>
+
+  <!-- client chain A-B-C-D -->
+  <!-- edges -->
+  <line x1="70" y1="170" x2="170" y2="170" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="170" y1="170" x2="270" y2="170" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="270" y1="170" x2="350" y2="170" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="120" y="162" font-family="monospace" font-size="12" fill="#2A1A2E" text-anchor="middle">1</text>
+  <text x="220" y="162" font-family="monospace" font-size="12" fill="#2A1A2E" text-anchor="middle">4</text>
+  <text x="310" y="162" font-family="monospace" font-size="12" fill="#2A1A2E" text-anchor="middle">1</text>
+  <!-- vertical edges to instances -->
+  <line x1="70" y1="170" x2="70" y2="270" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="270" y1="170" x2="270" y2="270" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="58" y="222" font-family="monospace" font-size="12" fill="#2A1A2E" text-anchor="middle">2</text>
+  <text x="258" y="222" font-family="monospace" font-size="12" fill="#2A1A2E" text-anchor="middle">2</text>
+
+  <!-- catchment shading -->
+  <ellipse cx="120" cy="220" rx="95" ry="78" fill="#E2557A" fill-opacity="0.10" stroke="#E2557A" stroke-dasharray="4 4"/>
+  <ellipse cx="310" cy="220" rx="80" ry="78" fill="#E2557A" fill-opacity="0.10" stroke="#E2557A" stroke-dasharray="4 4"/>
+  <text x="120" y="320" font-family="Inter, sans-serif" font-size="11" fill="#E2557A" text-anchor="middle">catchment of S1: {A,B}</text>
+  <text x="310" y="320" font-family="Inter, sans-serif" font-size="11" fill="#E2557A" text-anchor="middle">catchment of S2: {C,D}</text>
+
+  <!-- client nodes -->
+  <g font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#2A1A2E" text-anchor="middle">
+    <circle cx="70" cy="170" r="16" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/><text x="70" y="175">A</text>
+    <circle cx="170" cy="170" r="16" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/><text x="170" y="175">B</text>
+    <circle cx="270" cy="170" r="16" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/><text x="270" y="175">C</text>
+    <circle cx="350" cy="170" r="16" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/><text x="350" y="175">D</text>
+  </g>
+  <!-- instance nodes (shared address S) -->
+  <g font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#FFF7EC" text-anchor="middle">
+    <circle cx="70" cy="270" r="18" fill="#E2557A" stroke="#2A1A2E" stroke-width="2"/><text x="70" y="267">S</text><text x="70" y="280" font-size="9">(S1)</text>
+    <circle cx="270" cy="270" r="18" fill="#E2557A" stroke="#2A1A2E" stroke-width="2"/><text x="270" y="267">S</text><text x="270" y="280" font-size="9">(S2)</text>
+  </g>
+
+  <!-- divider -->
+  <line x1="400" y1="80" x2="400" y2="340" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="2 6"/>
+
+  <!-- RIGHT: collapsed topology -->
+  <text x="580" y="92" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#2A1A2E" text-anchor="middle">(b) Topology the protocol believes</text>
+
+  <line x1="450" y1="170" x2="550" y2="170" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="550" y1="170" x2="650" y2="170" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="650" y1="170" x2="720" y2="170" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- dashed berry shortest-path arrows to single S -->
+  <path d="M450,184 C480,250 540,290 575,300" stroke="#E2557A" stroke-width="2" fill="none" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <path d="M550,184 C560,240 575,275 580,296" stroke="#E2557A" stroke-width="2" fill="none" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <path d="M650,184 C640,240 600,280 588,298" stroke="#E2557A" stroke-width="2" fill="none" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <path d="M720,184 C700,250 620,295 593,302" stroke="#E2557A" stroke-width="2" fill="none" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+
+  <g font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#2A1A2E" text-anchor="middle">
+    <circle cx="450" cy="170" r="16" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/><text x="450" y="175">A</text>
+    <circle cx="550" cy="170" r="16" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/><text x="550" y="175">B</text>
+    <circle cx="650" cy="170" r="16" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/><text x="650" y="175">C</text>
+    <circle cx="720" cy="170" r="16" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/><text x="720" y="175">D</text>
+  </g>
+  <!-- single fused node S -->
+  <circle cx="585" cy="312" r="22" fill="#E2557A" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="585" y="318" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#FFF7EC" text-anchor="middle">S</text>
+  <text x="585" y="352" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">one virtual node (all instances fused)</text>
+
+  <!-- footer -->
+  <rect x="40" y="388" width="680" height="52" rx="6" fill="#2A1A2E"/>
+  <text x="380" y="409" font-family="monospace" font-size="12" fill="#FFF7EC" text-anchor="middle">No new protocol: Bellman-Ford and Dijkstra both converge on the cheapest instance of S.</text>
+  <text x="380" y="428" font-family="monospace" font-size="12" fill="#E2557A" text-anchor="middle">Withdraw S1 (BGP WITHDRAW) -> A,B re-path to S2, cost rises, open TCP flows RST.</text>
+</svg>

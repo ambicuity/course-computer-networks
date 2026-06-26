@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="880" height="520" fill="#FFF7EC"/>
+  <text x="40" y="42" font-size="22" font-weight="700" fill="#2A1A2E">Bit stuffing with HDLC flags</text>
+  <text x="40" y="64" font-size="13" fill="#2A1A2E" opacity="0.7">Flag 01111110 (0x7E) delimits frames; a 0 is stuffed after every five 1s so the flag can never appear in data.</text>
+
+  <!-- (a) original -->
+  <text x="40" y="110" font-size="13" font-weight="600" fill="#2A1A2E">(a) Original data</text>
+  <g font-size="15" font-family="ui-monospace, Menlo, monospace" fill="#2A1A2E">
+    <text x="40" y="136">0 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 0</text>
+  </g>
+  <path d="M166 146 L166 153 L688 153 L688 146" stroke="#E2557A" stroke-width="1.5" fill="none"/>
+  <text x="427" y="168" font-size="11" fill="#E2557A" text-anchor="middle">16 consecutive 1s — would create a false flag</text>
+
+  <!-- (b) on the line -->
+  <text x="40" y="198" font-size="13" font-weight="600" fill="#2A1A2E">(b) On the line (stuffed)</text>
+  <g font-size="15" font-family="ui-monospace, Menlo, monospace" fill="#2A1A2E">
+    <text x="40" y="224">0 1 1 0 1 1 1 1 1<tspan fill="#E2557A" font-weight="700"> 0</tspan> 1 1 1 1 1<tspan fill="#E2557A" font-weight="700"> 0</tspan> 1 1 1 1 1<tspan fill="#E2557A" font-weight="700"> 0</tspan> 1 0 0 1 0</text>
+  </g>
+  <g font-size="10" fill="#E2557A">
+    <line x1="356" y1="234" x2="356" y2="252" stroke="#E2557A" stroke-width="1"/>
+    <text x="356" y="264" text-anchor="middle">stuffed</text>
+    <line x1="566" y1="234" x2="566" y2="252" stroke="#E2557A" stroke-width="1"/>
+    <text x="566" y="264" text-anchor="middle">stuffed</text>
+    <line x1="776" y1="234" x2="776" y2="252" stroke="#E2557A" stroke-width="1"/>
+    <text x="776" y="264" text-anchor="middle">stuffed</text>
+  </g>
+
+  <!-- (c) stored -->
+  <text x="40" y="296" font-size="13" font-weight="600" fill="#2A1A2E">(c) Stored after destuffing</text>
+  <g font-size="15" font-family="ui-monospace, Menlo, monospace" fill="#2A1A2E">
+    <text x="40" y="322">0 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 0</text>
+  </g>
+  <text x="427" y="344" font-size="11" fill="#2A1A2E" opacity="0.7" text-anchor="middle">(c) is identical to (a) — transparency holds</text>
+
+  <!-- HDLC frame layout -->
+  <text x="40" y="386" font-size="14" font-weight="700" fill="#2A1A2E">HDLC frame layout (ISO/IEC 13239)</text>
+  <rect x="40" y="402" width="70" height="44" rx="4" fill="#E2557A"/>
+  <text x="75" y="420" font-size="11" fill="#FFF7EC" text-anchor="middle" font-weight="700">Flag</text>
+  <text x="75" y="436" font-size="10" fill="#FFF7EC" text-anchor="middle">0x7E</text>
+  <rect x="114" y="402" width="90" height="44" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="159" y="420" font-size="11" fill="#2A1A2E" text-anchor="middle" font-weight="600">Address</text>
+  <text x="159" y="436" font-size="10" fill="#2A1A2E" text-anchor="middle">8 bits</text>
+  <rect x="208" y="402" width="90" height="44" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="253" y="420" font-size="11" fill="#2A1A2E" text-anchor="middle" font-weight="600">Control</text>
+  <text x="253" y="436" font-size="10" fill="#2A1A2E" text-anchor="middle">8/16 bits</text>
+  <rect x="302" y="402" width="180" height="44" rx="4" fill="#2A1A2E"/>
+  <text x="392" y="420" font-size="11" fill="#FFF7EC" text-anchor="middle" font-weight="600">Information</text>
+  <text x="392" y="436" font-size="10" fill="#FFF7EC" text-anchor="middle">0–N bits (stuffed)</text>
+  <rect x="486" y="402" width="90" height="44" rx="4" fill="none" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="531" y="420" font-size="11" fill="#2A1A2E" text-anchor="middle" font-weight="600">FCS</text>
+  <text x="531" y="436" font-size="10" fill="#2A1A2E" text-anchor="middle">CRC-16/32</text>
+  <rect x="580" y="402" width="70" height="44" rx="4" fill="#E2557A"/>
+  <text x="615" y="420" font-size="11" fill="#FFF7EC" text-anchor="middle" font-weight="700">Flag</text>
+  <text x="615" y="436" font-size="10" fill="#FFF7EC" text-anchor="middle">0x7E</text>
+  <path d="M114 450 L114 457 L576 457 L576 450" stroke="#2A1A2E" stroke-width="1" fill="none" opacity="0.5"/>
+  <text x="345" y="473" font-size="11" fill="#2A1A2E" opacity="0.8" text-anchor="middle">FCS over Address+Control+Information BEFORE stuffing; verified AFTER destuffing</text>
+
+  <g font-size="11" fill="#2A1A2E">
+    <rect x="40" y="494" width="14" height="14" fill="#E2557A"/>
+    <text x="60" y="506">Flag / accent</text>
+    <rect x="170" y="494" width="14" height="14" fill="#2A1A2E"/>
+    <text x="190" y="506">Payload (stuffed)</text>
+    <text x="360" y="506" fill="#E2557A" font-weight="700">0</text>
+    <text x="372" y="506">= stuffed bit (after five 1s)</text>
+  </g>
+</svg>

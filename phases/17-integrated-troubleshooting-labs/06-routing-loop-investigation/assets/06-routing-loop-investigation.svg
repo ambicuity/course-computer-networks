@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="ui-sans-serif, system-ui, sans-serif">
+  <rect width="880" height="620" fill="#FFF7EC"/>
+  <rect x="0" y="0" width="880" height="50" fill="#2A1A2E"/>
+  <text x="20" y="32" font-size="18" font-weight="700" fill="#FFF7EC">Routing Loop Investigation</text>
+  <text x="20" y="74" font-size="13" fill="#2A1A2E" font-style="italic">Packets cycle through the same routers until their TTL expires; the routing table oscillates every 30 s.</text>
+
+  <!-- routers in a triangle -->
+  <g>
+    <circle cx="240" cy="220" r="40" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="240" y="226" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">CORE-A</text>
+    <text x="240" y="244" text-anchor="middle" font-size="11" fill="#2A1A2E">10.0.0.1</text>
+  </g>
+  <g>
+    <circle cx="440" cy="220" r="40" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="440" y="226" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">CORE-B</text>
+    <text x="440" y="244" text-anchor="middle" font-size="11" fill="#2A1A2E">10.0.0.2</text>
+  </g>
+  <g>
+    <circle cx="640" cy="220" r="40" fill="#F2E0CE" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="640" y="226" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">EDGE-1</text>
+    <text x="640" y="244" text-anchor="middle" font-size="11" fill="#2A1A2E">10.0.0.3</text>
+  </g>
+  <g>
+    <circle cx="540" cy="380" r="34" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="540" y="386" text-anchor="middle" font-size="13" fill="#2A1A2E">ISP-1</text>
+  </g>
+  <g>
+    <circle cx="740" cy="380" r="34" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="740" y="386" text-anchor="middle" font-size="13" fill="#2A1A2E">ISP-2</text>
+  </g>
+  <g stroke="#2A1A2E" stroke-width="1.5" fill="none">
+    <line x1="280" y1="220" x2="400" y2="220"/>
+    <line x1="480" y1="220" x2="600" y2="220"/>
+    <line x1="640" y1="260" x2="565" y2="350"/>
+    <line x1="660" y1="260" x2="725" y2="350"/>
+  </g>
+  <!-- loop arrows -->
+  <g stroke="#E2557A" stroke-width="2.5" fill="none" stroke-dasharray="6 4">
+    <path d="M 240 200 A 80 60 0 0 1 440 200" marker-end="url(#arrow-pink)"/>
+    <path d="M 440 240 A 80 60 0 0 0 240 240" marker-end="url(#arrow-pink)"/>
+    <path d="M 480 220 A 80 60 0 0 1 640 200" marker-end="url(#arrow-pink)"/>
+  </g>
+  <defs>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <!-- traceroute output -->
+  <g>
+    <rect x="40" y="450" width="810" height="150" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="474" font-size="13" font-weight="700" fill="#2A1A2E">traceroute -n 8.8.8.8 (signature: cycle of 3 routers):</text>
+    <g font-size="11" fill="#2A1A2E" font-family="ui-monospace, monospace">
+      <text x="60"  y="498">  1  10.0.0.1  0.412 ms  <- CORE-A</text>
+      <text x="60"  y="516">  2  10.0.0.2  1.213 ms  <- CORE-B</text>
+      <text x="60"  y="534">  3  10.0.0.3  2.401 ms  <- EDGE-1</text>
+      <text x="60"  y="552">  4  10.0.0.1  3.602 ms  <- CYCLE</text>
+      <text x="60"  y="570">  5  10.0.0.2  4.811 ms</text>
+      <text x="60"  y="588">  6  10.0.0.3  5.999 ms</text>
+    </g>
+  </g>
+</svg>

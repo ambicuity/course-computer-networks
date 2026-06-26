@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="820" height="480" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold">CSMA/CA, DCF, and the IFS hierarchy</text>
+    <text x="410" y="50" text-anchor="middle" font-size="11" font-weight="bold">SIFS &lt; PIFS &lt; DIFS &lt; EIFS  ·  Binary exponential backoff  ·  802.11e AIFS[AC]</text>
+  </g>
+
+  <!-- IFS timeline -->
+  <g>
+    <rect x="40" y="80" width="740" height="200" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="100" font-size="12" font-weight="bold" fill="#2A1A2E">Inter-frame space timeline (802.11g at 54 Mbps)</text>
+
+    <line x1="60" y1="140" x2="780" y2="140" stroke="#2A1A2E" stroke-width="1.5"/>
+
+    <!-- DIFS -->
+    <rect x="80" y="120" width="34" height="40" fill="#E2557A"/>
+    <text x="97" y="115" text-anchor="middle" font-size="10" fill="#2A1A2E">DIFS</text>
+    <text x="97" y="178" text-anchor="middle" font-size="9" fill="#2A1A2E">34 µs</text>
+
+    <!-- backoff slots -->
+    <text x="180" y="135" text-anchor="middle" font-size="10" fill="#2A1A2E">backoff  (random slots 0..CW-1, slot 9 µs)</text>
+    <rect x="130" y="120" width="280" height="40" fill="#2A1A2E" opacity="0.2"/>
+    <text x="270" y="178" text-anchor="middle" font-size="9" fill="#2A1A2E">CW ∈ [CWmin=15, CWmax=1023]  ·  backoff_counter frozen on busy</text>
+
+    <!-- DATA -->
+    <rect x="420" y="120" width="120" height="40" fill="#E2557A"/>
+    <text x="480" y="145" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">DATA</text>
+
+    <!-- SIFS -->
+    <rect x="540" y="120" width="16" height="40" fill="none" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="548" y="115" text-anchor="middle" font-size="9" fill="#2A1A2E">SIFS</text>
+    <text x="548" y="178" text-anchor="middle" font-size="9" fill="#2A1A2E">16 µs</text>
+
+    <!-- ACK -->
+    <rect x="556" y="120" width="40" height="40" fill="#2A1A2E"/>
+    <text x="576" y="145" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">ACK</text>
+
+    <!-- SIFS again -->
+    <rect x="600" y="120" width="16" height="40" fill="none" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="608" y="115" text-anchor="middle" font-size="9" fill="#2A1A2E">SIFS</text>
+
+    <!-- next DIFS -->
+    <rect x="620" y="120" width="34" height="40" fill="#E2557A"/>
+    <text x="637" y="115" text-anchor="middle" font-size="10" fill="#2A1A2E">DIFS</text>
+    <text x="637" y="178" text-anchor="middle" font-size="9" fill="#2A1A2E">next contender</text>
+
+    <text x="60" y="216" font-size="10" fill="#2A1A2E">SIFS = Short IFS (highest priority — ACK, CTS, fragment, after-Rx-RIFS)</text>
+    <text x="60" y="232" font-size="10" fill="#2A1A2E">PIFS = SIFS + 1 slot (used by PCF / HC, contention-free period)</text>
+    <text x="60" y="248" font-size="10" fill="#2A1A2E">DIFS = SIFS + 2 slots (DCF contention start)</text>
+    <text x="60" y="264" font-size="10" fill="#2A1A2E">EIFS = Extended IFS — used after a bad/unknown frame, ~SIFS+ACK+DIFS</text>
+  </g>
+
+  <!-- AIFS / access categories -->
+  <g>
+    <rect x="40" y="300" width="370" height="160" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="320" font-size="12" font-weight="bold" fill="#2A1A2E">AIFS[AC] (802.11e QoS)</text>
+    <g fill="#2A1A2E" font-size="10">
+      <text x="60" y="342">AC_VO  (Voice)      AIFSN=2, CWmin=3,  CWmax=7</text>
+      <text x="60" y="362">AC_VI  (Video)      AIFSN=2, CWmin=7,  CWmax=15</text>
+      <text x="60" y="382">AC_BE  (Best-effort) AIFSN=3, CWmin=15, CWmax=1023</text>
+      <text x="60" y="402">AC_BK  (Background) AIFSN=7, CWmin=15, CWmax=1023</text>
+    </g>
+    <text x="60" y="430" font-size="10" fill="#2A1A2E">AIFS[AC] = SIFS + AIFSN × slot</text>
+    <text x="60" y="446" font-size="10" fill="#2A1A2E">TXOP limits per AC (e.g. VO 1.504 ms)</text>
+  </g>
+
+  <!-- BEB table -->
+  <g>
+    <rect x="430" y="300" width="350" height="160" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="605" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#2A1A2E">Binary exponential backoff</text>
+    <g fill="#2A1A2E" font-size="10">
+      <text x="605" y="340" text-anchor="middle" font-weight="bold">Collision k → CW window</text>
+      <text x="450" y="360">k=1   [0, 1]</text>
+      <text x="600" y="360">k=2   [0, 3]</text>
+      <text x="450" y="378">k=3   [0, 7]</text>
+      <text x="600" y="378">k=4   [0, 15]</text>
+      <text x="450" y="396">k=5   [0, 31]  (CWmin)</text>
+      <text x="600" y="396">k=10  [0, 1023]</text>
+      <text x="450" y="414">k=15  [0, 1023]  (frozen)</text>
+      <text x="600" y="414">k=16  give up</text>
+    </g>
+    <text x="605" y="446" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="bold">2^min(k,10) − 1 slots, jammed after collision</text>
+  </g>
+</svg>

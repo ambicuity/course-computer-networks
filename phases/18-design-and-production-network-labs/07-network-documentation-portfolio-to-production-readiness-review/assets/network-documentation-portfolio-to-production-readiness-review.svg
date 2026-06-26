@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" width="800" height="540">
+  <rect width="800" height="540" fill="#FFF7EC"/>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" fill="#2A1A2E">
+
+    <text x="400" y="32" text-anchor="middle" font-size="22" font-weight="700">Network Documentation Portfolio + Production Readiness Review</text>
+    <text x="400" y="54" text-anchor="middle" font-size="13" fill="#5a4a5e">Ten canonical directories • 18 production-readiness checks • quarterly trend</text>
+
+    <g>
+      <text x="40" y="90" font-size="14" font-weight="700">Portfolio monorepo (git)</text>
+      <g font-size="11">
+        <rect x="40" y="100" width="720" height="22" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.4" rx="4"/>
+        <text x="50" y="116">netops-portfolio/</text>
+
+        <text x="60" y="140">├── inventory/    hardware, serials, EoL/EoSL dates</text>
+        <text x="60" y="158">├── topology/     L2/L3 diagrams (draw.io, exported PNG)</text>
+        <text x="60" y="176">├── ipam/         subnet allocations, reservations, free-space</text>
+        <text x="60" y="194">├── vlans/        ID, name, subnet, gateway, port assignments</text>
+        <text x="60" y="212">├── configs/      nightly device configs to git</text>
+        <text x="60" y="230">├── runbooks/     outage, DDoS, breach, BGP flap, etc.</text>
+        <text x="60" y="248">├── policies/     ACLs, firewall rules, QoS, BGP policy</text>
+        <text x="60" y="266">├── procedures/   change mgmt, IR, onboarding</text>
+        <text x="60" y="284">├── monitoring/   dashboards, alerts, escalation, on-call</text>
+        <text x="60" y="302">└── vendor/       contracts, SLAs, contacts, escalation</text>
+      </g>
+    </g>
+
+    <g>
+      <text x="40" y="338" font-size="14" font-weight="700">18 production-readiness checks (7 categories, max 180)</text>
+
+      <g font-size="11">
+        <rect x="40" y="350" width="155" height="22" fill="#E6FFE0" stroke="#2A1A2E" stroke-width="1" rx="3"/>
+        <text x="50" y="366">Redundancy × 3</text>
+
+        <rect x="200" y="350" width="155" height="22" fill="#E6FFE0" stroke="#2A1A2E" stroke-width="1" rx="3"/>
+        <text x="210" y="366">Monitoring × 3</text>
+
+        <rect x="360" y="350" width="155" height="22" fill="#FFE6E6" stroke="#2A1A2E" stroke-width="1" rx="3"/>
+        <text x="370" y="366">Backups × 2 (1 FAIL)</text>
+
+        <rect x="520" y="350" width="155" height="22" fill="#FFF5CC" stroke="#2A1A2E" stroke-width="1" rx="3"/>
+        <text x="530" y="366">Security × 3 (2 WARN)</text>
+
+        <rect x="40" y="378" width="155" height="22" fill="#FFF5CC" stroke="#2A1A2E" stroke-width="1" rx="3"/>
+        <text x="50" y="394">Capacity × 2 (1 WARN)</text>
+
+        <rect x="200" y="378" width="155" height="22" fill="#FFE6E6" stroke="#2A1A2E" stroke-width="1" rx="3"/>
+        <text x="210" y="394">Docs × 3 (1 FAIL)</text>
+
+        <rect x="360" y="378" width="155" height="22" fill="#FFF5CC" stroke="#2A1A2E" stroke-width="1" rx="3"/>
+        <text x="370" y="394">Procedures × 2 (1 WARN)</text>
+      </g>
+    </g>
+
+    <g>
+      <text x="40" y="430" font-size="14" font-weight="700">90-day readiness trend</text>
+
+      <g stroke="#2A1A2E" stroke-width="1" fill="none">
+        <line x1="40" y1="490" x2="760" y2="490"/>
+        <line x1="40" y1="450" x2="40" y2="490"/>
+      </g>
+
+      <g font-size="10" fill="#5a4a5e">
+        <text x="36" y="455" text-anchor="end">100%</text>
+        <text x="36" y="475" text-anchor="end">75%</text>
+        <text x="36" y="495" text-anchor="end">50%</text>
+        <line x1="40" y1="475" x2="760" y2="475" stroke="#5a4a5e" stroke-dasharray="2 4"/>
+      </g>
+
+      <polyline points="60,478 180,470 300,464 420,458 540,453 720,449" stroke="#E2557A" stroke-width="2.4" fill="none"/>
+
+      <g font-size="10" fill="#5a4a5e">
+        <text x="60" y="505" text-anchor="middle">2024-01</text>
+        <text x="180" y="505" text-anchor="middle">2024-02</text>
+        <text x="300" y="505" text-anchor="middle">2024-03</text>
+        <text x="420" y="505" text-anchor="middle">2024-04</text>
+        <text x="540" y="505" text-anchor="middle">2024-05</text>
+        <text x="720" y="505" text-anchor="middle">2024-06</text>
+      </g>
+
+      <g font-size="10" fill="#2A1A2E">
+        <text x="60" y="473" text-anchor="middle">62%</text>
+        <text x="180" y="465" text-anchor="middle">68%</text>
+        <text x="300" y="459" text-anchor="middle">72%</text>
+        <text x="420" y="453" text-anchor="middle">75%</text>
+        <text x="540" y="448" text-anchor="middle">79%</text>
+        <text x="720" y="444" text-anchor="middle">82%</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="555" y="80" width="220" height="80" fill="#FFE8C7" stroke="#E2557A" stroke-width="1.6" rx="6"/>
+      <text x="665" y="102" text-anchor="middle" font-size="13" font-weight="700">Current score</text>
+      <text x="665" y="128" text-anchor="middle" font-size="20" font-weight="700">147 / 180 (82%)</text>
+      <text x="665" y="148" text-anchor="middle" font-size="12" fill="#5a4a5e">Grade: B (internal-ready)</text>
+    </g>
+
+  </g>
+</svg>

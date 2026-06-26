@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" width="720" height="520">
+  <rect width="720" height="520" fill="#FFF7EC"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="bold" fill="#2A1A2E">Web Security Threat Taxonomy and SYN-Flood Mechanism</text>
+
+  <!-- Threat taxonomy -->
+  <text x="40" y="56" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">Threat Taxonomy</text>
+  <rect x="60" y="70" width="180" height="40" rx="3" fill="#E2557A" stroke="#2A1A2E" opacity="0.7"/>
+  <text x="150" y="88" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#FFF7EC">Defacement</text>
+  <text x="150" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#FFF7EC">page replaced (Yahoo, CIA)</text>
+
+  <rect x="250" y="70" width="180" height="40" rx="3" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="340" y="88" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#FFF7EC">DoS / DDoS</text>
+  <text x="340" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#FFF7EC">SYN flood, botnet</text>
+
+  <rect x="440" y="70" width="180" height="40" rx="3" fill="#E2557A" stroke="#2A1A2E" opacity="0.85"/>
+  <text x="530" y="88" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#FFF7EC">Data Theft</text>
+  <text x="530" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#FFF7EC">300K credit cards (Maxim)</text>
+
+  <rect x="60" y="120" width="180" height="40" rx="3" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="150" y="138" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#2A1A2E">Stock Manipulation</text>
+  <text x="150" y="152" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">Emulex -60% ($2B loss)</text>
+
+  <rect x="250" y="120" width="180" height="40" rx="3" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="340" y="138" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#2A1A2E">Man-in-the-Middle</text>
+  <text x="340" y="152" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">active wiretap, modify traffic</text>
+
+  <rect x="440" y="120" width="180" height="40" rx="3" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="530" y="138" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#2A1A2E">Email Account Breach</text>
+  <text x="530" y="152" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">Hotmail mirror (1999)</text>
+
+  <!-- SYN flood mechanism -->
+  <text x="40" y="192" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">TCP SYN-Flood DoS Mechanism</text>
+
+  <rect x="60" y="206" width="120" height="40" rx="3" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="120" y="224" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFF7EC">Attacker</text>
+  <text x="120" y="238" text-anchor="middle" font-family="monospace" font-size="8" fill="#FFF7EC">forged source IP</text>
+
+  <rect x="540" y="206" width="120" height="40" rx="3" fill="#E8DCC8" stroke="#2A1A2E"/>
+  <text x="600" y="224" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">Server</text>
+  <text x="600" y="238" text-anchor="middle" font-family="monospace" font-size="8" fill="#2A1A2E">conn table</text>
+
+  <line x1="180" y1="226" x2="540" y2="226" stroke="#E2557A" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="360" y="220" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">SYN (false src)</text>
+
+  <line x1="540" y1="250" x2="180" y2="250" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#b)"/>
+  <text x="360" y="244" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">SYN+ACK -> forged addr (lost)</text>
+
+  <line x1="180" y1="272" x2="540" y2="272" stroke="#E2557A" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="360" y="266" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">SYN (repeat)</text>
+
+  <text x="60" y="288" font-family="monospace" font-size="9" fill="#2A1A2E">No ACK ever -> slot occupied until timeout</text>
+
+  <!-- Connection table -->
+  <text x="40" y="316" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">Connection Table Exhaustion</text>
+  <g font-family="monospace" font-size="9">
+    <rect x="60" y="326" width="40" height="18" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="80" y="339" text-anchor="middle" fill="#FFF7EC">1</text>
+    <rect x="100" y="326" width="40" height="18" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="120" y="339" text-anchor="middle" fill="#FFF7EC">2</text>
+    <rect x="140" y="326" width="40" height="18" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="160" y="339" text-anchor="middle" fill="#FFF7EC">3</text>
+    <rect x="180" y="326" width="40" height="18" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="200" y="339" text-anchor="middle" fill="#FFF7EC">4</text>
+    <rect x="220" y="326" width="40" height="18" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="240" y="339" text-anchor="middle" fill="#FFF7EC">5</text>
+    <rect x="260" y="326" width="40" height="18" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="280" y="339" text-anchor="middle" fill="#FFF7EC">6</text>
+    <rect x="300" y="326" width="40" height="18" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="320" y="339" text-anchor="middle" fill="#FFF7EC">7</text>
+    <rect x="340" y="326" width="40" height="18" fill="#D4C5A9" stroke="#2A1A2E"/>
+    <text x="360" y="339" text-anchor="middle" fill="#2A1A2E">8</text>
+    <rect x="380" y="326" width="40" height="18" fill="#D4C5A9" stroke="#2A1A2E"/>
+    <text x="400" y="339" text-anchor="middle" fill="#2A1A2E">9</text>
+    <rect x="420" y="326" width="40" height="18" fill="#D4C5A9" stroke="#2A1A2E"/>
+    <text x="440" y="339" text-anchor="middle" fill="#2A1A2E">10</text>
+  </g>
+  <text x="60" y="356" font-family="monospace" font-size="9" fill="#E2557A">red = SYN_RECEIVED (occupied)</text>
+  <text x="60" y="370" font-family="monospace" font-size="9" fill="#2A1A2E">empty = available for legitimate connections</text>
+  <text x="60" y="384" font-family="monospace" font-size="9" fill="#E2557A">-> when all red, legit connections BLOCKED</text>
+
+  <!-- DoS vs DDoS -->
+  <text x="40" y="412" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">DoS vs DDoS</text>
+  <text x="60" y="430" font-family="monospace" font-size="9" fill="#2A1A2E">DoS:  1 attacker  | limited firepower  | easier to trace/filter</text>
+  <text x="60" y="444" font-family="monospace" font-size="9" fill="#2A1A2E">DDoS: N bots      | scaled firepower   | hard to trace (many sources)</text>
+
+  <!-- Three parts -->
+  <text x="40" y="470" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#2A1A2E">Three Parts of Web Security</text>
+  <rect x="60" y="482" width="200" height="24" rx="2" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="160" y="498" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">1. Secure naming (DNS)</text>
+  <rect x="270" y="482" width="200" height="24" rx="2" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="370" y="498" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">2. Secure connections (SSL/TLS)</text>
+  <rect x="480" y="482" width="180" height="24" rx="2" fill="#D4C5A9" stroke="#2A1A2E"/>
+  <text x="570" y="498" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">3. Mobile code safety</text>
+
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+    <marker id="b" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520" font-family="Inter, sans-serif">
+  <rect width="800" height="520" fill="#FFF7EC"/>
+  <text x="400" y="34" text-anchor="middle" fill="#2A1A2E" font-size="20" font-weight="700">Digital Video: JPEG Still Image → MPEG Inter-frame</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#2A1A2E"/></marker></defs>
+  <text x="400" y="64" text-anchor="middle" fill="#2A1A2E" font-size="14" font-weight="700">JPEG pipeline (per still frame)</text>
+  <rect x="20" y="80" width="110" height="60" rx="6" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="75" y="104" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">RGB input</text>
+  <text x="75" y="122" text-anchor="middle" fill="#2A1A2E" font-size="9">640x480x24</text>
+  <line x1="130" y1="110" x2="155" y2="110" stroke="#2A1A2E" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="155" y="80" width="110" height="60" rx="6" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="210" y="104" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">YCbCr</text>
+  <text x="210" y="122" text-anchor="middle" fill="#E2557A" font-size="9">4:2:0 chroma sub</text>
+  <line x1="265" y1="110" x2="290" y2="110" stroke="#2A1A2E" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="290" y="80" width="110" height="60" rx="6" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="345" y="104" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">8x8 DCT</text>
+  <text x="345" y="122" text-anchor="middle" fill="#2A1A2E" font-size="9">(0,0)=avg</text>
+  <line x1="400" y1="110" x2="425" y2="110" stroke="#2A1A2E" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="425" y="80" width="110" height="60" rx="6" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="480" y="104" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">Quantize</text>
+  <text x="480" y="122" text-anchor="middle" fill="#E2557A" font-size="9">lossy; q-table</text>
+  <line x1="535" y1="110" x2="560" y2="110" stroke="#2A1A2E" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="560" y="80" width="110" height="60" rx="6" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="615" y="104" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">Zigzag+RLE</text>
+  <text x="615" y="122" text-anchor="middle" fill="#2A1A2E" font-size="9">38 zeros -> 1</text>
+  <line x1="670" y1="110" x2="695" y2="110" stroke="#2A1A2E" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="695" y="80" width="85" height="60" rx="6" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="737" y="104" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">Huffman</text>
+  <text x="737" y="122" text-anchor="middle" fill="#E2557A" font-size="9">10-20:1</text>
+  <text x="400" y="172" text-anchor="middle" fill="#2A1A2E" font-size="14" font-weight="700">MPEG adds inter-frame redundancy</text>
+  <rect x="40" y="195" width="160" height="90" rx="8" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="218" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">I-frame</text>
+  <text x="120" y="238" text-anchor="middle" fill="#2A1A2E" font-size="10">self-contained</text>
+  <text x="120" y="254" text-anchor="middle" fill="#E2557A" font-size="10">JPEG-like still</text>
+  <text x="120" y="270" text-anchor="middle" fill="#2A1A2E" font-size="9">random access, recovery</text>
+  <line x1="200" y1="240" x2="230" y2="240" stroke="#2A1A2E" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="230" y="195" width="170" height="90" rx="8" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="315" y="218" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">P-frame</text>
+  <text x="315" y="238" text-anchor="middle" fill="#2A1A2E" font-size="10">predictive</text>
+  <text x="315" y="254" text-anchor="middle" fill="#E2557A" font-size="10">motion vector + diff</text>
+  <text x="315" y="270" text-anchor="middle" fill="#2A1A2E" font-size="9">macroblock 16x16 Y</text>
+  <line x1="400" y1="240" x2="430" y2="240" stroke="#2A1A2E" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="430" y="195" width="170" height="90" rx="8" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="515" y="218" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">B-frame</text>
+  <text x="515" y="238" text-anchor="middle" fill="#2A1A2E" font-size="10">bidirectional</text>
+  <text x="515" y="254" text-anchor="middle" fill="#E2557A" font-size="10">past + future refs</text>
+  <text x="515" y="270" text-anchor="middle" fill="#2A1A2E" font-size="9">best compress; buffered</text>
+  <rect x="620" y="195" width="160" height="90" rx="8" fill="#FFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="700" y="218" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">Encoder asymmetry</text>
+  <text x="700" y="238" text-anchor="middle" fill="#2A1A2E" font-size="10">stored: slow encode OK</text>
+  <text x="700" y="254" text-anchor="middle" fill="#E2557A" font-size="10">live: must encode in RT</text>
+  <text x="700" y="270" text-anchor="middle" fill="#2A1A2E" font-size="9">B-frames often dropped</text>
+</svg>

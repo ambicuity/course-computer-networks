@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <!-- Tunneling to Internetwork Routing -->
+  <rect width="900" height="560" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="450" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">Tunneling: IPv6 over IPv4 (Paris → London)</text>
+  <text x="450" y="56" text-anchor="middle" font-size="12" fill="#6A5A6E">Encapsulate · Carry as freight · Decapsulate — Tanenbaum Fig. 5-40 / 5-41</text>
+
+  <!-- ===== Top row: network topology ===== -->
+  <text x="40" y="92" font-size="13" font-weight="700" fill="#2A1A2E">Network path</text>
+
+  <!-- Paris IPv6 island -->
+  <rect x="40" y="105" width="130" height="70" rx="10" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="105" y="130" text-anchor="middle" font-size="13" font-weight="600" fill="#2A1A2E">Paris (IPv6)</text>
+  <text x="105" y="148" text-anchor="middle" font-size="11" fill="#6A5A6E">2001:db8:1::/64</text>
+  <text x="105" y="163" text-anchor="middle" font-size="10" fill="#6A5A6E">host ::5</text>
+
+  <!-- Paris MR -->
+  <rect x="195" y="115" width="60" height="50" rx="6" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="225" y="138" text-anchor="middle" font-size="10" font-weight="700" fill="#FFF7EC">Paris</text>
+  <text x="225" y="152" text-anchor="middle" font-size="10" font-weight="700" fill="#FFF7EC">MR</text>
+
+  <!-- Tunnel (IPv4 Internet) -->
+  <rect x="275" y="120" width="350" height="40" rx="20" fill="#F0E6D8" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="450" y="138" text-anchor="middle" font-size="12" font-weight="600" fill="#2A1A2E">IPv4 Internet (TUNNEL)</text>
+  <text x="450" y="152" text-anchor="middle" font-size="10" fill="#6A5A6E">proto 41 · intermediate routers see outer header only</text>
+
+  <!-- London MR -->
+  <rect x="645" y="115" width="60" height="50" rx="6" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="675" y="138" text-anchor="middle" font-size="10" font-weight="700" fill="#FFF7EC">London</text>
+  <text x="675" y="152" text-anchor="middle" font-size="10" font-weight="700" fill="#FFF7EC">MR</text>
+
+  <!-- London IPv6 island -->
+  <rect x="730" y="105" width="130" height="70" rx="10" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="795" y="130" text-anchor="middle" font-size="13" font-weight="600" fill="#2A1A2E">London (IPv6)</text>
+  <text x="795" y="148" text-anchor="middle" font-size="11" fill="#6A5A6E">2001:db8:2::/64</text>
+  <text x="795" y="163" text-anchor="middle" font-size="10" fill="#6A5A6E">host ::9</text>
+
+  <!-- Arrows -->
+  <line x1="170" y1="140" x2="193" y2="140" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="255" y1="140" x2="273" y2="140" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="625" y1="140" x2="643" y2="140" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="705" y1="140" x2="728" y2="140" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ===== Middle: packet header stack at each stage ===== -->
+  <text x="40" y="220" font-size="13" font-weight="700" fill="#2A1A2E">Header stack at each stage</text>
+
+  <!-- Stage 1: original IPv6 -->
+  <text x="60" y="245" font-size="11" font-weight="600" fill="#E2557A">1. Paris host → Paris MR</text>
+  <rect x="60" y="252" width="220" height="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="170" y="269" text-anchor="middle" font-size="11" fill="#2A1A2E">IPv6 hdr (40 B) · payload</text>
+  <text x="60" y="294" font-size="10" fill="#6A5A6E">dst = 2001:db8:2::9 (inner, visible)</text>
+
+  <!-- Stage 2: encapsulated in tunnel -->
+  <text x="340" y="245" font-size="11" font-weight="600" fill="#E2557A">2. Inside the tunnel (IPv4 Internet)</text>
+  <rect x="340" y="252" width="280" height="26" fill="#F0E6D8" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="480" y="269" text-anchor="middle" font-size="11" fill="#2A1A2E">IPv4 hdr (20 B, proto 41)</text>
+  <rect x="340" y="278" width="280" height="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="480" y="295" text-anchor="middle" font-size="11" fill="#2A1A2E">IPv6 hdr (40 B) · payload (inner)</text>
+  <text x="340" y="320" font-size="10" fill="#6A5A6E">outer dst = 192.0.2.2 · inner hidden from IPv4 routers</text>
+
+  <!-- Stage 3: decapsulated -->
+  <text x="680" y="245" font-size="11" font-weight="600" fill="#E2557A">3. London MR → London host</text>
+  <rect x="660" y="252" width="220" height="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="770" y="269" text-anchor="middle" font-size="11" fill="#2A1A2E">IPv6 hdr (40 B) · payload</text>
+  <text x="660" y="294" font-size="10" fill="#6A5A6E">byte-identical to stage 1</text>
+
+  <!-- ===== Bottom: MTU table ===== -->
+  <text x="40" y="360" font-size="13" font-weight="700" fill="#2A1A2E">MTU shrinkage by tunnel type</text>
+
+  <rect x="40" y="372" width="820" height="28" fill="#2A1A2E"/>
+  <text x="80" y="391" text-anchor="middle" font-size="11" font-weight="600" fill="#FFF7EC">Tunnel</text>
+  <text x="200" y="391" text-anchor="middle" font-size="11" font-weight="600" fill="#FFF7EC">Overhead</text>
+  <text x="340" y="391" text-anchor="middle" font-size="11" font-weight="600" fill="#FFF7EC">Path MTU 1500</text>
+  <text x="520" y="391" text-anchor="middle" font-size="11" font-weight="600" fill="#FFF7EC">Path MTU 1492</text>
+  <text x="700" y="391" text-anchor="middle" font-size="11" font-weight="600" fill="#FFF7EC">Path MTU 1280</text>
+
+  <rect x="40" y="400" width="820" height="26" fill="#FFF7EC" stroke="#E5D8C8"/>
+  <text x="80" y="418" text-anchor="middle" font-size="11" fill="#2A1A2E">IP-in-IP</text>
+  <text x="200" y="418" text-anchor="middle" font-size="11" fill="#2A1A2E">+20 B</text>
+  <text x="340" y="418" text-anchor="middle" font-size="11" fill="#2A1A2E">1480</text>
+  <text x="520" y="418" text-anchor="middle" font-size="11" fill="#2A1A2E">1472</text>
+  <text x="700" y="418" text-anchor="middle" font-size="11" fill="#2A1A2E">1260</text>
+
+  <rect x="40" y="426" width="820" height="26" fill="#F7EFE0" stroke="#E5D8C8"/>
+  <text x="80" y="444" text-anchor="middle" font-size="11" fill="#2A1A2E">GRE</text>
+  <text x="200" y="444" text-anchor="middle" font-size="11" fill="#2A1A2E">+24 B</text>
+  <text x="340" y="444" text-anchor="middle" font-size="11" fill="#2A1A2E">1476</text>
+  <text x="520" y="444" text-anchor="middle" font-size="11" fill="#2A1A2E">1468</text>
+  <text x="700" y="444" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="600">1256</text>
+
+  <rect x="40" y="452" width="820" height="26" fill="#FFF7EC" stroke="#E5D8C8"/>
+  <text x="80" y="470" text-anchor="middle" font-size="11" fill="#2A1A2E">6to4</text>
+  <text x="200" y="470" text-anchor="middle" font-size="11" fill="#2A1A2E">+20 B</text>
+  <text x="340" y="470" text-anchor="middle" font-size="11" fill="#2A1A2E">1480</text>
+  <text x="520" y="470" text-anchor="middle" font-size="11" fill="#2A1A2E">1472</text>
+  <text x="700" y="470" text-anchor="middle" font-size="11" fill="#2A1A2E">1260</text>
+
+  <!-- Footer note -->
+  <rect x="40" y="495" width="820" height="40" rx="6" fill="#F0E6D8" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="450" y="512" text-anchor="middle" font-size="11" fill="#2A1A2E">IPv6 routers never fragment — oversize inner packets are dropped + ICMPv6 Packet Too Big.</text>
+  <text x="450" y="527" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="600">If that ICMP is filtered → PMTU black hole: large frames silently vanish.</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

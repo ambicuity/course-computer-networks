@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "What is the standardized DSCP value for Expedited Forwarding (voice traffic) and what is its binary form?",
+      "options": [
+        "A. DSCP 34 (100010 binary) -- AF41",
+        "B. DSCP 46 (101110 binary) -- EF, RFC 3246",
+        "C. DSCP 0 (000000 binary) -- BE",
+        "D. DSCP 48 (110000 binary) -- CS6"
+      ],
+      "correct": 1,
+      "explanation": "EF (Expedited Forwarding, RFC 3246) is the voice PHB. The binary codepoint 101110 (= decimal 46) is what the IP ToS byte carries on every voice packet, after the iptables `-j DSCP --set-dscp 46` mark."
+    },
+    {
+      "question": "Why does LLQ (Low-Latency Queuing) cap the EF priority queue at ~33% of the link bandwidth?",
+      "options": [
+        "A. Because the EF DSCP only allows 33% of the bits",
+        "B. Without a ceiling, the priority queue starves all other classes -- the ceil ensures EF gets bounded low-latency service without monopolizing the link",
+        "C. RFC 3246 mandates exactly 33%",
+        "D. 33% matches the 3-bit precedence history"
+      ],
+      "correct": 1,
+      "explanation": "A naive `prio` queue drains band 0 before everything else. Without an `htb ceil` rate limit on the EF class, voice could push 100% of the link and starve video/bulk/management. RFC 8628 recommends policing EF to a fixed percentage (33% is the Cisco/IETF default)."
+    },
+    {
+      "question": "What does the `tc filter ... match ip tos 0xb8 0xfc flowid 1:1` line actually do?",
+      "options": [
+        "A. It matches all packets with ToS byte 0xb8 (DSCP EF) and routes them into queue 1:1 -- the priority band; the mask 0xfc ignores the 2 CU/ECN bits",
+        "B. It blocks all DSCP EF traffic",
+        "C. It sets the ToS byte to 0xb8 on every packet",
+        "D. It re-marks DSCP EF to DSCP BE"
+      ],
+      "correct": 0,
+      "explanation": "`0xb8` = 10111000 binary = DSCP 46 in the high 6 bits. The mask `0xfc` = 11111100 ignores the low 2 bits (CU/ECN). This filter sends every EF-marked packet to band 0 of the `prio` qdisc -- the priority queue. This is how the LLQ selects voice traffic from the bulk flow."
+    }
+  ]
+}

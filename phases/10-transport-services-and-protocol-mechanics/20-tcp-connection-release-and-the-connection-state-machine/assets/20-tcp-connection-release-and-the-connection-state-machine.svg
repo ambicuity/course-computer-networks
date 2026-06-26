@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 580" width="980" height="580">
+  <rect width="980" height="580" fill="#FFF7EC"/>
+  <style>text{font-family:Inter,sans-serif;fill:#2A1A2E}.t{font-size:22px;font-weight:700}.s{font-size:12px;fill:#6b5560}.h{font-size:13px;font-weight:700}.m{font-family:monospace;font-size:12px}.a{fill:#E2557A}.l{font-size:11px;fill:#6b5560}</style>
+  <text x="40" y="34" class="t">TCP Connection Release: 11-State FSM</text>
+  <text x="40" y="52" class="s">RFC 793 Figure 6-39 -- TIME_WAIT = 2*MSL on the active closer</text>
+
+  <rect x="20" y="350" width="110" h="38" rx="4" fill="#E8F5E9" stroke="#2A1A2E" stroke-width="2"/><text x="75" y="372" text-anchor="middle" class="m">CLOSED</text>
+  <rect x="180" y="350" width="110" h="38" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="235" y="372" text-anchor="middle" class="m">LISTEN</text>
+  <rect x="360" y="350" width="120" h="38" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="420" y="372" text-anchor="middle" class="m">SYN_SENT</text>
+  <rect x="360" y="240" width="120" h="38" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="420" y="262" text-anchor="middle" class="m">SYN_RCVD</text>
+  <rect x="360" y="140" width="140" h="38" rx="4" fill="#FFE9C8" stroke="#E2557A" stroke-width="2"/><text x="430" y="162" text-anchor="middle" class="m">ESTABLISHED</text>
+  <rect x="180" y="60" width="130" h="38" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="245" y="82" text-anchor="middle" class="m">FIN_WAIT_1</text>
+  <rect x="20" y="60" width="130" h="38" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="85" y="82" text-anchor="middle" class="m">FIN_WAIT_2</text>
+  <rect x="180" y="170" width="130" h="38" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="245" y="192" text-anchor="middle" class="m">CLOSING</text>
+  <rect x="20" y="170" width="130" h="38" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="2"/><text x="85" y="192" text-anchor="middle" class="m">TIME_WAIT</text>
+  <rect x="540" y="60" width="130" h="38" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="605" y="82" text-anchor="middle" class="m">CLOSE_WAIT</text>
+  <rect x="720" y="60" width="130" h="38" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="785" y="82" text-anchor="middle" class="m">LAST_ACK</text>
+
+  <line x1="130" y1="369" x2="180" y2="369" stroke="#2A1A2E"/><polygon points="180,369 172,365 172,373" fill="#2A1A2E"/>
+  <text x="155" y="362" text-anchor="middle" class="l">LISTEN</text>
+  <line x1="130" y1="369" x2="360" y2="369" stroke="#2A1A2E"/><polygon points="360,369 352,365 352,373" fill="#2A1A2E"/>
+  <text x="245" y="362" text-anchor="middle" class="l">CONNECT</text>
+  <line x1="290" y1="350" x2="380" y2="278" stroke="#2A1A2E"/><polygon points="380,278 372,278 376,286" fill="#2A1A2E"/>
+  <text x="320" y="312" class="l">recv SYN</text>
+  <line x1="420" y1="350" x2="420" y2="178" stroke="#2A1A2E"/><polygon points="420,178 416,186 424,186" fill="#2A1A2E"/>
+  <text x="430" y="266" class="l">recv SYN+ACK</text>
+  <line x1="420" y1="240" x2="430" y2="178" stroke="#2A1A2E"/><polygon points="430,178 422,182 426,188" fill="#2A1A2E"/>
+  <text x="448" y="216" class="l">recv ACK</text>
+
+  <line x1="430" y1="140" x2="245" y2="98" stroke="#E2557A" stroke-width="2"/><polygon points="245,98 253,94 253,102" fill="#E2557A"/>
+  <text x="340" y="110" class="l a">app/CLOSE: send FIN</text>
+  <line x1="180" y1="79" x2="150" y2="79" stroke="#E2557A" stroke-width="2"/><polygon points="150,79 158,75 158,83" fill="#E2557A"/>
+  <text x="165" y="72" class="l a">recv ACK</text>
+  <line x1="20" y1="79" x2="150" y2="170" stroke="#E2557A" stroke-width="2"/><polygon points="150,170 142,166 146,160" fill="#E2557A"/>
+  <text x="28" y="130" class="l a">recv FIN, send ACK</text>
+  <line x1="150" y1="170" x2="150" y2="98" stroke="#E2557A" stroke-width="2"/><polygon points="150,98 146,106 154,106" fill="#E2557A"/>
+  <text x="128" y="138" class="l a">2*MSL</text>
+  <line x1="245" y1="170" x2="150" y2="170" stroke="#E2557A" stroke-width="2"/><polygon points="150,170 158,166 158,174" fill="#E2557A"/>
+  <text x="200" y="162" class="l a">simul: recv FIN+ACK</text>
+
+  <line x1="430" y1="140" x2="605" y2="98" stroke="#2A1A2E"/><polygon points="605,98 597,102 601,108" fill="#2A1A2E"/>
+  <text x="520" y="120" class="l">recv FIN</text>
+  <line x1="605" y1="98" x2="785" y2="98" stroke="#2A1A2E"/><polygon points="785,98 777,102 781,108" fill="#2A1A2E"/>
+  <text x="700" y="90" class="l">app/CLOSE</text>
+  <line x1="785" y1="98" x2="785" y2="178" stroke="#2A1A2E"/><polygon points="785,178 781,170 789,170" fill="#2A1A2E"/>
+  <text x="795" y="140" class="l">recv ACK</text>
+  <line x1="720" y1="98" x2="430" y2="178" stroke="#2A1A2E"/><polygon points="430,178 438,174 434,168" fill="#2A1A2E"/>
+  <text x="590" y="148" class="l">FIN -&gt; CLOSED</text>
+
+  <rect x="40" y="420" width="900" h="60" rx="8" fill="#fff" stroke="#2A1A2E"/>
+  <text x="60" y="442" class="h">Three close variants</text>
+  <g transform="translate(60,452)" class="m">
+    <text x="0" y="14" class="a">Normal:</text><text x="60" y="14">FIN -&gt; ACK/FIN -&gt; ACK (3 with piggyback, 4 without)</text>
+  </g>
+  <g transform="translate(60,452)" class="m">
+    <text x="0" y="28" class="a">Simul:</text><text x="60" y="28">both sides FIN at once, both enter CLOSING, then TIME_WAIT</text>
+  </g>
+
+  <rect x="40" y="500" width="900" h="60" rx="8" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="60" y="520" class="h">TIME_WAIT = 2 * MSL (typically 60 s)</text>
+  <text x="60" y="540" class="l">absorbs delayed duplicates and lost final ACK retransmissions. Only the active closer waits.</text>
+  <text x="60" y="556" class="l">client FIN -&gt; server ACK/FIN -&gt; client ACK (3 with piggyback, 4 without)</text>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="820" height="560" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="410" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">ITU: Three Sectors, Spectrum Licensing, and Cellular Frequency Reuse</text>
+  <line x1="60" y1="50" x2="760" y2="50" stroke="#2A1A2E" stroke-width="1"/>
+
+  <!-- ITU parent -->
+  <rect x="320" y="66" width="180" height="34" rx="6" fill="#2A1A2E"/>
+  <text x="410" y="88" text-anchor="middle" font-size="14" font-weight="700" fill="#FFF7EC">ITU (est. 1865, UN agency 1947)</text>
+  <text x="410" y="116" text-anchor="middle" font-size="11" fill="#2A1A2E">~200 gov members + 700 sector/associate members</text>
+
+  <!-- Three sectors -->
+  <g font-size="12" fill="#2A1A2E">
+    <!-- ITU-T -->
+    <rect x="70" y="132" width="200" height="96" rx="6" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="170" y="154" text-anchor="middle" font-weight="700">ITU-T</text>
+    <text x="170" y="172" text-anchor="middle">Telecom Standardization</text>
+    <text x="170" y="192" text-anchor="middle" font-size="10">Study Groups (SG2..SG17)</text>
+    <text x="170" y="208" text-anchor="middle" font-size="10" fill="#E2557A">H.264  X.509  G.992  E.164</text>
+    <text x="170" y="222" text-anchor="middle" font-size="9">formerly CCITT</text>
+
+    <!-- ITU-R -->
+    <rect x="310" y="132" width="200" height="96" rx="6" fill="none" stroke="#E2557A" stroke-width="2"/>
+    <text x="410" y="154" text-anchor="middle" font-weight="700">ITU-R</text>
+    <text x="410" y="172" text-anchor="middle">Radiocommunications</text>
+    <text x="410" y="192" text-anchor="middle" font-size="10">coordinates global spectrum</text>
+    <text x="410" y="208" text-anchor="middle" font-size="10" fill="#E2557A">ISM: 902-928MHz, 2.4-2.5GHz</text>
+    <text x="410" y="222" text-anchor="middle" font-size="9">World Radiocommunication Conf.</text>
+
+    <!-- ITU-D -->
+    <rect x="550" y="132" width="200" height="96" rx="6" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="650" y="154" text-anchor="middle" font-weight="700">ITU-D</text>
+    <text x="650" y="172" text-anchor="middle">Development Sector</text>
+    <text x="650" y="192" text-anchor="middle" font-size="10">narrows the digital divide</text>
+    <text x="650" y="208" text-anchor="middle" font-size="10">ICT in developing countries</text>
+  </g>
+
+  <!-- connectors -->
+  <g stroke="#2A1A2E" stroke-width="1">
+    <line x1="410" y1="100" x2="170" y2="132"/>
+    <line x1="410" y1="100" x2="410" y2="132"/>
+    <line x1="410" y1="100" x2="650" y2="132"/>
+  </g>
+
+  <!-- Spectrum auction flow -->
+  <text x="60" y="262" font-size="13" font-weight="700" fill="#2A1A2E">Spectrum licensing path (government assigns ITU-R-coordinated bands):</text>
+
+  <g font-size="11" fill="#2A1A2E">
+    <rect x="60" y="276" width="120" height="40" rx="5" fill="none" stroke="#2A1A2E"/>
+    <text x="120" y="300" text-anchor="middle">Govt regulator</text>
+    <rect x="230" y="276" width="120" height="40" rx="5" fill="none" stroke="#E2557A" stroke-width="2"/>
+    <text x="290" y="300" text-anchor="middle">SMRA auction</text>
+    <rect x="400" y="276" width="120" height="40" rx="5" fill="none" stroke="#2A1A2E"/>
+    <text x="460" y="296" text-anchor="middle">Operator wins</text>
+    <text x="460" y="310" text-anchor="middle" font-size="9">exclusive license</text>
+    <rect x="570" y="276" width="120" height="40" rx="5" fill="none" stroke="#2A1A2E"/>
+    <text x="630" y="296" text-anchor="middle">Plan cellular</text>
+    <text x="630" y="310" text-anchor="middle" font-size="9">reuse clusters</text>
+
+    <g stroke="#2A1A2E" stroke-width="1" fill="#2A1A2E">
+      <path d="M180 296 L228 296" marker-end="url(#arr)"/>
+      <path d="M350 296 L398 296" marker-end="url(#arr)"/>
+      <path d="M520 296 L568 296" marker-end="url(#arr)"/>
+    </g>
+    <text x="290" y="336" text-anchor="middle" font-size="10" fill="#E2557A">UK 2000: 5 licenses ~ $40B</text>
+  </g>
+
+  <!-- arrow marker -->
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- Frequency reuse cluster S=7 (hex pattern) -->
+  <text x="60" y="372" font-size="13" font-weight="700" fill="#2A1A2E">Frequency reuse: S = i^2 + i*j + j^2 = 7  (i=2, j=1)</text>
+  <text x="60" y="390" font-size="10" fill="#2A1A2E">same color = same frequency group, reused once every 7 cells</text>
+
+  <g transform="translate(120,440)" stroke="#2A1A2E" stroke-width="1.2">
+    <!-- 7 hexes forming a reuse cluster, radius r=34 -->
+    <g fill="#E2557A" fill-opacity="0.55"><polygon points="34,0 17,-29 -17,-29 -34,0 -17,29 17,29"/></g>
+    <g fill="#2A1A2E" fill-opacity="0.10" transform="translate(68,39)"><polygon points="34,0 17,-29 -17,-29 -34,0 -17,29 17,29"/></g>
+    <g fill="#E2557A" fill-opacity="0.30" transform="translate(68,117)"><polygon points="34,0 17,-29 -17,-29 -34,0 -17,29 17,29"/></g>
+    <g fill="#2A1A2E" fill-opacity="0.18" transform="translate(0,156)"><polygon points="34,0 17,-29 -17,-29 -34,0 -17,29 17,29"/></g>
+    <g fill="#E2557A" fill-opacity="0.45" transform="translate(-68,117)"><polygon points="34,0 17,-29 -17,-29 -34,0 -17,29 17,29"/></g>
+    <g fill="#2A1A2E" fill-opacity="0.10" transform="translate(-68,39)"><polygon points="34,0 17,-29 -17,-29 -34,0 -17,29 17,29"/></g>
+    <g fill="#E2557A" fill-opacity="0.20" transform="translate(136,0)"><polygon points="34,0 17,-29 -17,-29 -34,0 -17,29 17,29"/></g>
+
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E" stroke="none">f1</text>
+    <text x="136" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E" stroke="none">f1</text>
+  </g>
+
+  <!-- Capacity legend -->
+  <g font-size="11" fill="#2A1A2E">
+    <text x="340" y="448">Band = 840 channels, S = 7</text>
+    <text x="340" y="468">capacity/cell = 840 / 7 = 120 channels</text>
+    <text x="340" y="492">licensed block &#8594; predictable reuse &#8594; capacity</text>
+    <text x="340" y="514">unlicensed ISM &#8594; everyone shares, power-capped</text>
+    <text x="340" y="538">802.11 (WiFi) chose ISM to avoid auction cost</text>
+  </g>
+
+  <text x="760" y="552" text-anchor="end" font-size="9" fill="#2A1A2E">ITU-T SG15 standardizes DSL; SG16 wrote H.264</text>
+</svg>

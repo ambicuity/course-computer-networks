@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <text x="450" y="44" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#2A1A2E">PKI Chain Validation (RFC 5280 §6.1)</text>
+  <text x="450" y="72" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#2A1A2E">Walk leaf -&gt; intermediate -&gt; root, checking each link.</text>
+
+  <!-- Root -->
+  <rect x="320" y="100" width="260" height="80" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="126" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#FFF7EC">Root CA</text>
+  <text x="450" y="146" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">CN=Acme Root CA</text>
+  <text x="450" y="166" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">trust root, self-signed</text>
+
+  <!-- Arrow -->
+  <line x1="450" y1="180" x2="450" y2="220" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="450,220 444,212 456,212" fill="#2A1A2E"/>
+  <text x="460" y="206" font-family="monospace" font-size="11" fill="#2A1A2E">signs</text>
+
+  <!-- Intermediate -->
+  <rect x="280" y="220" width="340" height="100" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="246" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2A1A2E">Intermediate CA</text>
+  <text x="450" y="266" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">CN=Acme Intermediate CA</text>
+  <text x="450" y="284" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">basicConstraints cA=true, pathLen=1</text>
+  <text x="450" y="302" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">keyUsage=keyCertSign, cRLSign</text>
+
+  <line x1="450" y1="320" x2="450" y2="360" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="450,360 444,352 456,352" fill="#2A1A2E"/>
+  <text x="460" y="346" font-family="monospace" font-size="11" fill="#2A1A2E">signs</text>
+
+  <!-- Leaf -->
+  <rect x="220" y="360" width="460" height="100" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="386" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2A1A2E">Leaf Certificate</text>
+  <text x="450" y="406" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">CN=example.com   SAN=DNS:example.com</text>
+  <text x="450" y="424" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">keyUsage=digitalSignature, keyEncipherment</text>
+  <text x="450" y="442" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">extKeyUsage=serverAuth, clientAuth</text>
+
+  <!-- Validation checks at the bottom -->
+  <rect x="60" y="480" width="780" height="60" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="450" y="500" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#2A1A2E">Checks per link (RFC 5280 §6.1.3 ... §6.1.6):</text>
+  <text x="80" y="518" font-family="monospace" font-size="10" fill="#2A1A2E">signature   |   validity window   |   name chaining   |   basicConstraints</text>
+  <text x="80" y="532" font-family="monospace" font-size="10" fill="#2A1A2E">keyUsage   |   extKeyUsage   |   revocation (CRL/OCSP)   |   trust anchor in store</text>
+</svg>

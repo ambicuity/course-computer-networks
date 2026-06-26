@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why can any host on a flat L2 segment act as a DHCP server?",
+      "options": [
+        "DHCP requires a login but any login works",
+        "DHCPDISCOVER is broadcast and OFFERs are unauthenticated",
+        "Switches block non-authorised servers by default",
+        "DHCP only runs on VLAN 1"
+      ],
+      "correct": 1,
+      "explanation": "RFC 2131 DHCP has no server authentication; the client accepts an OFFER from any respondent."
+    },
+    {
+      "stage": "post",
+      "question": "A DHCP pool is 100% utilised but 90% of leases map to MACs that never appear in the ARP table. What is this?",
+      "options": [
+        "Normal client behaviour",
+        "DHCP starvation attack with forged chaddr",
+        "A DNS issue",
+        "A spanning-tree loop"
+      ],
+      "correct": 1,
+      "explanation": "Forged chaddr leases never ARP because no real client holds them; this is the starvation signature."
+    },
+    {
+      "stage": "post",
+      "question": "Which switch feature most directly blocks a rogue DHCP server on an access port?",
+      "options": [
+        "PortFast",
+        "DHCP Snooping with the uplink trusted and access ports untrusted",
+        "Jumbo frames",
+        "CDP"
+      ],
+      "correct": 1,
+      "explanation": "Snooping drops OFFERs arriving on untrusted access ports while allowing them on the trusted uplink to the real server."
+    }
+  ]
+}

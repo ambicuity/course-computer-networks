@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480" width="820" height="480" font-family="ui-monospace,monospace">
+  <rect width="820" height="480" fill="#FFF7EC"/>
+  <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#2A1A2E">802.11 Data Frame — Field by Field</text>
+  <text x="410" y="50" text-anchor="middle" font-size="11" fill="#2A1A2E">3-4 address fields · 2-byte Duration/NAV · Sequence Control · CRC-32 FCS</text>
+
+  <!-- Frame layout -->
+  <g>
+    <rect x="40" y="80" width="740" height="40" fill="#E2557A"/>
+    <text x="80" y="105" font-size="11" font-weight="bold" fill="#FFF7EC" text-anchor="middle">FC 2B</text>
+    <text x="155" y="105" font-size="11" font-weight="bold" fill="#FFF7EC" text-anchor="middle">Dur 2B</text>
+    <text x="240" y="105" font-size="11" font-weight="bold" fill="#FFF7EC" text-anchor="middle">Addr1 6B</text>
+    <text x="335" y="105" font-size="11" font-weight="bold" fill="#FFF7EC" text-anchor="middle">Addr2 6B</text>
+    <text x="430" y="105" font-size="11" font-weight="bold" fill="#FFF7EC" text-anchor="middle">Addr3 6B</text>
+    <text x="525" y="105" font-size="11" font-weight="bold" fill="#FFF7EC" text-anchor="middle">SeqCtrl 2B</text>
+    <text x="620" y="105" font-size="11" font-weight="bold" fill="#FFF7EC" text-anchor="middle">Body 0-2312</text>
+    <text x="730" y="105" font-size="11" font-weight="bold" fill="#FFF7EC" text-anchor="middle">FCS 4B</text>
+  </g>
+
+  <!-- Frame Control bits -->
+  <g>
+    <rect x="40" y="140" width="740" height="60" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="160" font-size="13" font-weight="bold" fill="#2A1A2E">Frame Control 2B (16 bits)</text>
+    <text x="60" y="180" font-size="10" fill="#2A1A2E">2b Ver=00 | 2b Type=10 (data) | 4b Subtype | 1b ToDS | 1b FromDS | 1b MoreFrag | 1b Retry | 1b PwrMgmt | 1b MoreData | 1b Protected | 1b Order</text>
+    <text x="60" y="194" font-size="10" fill="#2A1A2E">Type 00 mgmt | 01 ctl (RTS/CTS/ACK) | 10 data  ·  Protected=1 ⇒ body encrypted (AES-128-CCM, 48-bit PN)</text>
+  </g>
+
+  <!-- ToDS/FromDS truth table -->
+  <g>
+    <rect x="40" y="220" width="740" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="240" font-size="13" font-weight="bold" fill="#2A1A2E">ToDS / FromDS address modes</text>
+    <g font-size="10" fill="#2A1A2E">
+      <text x="60" y="262" font-weight="bold">ToDS FromDS Mode                  Addr1       Addr2       Addr3       Addr4</text>
+      <text x="60" y="282">0    0       IBSS direct           DA          SA          BSSID       —</text>
+      <text x="60" y="302">0    1       STA → AP (To DS)      BSSID       SA (STA)    DA          —</text>
+      <text x="60" y="322">1    0       AP → STA (From DS)    DA (STA)    BSSID (AP)  SA          —</text>
+      <text x="60" y="342" fill="#E2557A">1    1       WDS bridge            RA          TA          DA          SA</text>
+      <text x="60" y="370" font-size="10">DA = destination · SA = source · BSSID = AP MAC · RA = receiver · TA = transmitter</text>
+      <text x="60" y="386" font-size="10">Addr4 only present when ToDS=FromDS=1 (4-address WDS frame, e.g. 802.11s mesh)</text>
+    </g>
+  </g>
+
+  <!-- Notes panel -->
+  <g>
+    <rect x="40" y="420" width="740" height="40" fill="#FFE4EC" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="60" y="438" font-size="10" fill="#2A1A2E">FCS = CRC-32 (0x04C11DB7) over header + body, no reflection, no final XOR</text>
+    <text x="60" y="452" font-size="10" fill="#2A1A2E">Source: IEEE 802.11-2016 sec. 9.2.4.7 (general data frame) + 9.3 (frame control) — code/main.py encoder round-trips</text>
+  </g>
+</svg>

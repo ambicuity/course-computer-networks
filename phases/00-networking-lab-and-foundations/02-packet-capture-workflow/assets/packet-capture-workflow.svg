@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" width="860" height="560">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrowB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="860" height="560" fill="#FFF7EC"/>
+
+  <text x="30" y="40" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#2A1A2E">Packet Capture Workflow</text>
+  <text x="30" y="62" font-family="Inter, sans-serif" font-size="13" fill="#2A1A2E">From wire to file to verdict — where filters apply and what the handshake reveals</text>
+
+  <!-- LEFT: capture chain -->
+  <text x="30" y="100" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#E2557A">CAPTURE CHAIN</text>
+
+  <g font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">
+    <rect x="30" y="112" width="320" height="44" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="44" y="132" font-weight="600">NIC — promiscuous mode</text>
+    <text x="44" y="148" font-size="11">keeps frames not addressed to its MAC</text>
+
+    <line x1="190" y1="156" x2="190" y2="180" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="30" y="182" width="320" height="44" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="44" y="202" font-weight="600">Kernel ring buffer</text>
+    <text x="44" y="218" font-size="11">overflow here = "N packets dropped by kernel"</text>
+
+    <line x1="190" y1="226" x2="190" y2="250" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="30" y="252" width="320" height="50" rx="6" fill="#FDE6EC" stroke="#E2557A" stroke-width="2"/>
+    <text x="44" y="272" font-weight="700" fill="#E2557A">In-kernel BPF — CAPTURE FILTER</text>
+    <text x="44" y="290" font-size="11" fill="#2A1A2E">rejected frames lost forever  ·  tcp port 5432</text>
+
+    <line x1="190" y1="302" x2="190" y2="326" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="30" y="328" width="320" height="50" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="44" y="348" font-weight="600">.pcap file on disk</text>
+    <text x="44" y="366" font-size="11">24B global header + per-packet 16B records</text>
+
+    <line x1="190" y1="378" x2="190" y2="402" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="30" y="404" width="320" height="50" rx="6" fill="#FDE6EC" stroke="#E2557A" stroke-width="2"/>
+    <text x="44" y="424" font-weight="700" fill="#E2557A">Wireshark — DISPLAY FILTER</text>
+    <text x="44" y="442" font-size="11" fill="#2A1A2E">reversible, post-capture  ·  tcp.port == 5432</text>
+  </g>
+
+  <!-- pcap record header layout -->
+  <text x="30" y="490" font-family="monospace" font-size="11" font-weight="700" fill="#2A1A2E">Per-packet record (16B):</text>
+  <g font-family="monospace" font-size="10" fill="#2A1A2E">
+    <rect x="30" y="498" width="78" height="30" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="108" y="498" width="78" height="30" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="186" y="498" width="82" height="30" fill="#FDE6EC" stroke="#E2557A" stroke-width="2"/>
+    <rect x="268" y="498" width="82" height="30" fill="#fff" stroke="#2A1A2E"/>
+    <text x="40" y="517">ts_sec</text>
+    <text x="118" y="517">ts_usec</text>
+    <text x="196" y="517" fill="#E2557A">incl_len</text>
+    <text x="278" y="517">orig_len</text>
+  </g>
+  <text x="30" y="546" font-family="Inter, sans-serif" font-size="10" fill="#E2557A">incl_len &lt; orig_len  →  snaplen truncation</text>
+
+  <!-- divider -->
+  <line x1="400" y1="90" x2="400" y2="540" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- RIGHT: handshake timing -->
+  <text x="430" y="100" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#E2557A">WHAT THE TRACE SHOWS</text>
+
+  <text x="470" y="128" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">client 10.0.0.12</text>
+  <text x="700" y="128" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">server 10.0.0.5:5432</text>
+  <line x1="500" y1="138" x2="500" y2="480" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="760" y1="138" x2="760" y2="480" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- SYN attempts -->
+  <g font-family="Inter, sans-serif" font-size="11">
+    <line x1="500" y1="160" x2="755" y2="180" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="510" y="156" fill="#2A1A2E">SYN  seq=1000  t=0.0s</text>
+
+    <line x1="500" y1="220" x2="755" y2="240" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrow)"/>
+    <text x="510" y="216" fill="#2A1A2E">SYN retransmit  +1.0s (RTO)</text>
+
+    <line x1="500" y1="280" x2="755" y2="300" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrow)"/>
+    <text x="510" y="276" fill="#2A1A2E">SYN retransmit  +3.0s (RTO x2)</text>
+
+    <!-- RST back -->
+    <line x1="760" y1="340" x2="505" y2="360" stroke="#E2557A" stroke-width="2.5" marker-end="url(#arrowB)"/>
+    <text x="560" y="378" fill="#E2557A" font-weight="700">RST,ACK — connection refused</text>
+  </g>
+
+  <rect x="430" y="404" width="400" height="120" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="446" y="426" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#E2557A">Verdict</text>
+  <text x="446" y="448" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">SYN repeated at same seq, RTO doubling 1→3s,</text>
+  <text x="446" y="465" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">no SYN-ACK, then RST → nothing listening on 5432.</text>
+  <text x="446" y="488" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#2A1A2E">Healthy: SYN → SYN,ACK → ACK in one RTT.</text>
+  <text x="446" y="510" font-family="monospace" font-size="10" fill="#2A1A2E">RFC 9293 handshake  ·  RFC 6298 RTO timer</text>
+</svg>

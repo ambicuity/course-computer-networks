@@ -1,0 +1,4 @@
+full-mesh iBGP sessions: 66
+route-reflector iBGP sessions: 21
+savings: 45 (68% reduction)
+convergence (RR): 2 rounds

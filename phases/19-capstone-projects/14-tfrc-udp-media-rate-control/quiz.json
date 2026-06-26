@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why is TCP unsuitable for real-time media streaming?",
+      "options": [
+        "TCP is too slow",
+        "TCP's retransmission adds latency and its congestion control oscillates aggressively (halving on loss), both of which break real-time communication",
+        "TCP does not support UDP",
+        "TCP requires encryption"
+      ],
+      "correct": 1,
+      "explanation": "TCP retransmits lost packets, adding delay that breaks real-time media. Its congestion control halves cwnd on every loss, causing rate oscillation visible to users as quality drops."
+    },
+    {
+      "stage": "post",
+      "question": "What is the TFRC throughput equation and what inputs does it require?",
+      "options": [
+        "X = bandwidth * delay",
+        "X = s / (R * sqrt(2*p/3) + t_RTO * sqrt(3*p/8) * (1 + 32*p^3)), requiring packet size (s), RTT (R), loss rate (p), and RTO (t_RTO)",
+        "X = cwnd / RTT",
+        "X = MTU * window_size"
+      ],
+      "correct": 1,
+      "explanation": "The TFRC equation predicts TCP's throughput from packet size, RTT, and loss rate. The sender plugs in these values to compute the fair sending rate without TCP's aggressive oscillation."
+    },
+    {
+      "stage": "post",
+      "question": "How does TFRC adapt its sending rate differently from TCP Reno?",
+      "options": [
+        "TFRC halves the rate on every loss, just like TCP",
+        "TFRC decreases by at most 50% per RTT and increases gradually, producing a smoother rate trajectory than TCP's sawtooth",
+        "TFRC never decreases its rate",
+        "TFRC doubles its rate on every ack"
+      ],
+      "correct": 1,
+      "explanation": "TFRC limits rate decrease to at most 50% per RTT and increases gradually (not doubling). This produces a smooth sending rate suitable for media, while maintaining long-term fairness to TCP."
+    },
+    {
+      "stage": "post",
+      "question": "What does the Jain fairness index measure, and what value indicates perfect fairness?",
+      "options": [
+        "It measures throughput; higher is better",
+        "J = (sum(xi))^2 / (n * sum(xi^2)); J=1 means all flows have equal throughput (perfect fairness)",
+        "It measures packet loss; lower is better",
+        "It measures latency; lower is better"
+      ],
+      "correct": 1,
+      "explanation": "The Jain fairness index ranges from 1/n (worst) to 1 (best). J=1 means all flows share bandwidth equally. TFRC and TCP coexisting should achieve J > 0.9."
+    },
+    {
+      "stage": "post",
+      "question": "Why is unregulated UDP problematic for the network?",
+      "options": [
+        "It is too secure",
+        "It has no congestion control, so it floods the network and starves TCP flows (Jain index < 0.3), causing congestion collapse",
+        "It uses too much CPU",
+        "It requires a special license"
+      ],
+      "correct": 1,
+      "explanation": "Unregulated UDP has no congestion control. It sends at a fixed rate regardless of network conditions, consuming all available bandwidth and starving TCP flows that back off on loss. TFRC fixes this by adding TCP-friendly rate control."
+    }
+  ]
+}

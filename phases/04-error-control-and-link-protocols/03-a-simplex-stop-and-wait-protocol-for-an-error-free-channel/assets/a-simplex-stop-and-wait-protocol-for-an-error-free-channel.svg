@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 21px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5563; }
+    .lbl { font-size: 13px; font-weight: 600; }
+    .mono { font-family: monospace; font-size: 12px; }
+    .small { font-size: 11px; fill: #6b5563; }
+    .accent { fill: #E2557A; }
+  </style>
+
+  <text x="32" y="40" class="title">Simplex Stop-and-Wait (Protocol 2)</text>
+  <text x="32" y="60" class="sub">Error-free channel &#183; flow control by strict DATA / ACK alternation &#183; one frame per RTT</text>
+
+  <!-- timelines -->
+  <text x="70" y="98" class="lbl" text-anchor="middle">SENDER</text>
+  <text x="690" y="98" class="lbl" text-anchor="middle">RECEIVER</text>
+  <line x1="70" y1="110" x2="70" y2="500" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="690" y1="110" x2="690" y2="500" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- time arrow -->
+  <text x="20" y="300" class="small" transform="rotate(-90 20 300)" text-anchor="middle">time &#8595;</text>
+
+  <!-- Frame 1: DATA down -->
+  <line x1="70" y1="130" x2="690" y2="180" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="380" y="146" class="mono" text-anchor="middle">DATA  info=PKT1</text>
+  <rect x="40" y="120" width="60" height="20" rx="3" fill="#2A1A2E"/>
+  <text x="70" y="134" class="mono" fill="#FFF7EC" text-anchor="middle">send</text>
+
+  <!-- ACK 1 up -->
+  <line x1="690" y1="200" x2="70" y2="250" stroke="#E2557A" stroke-width="2" marker-end="url(#arrowB)"/>
+  <text x="380" y="218" class="mono accent" text-anchor="middle">ACK  (content-free)</text>
+  <rect x="660" y="186" width="62" height="20" rx="3" fill="#2A1A2E"/>
+  <text x="691" y="200" class="mono" fill="#FFF7EC" text-anchor="middle">deliver</text>
+
+  <!-- sender blocked region -->
+  <rect x="76" y="150" width="96" height="96" rx="4" fill="#E2557A" fill-opacity="0.12" stroke="#E2557A" stroke-dasharray="4 3"/>
+  <text x="124" y="200" class="small accent" text-anchor="middle">wait_for_event</text>
+  <text x="124" y="214" class="small accent" text-anchor="middle">(BLOCKED)</text>
+
+  <!-- Frame 2: DATA down -->
+  <line x1="70" y1="270" x2="690" y2="320" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="380" y="286" class="mono" text-anchor="middle">DATA  info=PKT2</text>
+  <rect x="40" y="260" width="60" height="20" rx="3" fill="#2A1A2E"/>
+  <text x="70" y="274" class="mono" fill="#FFF7EC" text-anchor="middle">send</text>
+
+  <!-- ACK 2 up -->
+  <line x1="690" y1="340" x2="70" y2="390" stroke="#E2557A" stroke-width="2" marker-end="url(#arrowB)"/>
+  <text x="380" y="358" class="mono accent" text-anchor="middle">ACK  (content-free)</text>
+  <rect x="660" y="326" width="62" height="20" rx="3" fill="#2A1A2E"/>
+  <text x="691" y="340" class="mono" fill="#FFF7EC" text-anchor="middle">deliver</text>
+
+  <!-- RTT bracket -->
+  <line x1="730" y1="130" x2="730" y2="250" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="726" y1="130" x2="734" y2="130" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="726" y1="250" x2="734" y2="250" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="744" y="194" class="small" transform="rotate(-90 744 194)" text-anchor="middle">one RTT / frame</text>
+
+  <!-- field box -->
+  <rect x="32" y="420" width="696" height="118" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="44" y="442" class="lbl">DATA frame layout (no seq, no checksum &#8212; nothing can be lost or corrupted)</text>
+
+  <rect x="44" y="452" width="120" height="30" fill="#2A1A2E"/>
+  <text x="104" y="471" class="mono" fill="#FFF7EC" text-anchor="middle">header</text>
+  <rect x="164" y="452" width="320" height="30" fill="#E2557A"/>
+  <text x="324" y="471" class="mono" fill="#FFF7EC" text-anchor="middle">info  (network-layer packet)</text>
+
+  <text x="44" y="506" class="small accent">absent: seq number &#8594; added in Protocol 3 to kill duplicates after a timeout retransmit</text>
+  <text x="44" y="522" class="small accent">absent: checksum/CRC &#8594; needed only once the channel can corrupt frames (error control)</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrowB" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

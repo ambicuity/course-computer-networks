@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <g font-family="Georgia, serif" fill="#2A1A2E">
+    <text x="40" y="42" font-size="22" font-weight="bold">Message digests and the birthday bound</text>
+    <text x="40" y="66" font-size="13" fill="#7a5a6a">Three security properties, sqrt(N) collision cost, Merkle-Damgård length extension</text>
+
+    <g transform="translate(40,100)">
+      <rect width="380" height="180" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="190" y="24" text-anchor="middle" font-size="14" font-weight="bold">Three properties</text>
+      <text x="20" y="50" font-size="12" font-weight="bold">Preimage</text>
+      <text x="20" y="68" font-size="11">Given D, find M: H(M) = D.</text>
+      <text x="20" y="84" font-size="11">Work: ~2^n for an n-bit digest.</text>
+      <text x="20" y="106" font-size="12" font-weight="bold">Second preimage</text>
+      <text x="20" y="124" font-size="11">Given M, find M' ≠ M: H(M) = H(M').</text>
+      <text x="20" y="140" font-size="11">Work: ~2^n.</text>
+      <text x="20" y="160" font-size="11" fill="#E2557A">Collision: any two M, M' with same digest; only 2^(n/2).</text>
+    </g>
+
+    <g transform="translate(460,100)">
+      <rect width="400" height="180" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="200" y="24" text-anchor="middle" font-size="14" font-weight="bold">Birthday paradox</text>
+      <text x="20" y="52" font-size="11">Throw k balls uniformly into N bins.</text>
+      <text x="20" y="70" font-size="11">P(some bin holds ≥ 2 balls) ≈ 1 - exp(-k(k-1)/(2N))</text>
+      <text x="20" y="98" font-size="11">50% at k ≈ 1.177 * sqrt(N).</text>
+      <text x="20" y="124" font-size="11">For SHA-256, N = 2^256:</text>
+      <text x="20" y="142" font-size="11">  expected work to find a collision ≈ 2^128.</text>
+      <text x="20" y="160" font-size="11" fill="#E2557A">SHA-256 collision security is 128-bit, not 256-bit.</text>
+    </g>
+
+    <g transform="translate(40,310)">
+      <rect width="400" height="220" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="200" y="24" text-anchor="middle" font-size="14" font-weight="bold">Merkle-Damgård length extension</text>
+      <text x="20" y="52" font-size="11">SHA-1, SHA-256 iterate H_i = f(H_{i-1}, M_i).</text>
+      <text x="20" y="68" font-size="11">Vulnerability: given H(secret || M) and |M|,</text>
+      <text x="20" y="84" font-size="11">attacker computes H(secret || M || pad || X).</text>
+      <text x="20" y="106" font-size="11" fill="#E2557A">Never use SHA-256(secret || message) as a MAC.</text>
+      <text x="20" y="124" font-size="11">Defenses:</text>
+      <text x="20" y="142" font-size="11">  HMAC (lesson 17) — outer/inner keying.</text>
+      <text x="20" y="160" font-size="11">  Hash with secret suffix and length: BLAKE3 keyed mode.</text>
+      <text x="20" y="178" font-size="11">  Switch to a non-MD hash: SHA-3 sponge.</text>
+      <text x="20" y="200" font-size="11">SHA-3 sponge: capacity bits never exposed to input.</text>
+    </g>
+
+    <g transform="translate(480,310)">
+      <rect width="380" height="220" rx="6" fill="#fde2c8" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="190" y="24" text-anchor="middle" font-size="14" font-weight="bold">Algorithm status (2026)</text>
+      <text x="20" y="56" font-size="11" font-weight="bold">MD5</text>
+      <text x="20" y="74" font-size="11">  128-bit. Collision in seconds; do not use.</text>
+      <text x="20" y="98" font-size="11" font-weight="bold">SHA-1</text>
+      <text x="20" y="116" font-size="11">  160-bit. SHAttered (2017): collision in 2^63.</text>
+      <text x="20" y="140" font-size="11" font-weight="bold">SHA-256</text>
+      <text x="20" y="158" font-size="11">  256-bit. Collision security 128-bit. Workhorse.</text>
+      <text x="20" y="180" font-size="11" font-weight="bold">SHA-3 (Keccak)</text>
+      <text x="20" y="198" font-size="11">  256-bit. Sponge. No length extension.</text>
+    </g>
+  </g>
+</svg>

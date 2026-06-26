@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why does a production network stack IPsec AND TLS rather than just one or the other?",
+    "options": [
+      "A. They encrypt at different layers, so the combination provides defense in depth: IPsec protects the underlay carrier, TLS protects the application workload-to-workload connection even if a gateway is compromised",
+      "B. IPsec is deprecated and TLS replaces it",
+      "C. They use the same cipher suite and key schedule, so one without the other is impossible",
+      "D. TLS does not work without IPsec"
+    ],
+    "answer": 1,
+    "explanation": "IPsec protects the underlay network between two security gateways, defending against on-path attackers on the carrier. TLS protects the workload-to-workload application connection inside the tunnel, so a compromised gateway cannot proxy through. The two layers use independent trust anchors (gateway keys vs. service certificates) and independent key schedules (IKEv2 vs. TLS ECDHE), so an attacker who breaks one still has to break the other."
+  },
+  {
+    "question": "How is a Kerberos AP-REQ transported inside an HTTP request?",
+    "options": [
+      "A. As a base64-encoded JSON Web Token in the Authorization header",
+      "B. As a base64-encoded SPNEGO NegTokenInit structure in the Authorization: Negotiate header (RFC 4559)",
+      "C. As an X.509 certificate in the TLS handshake",
+      "D. As a URL parameter"
+    ],
+    "answer": 1,
+    "explanation": "RFC 4559 defines SPNEGO-based Kerberos HTTP authentication. The service ticket (AP-REQ) is wrapped in a SPNEGO NegTokenInit (or NegTokenTarg for the response) and sent base64-encoded in the HTTP Authorization header with scheme Negotiate. The server decodes the token, extracts the AP-REQ, and validates the ticket against the KDC. Mutual auth is performed by the server returning its own Negotiate token in WWW-Authenticate."
+  },
+  {
+    "question": "What is the role of the 32-bit Security Parameter Index (SPI) in IPsec ESP?",
+    "options": [
+      "A. It is the encryption key in plaintext",
+      "B. It is the lookup key into the receiver's Security Association Database (SAD); the receiver uses (src_ip, dst_ip, spi) to find the decryption key and transform",
+      "C. It is the IPsec version number",
+      "D. It is the anti-replay sequence number"
+    ],
+    "answer": 1,
+    "explanation": "Each ESP-protected packet carries a 32-bit SPI in its header. The receiver looks up (src_ip, dst_ip, spi) in its SAD to find the encryption key, anti-replay window, and lifetime. A packet whose SPI is not in the SAD is dropped silently. A packet whose sequence number is outside the anti-replay window is also dropped. The SPI is the bridge between IKEv2 (which negotiates the SAs) and ESP (which uses them per packet)."
+  }
+]

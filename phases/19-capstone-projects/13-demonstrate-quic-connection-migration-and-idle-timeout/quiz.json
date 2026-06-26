@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "How does QUIC identify a connection, and why does this matter for mobile devices?",
+      "options": [
+        "By the 4-tuple (IP addresses and ports), like TCP",
+        "By a Connection ID (CID) that is independent of the IP address, allowing the connection to survive network changes",
+        "By a session cookie",
+        "By the DNS name"
+      ],
+      "correct": 1,
+      "explanation": "QUIC uses a Connection ID (CID) to identify connections. This means when a mobile device changes IP (Wi-Fi to cellular), the connection survives because the CID remains the same."
+    },
+    {
+      "stage": "post",
+      "question": "What happens to a TCP connection when the client's IP address changes?",
+      "options": [
+        "The connection continues normally",
+        "The 4-tuple changes, the connection breaks, and the application must reconnect",
+        "TCP automatically migrates to the new IP",
+        "TCP sends a FIN and reconnects"
+      ],
+      "correct": 1,
+      "explanation": "TCP identifies connections by the 4-tuple (src_ip, src_port, dst_ip, dst_port). When the IP changes, the 4-tuple is different and the connection is dead."
+    },
+    {
+      "stage": "post",
+      "question": "What is QUIC path validation and why is it needed before migrating traffic?",
+      "options": [
+        "It encrypts the new path",
+        "The server sends a PATH_CHALLENGE to the new path and waits for PATH_RESPONSE to confirm the new path is reachable before sending data on it",
+        "It checks the bandwidth of the new path",
+        "It is optional and never used"
+      ],
+      "correct": 1,
+      "explanation": "Path validation ensures the new path is actually reachable and the client can receive packets on it. The server sends PATH_CHALLENGE, the client echoes it back as PATH_RESPONSE, then the server migrates traffic."
+    },
+    {
+      "stage": "post",
+      "question": "How does QUIC handle packets that were in flight on the old path during migration?",
+      "options": [
+        "It waits for them to arrive on the old path",
+        "It declares them lost (old path unreachable) and retransmits them on the new path",
+        "It drops them silently",
+        "It sends an RST"
+      ],
+      "correct": 1,
+      "explanation": "Packets in flight on the old path are declared lost because the old path is no longer reachable. QUIC retransmits them on the new validated path, preserving data integrity."
+    },
+    {
+      "stage": "post",
+      "question": "What is QUIC's idle timeout and how does it differ from TCP's connection teardown?",
+      "options": [
+        "QUIC uses FIN packets like TCP",
+        "If no packets are exchanged for the negotiated idle timeout duration, the connection is silently closed without any explicit teardown packets",
+        "QUIC idle timeout is always 60 seconds",
+        "QUIC does not have an idle timeout"
+      ],
+      "correct": 1,
+      "explanation": "QUIC has a negotiable idle timeout (default 30s). If no packets are exchanged for that duration, the connection is silently closed - no FIN, no RST, no CONNECTION_CLOSE. This avoids zombie connections."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the theoretical maximum simultaneous outbound flows a single public IP can sustain with ephemeral range 32768-60999?",
+      "options": [
+        "65535",
+        "28232",
+        "1024",
+        "Unlimited"
+      ],
+      "correct": 1,
+      "explanation": "The 16-bit port space is bounded; the OS ephemeral range 32768-60999 gives 28232 ports, one per outbound 5-tuple under symmetric NAPT."
+    },
+    {
+      "stage": "post",
+      "question": "Users see intermittent 'connect: Cannot assign requested address' only during peak hours. What is the first metric to check?",
+      "options": [
+        "DNS response time",
+        "conntrack established count and insert_failed counter",
+        "Switch CPU",
+        "TLS cipher negotiation"
+      ],
+      "correct": 1,
+      "explanation": "insert_failed climbing while established plateaus is the signature of NAT port exhaustion; the failure happens before packets leave the host."
+    },
+    {
+      "stage": "post",
+      "question": "Hairpin NAT loopback most commonly breaks because:",
+      "options": [
+        "The DNS TTL is too long",
+        "The inside server cannot demultiplex SYN-ACKs whose source was rewritten to the public IP",
+        "The switch does not support jumbo frames",
+        "ARP caches are too large"
+      ],
+      "correct": 1,
+      "explanation": "Hairpin rewrites both source and destination; if the return 5-tuple collides the server cannot match the SYN to an existing socket."
+    }
+  ]
+}

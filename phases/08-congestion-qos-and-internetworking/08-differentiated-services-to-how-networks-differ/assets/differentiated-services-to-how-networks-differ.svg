@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <title>Differentiated Services to How Networks Differ — edge mark, core forward by PHB</title>
+  <desc>DiffServ domain: edge router classifies/polices/marks the 6-bit DSCP; core router forwards by behavior aggregate (EF strict priority, AF WFQ, BE leftover). Heterogeneous networks (Ethernet, ATM, frame relay) connect despite differing service models.</desc>
+
+  <rect width="800" height="480" fill="#FFF7EC"/>
+
+  <text x="400" y="32" text-anchor="middle" fill="#2A1A2E" font-size="18" font-weight="700">Differentiated Services to How Networks Differ</text>
+  <text x="400" y="52" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">edge: classify + police + mark DSCP · core: forward by per-hop behavior (no per-flow state)</text>
+
+  <defs>
+    <marker id="ar2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- Sender flows -->
+  <g font-size="10" fill="#2A1A2E">
+    <text x="30" y="110" font-weight="600">flows</text>
+    <rect x="30" y="120" width="90" height="22" rx="3" fill="#E2557A" opacity="0.2" stroke="#E2557A"/>
+    <text x="75" y="135" text-anchor="middle">VoIP (EF)</text>
+    <rect x="30" y="148" width="90" height="22" rx="3" fill="#7B6CA8" opacity="0.2" stroke="#7B6CA8"/>
+    <text x="75" y="163" text-anchor="middle">gold (AF31)</text>
+    <rect x="30" y="176" width="90" height="22" rx="3" fill="#3D8B8B" opacity="0.2" stroke="#3D8B8B"/>
+    <text x="75" y="191" text-anchor="middle">bulk (BE)</text>
+  </g>
+
+  <g stroke="#2A1A2E" stroke-width="1.2" fill="none" marker-end="url(#ar2)">
+    <line x1="120" y1="131" x2="190" y2="155"/>
+    <line x1="120" y1="159" x2="190" y2="159"/>
+    <line x1="120" y1="187" x2="190" y2="163"/>
+  </g>
+
+  <!-- Edge router -->
+  <g>
+    <rect x="190" y="110" width="130" height="80" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="255" y="130" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">edge router</text>
+    <text x="255" y="148" text-anchor="middle" fill="#2A1A2E" font-size="10">classify · police</text>
+    <text x="255" y="164" text-anchor="middle" fill="#2A1A2E" font-size="10">mark DSCP (6 bits)</text>
+    <text x="255" y="180" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.6">per-flow reasoning lives HERE</text>
+  </g>
+
+  <g stroke="#2A1A2E" stroke-width="1.2" fill="none" marker-end="url(#ar2)">
+    <line x1="320" y1="150" x2="400" y2="150"/>
+  </g>
+  <text x="360" y="144" text-anchor="middle" fill="#2A1A2E" font-size="9">marked</text>
+
+  <!-- DS field breakdown -->
+  <g font-size="10" fill="#2A1A2E">
+    <text x="360" y="172" text-anchor="middle" opacity="0.7">DSCP=EF 46 · AFxy · BE 0</text>
+  </g>
+
+  <!-- Core router -->
+  <g>
+    <rect x="400" y="110" width="130" height="80" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="465" y="130" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">core router</text>
+    <text x="465" y="148" text-anchor="middle" fill="#2A1A2E" font-size="10">read DSCP only</text>
+    <text x="465" y="164" text-anchor="middle" fill="#2A1A2E" font-size="10">PHB queue/sched/drop</text>
+    <text x="465" y="180" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.6">state = O(classes)</text>
+  </g>
+
+  <!-- Output queues -->
+  <g font-size="9" fill="#2A1A2E">
+    <text x="560" y="100" font-weight="600">per-PHB queues</text>
+    <rect x="560" y="108" width="110" height="18" fill="#E2557A" opacity="0.25" stroke="#E2557A"/>
+    <text x="615" y="121" text-anchor="middle">EF (strict priority)</text>
+    <rect x="560" y="130" width="110" height="18" fill="#7B6CA8" opacity="0.25" stroke="#7B6CA8"/>
+    <text x="615" y="143" text-anchor="middle">AF (WFQ 4:2:1)</text>
+    <rect x="560" y="152" width="110" height="18" fill="#3D8B8B" opacity="0.25" stroke="#3D8B8B"/>
+    <text x="615" y="165" text-anchor="middle">BE (leftover)</text>
+  </g>
+  <g stroke="#2A1A2E" stroke-width="1.2" fill="none" marker-end="url(#ar2)">
+    <line x1="530" y1="125" x2="560" y2="117"/>
+    <line x1="530" y1="150" x2="560" y2="139"/>
+    <line x1="530" y1="175" x2="560" y2="161"/>
+  </g>
+
+  <!-- IntServ vs DiffServ panel -->
+  <g>
+    <rect x="40" y="240" width="350" height="110" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="215" y="260" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">IntServ (RSVP) vs DiffServ</text>
+    <text x="50" y="280" fill="#E2557A" font-size="10" font-weight="600">IntServ</text>
+    <text x="50" y="294" fill="#2A1A2E" font-size="10">per-flow soft state in every router</text>
+    <text x="50" y="308" fill="#2A1A2E" font-size="10">PATH/RESV refresh ~30s/flow -> collapses</text>
+    <text x="50" y="322" fill="#2A1A2E" font-size="10">deterministic guarantee, no scale</text>
+    <text x="200" y="280" fill="#3D8B8B" font-size="10" font-weight="600">DiffServ</text>
+    <text x="200" y="294" fill="#2A1A2E" font-size="10">core state = O(classes) ~ 5</text>
+    <text x="200" y="308" fill="#2A1A2E" font-size="10">mark once at edge, no per-flow signaling</text>
+    <text x="200" y="322" fill="#2A1A2E" font-size="10">statistical guarantee, scales</text>
+    <text x="50" y="342" fill="#2A1A2E" font-size="9" opacity="0.6">at 400k flows: IntServ ~13k refresh msg/s vs DiffServ 0</text>
+  </g>
+
+  <!-- How networks differ panel -->
+  <g>
+    <rect x="410" y="240" width="350" height="110" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="585" y="260" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">How networks differ (internetworking)</text>
+    <g font-size="10" fill="#2A1A2E">
+      <text x="420" y="280" font-weight="600">Ethernet</text>
+      <text x="540" y="280">connless · MAC · BE</text>
+      <text x="420" y="298" font-weight="600">ATM</text>
+      <text x="540" y="298">VC · NSAP · CBR/VBR</text>
+      <text x="420" y="316" font-weight="600">Frame Relay</text>
+      <text x="540" y="316">DLCI · DE bit · CIR</text>
+      <text x="420" y="334" font-weight="600">Satellite</text>
+      <text x="540" y="334">connless · IP · high RTT</text>
+    </g>
+  </g>
+
+  <!-- DSCP byte diagram -->
+  <g>
+    <text x="400" y="386" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">DS field (RFC 2474)</text>
+    <g font-size="10" fill="#2A1A2E">
+      <rect x="200" y="396" width="200" height="26" fill="#7B6CA8" opacity="0.25" stroke="#7B6CA8" stroke-width="1.4"/>
+      <text x="300" y="414" text-anchor="middle">DSCP (6 bits)</text>
+      <rect x="400" y="396" width="80" height="26" fill="#3D8B8B" opacity="0.25" stroke="#3D8B8B" stroke-width="1.4"/>
+      <text x="440" y="414" text-anchor="middle">ECN (2)</text>
+    </g>
+    <text x="300" y="440" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.7">EF=101110(46) · AFxy base 10/18/26/34 + 2*dp</text>
+    <text x="440" y="440" text-anchor="middle" fill="#2A1A2E" font-size="9" opacity="0.7">congestion marking</text>
+  </g>
+</svg>

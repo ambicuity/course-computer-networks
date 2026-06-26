@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 12px; fill: #6b5a6e; }
+    .node { font-size: 13px; font-weight: 600; }
+    .zone { font-size: 11px; fill: #6b5a6e; }
+    .flag { font-size: 11px; fill: #E2557A; font-weight: 600; }
+    .lbl { font-size: 11px; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; }
+    .arr { stroke: #2A1A2E; stroke-width: 1.6; fill: none; marker-end: url(#ah); }
+    .q { stroke: #E2557A; stroke-width: 1.6; fill: none; stroke-dasharray: 5 3; marker-end: url(#ahp); }
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="44" class="title">dig +trace: iterative DNS resolution walk</text>
+  <text x="40" y="64" class="sub">resolver follows NS delegations root &#8594; TLD &#8594; authoritative (RFC 1035)</text>
+
+  <!-- Resolver -->
+  <rect x="40" y="250" width="150" height="64" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.6"/>
+  <text x="115" y="278" class="node" text-anchor="middle">Stub / Resolver</text>
+  <text x="115" y="296" class="mono" text-anchor="middle">query: www.example.com A</text>
+
+  <!-- Root -->
+  <rect x="320" y="110" width="200" height="86" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.6"/>
+  <text x="420" y="134" class="node" text-anchor="middle">a.root-servers.net</text>
+  <text x="420" y="150" class="zone" text-anchor="middle">zone: .  (root)</text>
+  <text x="420" y="170" class="mono" text-anchor="middle">AUTHORITY: com. NS</text>
+  <text x="420" y="186" class="flag" text-anchor="middle">flags: qr  (NO aa &#8594; referral)</text>
+
+  <!-- TLD -->
+  <rect x="640" y="250" width="200" height="86" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.6"/>
+  <text x="740" y="274" class="node" text-anchor="middle">a.gtld-servers.net</text>
+  <text x="740" y="290" class="zone" text-anchor="middle">zone: com.</text>
+  <text x="740" y="310" class="mono" text-anchor="middle">AUTHORITY: example.com. NS</text>
+  <text x="740" y="326" class="flag" text-anchor="middle">ADDITIONAL: glue A records</text>
+
+  <!-- Authoritative -->
+  <rect x="320" y="430" width="200" height="86" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.6"/>
+  <text x="420" y="454" class="node" text-anchor="middle">ns1.example.com</text>
+  <text x="420" y="470" class="zone" text-anchor="middle">zone: example.com.</text>
+  <text x="420" y="490" class="mono" text-anchor="middle">ANSWER: 93.184.216.34</text>
+  <text x="420" y="506" class="flag" text-anchor="middle">flags: qr,aa  (authoritative)</text>
+
+  <!-- arrows: resolver -> root -->
+  <path class="q" d="M190,272 C 250,272 270,160 320,160"/>
+  <text x="220" y="210" class="lbl" fill="#E2557A">1. query full name</text>
+
+  <!-- root -> resolver (referral) back -->
+  <path class="arr" d="M320,180 C 260,180 240,268 190,278"/>
+  <text x="210" y="248" class="lbl">referral: com. NS</text>
+
+  <!-- resolver -> TLD -->
+  <path class="q" d="M190,286 C 380,286 520,288 640,288"/>
+  <text x="330" y="278" class="lbl" fill="#E2557A">2. query gtld</text>
+
+  <!-- TLD -> resolver (referral+glue) -->
+  <path class="arr" d="M640,300 C 520,300 360,300 190,296"/>
+  <text x="330" y="316" class="lbl">referral + glue</text>
+
+  <!-- resolver -> auth -->
+  <path class="q" d="M190,300 C 250,300 270,470 320,470"/>
+  <text x="200" y="380" class="lbl" fill="#E2557A">3. query ns1</text>
+
+  <!-- auth -> resolver (final) -->
+  <path class="arr" d="M320,460 C 260,460 240,312 190,304"/>
+  <text x="200" y="430" class="lbl">final A record</text>
+
+  <!-- legend -->
+  <rect x="40" y="520" width="14" height="3" fill="#E2557A"/>
+  <text x="62" y="524" class="sub">resolver query</text>
+  <rect x="170" y="519" width="14" height="3" fill="#2A1A2E"/>
+  <text x="192" y="524" class="sub">server response</text>
+</svg>

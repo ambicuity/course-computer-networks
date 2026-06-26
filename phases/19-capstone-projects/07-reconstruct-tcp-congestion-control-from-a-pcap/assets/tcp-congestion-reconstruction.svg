@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 620" width="920" height="620" font-family="Helvetica, Arial, sans-serif">
+  <rect width="920" height="620" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="460" y="36" text-anchor="middle" font-size="22" font-weight="bold" fill="#2A1A2E">TCP Congestion Control Reconstruction</text>
+  <text x="460" y="58" text-anchor="middle" font-size="13" fill="#2A1A2E">cwnd trajectory inferred from packet capture, with loss events and phase machine</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="520" x2="880" y2="520" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="80" y1="120" x2="80" y2="520" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="480" y="556" text-anchor="middle" font-size="12" fill="#2A1A2E">RTT index</text>
+  <text x="40" y="320" text-anchor="middle" font-size="12" fill="#2A1A2E" transform="rotate(-90 40 320)">cwnd (MSS units)</text>
+
+  <!-- Y gridlines -->
+  <line x1="80" y1="490" x2="880" y2="490" stroke="#2A1A2E" stroke-width="0.3" stroke-dasharray="3 3"/>
+  <line x1="80" y1="430" x2="880" y2="430" stroke="#2A1A2E" stroke-width="0.3" stroke-dasharray="3 3"/>
+  <line x1="80" y1="370" x2="880" y2="370" stroke="#2A1A2E" stroke-width="0.3" stroke-dasharray="3 3"/>
+  <line x1="80" y1="310" x2="880" y2="310" stroke="#2A1A2E" stroke-width="0.3" stroke-dasharray="3 3"/>
+  <line x1="80" y1="250" x2="880" y2="250" stroke="#2A1A2E" stroke-width="0.3" stroke-dasharray="3 3"/>
+  <line x1="80" y1="190" x2="880" y2="190" stroke="#2A1A2E" stroke-width="0.3" stroke-dasharray="3 3"/>
+  <text x="74" y="494" text-anchor="end" font-size="10" fill="#2A1A2E">2</text>
+  <text x="74" y="434" text-anchor="end" font-size="10" fill="#2A1A2E">6</text>
+  <text x="74" y="374" text-anchor="end" font-size="10" fill="#2A1A2E">10</text>
+  <text x="74" y="314" text-anchor="end" font-size="10" fill="#2A1A2E">14</text>
+  <text x="74" y="254" text-anchor="end" font-size="10" fill="#2A1A2E">18</text>
+  <text x="74" y="194" text-anchor="end" font-size="10" fill="#2A1A2E">22</text>
+
+  <!-- X labels -->
+  <text x="80" y="540" text-anchor="middle" font-size="10" fill="#2A1A2E">0</text>
+  <text x="180" y="540" text-anchor="middle" font-size="10" fill="#2A1A2E">3</text>
+  <text x="280" y="540" text-anchor="middle" font-size="10" fill="#2A1A2E">6</text>
+  <text x="380" y="540" text-anchor="middle" font-size="10" fill="#2A1A2E">9</text>
+  <text x="480" y="540" text-anchor="middle" font-size="10" fill="#2A1A2E">12</text>
+  <text x="580" y="540" text-anchor="middle" font-size="10" fill="#2A1A2E">15</text>
+  <text x="680" y="540" text-anchor="middle" font-size="10" fill="#2A1A2E">18</text>
+  <text x="780" y="540" text-anchor="middle" font-size="10" fill="#2A1A2E">21</text>
+  <text x="880" y="540" text-anchor="middle" font-size="10" fill="#2A1A2E">24</text>
+
+  <!-- Slow-start exponential ramp (RTT 0..3): cwnd 1,2,4,8 -->
+  <polyline points="80,490 130,430 180,310 230,160" fill="none" stroke="#E2557A" stroke-width="3"/>
+  <circle cx="80" cy="490" r="4" fill="#E2557A"/>
+  <circle cx="130" cy="430" r="4" fill="#E2557A"/>
+  <circle cx="180" cy="310" r="4" fill="#E2557A"/>
+  <circle cx="230" cy="160" r="4" fill="#E2557A"/>
+
+  <!-- Congestion avoidance linear ramp (RTT 4..8): cwnd 8..13 -->
+  <polyline points="230,160 280,144 330,128 380,112 430,96" fill="none" stroke="#E2557A" stroke-width="3"/>
+  <circle cx="280" cy="144" r="4" fill="#E2557A"/>
+  <circle cx="330" cy="128" r="4" fill="#E2557A"/>
+  <circle cx="380" cy="112" r="4" fill="#E2557A"/>
+  <circle cx="430" cy="96" r="4" fill="#E2557A"/>
+
+  <!-- Triplicate-ACK at RTT 9: cwnd 13 -> 6 (drop to ssthresh/2) -->
+  <line x1="430" y1="96" x2="480" y2="260" stroke="#E2557A" stroke-width="3" stroke-dasharray="5 3"/>
+  <circle cx="480" cy="260" r="6" fill="#E2557A" stroke="#FFF7EC" stroke-width="2"/>
+  <polygon points="380,200 390,210 370,210" fill="#E2557A" opacity="0.8"/>
+  <text x="486" y="252" font-size="11" fill="#2A1A2E" font-weight="bold">triplicate-ACK @ RTT9</text>
+  <text x="486" y="266" font-size="10" fill="#2A1A2E">fast retransmit, ssthresh=6</text>
+
+  <!-- Fast recovery + linear ramp after RTT 9: cwnd 6..12 -->
+  <polyline points="480,260 530,260 580,240 630,220 680,200 730,180" fill="none" stroke="#E2557A" stroke-width="3"/>
+  <circle cx="530" cy="260" r="4" fill="#E2557A"/>
+  <circle cx="580" cy="240" r="4" fill="#E2557A"/>
+  <circle cx="630" cy="220" r="4" fill="#E2557A"/>
+  <circle cx="680" cy="200" r="4" fill="#E2557A"/>
+  <circle cx="730" cy="180" r="4" fill="#E2557A"/>
+
+  <!-- Timeout at RTT 16: cwnd 14 -> 1 (collapse) -->
+  <line x1="730" y1="180" x2="780" y2="500" stroke="#E2557A" stroke-width="3" stroke-dasharray="5 3"/>
+  <circle cx="780" cy="500" r="6" fill="#E2557A" stroke="#FFF7EC" stroke-width="2"/>
+  <polygon points="730,420 740,430 720,430" fill="#E2557A" opacity="0.8"/>
+  <text x="600" y="490" font-size="11" fill="#2A1A2E" font-weight="bold">timeout @ RTT16</text>
+  <text x="600" y="504" font-size="10" fill="#2A1A2E">cwnd reset to 1 MSS</text>
+
+  <!-- Slow start after timeout -->
+  <polyline points="780,500 800,470 820,410 840,290 880,170" fill="none" stroke="#E2557A" stroke-width="3"/>
+  <circle cx="800" cy="470" r="4" fill="#E2557A"/>
+  <circle cx="820" cy="410" r="4" fill="#E2557A"/>
+  <circle cx="840" cy="290" r="4" fill="#E2557A"/>
+  <circle cx="880" cy="170" r="4" fill="#E2557A"/>
+
+  <!-- Phase labels along the top -->
+  <text x="155" y="100" font-size="11" fill="#2A1A2E" font-weight="bold">SLOW START</text>
+  <text x="155" y="115" font-size="9" fill="#2A1A2E">(cwnd doubles / RTT)</text>
+
+  <text x="330" y="80" font-size="11" fill="#2A1A2E" font-weight="bold">CONGESTION AVOIDANCE</text>
+  <text x="345" y="95" font-size="9" fill="#2A1A2E">(cwnd + 1 MSS / RTT)</text>
+
+  <text x="555" y="100" font-size="11" fill="#E2557A" font-weight="bold">FAST RECOVERY</text>
+  <text x="565" y="115" font-size="9" fill="#E2557A">halve, then inflate</text>
+
+  <text x="780" y="105" font-size="11" fill="#E2557A" font-weight="bold">TIMEOUT</text>
+  <text x="800" y="120" font-size="9" fill="#E2557A">reset, slow-start</text>
+
+  <!-- Side panel: reconstruction pipeline -->
+  <rect x="540" y="558" width="350" height="50" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1" rx="4"/>
+  <text x="550" y="575" font-size="10" font-weight="bold" fill="#2A1A2E">Pipeline:</text>
+  <text x="550" y="589" font-size="9" fill="#2A1A2E">capture -&gt; flight_size(RTT) -&gt; loss_detect -&gt; phase_classify -&gt; compare(ref)</text>
+  <text x="550" y="601" font-size="9" fill="#2A1A2E">MAE &lt; 2 MSS, phase agreement &gt; 90% indicates faithful reconstruction</text>
+
+  <!-- Reconstruction signal trace (bottom strip) showing inferred samples -->
+  <rect x="80" y="556" width="450" height="48" fill="none" stroke="#2A1A2E" stroke-width="0.6" rx="3"/>
+  <text x="86" y="568" font-size="9" fill="#2A1A2E">reconstructed cwnd samples (one per RTT):</text>
+  <g transform="translate(86 575)">
+    <line x1="0" y1="22" x2="440" y2="22" stroke="#2A1A2E" stroke-width="0.5"/>
+    <g fill="#E2557A">
+      <rect x="2" y="20" width="3" height="4"/>
+      <rect x="20" y="14" width="3" height="10"/>
+      <rect x="38" y="2" width="3" height="22"/>
+      <rect x="56" y="-18" width="3" height="42"/>
+      <rect x="74" y="-22" width="3" height="46"/>
+      <rect x="92" y="-26" width="3" height="50"/>
+      <rect x="110" y="-30" width="3" height="54"/>
+      <rect x="128" y="-34" width="3" height="58"/>
+      <rect x="146" y="14" width="3" height="10"/>
+      <rect x="164" y="10" width="3" height="14"/>
+      <rect x="182" y="6" width="3" height="18"/>
+      <rect x="200" y="2" width="3" height="22"/>
+      <rect x="218" y="-2" width="3" height="26"/>
+      <rect x="236" y="-6" width="3" height="30"/>
+      <rect x="254" y="-10" width="3" height="34"/>
+      <rect x="272" y="20" width="3" height="4"/>
+      <rect x="290" y="12" width="3" height="12"/>
+      <rect x="308" y="0" width="3" height="24"/>
+      <rect x="326" y="-12" width="3" height="36"/>
+      <rect x="344" y="-24" width="3" height="48"/>
+      <rect x="362" y="-30" width="3" height="54"/>
+      <rect x="380" y="-34" width="3" height="58"/>
+      <rect x="398" y="-38" width="3" height="62"/>
+      <rect x="416" y="-42" width="3" height="66"/>
+    </g>
+  </g>
+</svg>

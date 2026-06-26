@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "In the capstone design, branch offices use OSPF stub areas instead of standard (non-stub) areas. What is the primary operational reason for this choice?",
+      "options": [
+        "Stub areas allow branches to peer directly with ISPs without requiring an ABR at HQ",
+        "Stub areas suppress Type 5 external LSAs so that BGP routes learned at HQ are not flooded into the branch SPF database",
+        "Stub areas increase the OSPF hello interval, reducing control-plane overhead on WAN links",
+        "Stub areas are required when OSPF runs over an MPLS carrier circuit"
+      ],
+      "correct": 1,
+      "explanation": "A stub area blocks Type 5 external LSAs. Without the stub flag, every BGP prefix withdrawal at HQ would generate a new Type 5 LSA that floods into Denver and Charlotte, triggering a full SPF recalculation at each branch. The stub area replaces all external routes with a single Type 3 default route injected by the HQ ABR, keeping branch LSDB size and SPF frequency low regardless of how many BGP prefixes HQ learns."
+    },
+    {
+      "stage": "pre",
+      "question": "The capstone uses LOCAL_PREF 200 for ISP-1 and LOCAL_PREF 100 for ISP-2 at HQ, and also adds an AS-path prepend of three hops on the ISP-2 outbound announcement. Why are both mechanisms needed — why is LOCAL_PREF alone insufficient?",
+      "options": [
+        "LOCAL_PREF is propagated to ISPs via eBGP, so it directly controls inbound path selection at upstream routers",
+        "LOCAL_PREF controls outbound path selection within HQ's AS only; AS-path prepend biases inbound selection at the upstream ISP routers, which do not see HQ's LOCAL_PREF",
+        "AS-path prepend controls the MED value, which overrides LOCAL_PREF for inbound flows",
+        "Both mechanisms do the same thing; only one is needed and the capstone uses both for redundancy"
+      ],
+      "correct": 1,
+      "explanation": "LOCAL_PREF is a well-known discretionary BGP attribute that is never sent to eBGP peers — it stays within AS 65001 and controls which ISP HQ uses for outbound traffic. Upstream routers at ISP-1 and ISP-2 make their own route selection for traffic destined to 10.0.0.0/8 based on AS_PATH length and their own routing policy. AS-path prepend appends extra copies of AS 65001 to announcements sent to ISP-2, making the path through ISP-2 look longer to upstream routers, so they prefer to send inbound traffic via ISP-1."
+    },
+    {
+      "stage": "post",
+      "question": "The production-readiness reviewer returns WARN on 'QoS policy applied to all WAN links' because the HQ-to-Cloud Direct Connect link has qos_policy=False. Which traffic class suffers the most immediate impact from this gap, and why?",
+      "options": [
+        "Best-effort data (DSCP BE) — it is no longer rate-limited and can consume the full link",
+        "Voice RTP (DSCP EF) — without a QoS policy on the egress interface, LLQ is not enforced and voice packets compete in the default FIFO queue alongside DB replication traffic",
+        "Scavenger traffic (DSCP CS1) — without the DROP class, scavenger traffic gets full link access",
+        "BGP control-plane traffic (DSCP CS6) — it cannot be scheduled ahead of data traffic without a QoS policy"
+      ],
+      "correct": 1,
+      "explanation": "DSCP EF is a marking, not a queue assignment. A packet marked EF is only placed in the LLQ if there is a QoS service-policy applied to the outgoing interface that classifies EF into a priority class. Without that policy on the Direct Connect link, the EF-marked voice packet lands in the default FIFO queue and can be delayed behind a large DB replication segment, adding variable queuing latency that breaks the G.114 < 150 ms one-way constraint for voice MOS scores."
+    },
+    {
+      "stage": "post",
+      "question": "A VRRP master switch at Branch-A (BR-A-Sw1) reboots and comes back online. The capstone configures preempt delay = 10 seconds. What happens during those 10 seconds, and why is the delay beneficial rather than harmful?",
+      "options": [
+        "BR-A-Sw1 immediately reclaims the VIP; the 10-second delay is a vendor-specific quirk with no operational benefit",
+        "BR-A-Sw2 continues to hold the VIP for 10 seconds while BR-A-Sw1 reconverges its OSPF routing table, preventing a brief black-hole where the recovering master owns the VIP but has no valid upstream route",
+        "The VIP is suspended for 10 seconds with no gateway available; hosts detect the gap via ARP timeout and fall back to a secondary default gateway",
+        "Both BR-A-Sw1 and BR-A-Sw2 hold the VIP simultaneously for 10 seconds, load-sharing inbound gateway traffic"
+      ],
+      "correct": 1,
+      "explanation": "Without preempt delay, a recovering master can seize the VIP before its OSPF adjacencies have re-formed and its routing table is populated. During that window the master sends gratuitous ARPs to all hosts, they update their ARP caches to point to the master, and then packets arrive at the master which has no route — they are dropped. The 10-second preempt delay holds the VIP on the backup (which still has a full routing table) while the master re-establishes OSPF, builds its FIB, and only then takes the VIP back."
+    },
+    {
+      "stage": "post",
+      "question": "The Python validator uses ipaddress.ip_network(subnet, strict=True) and then calls a.overlaps(b) for every subnet pair. Why is strict=True important in this context, and what would happen if strict=False were used instead?",
+      "options": [
+        "strict=True makes ipaddress reject host bits set in the subnet mask, catching misconfigured subnets like 10.10.10.5/24 that should have been written 10.10.10.0/24; strict=False would silently mask the host bits and might hide a configuration error in the design data",
+        "strict=True enables CIDR aggregation so the validator automatically summarises adjacent subnets; strict=False disables summarisation",
+        "strict=True forces IPv4-only mode; strict=False allows IPv6 subnets to be compared against IPv4 subnets without raising an exception",
+        "strict=True and strict=False produce identical results for /24 subnets; the parameter only matters for /32 host routes"
+      ],
+      "correct": 0,
+      "explanation": "ipaddress.ip_network('10.10.10.5/24', strict=True) raises ValueError because the host bits (.5) are set. With strict=False, Python silently truncates to 10.10.10.0/24. In a production-readiness validator this distinction matters: if a VLAN is configured with the wrong host IP in the network field (a common copy-paste error in network design spreadsheets), strict=True surfaces the misconfiguration as a hard error in the data, prompting correction before the validator runs. strict=False would hide the error and the overlap check would pass on the masked address."
+    },
+    {
+      "stage": "post",
+      "question": "The default design scores PRODUCTION at 96.4% with four WARN findings. An engineer remediated three of the four findings (added 802.1X to the Charlotte video VLAN, applied QoS to the cloud WAN link, and added a second on-call contact at Charlotte) but left the BFD warning on the cloud link. What is the new score and grade?",
+      "options": [
+        "The score rises from 424/440 to 442/440 — impossible, which means the remediation was applied incorrectly",
+        "The score rises from 424/440 to 442/440 but is capped at 440/440 (100%) and the grade is PRODUCTION",
+        "Three WARN findings (score 6 each) become PASS findings (score 10 each), adding 12 points; total rises from 424/440 to 436/440 (99.1%), grade remains PRODUCTION",
+        "The score does not change because WARN findings are already included in the passing threshold"
+      ],
+      "correct": 2,
+      "explanation": "Each WARN finding scores 6. Remediating a WARN to PASS changes its score from 6 to 10, a gain of 4 points per finding. Three findings remediated: 3 × 4 = 12 additional points. Starting score 424 + 12 = 436. Max remains 440. 436/440 = 99.1%. The one remaining BFD WARN still scores 6 instead of 10, so the total is not a perfect 440. The grade stays PRODUCTION because 99.1% > 90%."
+    }
+  ]
+}

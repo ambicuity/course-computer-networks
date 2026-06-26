@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" width="760" height="460">
+  <rect width="760" height="460" fill="#FFF7EC"/>
+  <text x="380" y="28" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="bold" fill="#2A1A2E">UDP Datagram &amp; Wireless Timescale Separation</text>
+  <text x="380" y="50" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#2A1A2E" font-style="italic">Tanenbaum Sec. 6.3.3 (wireless) and 6.4.1 (UDP, RFC 768)</text>
+
+  <!-- UDP header layout -->
+  <g>
+    <text x="40" y="95" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#2A1A2E">UDP Header (Fig 6-27, 8 bytes total)</text>
+    <rect x="40" y="105" width="160" height="50" fill="#E2557A" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="120" y="135" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#FFF7EC">Source Port (16)</text>
+    <rect x="200" y="105" width="160" height="50" fill="#E2557A" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="280" y="135" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#FFF7EC">Dest. Port (16)</text>
+    <rect x="40" y="155" width="160" height="50" fill="#2A1A2E" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="120" y="185" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#FFF7EC">Length (16)</text>
+    <rect x="200" y="155" width="160" height="50" fill="#2A1A2E" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="280" y="185" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#FFF7EC">Checksum (16)</text>
+    <rect x="40" y="205" width="320" height="50" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2" stroke-dasharray="4 2"/>
+    <text x="200" y="235" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-style="italic" fill="#2A1A2E">Payload (0 to 65,507 bytes for IPv4)</text>
+  </g>
+
+  <!-- Pseudo-header -->
+  <g>
+    <text x="40" y="285" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#2A1A2E">IPv4 Pseudo-Header (Fig 6-28, mixed into checksum)</text>
+    <rect x="40" y="295" width="120" height="40" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="100" y="319" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">src IP (32)</text>
+    <rect x="160" y="295" width="120" height="40" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="220" y="319" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">dst IP (32)</text>
+    <rect x="280" y="295" width="40" height="40" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="300" y="319" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">0</text>
+    <rect x="320" y="295" width="40" height="40" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="340" y="319" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#E2557A" font-weight="bold">17</text>
+    <rect x="360" y="295" width="60" height="40" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="390" y="319" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">UDP len</text>
+    <text x="430" y="320" font-family="Georgia, serif" font-size="10" font-style="italic" fill="#2A1A2E">proto = 17 (UDP)</text>
+  </g>
+
+  <!-- Timescale separation panel -->
+  <g>
+    <rect x="490" y="95" width="240" height="280" fill="white" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="610" y="118" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#2A1A2E">Timescale Separation</text>
+    <text x="610" y="135" text-anchor="middle" font-family="Georgia, serif" font-size="10" font-style="italic" fill="#2A1A2E">link-layer vs transport</text>
+
+    <!-- Timeline -->
+    <line x1="510" y1="220" x2="720" y2="220" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="510" y1="215" x2="510" y2="225" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="720" y1="215" x2="720" y2="225" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="510" y="240" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#2A1A2E">t=0</text>
+    <text x="720" y="240" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#2A1A2E">t=200 ms</text>
+
+    <!-- Link-layer retransmits -->
+    <g fill="#E2557A" stroke="#E2557A" stroke-width="1.5">
+      <rect x="513" y="180" width="6" height="6"/>
+      <rect x="528" y="180" width="6" height="6"/>
+      <rect x="543" y="180" width="6" height="6"/>
+      <rect x="558" y="180" width="6" height="6"/>
+      <rect x="573" y="180" width="6" height="6"/>
+      <rect x="588" y="180" width="6" height="6"/>
+      <rect x="603" y="180" width="6" height="6"/>
+      <rect x="618" y="180" width="6" height="6"/>
+      <rect x="633" y="180" width="6" height="6"/>
+      <rect x="648" y="180" width="6" height="6"/>
+      <rect x="663" y="180" width="6" height="6"/>
+      <rect x="678" y="180" width="6" height="6"/>
+      <rect x="693" y="180" width="6" height="6"/>
+      <rect x="708" y="180" width="6" height="6"/>
+    </g>
+    <text x="615" y="173" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#E2557A" font-weight="bold">802.11 ARQ retries (~1 ms each)</text>
+
+    <!-- TCP timer -->
+    <line x1="510" y1="270" x2="715" y2="270" stroke="#2A1A2E" stroke-width="2"/>
+    <line x1="710" y1="265" x2="715" y2="270" stroke="#2A1A2E" stroke-width="2"/>
+    <line x1="710" y1="275" x2="715" y2="270" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="612" y="295" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#2A1A2E" font-weight="bold">TCP retransmission timer (200 ms)</text>
+
+    <text x="610" y="345" text-anchor="middle" font-family="Georgia, serif" font-size="10" font-style="italic" fill="#2A1A2E">link layer has ~200 attempts to</text>
+    <text x="610" y="358" text-anchor="middle" font-family="Georgia, serif" font-size="10" font-style="italic" fill="#2A1A2E">repair before transport sees loss</text>
+  </g>
+
+  <!-- Padhye rate column -->
+  <g>
+    <text x="40" y="370" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#2A1A2E">Padhye TCP-friendly rate (MSS=1460, RTT=80 ms)</text>
+    <g font-family="Georgia, serif" font-size="11" fill="#2A1A2E">
+      <text x="40"  y="395">p=0.01% : 80.7 Mbps (clean)</text>
+      <text x="220" y="395">p=0.1%  : 25.5 Mbps</text>
+      <text x="380" y="395">p=1%    : 8.07 Mbps</text>
+      <text x="540" y="395" fill="#E2557A" font-weight="bold">p=10%   : 2.55 Mbps</text>
+      <text x="40"  y="415" font-style="italic">Common on noisy Wi-Fi: 1-10% loss,</text>
+      <text x="40"  y="432" font-style="italic">which is why TCP-over-wireless needs help.</text>
+    </g>
+  </g>
+</svg>

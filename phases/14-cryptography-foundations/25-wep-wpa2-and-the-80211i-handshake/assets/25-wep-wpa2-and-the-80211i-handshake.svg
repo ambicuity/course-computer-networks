@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 12px; fill: #6b5560; }
+    .node { font-size: 14px; font-weight: 700; }
+    .small { font-family: monospace; font-size: 11px; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+    .head { font-size: 12px; font-weight: 700; }
+  </style>
+
+  <text x="40" y="40" class="title">802.11i (WPA2) 4-Way Handshake</text>
+  <text x="40" y="60" class="sub">PTK = PRF-384(PMK, "Pairwise key expansion", AA || SA || ANonce || SNonce); split into KCK | KEK | TK</text>
+
+  <rect x="40" y="100" width="180" height="120" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="130" y="124" text-anchor="middle" class="node">STA (supplicant)</text>
+  <text x="130" y="142" text-anchor="middle" class="small">11:22:33:44:55:02</text>
+  <text x="130" y="166" text-anchor="middle" class="label">knows PSK</text>
+  <text x="130" y="184" text-anchor="middle" class="label">generates SNonce</text>
+  <text x="130" y="202" text-anchor="middle" class="label">derives PMK, PTK</text>
+
+  <rect x="700" y="100" width="180" height="120" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="790" y="124" text-anchor="middle" class="node">AP (authenticator)</text>
+  <text x="790" y="142" text-anchor="middle" class="small">aa:bb:cc:dd:ee:01</text>
+  <text x="790" y="166" text-anchor="middle" class="label">knows PSK</text>
+  <text x="790" y="184" text-anchor="middle" class="label">generates ANonce</text>
+  <text x="790" y="202" text-anchor="middle" class="label">wraps the GTK</text>
+
+  <rect x="40" y="250" width="840" height="60" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="60" y="270" class="head accent">PTK (48 B for CCMP) split:</text>
+  <rect x="60"  y="282" width="160" height="20" fill="#FFE0EA" stroke="#E2557A" stroke-width="1"/>
+  <text x="140" y="296" text-anchor="middle" class="small">KCK (16 B)  MIC over EAPOL-Key</text>
+  <rect x="220" y="282" width="160" height="20" fill="#FFE0EA" stroke="#E2557A" stroke-width="1"/>
+  <text x="300" y="296" text-anchor="middle" class="small">KEK (16 B)  AES-Key-Wrap GTK</text>
+  <rect x="380" y="282" width="160" height="20" fill="#FFE0EA" stroke="#E2557A" stroke-width="1"/>
+  <text x="460" y="296" text-anchor="middle" class="small">TK (16 B)  AES-CCM data key</text>
+  <text x="560" y="296" class="label">PMK = PBKDF2-SHA-1(PSK, SSID, 4096, 32)</text>
+
+  <text x="40" y="338" class="head">4-Way Handshake (EAPOL-Key, EtherType 0x888E):</text>
+  <g transform="translate(40, 350)">
+    <rect x="0"   y="0" width="180" height="44" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="90"  y="16" text-anchor="middle" class="small">Msg 1  AP -&gt; STA</text>
+    <text x="90"  y="30" text-anchor="middle" class="small">ANonce (no MIC yet)</text>
+    <line x1="180" y1="22" x2="220" y2="22" stroke="#2A1A2E" stroke-width="2"/>
+    <polygon points="220,22 213,18 213,26" fill="#2A1A2E"/>
+    <rect x="220" y="0" width="220" height="44" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="330" y="16" text-anchor="middle" class="small">Msg 2  STA -&gt; AP</text>
+    <text x="330" y="30" text-anchor="middle" class="small">SNonce + MIC (proves PMK)</text>
+    <line x1="440" y1="22" x2="480" y2="22" stroke="#2A1A2E" stroke-width="2"/>
+    <polygon points="480,22 473,18 473,26" fill="#2A1A2E"/>
+    <rect x="480" y="0" width="220" height="44" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="590" y="16" text-anchor="middle" class="small">Msg 3  AP -&gt; STA</text>
+    <text x="590" y="30" text-anchor="middle" class="small">install + wrapped GTK + MIC</text>
+    <line x1="700" y1="22" x2="740" y2="22" stroke="#2A1A2E" stroke-width="2"/>
+    <polygon points="740,22 733,18 733,26" fill="#2A1A2E"/>
+    <rect x="740" y="0" width="140" height="44" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="810" y="16" text-anchor="middle" class="small">Msg 4  STA -&gt; AP</text>
+    <text x="810" y="30" text-anchor="middle" class="small">MIC only</text>
+  </g>
+
+  <rect x="40" y="418" width="430" height="100" rx="6" fill="#FFE0EA" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="60" y="440" class="head accent">WEP failure (1999-2004)</text>
+  <text x="60" y="458" class="small">RC4 + 24-bit IV + CRC-32</text>
+  <text x="60" y="474" class="small">2^24 IVs exhaust in ~5 h at 11 Mbps</text>
+  <text x="60" y="490" class="small">same (IV, key) -&gt; same keystream</text>
+  <text x="60" y="506" class="small">Fluhrer-Mantin-Shamir 2001: weak IVs</text>
+
+  <rect x="490" y="418" width="390" height="100" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="510" y="440" class="head">WPA2 fix (2004-)</text>
+  <text x="510" y="458" class="small">AES-128 CTR + CBC-MAC (CCMP)</text>
+  <text x="510" y="474" class="small">per-station 128-bit TK (no reuse)</text>
+  <text x="510" y="490" class="small">48-bit packet number in nonce</text>
+  <text x="510" y="506" class="small">4-Way proves key possession (KRACK)</text>
+</svg>

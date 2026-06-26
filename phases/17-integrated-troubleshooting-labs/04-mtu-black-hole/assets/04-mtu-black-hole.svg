@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="ui-sans-serif, system-ui, sans-serif">
+  <rect width="880" height="620" fill="#FFF7EC"/>
+  <rect x="0" y="0" width="880" height="50" fill="#2A1A2E"/>
+  <text x="20" y="32" font-size="18" font-weight="700" fill="#FFF7EC">MTU Black Hole</text>
+  <text x="20" y="74" font-size="13" fill="#2A1A2E" font-style="italic">Large DF-bit packets disappear at the bottleneck; PMTUD needs the ICMP error to learn the smaller MTU.</text>
+
+  <!-- path of hops -->
+  <g>
+    <rect x="40"  y="100" width="130" height="80" rx="8" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="105" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">client</text>
+    <text x="105" y="148" text-anchor="middle" font-size="11" fill="#2A1A2E">10.0.0.1</text>
+    <text x="105" y="166" text-anchor="middle" font-size="11" fill="#2A1A2E">MTU 1500</text>
+  </g>
+  <g>
+    <rect x="190" y="100" width="130" height="80" rx="8" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="255" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">core-1</text>
+    <text x="255" y="148" text-anchor="middle" font-size="11" fill="#2A1A2E">router</text>
+    <text x="255" y="166" text-anchor="middle" font-size="11" fill="#2A1A2E">MTU 1500</text>
+  </g>
+  <g>
+    <rect x="340" y="100" width="200" height="80" rx="8" fill="#F2E0CE" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="440" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#E2557A">bottleneck</text>
+    <text x="440" y="148" text-anchor="middle" font-size="11" fill="#2A1A2E">PPPoE / MPLS / IPsec</text>
+    <text x="440" y="166" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="700">MTU 1400, ICMP filtered</text>
+  </g>
+  <g>
+    <rect x="560" y="100" width="130" height="80" rx="8" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="625" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">core-2</text>
+    <text x="625" y="148" text-anchor="middle" font-size="11" fill="#2A1A2E">router</text>
+    <text x="625" y="166" text-anchor="middle" font-size="11" fill="#2A1A2E">MTU 1500</text>
+  </g>
+  <g>
+    <rect x="710" y="100" width="130" height="80" rx="8" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="775" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">server</text>
+    <text x="775" y="148" text-anchor="middle" font-size="11" fill="#2A1A2E">10.0.0.2</text>
+    <text x="775" y="166" text-anchor="middle" font-size="11" fill="#2A1A2E">MTU 1500</text>
+  </g>
+  <g stroke="#2A1A2E" stroke-width="1.5" fill="none">
+    <line x1="170" y1="140" x2="190" y2="140" marker-end="url(#arrow)"/>
+    <line x1="320" y1="140" x2="340" y2="140" marker-end="url(#arrow)"/>
+    <line x1="540" y1="140" x2="560" y2="140" marker-end="url(#arrow)"/>
+    <line x1="690" y1="140" x2="710" y2="140" marker-end="url(#arrow)"/>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- packet flow -->
+  <g>
+    <rect x="40" y="210" width="800" height="58" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="234" font-size="13" font-weight="700" fill="#2A1A2E">1500-byte IP packet with DF bit set</text>
+    <text x="60" y="254" font-size="12" fill="#2A1A2E">ver=4 ihl=5 total_len=1500 flags=DF (0x4000) proto=TCP</text>
+  </g>
+  <g>
+    <rect x="40" y="278" width="800" height="58" rx="6" fill="#F2E0CE" stroke="#E2557A" stroke-width="2"/>
+    <text x="60" y="302" font-size="13" font-weight="700" fill="#E2557A">bottleneck: cannot forward 1500 bytes; link MTU=1400</text>
+    <text x="60" y="322" font-size="12" fill="#2A1A2E">Drops packet; SHOULD send ICMP Type 3 Code 4 (next-hop MTU=1400). ICMP filtered - error never sent.</text>
+  </g>
+  <g>
+    <rect x="40" y="346" width="800" height="58" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="370" font-size="13" font-weight="700" fill="#2A1A2E">client keeps retransmitting same 1500-byte SYN-data at RTO intervals</text>
+    <text x="60" y="390" font-size="12" fill="#2A1A2E">ss -ti: retrans:5/7 timer:(on,1024ms). No ICMP. No progress. Stall.</text>
+  </g>
+
+  <!-- ICMP wire format -->
+  <g>
+    <rect x="40" y="424" width="800" height="80" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="448" font-size="13" font-weight="700" fill="#2A1A2E">ICMP Type 3 Code 4 wire format (RFC 1191) - what the client SHOULD receive:</text>
+    <g font-size="11" fill="#2A1A2E" font-family="ui-monospace, monospace">
+      <text x="60"  y="472">+---+---+----+------+--------+----------------+----------------+</text>
+      <text x="60"  y="488">| 3 | 4 |chk |rsv=0 |NHMTU=1400|  IP header (20 bytes)  | 8B orig payload |</text>
+      <text x="60"  y="504">+---+---+----+------+--------+----------------+----------------+</text>
+    </g>
+  </g>
+
+  <!-- fix menu -->
+  <g>
+    <rect x="40" y="524" width="800" height="80" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="548" font-size="13" font-weight="700" fill="#2A1A2E">Fix menu:</text>
+    <g font-size="11" fill="#2A1A2E">
+      <text x="60"  y="568">  1. ip link set dev ipsec0 mtu 1380           (set the tunnel interface MTU)</text>
+      <text x="60"  y="584">  2. ip route change <dst> via <gw> advmss 1340  (advertise a smaller MSS)</text>
+      <text x="60"  y="600">  3. iptables -t mangle -A FORWARD -p tcp --tcp-flags SYN SYN --syn -j TCPMSS --set-mss 1340</text>
+    </g>
+  </g>
+</svg>

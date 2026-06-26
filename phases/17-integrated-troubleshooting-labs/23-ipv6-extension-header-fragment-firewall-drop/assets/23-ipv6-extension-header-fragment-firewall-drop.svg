@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">IPv6 Fragment Extension Header Firewall Drop</text>
+  <text x="40" y="68" class="sub">Fragments dropped by ip6tables -m exthdr --hdr frag, no PMTUD recovery</text>
+
+  <rect x="40" y="120" width="160" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="120" y="148" text-anchor="middle" class="node">Client (v6)</text>
+  <text x="120" y="170" text-anchor="middle" class="mono">2001:db8:beef::a</text>
+  <text x="120" y="190" text-anchor="middle" class="label">scp big.iso</text>
+
+  <rect x="280" y="100" width="180" height="160" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="370" y="128" text-anchor="middle" class="node accent">Edge Firewall</text>
+  <text x="370" y="150" text-anchor="middle" class="mono accent">FORWARD frag DROP</text>
+  <text x="370" y="172" text-anchor="middle" class="label">ip6tables -m exthdr --hdr frag</text>
+  <text x="370" y="192" text-anchor="middle" class="label">also drops ICMPv6 Type 2</text>
+  <text x="370" y="218" text-anchor="middle" class="label">PMTUD broken; fallback to fragments</text>
+  <text x="370" y="240" text-anchor="middle" class="label accent">stalls 30s then aborts</text>
+
+  <rect x="540" y="120" width="160" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="620" y="148" text-anchor="middle" class="node">Server (v6)</text>
+  <text x="620" y="170" text-anchor="middle" class="mono">2001:db8::1</text>
+  <text x="620" y="190" text-anchor="middle" class="label">sftp on tcp/22</text>
+
+  <line x1="200" y1="170" x2="280" y2="180" stroke="#2A1A2E" stroke-width="2.5"/>
+  <line x1="460" y1="200" x2="540" y2="180" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <polygon points="540,180 532,176 532,184" fill="#E2557A"/>
+  <text x="500" y="194" text-anchor="middle" class="label accent">fragment dropped</text>
+
+  <rect x="40" y="300" width="840" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="328" class="node">IPv6 Fragment Header (RFC 8200 sec. 4.5, 8 bytes)</text>
+
+  <text x="60" y="354" class="mono">    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</text>
+  <text x="60" y="372" class="mono">    |  Next Header  |   Reserved    |   Fragment Offset   |Res|M|</text>
+  <text x="60" y="390" class="mono">    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</text>
+  <text x="60" y="408" class="mono">    |                       Identification                          |</text>
+  <text x="60" y="426" class="mono">    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</text>
+
+  <text x="60" y="460" class="node">Fix</text>
+  <text x="60" y="482" class="mono">  ip6tables -D FORWARD -m exthdr --hdr frag -j DROP</text>
+  <text x="60" y="502" class="mono">  ip6tables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu</text>
+  <text x="60" y="524" class="label">MSS = path_MTU - 40 (IPv6) - 8 (Fragment) -- no fragments generated</text>
+</svg>

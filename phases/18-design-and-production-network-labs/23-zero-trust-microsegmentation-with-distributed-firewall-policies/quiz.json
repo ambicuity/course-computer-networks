@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "In NIST SP 800-207 zero-trust, what is the relationship between the Policy Decision Point (PDP) and the Policy Enforcement Point (PEP)?",
+      "options": [
+        "A. They are synonyms for the same firewall",
+        "B. PDP decides allow/deny; PEP enforces that decision at the host closest to the workload",
+        "C. PEP decides, PDP enforces",
+        "D. Both run only on the perimeter firewall"
+      ],
+      "correct": 1,
+      "explanation": "The PDP is the source of truth (OPA/Cilium policy / Python dict in our lab) that issues allow/deny verdicts. The PEP is the host kernel datapath (nftables / eBPF / XDP) that actually drops or forwards the packet. Per-host PEPs prevent single-router ACL failure modes."
+    },
+    {
+      "question": "What is the role of Linux connection tracking (conntrack) in nftables stateful filtering?",
+      "options": [
+        "A. It tracks application-layer data",
+        "B. It binds each flow to states (NEW, ESTABLISHED, RELATED, INVALID) so the chain only re-checks new flows, accepting established/related by default",
+        "C. It replaces the routing table",
+        "D. It is required only for IPv6"
+      ],
+      "correct": 1,
+      "explanation": "conntrack (RFC 4936) is the kernel hash table of flows. With ct state { established, related } accept as the second rule, only the first packet of a flow is matched against the full ACL -- this is what allows 10,000 concurrent TCP connections through a 100-rule chain."
+    },
+    {
+      "question": "Why does the policy emit `log prefix \"nft-drop\"` on every deny rule rather than silently dropping?",
+      "options": [
+        "A. nftables cannot drop silently",
+        "B. Without the log, denied packets are invisible to incident response; SIEM rules key on a stable prefix to count denies per tier/peer",
+        "C. Logs reduce CPU usage",
+        "D. nftables requires logging for stateful tracking"
+      ],
+      "correct": 1,
+      "explanation": "Dropped packets produce no return ICMP by default (would help scanners). The kernel `LOG` target writes to the ring buffer; rsyslog (RFC 5424) ships to SIEM. The stable prefix `nft-drop: tier=... peer=...` is the SIEM's correlation key -- without it, lateral-movement detection is impossible."
+    }
+  ]
+}

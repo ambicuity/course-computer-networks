@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    .title { font: 700 22px Inter, sans-serif; fill: #2A1A2E; }
+    .h     { font: 600 15px Inter, sans-serif; fill: #2A1A2E; }
+    .lbl   { font: 12px Inter, sans-serif; fill: #2A1A2E; }
+    .mono  { font: 13px monospace; fill: #2A1A2E; }
+    .acc   { font: 600 12px monospace; fill: #E2557A; }
+    .cell  { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.5; }
+    .flag  { fill: #E2557A; stroke: #2A1A2E; stroke-width: 1.5; }
+    .stuff { fill: #FBD9E2; stroke: #E2557A; stroke-width: 1.5; }
+  </style>
+
+  <text x="30" y="38" class="title">Four ways to find a frame boundary</text>
+
+  <!-- Method 1: byte count -->
+  <text x="30" y="78" class="h">1 &#183; Byte count &#8212; one bit flip desyncs forever</text>
+  <g transform="translate(30,90)">
+    <rect x="0"   y="0" width="44" height="34" class="flag"/><text x="22" y="22" text-anchor="middle" class="mono" fill="#FFF7EC">5</text>
+    <rect x="44"  y="0" width="44" height="34" class="cell"/><text x="66" y="22" text-anchor="middle" class="mono">A</text>
+    <rect x="88"  y="0" width="44" height="34" class="cell"/><text x="110" y="22" text-anchor="middle" class="mono">B</text>
+    <rect x="132" y="0" width="44" height="34" class="cell"/><text x="154" y="22" text-anchor="middle" class="mono">C</text>
+    <rect x="176" y="0" width="44" height="34" class="cell"/><text x="198" y="22" text-anchor="middle" class="mono">D</text>
+    <rect x="232" y="0" width="44" height="34" class="flag"/><text x="254" y="22" text-anchor="middle" class="mono" fill="#FFF7EC">5</text>
+    <rect x="276" y="0" width="44" height="34" class="cell"/><text x="298" y="22" text-anchor="middle" class="mono">E</text>
+    <rect x="320" y="0" width="44" height="34" class="cell"/><text x="342" y="22" text-anchor="middle" class="mono">F</text>
+    <text x="0" y="52" class="lbl">count=5 &#8594; frame end here</text>
+    <text x="232" y="52" class="lbl">next count</text>
+    <text x="430" y="22" class="acc">flip 5&#8594;7: lost</text>
+  </g>
+
+  <!-- Method 2: byte stuffing PPP -->
+  <text x="30" y="178" class="h">2 &#183; Byte stuffing (PPP, RFC 1662) &#8212; flag 0x7E, escape 0x7D</text>
+  <g transform="translate(30,190)">
+    <text x="0" y="14" class="lbl">payload</text>
+    <rect x="70"  y="0" width="50" height="30" class="cell"/><text x="95" y="20" text-anchor="middle" class="mono">7E</text>
+    <rect x="124" y="0" width="50" height="30" class="cell"/><text x="149" y="20" text-anchor="middle" class="mono">41</text>
+    <text x="200" y="20" class="lbl">&#8594; stuff &#8594;</text>
+
+    <text x="0" y="64" class="lbl">on wire</text>
+    <rect x="70"  y="50" width="40" height="30" class="flag"/><text x="90" y="70" text-anchor="middle" class="mono" fill="#FFF7EC">7E</text>
+    <rect x="110" y="50" width="40" height="30" class="stuff"/><text x="130" y="70" text-anchor="middle" class="mono">7D</text>
+    <rect x="150" y="50" width="40" height="30" class="stuff"/><text x="170" y="70" text-anchor="middle" class="mono">5E</text>
+    <rect x="190" y="50" width="40" height="30" class="cell"/><text x="210" y="70" text-anchor="middle" class="mono">41</text>
+    <rect x="230" y="50" width="40" height="30" class="flag"/><text x="250" y="70" text-anchor="middle" class="mono" fill="#FFF7EC">7E</text>
+    <text x="290" y="70" class="acc">0x7E ^ 0x20 = 0x5E</text>
+    <text x="70" y="98" class="lbl">flag</text>
+    <text x="120" y="98" class="acc">escape pair</text>
+    <text x="230" y="98" class="lbl">flag</text>
+  </g>
+
+  <!-- Method 3: bit stuffing HDLC -->
+  <text x="30" y="318" class="h">3 &#183; Bit stuffing (HDLC, USB) &#8212; insert 0 after five 1s</text>
+  <g transform="translate(30,330)">
+    <text x="0" y="16" class="lbl mono">data&#160;&#160;&#160;:</text>
+    <text x="70" y="16" class="mono">0 1 1 1 1 1 1 0</text>
+    <text x="0" y="44" class="lbl mono">on wire:</text>
+    <text x="70" y="44" class="mono">0 1 1 1 1 1 </text>
+    <text x="166" y="44" class="acc">0</text>
+    <text x="178" y="44" class="mono">1 0</text>
+    <rect x="160" y="30" width="14" height="18" fill="none" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="230" y="44" class="acc">&#8592; stuffed 0 after five 1s</text>
+    <text x="70" y="70" class="lbl">flag 01111110 can never appear inside data &#8594; unambiguous boundary</text>
+    <text x="70" y="88" class="lbl">also guarantees clock transitions (why USB uses it); ~12.5% worst case</text>
+  </g>
+
+  <!-- Method 4: coding violation -->
+  <text x="30" y="448" class="h">4 &#183; Physical-layer coding violation (4B/5B, Fast Ethernet)</text>
+  <g transform="translate(30,460)">
+    <rect x="0" y="0" width="170" height="34" class="cell"/>
+    <text x="85" y="22" text-anchor="middle" class="lbl">16 data symbols</text>
+    <rect x="180" y="0" width="170" height="34" class="flag"/>
+    <text x="265" y="22" text-anchor="middle" class="lbl" fill="#FFF7EC">16 reserved symbols</text>
+    <text x="0" y="52" class="lbl">4 bits &#8594; 5 line bits; spare illegal symbols mark frame start/end &#8212; no stuffing needed</text>
+  </g>
+
+  <!-- legend -->
+  <g transform="translate(560,470)">
+    <rect x="0" y="0" width="16" height="16" class="flag"/><text x="22" y="13" class="lbl">flag / delimiter</text>
+    <rect x="0" y="22" width="16" height="16" class="stuff"/><text x="22" y="35" class="lbl">stuffed bytes/bits</text>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Which RFC defines Kerberos V5, the version widely used in Active Directory and MIT Kerberos?",
+    "options": [
+      "A. RFC 5246 (TLS 1.2)",
+      "B. RFC 4120 (Kerberos V5)",
+      "C. RFC 2616 (HTTP/1.1)",
+      "D. RFC 4556 (PKINIT only, the full V5 protocol is elsewhere)"
+    ],
+    "answer": 1,
+    "explanation": "RFC 4120 is the IETF specification of Kerberos V5, the version produced by MIT Project Athena and standardized in 2005. RFC 4556 adds PKINIT (public-key initial authentication) on top of V5 but is not the base protocol. RFC 5246 is TLS 1.2; RFC 2616 is HTTP/1.1."
+  },
+  {
+    "question": "In Kerberos V5, why does the client never send its password to the Authentication Server?",
+    "options": [
+      "A. The AS cannot store passwords at all (regulatory reasons)",
+      "B. The AS returns a TGT sealed under K_A (the password-derived key); Alice proves knowledge of the password by decrypting it locally. The password itself never crosses the wire.",
+      "C. Kerberos is a public-key system; passwords are not used",
+      "D. The workstation never learns the password, so it cannot send it"
+    ],
+    "answer": 1,
+    "explanation": "The AS-REQ pre-auth (PA-ENC-TS) is K_A(t_req), and the AS-REP is sealed under K_A. The workstation derives K_A from the password via string-to-key (PBKDF2 or RFC 3961), decrypts the AS-REP locally, and proceeds. The plaintext password is never transmitted, and the AS-REQ only carries the username."
+  },
+  {
+    "question": "What is the role of the Ticket-Granting Ticket (TGT) in Kerberos V5?",
+    "options": [
+      "A. It is a permanent credential issued at domain join",
+      "B. It is a short-lived authentication credential issued by the AS and reusable with the TGS to fetch service tickets without re-entering the password",
+      "C. It authorizes a specific service without any further exchange",
+      "D. It is used only for cross-realm authentication"
+    ],
+    "answer": 1,
+    "explanation": "The TGT (sealed under K_TGS) lets Alice prove to the TGS that she has already authenticated to the AS. For each service she wants, she sends the TGT to the TGS, which returns a fresh service ticket sealed under K_service. The TGT typically lasts ~10 hours, while service tickets last minutes. This indirection means Alice's password is used only once per login."
+  }
+]

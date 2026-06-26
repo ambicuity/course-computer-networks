@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+  <text x="40" y="44" font-size="22" font-weight="700" fill="#2A1A2E">Inbound Mail Defense Pipeline + Botnet Star Topology</text>
+  <text x="40" y="66" font-size="13" fill="#2A1A2E" opacity="0.7">SPF (RFC 7208) → DKIM (RFC 6376) → DMARC alignment (RFC 7489) → Naive Bayes content score</text>
+
+  <!-- Pipeline boxes -->
+  <g font-size="13" fill="#2A1A2E">
+    <rect x="40" y="110" width="150" height="70" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="115" y="138" text-anchor="middle" font-weight="600">SMTP connect</text>
+    <text x="115" y="158" text-anchor="middle" font-size="11" opacity="0.7">port 25 · client IP</text>
+
+    <rect x="230" y="110" width="150" height="70" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="305" y="138" text-anchor="middle" font-weight="600">SPF check</text>
+    <text x="305" y="158" text-anchor="middle" font-size="11" opacity="0.7">RFC 7208 · TXT record</text>
+
+    <rect x="420" y="110" width="150" height="70" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="495" y="138" text-anchor="middle" font-weight="600">DKIM verify</text>
+    <text x="495" y="158" text-anchor="middle" font-size="11" opacity="0.7">RFC 6376 · bh= + b=</text>
+
+    <rect x="610" y="110" width="150" height="70" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="685" y="138" text-anchor="middle" font-weight="600">DMARC verdict</text>
+    <text x="685" y="158" text-anchor="middle" font-size="11" opacity="0.7">RFC 7489 · p= align</text>
+
+    <rect x="610" y="230" width="150" height="70" rx="8" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="685" y="258" text-anchor="middle" font-weight="600" fill="#FFF7EC">Naive Bayes</text>
+    <text x="685" y="278" text-anchor="middle" font-size="11" fill="#FFF7EC" opacity="0.9">Laplace · log-odds</text>
+
+    <!-- arrows -->
+    <g stroke="#2A1A2E" stroke-width="1.5" fill="none" marker-end="url(#arr)">
+      <line x1="190" y1="145" x2="225" y2="145"/>
+      <line x1="380" y1="145" x2="415" y2="145"/>
+      <line x1="570" y1="145" x2="605" y2="145"/>
+      <line x1="685" y1="180" x2="685" y2="225"/>
+    </g>
+
+    <!-- outcome labels -->
+    <text x="115" y="205" text-anchor="middle" font-size="11" fill="#2A1A2E" opacity="0.7">MAIL FROM domain</text>
+    <text x="305" y="205" text-anchor="middle" font-size="11" fill="#E2557A">pass / fail / neutral</text>
+    <text x="495" y="205" text-anchor="middle" font-size="11" fill="#E2557A">d= aligned?</text>
+    <text x="685" y="205" text-anchor="middle" font-size="11" fill="#E2557A">reject / quarantine / pass</text>
+  </g>
+
+  <!-- Botnet star topology -->
+  <text x="40" y="300" font-size="16" font-weight="700" fill="#2A1A2E">Botnet: per-IP rate limit defeats, aggregate defense wins</text>
+
+  <!-- C&C hub -->
+  <circle cx="200" cy="430" r="26" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="200" y="434" text-anchor="middle" font-size="11" font-weight="600" fill="#FFF7EC">C&amp;C</text>
+  <text x="200" y="476" text-anchor="middle" font-size="11" fill="#2A1A2E" opacity="0.7">IRC / HTTP / P2P</text>
+
+  <!-- zombies -->
+  <g fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5">
+    <circle cx="110" cy="350" r="16"/>
+    <circle cx="60" cy="420" r="16"/>
+    <circle cx="90" cy="500" r="16"/>
+    <circle cx="200" cy="350" r="16"/>
+    <circle cx="300" cy="350" r="16"/>
+    <circle cx="320" cy="430" r="16"/>
+    <circle cx="290" cy="500" r="16"/>
+    <circle cx="200" cy="515" r="16"/>
+  </g>
+  <g font-size="9" fill="#2A1A2E" text-anchor="middle">
+    <text x="110" y="353">z1</text><text x="60" y="423">z2</text><text x="90" y="503">z3</text>
+    <text x="200" y="353">z4</text><text x="300" y="353">z5</text><text x="320" y="433">z6</text>
+    <text x="290" y="503">z7</text><text x="200" y="518">zN</text>
+  </g>
+  <g stroke="#2A1A2E" stroke-width="1" opacity="0.45">
+    <line x1="200" y1="430" x2="110" y2="350"/>
+    <line x1="200" y1="430" x2="60" y2="420"/>
+    <line x1="200" y1="430" x2="90" y2="500"/>
+    <line x1="200" y1="430" x2="200" y2="350"/>
+    <line x1="200" y1="430" x2="300" y2="350"/>
+    <line x1="200" y1="430" x2="320" y2="430"/>
+    <line x1="200" y1="430" x2="290" y2="500"/>
+    <line x1="200" y1="430" x2="200" y2="515"/>
+  </g>
+
+  <!-- aggregate math -->
+  <g font-size="12" fill="#2A1A2E">
+    <text x="400" y="360">50 000 zombies × 49 msg/min each</text>
+    <text x="400" y="382" font-weight="600" fill="#E2557A">= 2 450 000 msg/min aggregate</text>
+    <text x="400" y="412">Naive per-IP cap (50/min) blocks: 0 msg/min</text>
+    <text x="400" y="432" font-size="11" opacity="0.7">each zombie stays just under the cap</text>
+    <text x="400" y="462">Aggregate layer needed:</text>
+    <text x="400" y="482" font-size="11">· ASN-level throttle   · DNSBL (RFC 5788)</text>
+    <text x="400" y="500" font-size="11">· outbound port-25 block   · URL reputation</text>
+  </g>
+
+  <!-- CAPTCHA note -->
+  <rect x="610" y="330" width="230" height="110" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="725" y="354" text-anchor="middle" font-size="13" font-weight="600" fill="#2A1A2E">CAPTCHA (von Ahn 2001)</text>
+  <text x="725" y="376" text-anchor="middle" font-size="11" fill="#2A1A2E">reverse Turing test at the edge</text>
+  <text x="725" y="398" text-anchor="middle" font-size="11" fill="#2A1A2E">raises automation cost ~0 → $2/1k</text>
+  <text x="725" y="420" text-anchor="middle" font-size="11" fill="#E2557A">text → image → behavioral</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

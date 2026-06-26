@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620">
+  <rect width="900" height="620" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .h { font-size: 20px; font-weight: 700; }
+    .lbl { font-size: 13px; }
+    .sm { font-size: 11px; fill: #5a4a5e; }
+    .mono { font-family: monospace; font-size: 12px; }
+    .box { fill: none; stroke: #2A1A2E; stroke-width: 1.5; }
+    .acc { fill: #E2557A; }
+    .accbox { fill: #E2557A; opacity: 0.15; stroke: #E2557A; stroke-width: 1.5; }
+    .line { stroke: #2A1A2E; stroke-width: 1.5; }
+    .aline { stroke: #E2557A; stroke-width: 2; }
+  </style>
+
+  <!-- ================= LEFT: Bluetooth piconet TDM slots ================= -->
+  <text class="h" x="30" y="40">Bluetooth piconet — 625-µs TDM slots</text>
+  <text class="sm" x="30" y="60">Master in even slots, slaves in odd slots · hop only between frames (1600 hops/s)</text>
+
+  <!-- slot row -->
+  <g transform="translate(30,80)">
+    <rect class="accbox" x="0"   y="0" width="70" height="40"/>
+    <text class="mono" x="35" y="25" text-anchor="middle" fill="#E2557A">M s0</text>
+    <rect class="box"   x="70"  y="0" width="70" height="40"/>
+    <text class="mono" x="105" y="25" text-anchor="middle">S s1</text>
+    <rect class="accbox" x="140" y="0" width="210" height="40"/>
+    <text class="mono" x="245" y="25" text-anchor="middle" fill="#E2557A">M s2-s4 (5-slot frame, partial)</text>
+    <text class="sm" x="0" y="60">even = master TX</text>
+    <text class="sm" x="240" y="60">multi-slot frame amortizes the 250-260 µs settling gap</text>
+  </g>
+
+  <!-- frame field layout -->
+  <text class="h" x="30" y="190" style="font-size:15px">18-bit header → 3× repetition → 54 bits</text>
+  <g transform="translate(30,205)">
+    <rect class="box" x="0"   y="0" width="60" height="34"/><text class="sm" x="30" y="21" text-anchor="middle">Addr 3</text>
+    <rect class="box" x="60"  y="0" width="60" height="34"/><text class="sm" x="90" y="21" text-anchor="middle">Type 4</text>
+    <rect class="box" x="120" y="0" width="36" height="34"/><text class="sm" x="138" y="21" text-anchor="middle">F 1</text>
+    <rect class="box" x="156" y="0" width="36" height="34"/><text class="sm" x="174" y="21" text-anchor="middle">A 1</text>
+    <rect class="box" x="192" y="0" width="36" height="34"/><text class="sm" x="210" y="21" text-anchor="middle">S 1</text>
+    <rect class="box" x="228" y="0" width="62" height="34"/><text class="sm" x="259" y="21" text-anchor="middle">HEC 8</text>
+  </g>
+  <text class="sm" x="30" y="270">Receiver majority-votes each bit's 3 copies → reliable on a 2.5 mW radio</text>
+
+  <!-- capacity callout -->
+  <g transform="translate(30,295)">
+    <rect class="accbox" x="0" y="0" width="320" height="78"/>
+    <text class="lbl" x="14" y="24" fill="#E2557A" font-weight="700">800 slots/s × 80-bit SCO = 64,000 bps</text>
+    <text class="sm" x="14" y="46">= one full-duplex PCM voice channel</text>
+    <text class="sm" x="14" y="64">efficiency 13% — 41% settling · 20% header · 26% repetition</text>
+  </g>
+
+  <!-- L2CAP / link types -->
+  <g transform="translate(30,395)">
+    <rect class="box" x="0" y="0" width="320" height="180"/>
+    <text class="lbl" x="14" y="24" font-weight="700">L2CAP — segments 64 KB → frames, mux, ARQ, QoS</text>
+    <line class="line" x1="0" y1="36" x2="320" y2="36"/>
+    <rect class="box" x="14" y="50" width="140" height="50"/>
+    <text class="sm" x="84" y="70" text-anchor="middle">SCO</text>
+    <text class="sm" x="84" y="88" text-anchor="middle">fixed slots, ≤3,</text>
+    <text class="sm" x="84" y="100" text-anchor="middle" font-size="9">no retx · FEC</text>
+    <rect class="box" x="166" y="50" width="140" height="50"/>
+    <text class="sm" x="236" y="70" text-anchor="middle">ACL</text>
+    <text class="sm" x="236" y="88" text-anchor="middle">best-effort, 1/slave,</text>
+    <text class="sm" x="236" y="100" text-anchor="middle" font-size="9">stop-and-wait retx</text>
+    <text class="sm" x="14" y="128">Link manager: pairing (4-digit PIN → secure simple pairing)</text>
+    <text class="sm" x="14" y="148">then sets up links over the baseband / link-control layer.</text>
+  </g>
+
+  <!-- divider -->
+  <line class="line" x1="390" y1="20" x2="390" y2="600" stroke-dasharray="4 4"/>
+
+  <!-- ================= RIGHT: EPC Gen 2 inventory ================= -->
+  <text class="h" x="420" y="40">EPC Gen 2 — slotted-ALOHA inventory</text>
+  <text class="sm" x="420" y="60">902-928 MHz · backscatter · battery-free Class-1 tag, 96-bit EPC</text>
+
+  <!-- actors -->
+  <text class="lbl" x="450" y="92" font-weight="700">RFID reader</text>
+  <text class="lbl" x="740" y="92" font-weight="700">RFID tag</text>
+  <line class="line" x1="470" y1="100" x2="470" y2="560"/>
+  <line class="line" x1="770" y1="100" x2="770" y2="560"/>
+
+  <!-- messages -->
+  <g class="mono">
+    <line class="line" x1="470" y1="130" x2="770" y2="130" marker-end="url(#a)"/>
+    <text x="475" y="124">Query (slot 0, Q→range 0..2^Q-1)</text>
+
+    <line class="line" x1="470" y1="170" x2="770" y2="170" marker-end="url(#a)"/>
+    <text x="475" y="164">QRepeat (slot 1)  → idle</text>
+
+    <line class="line" x1="470" y1="210" x2="770" y2="210" marker-end="url(#a)"/>
+    <text x="475" y="204">QRepeat (slot 2)</text>
+
+    <line class="aline" x1="770" y1="240" x2="470" y2="240" marker-end="url(#b)"/>
+    <text x="540" y="234" fill="#E2557A">RN16 (16-bit random, slot 2)</text>
+
+    <line class="line" x1="470" y1="280" x2="770" y2="280" marker-end="url(#a)"/>
+    <text x="475" y="274">Ack (echo RN16) — slot is collision-free</text>
+
+    <line class="aline" x1="770" y1="320" x2="470" y2="320" marker-end="url(#b)"/>
+    <text x="520" y="314" fill="#E2557A">EPC identifier (96 bits)</text>
+  </g>
+
+  <!-- collision callout -->
+  <g transform="translate(420,360)">
+    <rect class="accbox" x="0" y="0" width="360" height="86"/>
+    <text class="lbl" x="14" y="24" fill="#E2557A" font-weight="700">Collision: two tags share a slot</text>
+    <text class="sm" x="14" y="46">RN16s overlap → no Ack → both retry next round.</text>
+    <text class="sm" x="14" y="66">Probe RN16 first so 96-bit EPCs never collide.</text>
+  </g>
+
+  <!-- QAdjust callout -->
+  <g transform="translate(420,470)">
+    <rect class="box" x="0" y="0" width="360" height="100"/>
+    <text class="lbl" x="14" y="24" font-weight="700">QAdjust ≈ binary exponential backoff</text>
+    <text class="sm" x="14" y="48">too many collisions → Q+1 (more slots)</text>
+    <text class="sm" x="14" y="68">too many idle slots → Q−1 (fewer slots)</text>
+    <text class="sm" x="14" y="88" fill="#E2557A">peak read rate when 2^Q ≈ tag count (1/e ≈ 0.368)</text>
+  </g>
+
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="b" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

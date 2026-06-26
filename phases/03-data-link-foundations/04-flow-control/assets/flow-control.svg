@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" width="720" height="460">
+  <rect width="720" height="460" fill="#FFF7EC"/>
+  <style>
+    .t  { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .m  { font-family: monospace; fill: #2A1A2E; }
+    .acc{ fill: #E2557A; }
+    .accT { font-family: monospace; fill: #E2557A; }
+  </style>
+
+  <text class="t" x="30" y="36" font-size="22" font-weight="700">Flow Control: sliding window keeps the pipe full</text>
+  <text class="t" x="30" y="58" font-size="13">Sender may have up to W frames outstanding (un-ACKed). It blocks when next_seq reaches base + W.</text>
+
+  <!-- Window strip -->
+  <text class="t" x="30" y="92" font-size="13" font-weight="700">Sender sequence space (W = 4)</text>
+  <g>
+    <!-- acked -->
+    <rect x="30"  y="104" width="48" height="38" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="78"  y="104" width="48" height="38" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text class="m" x="42" y="128" font-size="13">0</text>
+    <text class="m" x="90" y="128" font-size="13">1</text>
+    <text class="t" x="30" y="158" font-size="11">acked &amp; slid past</text>
+
+    <!-- window (in flight) -->
+    <rect x="126" y="100" width="200" height="46" fill="none" stroke="#E2557A" stroke-width="2.5" rx="4"/>
+    <rect x="126" y="104" width="48" height="38" class="acc" opacity="0.18"/>
+    <rect x="174" y="104" width="48" height="38" class="acc" opacity="0.18"/>
+    <rect x="222" y="104" width="48" height="38" class="acc" opacity="0.18"/>
+    <rect x="270" y="104" width="48" height="38" class="acc" opacity="0.18"/>
+    <text class="m" x="138" y="128" font-size="13">2</text>
+    <text class="m" x="186" y="128" font-size="13">3</text>
+    <text class="m" x="234" y="128" font-size="13">4</text>
+    <text class="m" x="282" y="128" font-size="13">5</text>
+    <text class="accT" x="150" y="168" font-size="11" font-weight="700">window: in flight</text>
+
+    <!-- not yet sendable -->
+    <rect x="326" y="104" width="48" height="38" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <rect x="374" y="104" width="48" height="38" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text class="m" x="338" y="128" font-size="13">6</text>
+    <text class="m" x="386" y="128" font-size="13">7</text>
+    <text class="t" x="326" y="158" font-size="11">blocked until ACK</text>
+
+    <!-- base / next pointers -->
+    <text class="accT" x="126" y="92" font-size="11" font-weight="700">base</text>
+    <text class="m" x="326" y="92" font-size="11">next_seq</text>
+  </g>
+
+  <!-- Timing / message exchange -->
+  <text class="t" x="30" y="208" font-size="13" font-weight="700">Time / message exchange</text>
+  <line x1="120" y1="220" x2="120" y2="430" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="600" y1="220" x2="600" y2="430" stroke="#2A1A2E" stroke-width="2"/>
+  <text class="t" x="92"  y="236" font-size="12" font-weight="700">Sender</text>
+  <text class="t" x="566" y="236" font-size="12" font-weight="700">Receiver</text>
+
+  <!-- data frames -->
+  <line x1="120" y1="252" x2="600" y2="276" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="600,276 588,270 590,279" fill="#2A1A2E"/>
+  <text class="m" x="300" y="258" font-size="11">DATA seq=2</text>
+
+  <line x1="120" y1="270" x2="600" y2="294" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="600,294 588,288 590,297" fill="#2A1A2E"/>
+  <text class="m" x="300" y="288" font-size="11">DATA seq=3</text>
+
+  <!-- ACK back, advertised window -->
+  <line x1="600" y1="312" x2="120" y2="336" class="acc" stroke="#E2557A" stroke-width="2"/>
+  <polygon points="120,336 132,330 130,339" class="acc"/>
+  <text class="accT" x="250" y="322" font-size="11" font-weight="700">ACK=3, RCV.WND=4</text>
+
+  <!-- zero window -->
+  <line x1="600" y1="360" x2="120" y2="384" class="acc" stroke="#E2557A" stroke-width="2" stroke-dasharray="5 3"/>
+  <polygon points="120,384 132,378 130,387" class="acc"/>
+  <text class="accT" x="250" y="370" font-size="11" font-weight="700">ACK, RCV.WND=0  (buffer full -> sender stalls)</text>
+
+  <!-- zero window probe -->
+  <line x1="120" y1="402" x2="600" y2="420" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <polygon points="600,420 588,414 590,423" fill="#2A1A2E"/>
+  <text class="m" x="250" y="408" font-size="11">persist-timer ZeroWindowProbe (1 byte)</text>
+
+  <text class="t" x="30" y="452" font-size="11">RCV.WND is the receiver's advertised free buffer — the sender's hard ceiling (RFC 9293).</text>
+</svg>

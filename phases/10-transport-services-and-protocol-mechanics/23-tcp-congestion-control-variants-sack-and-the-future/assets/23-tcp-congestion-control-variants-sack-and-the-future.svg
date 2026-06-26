@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="1000" height="660">
+  <rect width="1000" height="660" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .h { font-size: 14px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="44" class="title">TCP Congestion Control Variants, SACK, ECN</text>
+  <text x="40" y="66" class="sub">AIMD saw-tooth (Reno) -> cubic window growth (CUBIC) -> model-based pacing (BBR)</text>
+
+  <!-- Reno saw-tooth -->
+  <g transform="translate(40,100)">
+    <rect x="0" y="0" width="460" height="280" rx="10" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="24" class="h">Reno saw-tooth (cwnd vs RTT)</text>
+    <g transform="translate(0,30)">
+      <line x1="40" y1="240" x2="440" y2="240" stroke="#2A1A2E"/>
+      <line x1="40" y1="20" x2="40" y2="240" stroke="#2A1A2E"/>
+      <text x="6" y="30" class="label">cwnd</text>
+      <text x="380" y="252" class="label">RTT</text>
+      <polyline points="40,200 60,180 80,160 100,140 120,120 140,100 160,80 180,60 200,40 220,60 240,80 260,100 280,120 300,140 320,160 340,180 360,200 380,220 400,60 420,40" fill="none" stroke="#E2557A" stroke-width="2"/>
+      <text x="280" y="50" class="label accent">halve on loss</text>
+      <text x="180" y="240" class="label">linear growth in CA, exponential in slow start</text>
+    </g>
+    <text x="14" y="270" class="label">AIMD = Additive Increase, Multiplicative Decrease (Chiu-Jain 1989).</text>
+  </g>
+
+  <!-- CUBIC curve -->
+  <g transform="translate(520,100)">
+    <rect x="0" y="0" width="440" height="280" rx="10" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="24" class="h">CUBIC: W(t) = C * (t - K)^3 + W_max</text>
+    <g transform="translate(0,30)">
+      <line x1="40" y1="240" x2="420" y2="240" stroke="#2A1A2E"/>
+      <line x1="40" y1="20" x2="40" y2="240" stroke="#2A1A2E"/>
+      <text x="6" y="30" class="label">W</text>
+      <text x="380" y="252" class="label">time since last loss</text>
+      <path d="M 40,200 Q 80,200 120,180 Q 160,140 200,80 Q 240,30 280,20 Q 320,30 360,80 Q 400,140 420,200" fill="none" stroke="#E2557A" stroke-width="2"/>
+      <line x1="160" y1="200" x2="160" y2="20" stroke="#6b5560" stroke-dasharray="4 4"/>
+      <text x="170" y="60" class="label accent">W_max</text>
+      <text x="170" y="170" class="label">K = inflection time</text>
+      <text x="240" y="225" class="label">concave (cautious) | convex (aggressive)</text>
+    </g>
+    <text x="14" y="270" class="label">RFC 8312 -- Linux default since 2.6.19. RTT-fair because it scales by time.</text>
+  </g>
+
+  <!-- SACK diagram -->
+  <g transform="translate(40,400)">
+    <rect x="0" y="0" width="460" height="220" rx="10" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="24" class="h">SACK retransmit plan (RFC 2018, RFC 3517)</text>
+    <g transform="translate(0,30)" class="mono">
+      <rect x="14" y="0" width="40" height="20" fill="#F1E8FF" stroke="#2A1A2E"/>
+      <text x="34" y="14" text-anchor="middle">1..29</text>
+      <rect x="54" y="0" width="20" height="20" fill="#FFE9C8" stroke="#E2557A"/>
+      <text x="64" y="14" text-anchor="middle">30</text>
+      <rect x="74" y="0" width="40" height="20" fill="#F1E8FF" stroke="#2A1A2E"/>
+      <text x="94" y="14" text-anchor="middle">31..49</text>
+      <rect x="114" y="0" width="20" height="20" fill="#FFE9C8" stroke="#E2557A"/>
+      <text x="124" y="14" text-anchor="middle">50</text>
+      <rect x="134" y="0" width="40" height="20" fill="#F1E8FF" stroke="#2A1A2E"/>
+      <text x="154" y="14" text-anchor="middle">51..64</text>
+      <text x="14" y="40" class="label">shaded = lost; ACK = 30 (cumulative); SACK = 31..50, 51..64</text>
+      <text x="14" y="60" class="label accent">cumulative ACK only -> retransmit 30..64 (35 segments)</text>
+      <text x="14" y="80" class="label accent">with SACK         -> retransmit 30, 50 (2 segments)</text>
+    </g>
+    <text x="14" y="160" class="label">RFC 3517 -- conservative SACK-aware loss recovery.</text>
+    <text x="14" y="178" class="label">Sender only retransmits the gaps in SACK blocks.</text>
+  </g>
+
+  <!-- ECN + BBR -->
+  <g transform="translate(520,400)">
+    <rect x="0" y="0" width="440" height="220" rx="10" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="24" class="h">ECN (RFC 3168) and BBR (RFC 9067)</text>
+    <g transform="translate(0,30)" class="mono">
+      <text x="14" y="22" class="label">ECN: IP header CE bit set by AQM router</text>
+      <text x="14" y="42" class="label">       -> receiver sets ECE=1 in next ACK</text>
+      <text x="14" y="62" class="label">       -> sender halves cwnd, sets CWR=1</text>
+      <text x="14" y="84" class="label">no packet dropped, no retransmit needed</text>
+    </g>
+    <text x="14" y="160" class="label">BBR: model-based -- paces at BtlBw, inflight ~ BDP.</text>
+    <text x="14" y="178" class="label">Reacts to measured delay growth, not loss.</text>
+    <text x="14" y="196" class="label">Coexists with bufferbloat; Reno saw-tooths.</text>
+  </g>
+</svg>

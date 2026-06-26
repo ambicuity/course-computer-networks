@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" width="920" height="600">
+  <rect width="920" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .small { font-size: 11px; fill: #6b5560; }
+    .accent { fill: #E2557A; }
+  </style>
+
+  <text x="40" y="40" class="title">TSAP, NSAP, Portmapper &amp; inetd</text>
+  <text x="40" y="60" class="sub">Tanenbaum Fig. 6-8 and Fig. 6-9 -- the four-quadrant picture and the initial connection protocol</text>
+
+  <!-- Host 1 -->
+  <rect x="40" y="100" width="380" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="128" class="node">Host 1  (NSAP 10.0.0.2)</text>
+
+  <rect x="60" y="150" width="340" height="36" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="76" y="172" class="mono accent">[0] Client process -- wants to call BackupAgent</text>
+
+  <rect x="60" y="200" width="340" height="36" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="76" y="222" class="mono">Transport entity -- TSAP lookup, segment assembly</text>
+
+  <rect x="60" y="250" width="340" height="36" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="76" y="272" class="mono">Network entity -- NSAP routing (192.0.2.7/24 etc.)</text>
+
+  <text x="60" y="312" class="small">TSAPs on host 1: client_ephemeral (32768-60999)</text>
+
+  <!-- Host 2 -->
+  <rect x="500" y="100" width="380" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="520" y="128" class="node">Host 2  (NSAP 192.0.2.7)</text>
+
+  <rect x="520" y="150" width="340" height="36" rx="4" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="536" y="172" class="mono accent">[0] portmapper (rpcbind) -- TSAP :111 well-known</text>
+
+  <rect x="520" y="200" width="340" height="36" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="536" y="222" class="mono">[1] BackupAgent -- TSAP :45000 (dynamic, registered)</text>
+
+  <rect x="520" y="250" width="340" height="36" rx="4" fill="#fff5e8" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="536" y="272" class="mono">[2] BitTorrent  -- TSAP :6881 (dynamic, registered)</text>
+
+  <text x="520" y="312" class="small">TSAPs on host 2: :111, :45000, :6881</text>
+
+  <!-- Connection line -->
+  <line x1="380" y1="215" x2="500" y2="215" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="440" y="205" text-anchor="middle" class="mono accent">segment flow</text>
+  <text x="440" y="240" text-anchor="middle" class="small">via NSAPs 10.0.0.2 and 192.0.2.7</text>
+
+  <!-- Portmapper details -->
+  <rect x="40" y="360" width="840" height="90" rx="8" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="60" y="384" class="node accent">Portmapper (RFC 1833)  --  rpcbind on TSAP :111</text>
+  <text x="60" y="406" class="mono">SET    (program="BackupAgent", version=2, proto="tcp") --&gt; :45000</text>
+  <text x="60" y="424" class="mono">GETPORT (program="BackupAgent", version=2, proto="tcp") --&gt; 45000</text>
+  <text x="60" y="442" class="small">One UDP datagram in, one out. The real connection is opened directly between client and server -- the portmapper is not on the data path.</text>
+
+  <!-- Inetd details -->
+  <rect x="40" y="470" width="840" height="110" rx="8" fill="#fff" stroke="#b4893a" stroke-width="1.5"/>
+  <text x="60" y="494" class="node">inetd / initial connection protocol  (Tanenbaum Fig. 6-9)</text>
+  <text x="60" y="516" class="mono">[A] listen on many TSAPs (e.g. :13 daytime, :37 time, :79 finger, :6881 BT-spawn)</text>
+  <text x="60" y="534" class="mono">[B] on connection: look up service for that TSAP; fork(); exec(daemon);</text>
+  <text x="60" y="552" class="mono">     pass connected socket as FD 0, 1, 2 to the child. Parent goes back to listening.</text>
+  <text x="60" y="572" class="small">Cost: zero processes for rare services. Cold-start latency is the fork+exec of the daemon.</text>
+</svg>

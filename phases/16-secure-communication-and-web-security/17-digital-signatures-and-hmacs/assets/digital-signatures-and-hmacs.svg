@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <g font-family="Georgia, serif" fill="#2A1A2E">
+    <text x="40" y="42" font-size="22" font-weight="bold">Digital signatures and HMACs</text>
+    <text x="40" y="66" font-size="13" fill="#7a5a6a">Public-key signing for identity, symmetric MACs for sessions</text>
+
+    <g transform="translate(40,100)">
+      <rect width="280" height="200" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="140" y="24" text-anchor="middle" font-size="14" font-weight="bold">RSA signatures</text>
+      <text x="20" y="50" font-size="11">Sign:   S = H(m)^d mod n</text>
+      <text x="20" y="68" font-size="11">Verify: H(m) ?= S^e mod n</text>
+      <text x="20" y="100" font-size="11">Padding: PKCS#1 v1.5 or PSS.</text>
+      <text x="20" y="118" font-size="11">v1.5 has historical attacks</text>
+      <text x="20" y="136" font-size="11">(Bleichenbacher e=3 forgery).</text>
+      <text x="20" y="170" font-size="11" fill="#E2557A">Signature size: 256 bytes</text>
+      <text x="20" y="186" font-size="11" fill="#E2557A">at 2048-bit modulus.</text>
+    </g>
+
+    <g transform="translate(340,100)">
+      <rect width="240" height="200" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="120" y="24" text-anchor="middle" font-size="14" font-weight="bold">ECDSA</text>
+      <text x="20" y="50" font-size="11">Curve: secp256r1 (P-256)</text>
+      <text x="20" y="68" font-size="11">Sign: (r, s) with</text>
+      <text x="20" y="86" font-size="11">  r = (kG).x mod n</text>
+      <text x="20" y="104" font-size="11">  s = k^-1 (H(m) + d*r) mod n</text>
+      <text x="20" y="130" font-size="11">Signature size: 64 bytes</text>
+      <text x="20" y="148" font-size="11">at 128-bit security.</text>
+      <text x="20" y="176" font-size="11" fill="#E2557A">RFC 6979: deterministic k.</text>
+    </g>
+
+    <g transform="translate(600,100)">
+      <rect width="260" height="200" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="130" y="24" text-anchor="middle" font-size="14" font-weight="bold">Ed25519</text>
+      <text x="20" y="50" font-size="11">Curve25519 (Edwards form)</text>
+      <text x="20" y="68" font-size="11">SHA-512-based signing.</text>
+      <text x="20" y="86" font-size="11">Deterministic (no k reuse risk).</text>
+      <text x="20" y="110" font-size="11">Private key: 32 B</text>
+      <text x="20" y="128" font-size="11">Public key:  32 B</text>
+      <text x="20" y="146" font-size="11">Signature:    64 B</text>
+      <text x="20" y="174" font-size="11" fill="#E2557A">Default for SSH, Signal, etc.</text>
+    </g>
+
+    <g transform="translate(40,320)">
+      <rect width="400" height="200" rx="6" fill="#fde2c8" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="200" y="24" text-anchor="middle" font-size="14" font-weight="bold">HMAC (RFC 2104)</text>
+      <text x="20" y="56" font-size="11">HMAC(K, m) = H((K ⊕ opad) || H((K ⊕ ipad) || m))</text>
+      <text x="20" y="74" font-size="11">  ipad = 0x36 * 64,  opad = 0x5C * 64</text>
+      <text x="20" y="100" font-size="11">Why two keys?</text>
+      <text x="20" y="118" font-size="11">  Inner H((K ⊕ ipad) || m) is the hash of the message,</text>
+      <text x="20" y="136" font-size="11">  but the attacker cannot extend because they do not know K.</text>
+      <text x="20" y="170" font-size="11" fill="#E2557A">Resistant to length-extension attacks on Merkle-Damgård.</text>
+      <text x="20" y="186" font-size="11">HMAC-SHA256 produces a 32-byte tag.</text>
+    </g>
+
+    <g transform="translate(460,320)">
+      <rect width="400" height="200" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="200" y="24" text-anchor="middle" font-size="14" font-weight="bold">Signature keys vs MAC keys</text>
+      <text x="20" y="56" font-size="12" font-weight="bold">Signature key</text>
+      <text x="20" y="74" font-size="11">Long-term identity; signer holds private key</text>
+      <text x="20" y="92" font-size="11">for years. Every verifier holds the public key.</text>
+      <text x="20" y="110" font-size="11">Compromise is catastrophic.</text>
+      <text x="20" y="128" font-size="11">Defense: HSM, hardware token, air-gap.</text>
+      <text x="20" y="152" font-size="12" font-weight="bold">MAC key</text>
+      <text x="20" y="170" font-size="11">Session-scoped; one key per connection.</text>
+      <text x="20" y="188" font-size="11">Forward secrecy limits blast radius.</text>
+    </g>
+  </g>
+</svg>

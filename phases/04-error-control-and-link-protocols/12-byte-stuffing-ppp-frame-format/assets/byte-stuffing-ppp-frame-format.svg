@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" width="820" height="440">
+  <rect width="820" height="440" fill="#FFF7EC"/>
+  <style>text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;fill:#2A1A2E}.t{font-size:19px;font-weight:700}.s{font-size:11px;fill:#6b5b6e}.l{font-size:13px;font-weight:600}.b{font-size:11px;font-family:ui-monospace,Menlo,monospace}.f{font-size:11px;font-weight:600}</style>
+  <text x="30" y="32" class="t">PPP frame format and byte stuffing (RFC 1662)</text>
+  <text x="30" y="50" class="s">Flag-delimited, byte-stuffed frame. Flag 0x7E never appears inside the stuffed payload.</text>
+  <g transform="translate(30,70)">
+    <rect x="0" y="0" width="36" height="40" fill="#E2557A"/>
+    <rect x="36" y="0" width="50" height="40" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="86" y="0" width="50" height="40" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="136" y="0" width="72" height="40" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="208" y="0" width="330" height="40" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="538" y="0" width="86" height="40" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="624" y="0" width="40" height="40" fill="#E2557A"/>
+    <text x="18" y="24" text-anchor="middle" class="f" fill="#FFF7EC">Flag</text>
+    <text x="61" y="24" text-anchor="middle" class="f">Addr</text>
+    <text x="111" y="24" text-anchor="middle" class="f">Ctrl</text>
+    <text x="172" y="24" text-anchor="middle" class="f">Protocol</text>
+    <text x="373" y="24" text-anchor="middle" class="f">Payload (stuffed)</text>
+    <text x="581" y="24" text-anchor="middle" class="f">FCS / CRC</text>
+    <text x="644" y="24" text-anchor="middle" class="f" fill="#FFF7EC">Flag</text>
+    <text x="18" y="54" text-anchor="middle" class="b">0x7E</text>
+    <text x="61" y="54" text-anchor="middle" class="b">0xFF</text>
+    <text x="111" y="54" text-anchor="middle" class="b">0x03</text>
+    <text x="172" y="54" text-anchor="middle" class="b">0x0021</text>
+    <text x="373" y="54" text-anchor="middle" class="b">IP packet, byte-stuffed</text>
+    <text x="581" y="54" text-anchor="middle" class="b">CRC-16/32</text>
+    <text x="644" y="54" text-anchor="middle" class="b">0x7E</text>
+    <text x="18" y="68" text-anchor="middle" class="s">1B</text>
+    <text x="61" y="68" text-anchor="middle" class="s">1B</text>
+    <text x="111" y="68" text-anchor="middle" class="s">1B</text>
+    <text x="172" y="68" text-anchor="middle" class="s">1–2B</text>
+    <text x="373" y="68" text-anchor="middle" class="s">variable (MRU 1500)</text>
+    <text x="581" y="68" text-anchor="middle" class="s">2/4B</text>
+    <text x="644" y="68" text-anchor="middle" class="s">1B</text>
+  </g>
+  <text x="30" y="178" class="l">Byte stuffing rule</text>
+  <text x="30" y="194" class="s">Every 0x7E or 0x7D in the payload is prefixed 0x7D and XORed with 0x20 on the wire.</text>
+  <g transform="translate(30,206)">
+    <rect x="0" y="0" width="700" height="22" fill="#2A1A2E"/>
+    <text x="105" y="15" text-anchor="middle" class="s" fill="#FFF7EC">Original byte</text>
+    <text x="350" y="15" text-anchor="middle" class="s" fill="#FFF7EC">On the wire (stuffed)</text>
+    <text x="585" y="15" text-anchor="middle" class="s" fill="#FFF7EC">Receiver recovery</text>
+    <line x1="0" y1="22" x2="700" y2="22" stroke="#2A1A2E"/>
+    <text x="105" y="38" text-anchor="middle" class="b">0x7E (flag in data)</text>
+    <text x="350" y="38" text-anchor="middle" class="b">0x7D 0x5E</text>
+    <text x="585" y="38" text-anchor="middle" class="b">0x5E XOR 0x20 = 0x7E</text>
+    <line x1="0" y1="46" x2="700" y2="46" stroke="#2A1A2E"/>
+    <text x="105" y="62" text-anchor="middle" class="b">0x7D (escape in data)</text>
+    <text x="350" y="62" text-anchor="middle" class="b">0x7D 0x5D</text>
+    <text x="585" y="62" text-anchor="middle" class="b">0x5D XOR 0x20 = 0x7D</text>
+    <line x1="0" y1="70" x2="700" y2="70" stroke="#2A1A2E"/>
+    <text x="105" y="86" text-anchor="middle" class="b">0x41 (ordinary)</text>
+    <text x="350" y="86" text-anchor="middle" class="b">0x41</text>
+    <text x="585" y="86" text-anchor="middle" class="b">unchanged</text>
+    <line x1="0" y1="94" x2="700" y2="94" stroke="#2A1A2E"/>
+    <line x1="0" y1="0" x2="0" y2="94" stroke="#2A1A2E"/>
+    <line x1="225" y1="0" x2="225" y2="94" stroke="#2A1A2E"/>
+    <line x1="475" y1="0" x2="475" y2="94" stroke="#2A1A2E"/>
+    <line x1="700" y1="0" x2="700" y2="94" stroke="#2A1A2E"/>
+  </g>
+  <text x="30" y="356" class="l">Worked example: payload 7E 41 7D 42 7E 43 → wire 7D 5E 41 7D 5D 42 7D 5E 43</text>
+  <g transform="translate(30,372)">
+    <text x="0" y="14" class="s">original:</text>
+    <rect x="60" y="0" width="26" height="18" fill="#E2557A"/><text x="73" y="13" text-anchor="middle" class="b" fill="#FFF7EC">7E</text>
+    <rect x="86" y="0" width="26" height="18" fill="none" stroke="#2A1A2E"/><text x="99" y="13" text-anchor="middle" class="b">41</text>
+    <rect x="112" y="0" width="26" height="18" fill="#E2557A"/><text x="125" y="13" text-anchor="middle" class="b" fill="#FFF7EC">7D</text>
+    <rect x="138" y="0" width="26" height="18" fill="none" stroke="#2A1A2E"/><text x="151" y="13" text-anchor="middle" class="b">42</text>
+    <rect x="164" y="0" width="26" height="18" fill="#E2557A"/><text x="177" y="13" text-anchor="middle" class="b" fill="#FFF7EC">7E</text>
+    <rect x="190" y="0" width="26" height="18" fill="none" stroke="#2A1A2E"/><text x="203" y="13" text-anchor="middle" class="b">43</text>
+    <text x="260" y="13" class="s">legend:</text><rect x="304" y="2" width="11" height="11" fill="#E2557A"/><text x="320" y="12" class="s">reserved</text><rect x="380" y="2" width="11" height="11" fill="#2A1A2E"/><text x="396" y="12" class="s">escape prefix</text>
+  </g>
+  <text x="30" y="412" class="s">All-0x7E payload of 1500B becomes ~3000B (~100% overhead).</text>
+  <text x="30" y="428" class="s">Bit stuffing (HDLC) bounds worst case ~12.5%.</text>
+</svg>

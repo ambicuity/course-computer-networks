@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" width="800" height="540">
+  <rect width="800" height="540" fill="#FFF7EC"/>
+  <style>
+    text{font-family:Inter,Helvetica,Arial,sans-serif;fill:#2A1A2E}
+    .m{font-family:'SF Mono',Consolas,monospace}
+    .s{font-size:11px}.md{font-size:13px}.bg{font-size:15px;font-weight:600}
+    .tt{font-size:17px;font-weight:700}
+    .ln{stroke:#2A1A2E;stroke-width:1;fill:none}
+    .gr{stroke:#2A1A2E;stroke-width:0.8;fill:none}
+    .b{fill:#E2557A}
+  </style>
+  <text x="400" y="26" text-anchor="middle" class="tt">Columnar Transposition (MEGABUCK) and One-Time Pad</text>
+  <text x="180" y="54" text-anchor="middle" class="bg">Transposition Grid</text>
+  <g class="m s">
+    <text x="60" y="76" class="b">M</text><text x="100" y="76" class="b">E</text>
+    <text x="140" y="76" class="b">G</text><text x="180" y="76" class="b">A</text>
+    <text x="220" y="76" class="b">B</text><text x="260" y="76" class="b">U</text>
+    <text x="300" y="76" class="b">C</text><text x="340" y="76" class="b">K</text>
+    <text x="60" y="92">7</text><text x="100" y="92">4</text>
+    <text x="140" y="92">5</text><text x="180" y="92">1</text>
+    <text x="220" y="92">2</text><text x="260" y="92">8</text>
+    <text x="300" y="92">3</text><text x="340" y="92">6</text>
+  </g>
+  <g class="gr">
+    <rect x="40" y="100" width="40" height="22"/><rect x="80" y="100" width="40" height="22"/>
+    <rect x="120" y="100" width="40" height="22"/><rect x="160" y="100" width="40" height="22"/>
+    <rect x="200" y="100" width="40" height="22"/><rect x="240" y="100" width="40" height="22"/>
+    <rect x="280" y="100" width="40" height="22"/><rect x="320" y="100" width="40" height="22"/>
+  </g>
+  <g class="m s">
+    <text x="60" y="116" text-anchor="middle">p</text><text x="100" y="116" text-anchor="middle">l</text>
+    <text x="140" y="116" text-anchor="middle">e</text>
+    <text x="180" y="116" text-anchor="middle" class="b">a</text>
+    <text x="220" y="116" text-anchor="middle">s</text>
+    <text x="260" y="116" text-anchor="middle">e</text>
+    <text x="300" y="116" text-anchor="middle">t</text>
+    <text x="340" y="116" text-anchor="middle">r</text>
+  </g>
+  <text x="400" y="112" class="s">Read col 1 (A) first,</text>
+  <text x="400" y="126" class="s">then col 2 (B), 3 (C)...</text>
+  <path d="M180 125 L180 140 L60 140 L60 155" class="ln" marker-end="url(#a)"/>
+  <g class="m s">
+    <text x="60" y="172" text-anchor="middle" class="b">a</text>
+    <text x="60" y="190" text-anchor="middle" class="b">f</text>
+    <text x="60" y="208" text-anchor="middle" class="b">l</text>
+    <text x="60" y="226" text-anchor="middle" class="b">l</text>
+    <text x="60" y="244" text-anchor="middle">.</text>
+  </g>
+  <text x="560" y="54" text-anchor="middle" class="bg">One-Time Pad (XOR)</text>
+  <rect x="440" y="72" width="90" height="24" rx="4" class="ln"/>
+  <text x="485" y="89" text-anchor="middle" class="m s">P:1001001</text>
+  <rect x="550" y="72" width="90" height="24" rx="4" class="ln"/>
+  <text x="595" y="89" text-anchor="middle" class="m s">K:1010010</text>
+  <rect x="660" y="72" width="90" height="24" rx="4" fill="#E2557A"/>
+  <text x="705" y="89" text-anchor="middle" class="m s" fill="#FFF7EC">C:0011011</text>
+  <path d="M530 84 L550 84" class="ln" marker-end="url(#a)"/>
+  <path d="M640 84 L660 84" class="ln" marker-end="url(#a)"/>
+  <text x="540" y="66" text-anchor="middle" class="s">XOR</text>
+  <text x="560" y="120" text-anchor="middle" class="s">Every plaintext of length N is equally likely</text>
+  <text x="560" y="136" text-anchor="middle" class="s">-> ciphertext carries ZERO information</text>
+  <text x="400" y="270" text-anchor="middle" class="bg">OTP Reuse Attack (catastrophic)</text>
+  <rect x="60" y="286" width="110" height="26" rx="4" class="ln"/>
+  <text x="115" y="304" text-anchor="middle" class="m s">C_A=P_A^K</text>
+  <rect x="200" y="286" width="110" height="26" rx="4" class="ln"/>
+  <text x="255" y="304" text-anchor="middle" class="m s">C_B=P_B^K</text>
+  <rect x="340" y="286" width="140" height="26" rx="4" class="ln"/>
+  <text x="410" y="304" text-anchor="middle" class="m s">C_A^C_B = P_A^P_B</text>
+  <rect x="510" y="286" width="140" height="26" rx="4" fill="#E2557A"/>
+  <text x="580" y="304" text-anchor="middle" class="m s" fill="#FFF7EC">Key eliminated!</text>
+  <path d="M170 299 L200 299" class="ln" marker-end="url(#a)"/>
+  <path d="M310 299 L340 299" class="ln" marker-end="url(#a)"/>
+  <path d="M480 299 L510 299" class="ln" marker-end="url(#a)"/>
+  <text x="400" y="340" text-anchor="middle" class="md">If P_A known: P_B = (C_A^C_B)^P_A</text>
+  <text x="400" y="358" text-anchor="middle" class="s">Never reuse a (key, IV) pair in stream ciphers or counter mode</text>
+  <text x="400" y="398" text-anchor="middle" class="bg">Transposition vs Substitution Tell</text>
+  <rect x="80" y="416" width="280" height="36" rx="4" fill="#E2557A" opacity="0.2"/>
+  <text x="220" y="438" text-anchor="middle" class="s">Substitution: letter freq shifts</text>
+  <rect x="440" y="416" width="280" height="36" rx="4" fill="#E2557A" opacity="0.5"/>
+  <text x="580" y="438" text-anchor="middle" class="s" fill="#FFF7EC">Transposition: letter freq intact</text>
+  <text x="400" y="478" text-anchor="middle" class="s">Count e,t,a,o,i,n in ciphertext. If normal English -> transposition.</text>
+  <text x="400" y="520" text-anchor="middle" class="s">OTP = provably unbreakable (Shannon 1949) but pad must be random, as long as message, used once</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/></marker></defs>
+</svg>

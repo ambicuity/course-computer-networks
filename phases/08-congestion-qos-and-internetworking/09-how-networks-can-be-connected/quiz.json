@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the main goal of studying How Networks Can Be Connected?",
+      "options": [
+        "Memorize a heading",
+        "Connect the mechanism to observable network evidence",
+        "Avoid packet traces",
+        "Replace every lower layer"
+      ],
+      "correct": 1,
+      "explanation": "The course is evidence-first: protocol rules should map to fields, timing, counters, logs, or state."
+    },
+    {
+      "stage": "post",
+      "question": "Which artifact best proves understanding of How Networks Can Be Connected?",
+      "options": [
+        "A copied paragraph with no evidence",
+        "An annotated trace, runbook, diagram, or script tied to the mechanism",
+        "A list of unrelated acronyms",
+        "A screenshot without explanation"
+      ],
+      "correct": 1,
+      "explanation": "Every lesson ships a reusable artifact that connects concept to practical network work."
+    },
+    {
+      "stage": "post",
+      "question": "Why debug layer by layer?",
+      "options": [
+        "It prevents symptom-level guessing and narrows evidence cleanly",
+        "It makes every issue a DNS issue",
+        "It removes the need for measurements",
+        "It only works in labs"
+      ],
+      "correct": 0,
+      "explanation": "Layered debugging separates physical, link, network, transport, application, and security evidence."
+    }
+  ]
+}

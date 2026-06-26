@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" width="860" height="560">
+  <rect width="860" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 21px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+  </style>
+
+  <text x="30" y="38" class="title">RFID singulation field &amp; sensor multihop mesh</text>
+
+  <!-- ===== Left: RFID reader field with slotted-ALOHA ===== -->
+  <text x="30" y="74" class="sub" fill="#E2557A">UHF reader field — slotted-ALOHA (EPC Gen2)</text>
+
+  <!-- reader -->
+  <rect x="40" y="100" width="86" height="58" rx="6" fill="#2A1A2E"/>
+  <text x="83" y="125" text-anchor="middle" font-size="12" fill="#FFF7EC" font-weight="700">Reader</text>
+  <text x="83" y="143" text-anchor="middle" class="mono" fill="#FFF7EC">Query Q=4</text>
+
+  <!-- field arc -->
+  <path d="M126 129 A 150 150 0 0 1 126 49" fill="none" stroke="#E2557A" stroke-width="2" stroke-dasharray="4 4" opacity="0"/>
+  <ellipse cx="250" cy="180" rx="190" ry="120" fill="none" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="250" y="78" text-anchor="middle" class="lbl accent">902–928 MHz, backscatter</text>
+
+  <!-- carrier arrow out -->
+  <line x1="126" y1="120" x2="200" y2="150" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="200,150 191,146 193,153" fill="#2A1A2E"/>
+  <text x="150" y="112" class="mono">CW carrier →</text>
+
+  <!-- tags as slot map -->
+  <text x="180" y="138" class="lbl">2^Q = 16 slots:</text>
+  <!-- singleton slot -->
+  <circle cx="200" cy="175" r="13" fill="#E2557A"/>
+  <text x="200" y="179" text-anchor="middle" font-size="10" fill="#FFF7EC" font-weight="700">1</text>
+  <text x="200" y="205" text-anchor="middle" class="lbl">singleton → ACK</text>
+
+  <!-- collision slot -->
+  <circle cx="290" cy="200" r="13" fill="#2A1A2E"/>
+  <text x="290" y="204" text-anchor="middle" font-size="10" fill="#FFF7EC" font-weight="700">3</text>
+  <text x="290" y="230" text-anchor="middle" class="lbl">collision → re-roll</text>
+
+  <!-- empty slot -->
+  <circle cx="250" cy="245" r="13" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="250" y="249" text-anchor="middle" font-size="10">0</text>
+  <text x="250" y="275" text-anchor="middle" class="lbl">idle slot</text>
+
+  <!-- backscatter reply arrow -->
+  <line x1="187" y1="172" x2="130" y2="150" stroke="#E2557A" stroke-width="1.5"/>
+  <polygon points="130,150 139,148 137,155" fill="#E2557A"/>
+  <text x="120" y="178" class="mono accent">← RN16 / EPC</text>
+
+  <!-- math box -->
+  <rect x="40" y="300" width="360" height="86" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="52" y="322" class="lbl" font-weight="700">Expected singletons = n·(1 − 1/L)^(n−1),  L = 2^Q</text>
+  <text x="52" y="344" class="mono">n=60, Q=4 (L=16):  60·(15/16)^59 ≈ 1.3  ✗ collapse</text>
+  <text x="52" y="362" class="mono">n=60, Q=6 (L=64):  60·(63/64)^59 ≈ 23.7 ✓ healthy</text>
+  <text x="52" y="380" class="lbl accent">Grow Q after collisions, shrink after idles.</text>
+
+  <!-- divider -->
+  <line x1="430" y1="92" x2="430" y2="400" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 4" opacity="0.5"/>
+
+  <!-- ===== Right: sensor multihop mesh ===== -->
+  <text x="455" y="74" class="sub" fill="#E2557A">Sensor network — multihop mesh (IEEE 802.15.4)</text>
+
+  <!-- sink -->
+  <rect x="740" y="150" width="86" height="52" rx="6" fill="#2A1A2E"/>
+  <text x="783" y="172" text-anchor="middle" font-size="12" fill="#FFF7EC" font-weight="700">Sink</text>
+  <text x="783" y="190" text-anchor="middle" class="mono" fill="#FFF7EC">collector</text>
+
+  <!-- nodes -->
+  <g>
+    <circle cx="480" cy="300" r="14" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <circle cx="560" cy="240" r="14" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <circle cx="560" cy="350" r="14" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <circle cx="650" cy="290" r="14" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <circle cx="700" cy="210" r="14" fill="#FFFFFF" stroke="#E2557A" stroke-width="2.5"/>
+  </g>
+
+  <!-- relay links -->
+  <g stroke="#2A1A2E" stroke-width="1.5" fill="none">
+    <line x1="494" y1="300" x2="546" y2="246"/>
+    <line x1="494" y1="300" x2="546" y2="344"/>
+    <line x1="574" y1="240" x2="636" y2="284"/>
+    <line x1="574" y1="350" x2="636" y2="296"/>
+    <line x1="664" y1="290" x2="690" y2="222"/>
+    <line x1="713" y1="206" x2="742" y2="180"/>
+  </g>
+
+  <!-- failing node highlight -->
+  <text x="700" y="190" text-anchor="middle" class="lbl accent">low battery 4%</text>
+  <text x="700" y="245" text-anchor="middle" class="mono accent">single relay → partition risk</text>
+
+  <text x="455" y="300" class="lbl">wireless</text>
+  <text x="455" y="316" class="lbl">hops →</text>
+  <text x="480" y="345" text-anchor="middle" class="mono">node</text>
+
+  <!-- legend -->
+  <rect x="455" y="400" width="371" height="120" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="467" y="422" class="lbl" font-weight="700">Standards owning each piece</text>
+  <text x="467" y="444" class="mono">UHF air interface … EPC Gen2 / ISO/IEC 18000-63</text>
+  <text x="467" y="462" class="mono">HF cards ………………… ISO/IEC 14443 / 15693 (13.56 MHz)</text>
+  <text x="467" y="480" class="mono">spectrum (ISM band) … ITU-R</text>
+  <text x="467" y="498" class="mono">sensor PHY/MAC ……… IEEE 802.15.4 (ZigBee, 6LoWPAN)</text>
+  <text x="467" y="516" class="mono">IPv6 over mesh ……… RFC 4944</text>
+
+  <text x="30" y="540" class="lbl">Reader energizes battery-less tags; tags reply by backscatter in random slots. Sensor nodes carry batteries and relay multihop to the sink.</text>
+</svg>

@@ -1,0 +1,35 @@
+[
+  {
+    "question": "A client sends EHLO to a server and the reply contains 250-SIZE 10485760 on one line and 250 HELP on the last line. What is the difference between the hyphen and the space after the code?",
+    "options": [
+      "A. Hyphen means the response continues on the next line; space marks the final line of the multi-line reply",
+      "B. Hyphen means the server is busy; space means the server is ready",
+      "C. They are equivalent; the parser ignores the difference",
+      "D. Hyphen indicates an error reply; space indicates success"
+    ],
+    "answer": 0,
+    "explanation": "RFC 5321 §4.2 specifies that intermediate lines of a multi-line reply use a hyphen after the code (250-...) and the final line uses a space (250 ...). The same 2xx/4xx/5xx digit still applies to every line."
+  },
+  {
+    "question": "Which RFC defines the mail submission port (587) and what distinguishes it from port 25?",
+    "options": [
+      "A. RFC 5321; both ports speak the same SMTP but 587 requires AUTH and STARTTLS",
+      "B. RFC 6409; port 587 is the Message Submission port that requires client authentication",
+      "C. RFC 4954; port 587 is for AUTH-only traffic",
+      "D. RFC 3207; port 587 is the TLS port"
+    ],
+    "answer": 1,
+    "explanation": "RFC 6409 designates port 587 as the Message Submission port. Submission agents (MSAs) require the client to authenticate with AUTH and to use STARTTLS; this separates user-to-MTA traffic (authenticated) from MTA-to-MTA relay on port 25."
+  },
+  {
+    "question": "A user agent sends a message body whose first line is '.sig'. What must the SMTP client do before sending it inside DATA?",
+    "options": [
+      "A. Strip the leading dot",
+      "B. Prepend an extra dot (byte-stuffing) so the receiver sees the original line",
+      "C. Replace the dot with a space",
+      "D. Quote the line with =2E"
+    ],
+    "answer": 1,
+    "explanation": "RFC 5321 §4.5.2 byte-stuffs DATA: any line beginning with '.' gets an extra leading dot. The receiver strips the first dot back off. This prevents a body line from being confused with the end-of-message '.' terminator."
+  }
+]

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480">
+  <rect x="0" y="0" width="880" height="480" fill="#FFF7EC"/>
+  <text x="40" y="44" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#2A1A2E">IEEE 802.3 / Ethernet II Frame Anatomy</text>
+  <text x="40" y="68" font-family="Inter, sans-serif" font-size="13" fill="#2A1A2E">Byte offsets measured from the destination MAC. Preamble and SFD are stripped by the NIC before capture.</text>
+
+  <!-- Preamble + SFD (greyed, not captured) -->
+  <g font-family="monospace" font-size="12">
+    <rect x="40" y="100" width="90" height="60" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="85" y="126" text-anchor="middle" fill="#2A1A2E">Preamble</text>
+    <text x="85" y="142" text-anchor="middle" fill="#2A1A2E">7 B</text>
+
+    <rect x="130" y="100" width="50" height="60" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="155" y="126" text-anchor="middle" fill="#2A1A2E">SFD</text>
+    <text x="155" y="142" text-anchor="middle" fill="#2A1A2E">1 B</text>
+  </g>
+  <text x="110" y="184" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" font-style="italic">not in capture</text>
+
+  <!-- Captured frame fields -->
+  <g font-family="monospace" font-size="12.5">
+    <!-- Destination MAC -->
+    <rect x="190" y="100" width="100" height="60" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="240" y="124" text-anchor="middle" fill="#2A1A2E" font-weight="700">Dest MAC</text>
+    <text x="240" y="142" text-anchor="middle" fill="#2A1A2E">6 B</text>
+
+    <!-- Source MAC -->
+    <rect x="290" y="100" width="100" height="60" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="340" y="124" text-anchor="middle" fill="#2A1A2E" font-weight="700">Src MAC</text>
+    <text x="340" y="142" text-anchor="middle" fill="#2A1A2E">6 B</text>
+
+    <!-- EtherType -->
+    <rect x="390" y="100" width="100" height="60" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="440" y="120" text-anchor="middle" fill="#E2557A" font-weight="700">Type/Len</text>
+    <text x="440" y="136" text-anchor="middle" fill="#2A1A2E">2 B</text>
+    <text x="440" y="152" text-anchor="middle" fill="#2A1A2E" font-size="10">offset 12</text>
+
+    <!-- Payload -->
+    <rect x="490" y="100" width="240" height="60" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="610" y="124" text-anchor="middle" fill="#2A1A2E" font-weight="700">Payload</text>
+    <text x="610" y="142" text-anchor="middle" fill="#2A1A2E">46 - 1500 B</text>
+
+    <!-- FCS -->
+    <rect x="730" y="100" width="110" height="60" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="785" y="120" text-anchor="middle" fill="#E2557A" font-weight="700">FCS</text>
+    <text x="785" y="136" text-anchor="middle" fill="#2A1A2E">4 B CRC-32</text>
+    <text x="785" y="152" text-anchor="middle" fill="#2A1A2E" font-size="10">trailer</text>
+  </g>
+
+  <!-- Offset markers -->
+  <g font-family="monospace" font-size="11" fill="#2A1A2E">
+    <text x="190" y="178" text-anchor="middle">0</text>
+    <text x="290" y="178" text-anchor="middle">6</text>
+    <text x="390" y="178" text-anchor="middle">12</text>
+    <text x="490" y="178" text-anchor="middle">14</text>
+    <text x="840" y="178" text-anchor="end">end</text>
+  </g>
+
+  <!-- CRC coverage bracket -->
+  <line x1="190" y1="200" x2="730" y2="200" stroke="#E2557A" stroke-width="2"/>
+  <line x1="190" y1="195" x2="190" y2="205" stroke="#E2557A" stroke-width="2"/>
+  <line x1="730" y1="195" x2="730" y2="205" stroke="#E2557A" stroke-width="2"/>
+  <text x="460" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#E2557A" font-weight="700">CRC-32 covers Dest MAC through Payload (poly 0x04C11DB7)</text>
+
+  <!-- EtherType / Length decision -->
+  <text x="40" y="270" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#2A1A2E">The 1536 rule: is offset-12 a Length or an EtherType?</text>
+  <g font-family="monospace" font-size="12.5">
+    <rect x="40" y="285" width="370" height="100" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="56" y="310" fill="#2A1A2E">value &#8804; 1500 (0x05DC)  ->  802.3 Length</text>
+    <text x="56" y="332" fill="#2A1A2E">value &#8805; 1536 (0x0600)  ->  EtherType</text>
+    <text x="56" y="354" fill="#2A1A2E">1501..1535             ->  reserved gap</text>
+    <text x="56" y="376" fill="#E2557A" font-weight="700">never collide by design</text>
+  </g>
+  <g font-family="monospace" font-size="12.5">
+    <rect x="430" y="285" width="410" height="100" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="446" y="308" fill="#2A1A2E" font-weight="700">Common EtherTypes</text>
+    <text x="446" y="328" fill="#2A1A2E">0x0800 IPv4     0x0806 ARP</text>
+    <text x="446" y="348" fill="#2A1A2E">0x86DD IPv6     0x8100 802.1Q VLAN</text>
+    <text x="446" y="368" fill="#2A1A2E">0x8847 MPLS     0x88CC LLDP</text>
+  </g>
+
+  <!-- Size buckets -->
+  <text x="40" y="420" font-family="Inter, sans-serif" font-size="13" fill="#2A1A2E">
+    <tspan font-weight="700">Size buckets:</tspan>
+    <tspan>  RUNT &lt; 64 B (late collision)   NORMAL 64-1518 B   BABY-GIANT 1519-1522 B (VLAN)   JUMBO up to 9018 B</tspan>
+  </text>
+  <text x="40" y="448" font-family="Inter, sans-serif" font-size="12" fill="#E2557A">
+    A stored FCS that no longer matches the recomputed CRC-32 is a CRC error: bits flipped after the FCS was written.
+  </text>
+</svg>

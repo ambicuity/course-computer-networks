@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "An outage has 5 simultaneous symptoms: web 502, mobile SSL fail for large requests, bulk transfer 50% throughput, SSH jump Permission denied, and DNS SERVFAIL. What is the diagnostic discipline?",
+      "options": [
+        "A. Fix them in the order they are reported",
+        "B. Walk layer-by-layer (L1 to L7), map each symptom to one diagnostic command, one verdict, one corrective action; the fixes are independent",
+        "C. Restart the network stack",
+        "D. Call the vendor"
+      ],
+      "answer": 1,
+      "explanation": "The layer-by-layer discipline is to walk L1 to L7 for each symptom and map each to one diagnostic command. The 5 fixes are independent and can be applied in any order. This is the runbook approach: symptom -> command -> verdict -> action."
+    },
+    {
+      "question": "The mobile app fails with SSL handshake failed for large requests but small requests succeed. What is the layer of the failure, and what is the most likely root cause?",
+      "options": [
+        "A. L7 application bug",
+        "B. L4 (MTU): the egress firewall drops ICMP Type 3 Code 4, so PMTUD does not converge; large packets vanish",
+        "C. L2 ARP",
+        "D. L1 cable"
+      ],
+      "answer": 1,
+      "explanation": "When small requests succeed and large ones fail, the failure is at the path MTU boundary. The client sends a packet larger than the path MTU; the path's router drops it; the ICMP Type 3 Code 4 message is filtered; PMTUD does not converge; the connection stalls. The fix is to allow ICMP Type 3 Code 4 outbound or MSS-clamp."
+    },
+    {
+      "question": "An SSH jump host on 10.0.0.6 returns Permission denied (publickey) for a user. The user's WireGuard tunnel is to 10.0.0.6. The peer's AllowedIPs on the jump host is 10.0.0.5/32. Why does the connection fail?",
+      "options": [
+        "A. The key is wrong",
+        "B. The peer's AllowedIPs is too narrow; 10.0.0.6 is not in the list, so the SSH packets are dropped silently by the WireGuard source filter",
+        "C. The DNS is wrong",
+        "D. The MTU is too small"
+      ],
+      "answer": 1,
+      "explanation": "WireGuard's AllowedIPs serves as both the cryptographic routing table (which IPs go through this peer) and the source filter (which IPs are accepted from this peer). When the peer's AllowedIPs is 10.0.0.5/32, only packets with a source IP in that range are accepted. Packets from 10.0.0.6 are dropped silently. The fix is to expand AllowedIPs to 10.0.0.0/24 (or 10.0.0.6/32 if that is the right host)."
+    }
+  ]
+}

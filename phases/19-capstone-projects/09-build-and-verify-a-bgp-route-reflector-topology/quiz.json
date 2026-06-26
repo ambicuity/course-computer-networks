@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why is full-mesh iBGP not scalable for large autonomous systems?",
+      "options": [
+        "iBGP does not support TCP",
+        "Every router must peer with every other router, requiring n*(n-1)/2 sessions",
+        "iBGP only works on Ethernet",
+        "Full-mesh requires OSPF"
+      ],
+      "correct": 1,
+      "explanation": "Full-mesh iBGP requires every router to peer with every other, creating O(n^2) sessions that become unmanageable above ~20 routers."
+    },
+    {
+      "stage": "post",
+      "question": "What are the three route-reflector advertisement rules?",
+      "options": [
+        "Reflect all, reflect none, reflect some",
+        "eBGP-learned -> all iBGP; client-learned -> all; non-client-learned -> clients only",
+        "Only reflect to eBGP peers",
+        "Route reflectors never reflect routes"
+      ],
+      "correct": 1,
+      "explanation": "An RR advertises eBGP routes to all iBGP peers, reflects client routes to all peers, but reflects non-client routes only to clients (not to other non-clients)."
+    },
+    {
+      "stage": "post",
+      "question": "In BGP best-path selection, which attribute is compared first after local-pref?",
+      "options": [
+        "MED",
+        "AS-path length",
+        "Origin code",
+        "Router ID"
+      ],
+      "correct": 1,
+      "explanation": "After local-pref (higher wins), BGP compares AS-path length (shorter wins), then origin code, then MED, then eBGP-over-iBGP, then router ID."
+    },
+    {
+      "stage": "post",
+      "question": "How does a route reflector prevent routing loops?",
+      "options": [
+        "By using TTL",
+        "By checking the originator_id and cluster_list attributes",
+        "By encrypting all routes",
+        "By limiting the AS-path to 5 ASNs"
+      ],
+      "correct": 1,
+      "explanation": "The RR adds its cluster ID to the cluster_list and records the originator_id. If a route's originator_id matches the local router ID or the cluster_list contains the local cluster ID, the route is discarded."
+    },
+    {
+      "stage": "post",
+      "question": "For a 12-router AS, how many iBGP sessions does full-mesh require vs. a route-reflector topology with 2 RRs and 8 clients?",
+      "options": [
+        "12 vs. 8",
+        "66 vs. approximately 22",
+        "120 vs. 24",
+        "6 vs. 2"
+      ],
+      "correct": 1,
+      "explanation": "Full-mesh: 12*11/2 = 66 sessions. Route-reflector: 8 client sessions + 2 RR-to-RR + 2 RR-to-non-client = ~22 sessions, a 67% reduction."
+    }
+  ]
+}

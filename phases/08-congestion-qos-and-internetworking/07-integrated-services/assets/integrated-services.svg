@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="960" height="600" fill="#FFF7EC"/>
+  <defs>
+    <marker id="arrow-down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/>
+    </marker>
+    <marker id="arrow-up" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrow-fail" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#2A1A2E">RSVP Signaling — PATH &amp; RESV in Integrated Services</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#2A1A2E" opacity="0.7">Receiver-initiated soft-state reservation over a multicast spanning tree</text>
+
+  <!-- Nodes -->
+  <!-- Sender S1 -->
+  <g>
+    <rect x="60" y="250" width="90" height="70" rx="8" fill="#FFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="105" y="282" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">S1</text>
+    <text x="105" y="302" text-anchor="middle" font-size="10" fill="#2A1A2E" opacity="0.65">sender</text>
+  </g>
+
+  <!-- Router R1 -->
+  <g>
+    <rect x="250" y="250" width="80" height="70" rx="8" fill="#FFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="290" y="282" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">R1</text>
+    <text x="290" y="302" text-anchor="middle" font-size="10" fill="#2A1A2E" opacity="0.65">router</text>
+    <text x="290" y="340" text-anchor="middle" font-size="9" fill="#E2557A" font-weight="600">if1: 1000 kbps</text>
+  </g>
+
+  <!-- Router R2 -->
+  <g>
+    <rect x="440" y="250" width="80" height="70" rx="8" fill="#FFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="480" y="282" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">R2</text>
+    <text x="480" y="302" text-anchor="middle" font-size="10" fill="#2A1A2E" opacity="0.65">router</text>
+    <text x="480" y="340" text-anchor="middle" font-size="9" fill="#E2557A" font-weight="600">if2: 2000 kbps</text>
+  </g>
+
+  <!-- Router R3 -->
+  <g>
+    <rect x="620" y="160" width="80" height="70" rx="8" fill="#FFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="660" y="192" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">R3</text>
+    <text x="660" y="212" text-anchor="middle" font-size="10" fill="#2A1A2E" opacity="0.65">router</text>
+    <text x="660" y="250" text-anchor="middle" font-size="9" fill="#E2557A" font-weight="600">if3</text>
+  </g>
+
+  <!-- Receiver Rcv5 -->
+  <g>
+    <rect x="810" y="160" width="90" height="70" rx="8" fill="#FFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="855" y="192" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Rcv5</text>
+    <text x="855" y="212" text-anchor="middle" font-size="10" fill="#E2557A" opacity="0.85">receiver</text>
+  </g>
+
+  <!-- Receiver Rcv3 -->
+  <g>
+    <rect x="620" y="340" width="90" height="70" rx="8" fill="#FFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="665" y="372" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Rcv3</text>
+    <text x="665" y="392" text-anchor="middle" font-size="10" fill="#E2557A" opacity="0.85">receiver</text>
+  </g>
+
+  <!-- Links (drawn as thin gray lines) -->
+  <line x1="150" y1="285" x2="250" y2="285" stroke="#2A1A2E" stroke-width="1.5" opacity="0.4"/>
+  <line x1="330" y1="285" x2="440" y2="285" stroke="#2A1A2E" stroke-width="1.5" opacity="0.4"/>
+  <line x1="520" y1="270" x2="620" y2="195" stroke="#2A1A2E" stroke-width="1.5" opacity="0.4"/>
+  <line x1="700" y1="195" x2="810" y2="195" stroke="#2A1A2E" stroke-width="1.5" opacity="0.4"/>
+  <line x1="520" y1="300" x2="620" y2="375" stroke="#2A1A2E" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- ====== PATH message (downstream, berry) ====== -->
+  <g>
+    <!-- S1 -> R1 -->
+    <line x1="155" y1="260" x2="245" y2="260" stroke="#E2557A" stroke-width="2.5" marker-end="url(#arrow-down)"/>
+    <text x="200" y="252" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="600">PATH</text>
+    <!-- R1 -> R2 -->
+    <line x1="335" y1="260" x2="435" y2="260" stroke="#E2557A" stroke-width="2.5" marker-end="url(#arrow-down)"/>
+    <text x="385" y="252" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="600">PATH</text>
+    <!-- R2 -> R3 -->
+    <line x1="525" y1="258" x2="618" y2="200" stroke="#E2557A" stroke-width="2.5" marker-end="url(#arrow-down)"/>
+    <text x="582" y="224" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="600" transform="rotate(-28 582 224)">PATH</text>
+    <!-- R3 -> Rcv5 -->
+    <line x1="705" y1="170" x2="805" y2="170" stroke="#E2557A" stroke-width="2.5" marker-end="url(#arrow-down)"/>
+    <text x="755" y="162" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="600">PATH</text>
+  </g>
+
+  <!-- ====== RESV message (upstream, ink) ====== -->
+  <g>
+    <!-- Rcv5 -> R3 -->
+    <line x1="805" y1="185" x2="705" y2="185" stroke="#2A1A2E" stroke-width="2.5" marker-end="url(#arrow-up)"/>
+    <text x="755" y="178" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">RESV</text>
+    <!-- R3 -> R2 -->
+    <line x1="618" y1="210" x2="525" y2="270" stroke="#2A1A2E" stroke-width="2.5" marker-end="url(#arrow-up)"/>
+    <text x="582" y="250" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600" transform="rotate(28 582 250)">RESV</text>
+    <!-- R2 -> R1 -->
+    <line x1="435" y1="275" x2="335" y2="275" stroke="#2A1A2E" stroke-width="2.5" marker-end="url(#arrow-up)"/>
+    <text x="385" y="268" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">RESV</text>
+    <!-- R1 -> S1 -->
+    <line x1="245" y1="275" x2="155" y2="275" stroke="#2A1A2E" stroke-width="2.5" marker-end="url(#arrow-up)"/>
+    <text x="200" y="268" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">RESV</text>
+  </g>
+
+  <!-- State boxes near routers -->
+  <g font-size="9.5" fill="#2A1A2E">
+    <rect x="240" y="100" width="150" height="56" rx="5" fill="#FFF" stroke="#2A1A2E" stroke-width="1" opacity="0.9"/>
+    <text x="247" y="118" font-weight="700">R1 path_state</text>
+    <text x="247" y="134">prev_hop=S1</text>
+    <text x="247" y="148">TSpec r=500 b=64</text>
+
+    <rect x="430" y="100" width="150" height="56" rx="5" fill="#FFF" stroke="#2A1A2E" stroke-width="1" opacity="0.9"/>
+    <text x="437" y="118" font-weight="700">R2 path_state</text>
+    <text x="437" y="134">prev_hop=R1</text>
+    <text x="437" y="148">TSpec r=500 b=64</text>
+
+    <rect x="610" y="92" width="160" height="56" rx="5" fill="#FFF" stroke="#2A1A2E" stroke-width="1" opacity="0.9"/>
+    <text x="617" y="110" font-weight="700">R3 reservation</text>
+    <text x="617" y="126">if3: admit 500 kbps</text>
+    <text x="617" y="140">free 9500/10000</text>
+  </g>
+
+  <!-- Admission control note at bottleneck R1->R2 -->
+  <g>
+    <rect x="335" y="430" width="200" height="80" rx="6" fill="#FFF" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="435" y="450" text-anchor="middle" font-size="11" font-weight="700" fill="#E2557A">Admission Control @ R1→R2</text>
+    <text x="345" y="468" font-size="10" fill="#2A1A2E">if1 capacity: 1000 kbps</text>
+    <text x="345" y="483" font-size="10" fill="#2A1A2E">admitted: 64 + 500 = 564</text>
+    <text x="345" y="498" font-size="10" fill="#2A1A2E">free: 436 kbps</text>
+  </g>
+
+  <!-- Flow C rejection -->
+  <g>
+    <line x1="435" y1="518" x2="435" y2="545" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="435" y="560" text-anchor="middle" font-size="10.5" fill="#E2557A" font-weight="600">Flow C (600 kbps) → RESVERR</text>
+    <text x="435" y="575" text-anchor="middle" font-size="9.5" fill="#E2557A" opacity="0.85">rollback releases R3, R2 state</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(60, 500)">
+    <rect x="0" y="0" width="230" height="80" rx="6" fill="#FFF" stroke="#2A1A2E" stroke-width="1" opacity="0.95"/>
+    <text x="10" y="18" font-size="11" font-weight="700" fill="#2A1A2E">Legend</text>
+    <line x1="10" y1="34" x2="40" y2="34" stroke="#E2557A" stroke-width="2.5" marker-end="url(#arrow-down)"/>
+    <text x="48" y="38" font-size="10" fill="#2A1A2E">PATH — sender→receiver (downstream)</text>
+    <line x1="10" y1="52" x2="40" y2="52" stroke="#2A1A2E" stroke-width="2.5" marker-end="url(#arrow-up)"/>
+    <text x="48" y="56" font-size="10" fill="#2A1A2E">RESV — receiver→sender (upstream)</text>
+    <text x="10" y="72" font-size="9.5" fill="#2A1A2E" opacity="0.7">Soft state: refresh every 30 s, timeout releases</text>
+  </g>
+
+  <!-- Footer label -->
+  <text x="480" y="590" text-anchor="middle" font-size="10" fill="#2A1A2E" opacity="0.5">
+    IntServ / RSVP — RFC 1633, RFC 2205, RFC 2212
+  </text>
+</svg>

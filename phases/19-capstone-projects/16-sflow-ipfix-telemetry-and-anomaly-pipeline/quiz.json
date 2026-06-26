@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the difference between sFlow and IPFIX flow export?",
+      "options": [
+        "sFlow uses TCP; IPFIX uses UDP",
+        "sFlow samples 1-in-N packets statistically; IPFIX exports a summary record for every completed flow",
+        "They are the same protocol with different names",
+        "sFlow is for IPv4 only; IPFIX is for IPv6 only"
+      ],
+      "correct": 1,
+      "explanation": "sFlow uses statistical sampling (1-in-N packets), which is lightweight but approximate. IPFIX exports deterministic per-flow summaries, which is more accurate but higher overhead."
+    },
+    {
+      "stage": "post",
+      "question": "What is a statistical baseline and how is it used for anomaly detection?",
+      "options": [
+        "A fixed threshold that never changes",
+        "A moving average and standard deviation computed over a recent time window; anomalies are flagged when current metrics deviate by more than N standard deviations",
+        "The maximum traffic ever observed",
+        "The router's configured bandwidth limit"
+      ],
+      "correct": 1,
+      "explanation": "A baseline is the normal traffic profile (mean +/- std) computed over a sliding window. When current metrics exceed mean + 3*std, the system flags an anomaly. This adapts to gradual traffic changes."
+    },
+    {
+      "stage": "post",
+      "question": "How does the telemetry pipeline detect a DDoS attack from flow records?",
+      "options": [
+        "By checking if total traffic exceeds a fixed limit",
+        "By detecting that a single source IP accounts for more than 50% of total traffic, far exceeding the baseline distribution",
+        "By counting the number of DNS queries",
+        "By measuring CPU usage on the router"
+      ],
+      "correct": 1,
+      "explanation": "The pipeline aggregates per-source traffic and checks if any single source's share exceeds a threshold (e.g., 50%). Normal traffic is distributed across many sources; a DDoS concentrates traffic from one source."
+    },
+    {
+      "stage": "post",
+      "question": "What is time-series aggregation and why is it necessary for telemetry?",
+      "options": [
+        "It compresses the flow records",
+        "It groups raw flow records into time buckets (e.g., 1-minute windows) and computes summary metrics like total bytes, packet count, and flow count per bucket",
+        "It encrypts the telemetry data",
+        "It replaces the need for flow records"
+      ],
+      "correct": 1,
+      "explanation": "Raw flow records are too granular for monitoring. Aggregation groups them into time buckets with summary metrics (bytes/min, flows/min, protocol distribution), enabling trend analysis and anomaly detection."
+    },
+    {
+      "stage": "post",
+      "question": "What severity levels are appropriate for anomaly alerts, and how are they determined?",
+      "options": [
+        "Only one level: ALARM",
+        "INFO (1 sigma above baseline), WARNING (2 sigma), CRITICAL (3+ sigma or DDoS pattern) - severity scales with deviation magnitude",
+        "LOW, MEDIUM, HIGH based on packet size",
+        "Debug, Info, Error based on the logging framework"
+      ],
+      "correct": 1,
+      "explanation": "Alert severity should scale with the statistical significance of the deviation. 1 sigma is notable (INFO), 2 sigma is concerning (WARNING), 3+ sigma or a DDoS pattern is urgent (CRITICAL)."
+    }
+  ]
+}

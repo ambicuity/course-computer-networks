@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" font-family="ui-monospace, Menlo, monospace">
+  <rect x="0" y="0" width="800" height="500" fill="#FFF7EC"/>
+
+  <text x="400" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">OSPF Multi-Area Topology — Areas 0 / 1 / 2</text>
+  <text x="400" y="54" text-anchor="middle" font-size="12" fill="#2A1A2E">ABRs originate Type 3 Summary LSAs across Area 0 backbone</text>
+
+  <!-- Area 0 box -->
+  <rect x="60" y="80" width="680" height="120" rx="10" ry="10" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="60" y="80" width="120" height="22" rx="6" ry="6" fill="#E2557A"/>
+  <text x="120" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">Area 0 (Backbone)</text>
+
+  <!-- Area 0 routers -->
+  <rect x="100" y="130" width="120" height="50" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="160" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">ABR-1</text>
+  <text x="160" y="164" text-anchor="middle" font-size="10" fill="#2A1A2E">Cisco ASR 9000</text>
+  <text x="160" y="176" text-anchor="middle" font-size="10" fill="#E2557A">10.0.0.1 /32</text>
+
+  <rect x="240" y="130" width="120" height="50" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="300" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">DC-CORE-1</text>
+  <text x="300" y="164" text-anchor="middle" font-size="10" fill="#2A1A2E">Arista 7800R3</text>
+  <text x="300" y="176" text-anchor="middle" font-size="10" fill="#E2557A">10.0.0.10 /32</text>
+
+  <rect x="380" y="130" width="120" height="50" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="440" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">DC-CORE-2</text>
+  <text x="440" y="164" text-anchor="middle" font-size="10" fill="#2A1A2E">Arista 7800R3</text>
+  <text x="440" y="176" text-anchor="middle" font-size="10" fill="#E2557A">10.0.0.11 /32</text>
+
+  <rect x="520" y="130" width="120" height="50" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="580" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">ABR-2</text>
+  <text x="580" y="164" text-anchor="middle" font-size="10" fill="#2A1A2E">Juniper MX204</text>
+  <text x="580" y="176" text-anchor="middle" font-size="10" fill="#E2557A">10.0.0.2 /32</text>
+
+  <rect x="660" y="130" width="70" height="50" rx="6" ry="6" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+  <text x="695" y="148" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">DC-EDGE-1</text>
+  <text x="695" y="164" text-anchor="middle" font-size="10" fill="#2A1A2E">ASBR</text>
+  <text x="695" y="176" text-anchor="middle" font-size="9" fill="#E2557A">eBGP 65001</text>
+
+  <!-- Area 0 links -->
+  <line x1="220" y1="155" x2="240" y2="155" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="230" y="148" text-anchor="middle" font-size="9" fill="#2A1A2E">cost 5</text>
+  <line x1="360" y1="155" x2="380" y2="155" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="370" y="148" text-anchor="middle" font-size="9" fill="#2A1A2E">cost 5</text>
+  <line x1="300" y1="180" x2="300" y2="195" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="440" y1="180" x2="440" y2="195" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="300" y1="195" x2="440" y2="195" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="370" y="207" text-anchor="middle" font-size="9" fill="#2A1A2E">cost 2</text>
+  <line x1="640" y1="155" x2="660" y2="155" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <text x="650" y="148" text-anchor="middle" font-size="9" fill="#E2557A">cost 4</text>
+
+  <!-- Area 1 box -->
+  <rect x="60" y="230" width="380" height="160" rx="10" ry="10" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="60" y="230" width="120" height="22" rx="6" ry="6" fill="#E2557A"/>
+  <text x="120" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">Area 1 (Standard)</text>
+
+  <!-- Area 1 routers -->
+  <rect x="80" y="280" width="100" height="46" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="130" y="296" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">CAMPUS-E-1</text>
+  <text x="130" y="310" text-anchor="middle" font-size="10" fill="#2A1A2E">Juniper MX204</text>
+  <text x="130" y="320" text-anchor="middle" font-size="9" fill="#E2557A">10.1.1.10 /32</text>
+
+  <rect x="200" y="280" width="100" height="46" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="250" y="296" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">CAMPUS-E-2</text>
+  <text x="250" y="310" text-anchor="middle" font-size="10" fill="#2A1A2E">Juniper MX204</text>
+  <text x="250" y="320" text-anchor="middle" font-size="9" fill="#E2557A">10.1.1.11 /32</text>
+
+  <rect x="80" y="340" width="100" height="40" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="130" y="356" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">CAMPUS-E-3</text>
+  <text x="130" y="370" text-anchor="middle" font-size="10" fill="#E2557A">10.1.1.12 /32</text>
+
+  <rect x="320" y="280" width="100" height="40" rx="6" ry="6" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+  <text x="370" y="296" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">BR-ACCESS-1</text>
+  <text x="370" y="310" text-anchor="middle" font-size="10" fill="#E2557A">10.1.1.20 /32</text>
+
+  <rect x="320" y="340" width="100" height="40" rx="6" ry="6" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+  <text x="370" y="356" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">BR-ACCESS-2</text>
+  <text x="370" y="370" text-anchor="middle" font-size="10" fill="#E2557A">10.1.1.21 /32</text>
+
+  <line x1="130" y1="280" x2="130" y2="326" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="305" text-anchor="end" font-size="9" fill="#2A1A2E">cost 12</text>
+  <line x1="180" y1="303" x2="200" y2="303" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="190" y="296" text-anchor="middle" font-size="9" fill="#2A1A2E">cost 8</text>
+  <line x1="180" y1="360" x2="320" y2="360" stroke="#E2557A" stroke-width="2"/>
+  <text x="250" y="354" text-anchor="middle" font-size="9" fill="#E2557A">cost 15 (flapping)</text>
+  <line x1="420" y1="300" x2="420" y2="340" stroke="#E2557A" stroke-width="2"/>
+  <text x="435" y="320" font-size="9" fill="#E2557A">cost 5</text>
+
+  <!-- ABR connections to Area 0 -->
+  <line x1="160" y1="180" x2="160" y2="220" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <line x1="580" y1="180" x2="580" y2="220" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="220" y="222" font-size="9" fill="#2A1A2E">Type 3 Summary</text>
+  <text x="600" y="222" font-size="9" fill="#2A1A2E">Type 3 Summary</text>
+
+  <!-- Area 2 box -->
+  <rect x="460" y="230" width="280" height="160" rx="10" ry="10" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="460" y="230" width="100" height="22" rx="6" ry="6" fill="#E2557A"/>
+  <text x="510" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">Area 2 (Stub)</text>
+
+  <rect x="480" y="280" width="100" height="40" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="530" y="296" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">CAMPUS-W-1</text>
+  <text x="530" y="310" text-anchor="middle" font-size="10" fill="#E2557A">10.2.1.10 /32</text>
+
+  <rect x="600" y="280" width="100" height="40" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="650" y="296" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">CAMPUS-W-2</text>
+  <text x="650" y="310" text-anchor="middle" font-size="10" fill="#E2557A">10.2.1.11 /32</text>
+
+  <rect x="480" y="340" width="100" height="40" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="530" y="356" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">CAMPUS-W-3</text>
+  <text x="530" y="370" text-anchor="middle" font-size="10" fill="#E2557A">10.2.1.12 /32</text>
+
+  <rect x="600" y="340" width="100" height="40" rx="6" ry="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="650" y="356" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">CAMPUS-W-4</text>
+  <text x="650" y="370" text-anchor="middle" font-size="10" fill="#E2557A">10.2.1.13 /32</text>
+
+  <line x1="530" y1="320" x2="530" y2="340" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="650" y1="320" x2="650" y2="340" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="580" y1="303" x2="600" y2="303" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="590" y="296" text-anchor="middle" font-size="9" fill="#2A1A2E">cost 8</text>
+
+  <!-- Legend -->
+  <rect x="60" y="415" width="680" height="68" rx="6" ry="6" fill="none" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="72" y="432" font-size="11" font-weight="700" fill="#2A1A2E">Legend</text>
+  <rect x="72" y="442" width="14" height="14" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="92" y="453" font-size="10" fill="#2A1A2E">Internal router</text>
+  <rect x="200" y="442" width="14" height="14" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+  <text x="220" y="453" font-size="10" fill="#2A1A2E">ABR / ASBR</text>
+  <line x1="320" y1="449" x2="350" y2="449" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="356" y="453" font-size="10" fill="#2A1A2E">Intra-area link (Type 1)</text>
+  <line x1="510" y1="449" x2="540" y2="449" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="546" y="453" font-size="10" fill="#2A1A2E">Inter-area (Type 3 Summary)</text>
+  <line x1="72" y1="472" x2="102" y2="472" stroke="#E2557A" stroke-width="2"/>
+  <text x="108" y="476" font-size="10" fill="#2A1A2E">Flapping link (cost 5, BR access ring)</text>
+  <text x="370" y="476" font-size="10" fill="#2A1A2E">BFD 50 ms x 3 = 150 ms detection</text>
+</svg>

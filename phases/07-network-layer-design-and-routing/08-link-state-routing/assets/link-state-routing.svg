@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6B5563; }
+    .node { font-size: 18px; font-weight: 700; fill: #FFF7EC; }
+    .cost { font-size: 13px; font-weight: 600; fill: #E2557A; font-family: monospace; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .hd { font-family: monospace; font-size: 12px; font-weight: 700; fill: #E2557A; }
+    .lbl { font-size: 12px; fill: #6B5563; }
+    .edge { stroke: #2A1A2E; stroke-width: 2.5; }
+  </style>
+
+  <text x="32" y="40" class="title">Link State Routing</text>
+  <text x="32" y="60" class="sub">Build an LSP, flood it, run Dijkstra — every router builds the same map</text>
+
+  <!-- ============ Topology graph ============ -->
+  <!-- edges -->
+  <line x1="120" y1="140" x2="300" y2="140" class="edge"/>
+  <line x1="300" y1="140" x2="480" y2="140" class="edge"/>
+  <line x1="120" y1="140" x2="120" y2="320" class="edge"/>
+  <line x1="300" y1="140" x2="300" y2="320" class="edge"/>
+  <line x1="480" y1="140" x2="480" y2="320" class="edge"/>
+  <line x1="120" y1="320" x2="300" y2="320" class="edge"/>
+  <line x1="300" y1="320" x2="480" y2="320" class="edge"/>
+
+  <!-- cost labels -->
+  <rect x="195" y="120" width="22" height="18" rx="3" fill="#FFF7EC"/>
+  <text x="206" y="134" class="cost" text-anchor="middle">4</text>
+  <rect x="375" y="120" width="22" height="18" rx="3" fill="#FFF7EC"/>
+  <text x="386" y="134" class="cost" text-anchor="middle">2</text>
+  <rect x="100" y="221" width="22" height="18" rx="3" fill="#FFF7EC"/>
+  <text x="111" y="235" class="cost" text-anchor="middle">1</text>
+  <rect x="280" y="221" width="22" height="18" rx="3" fill="#FFF7EC"/>
+  <text x="291" y="235" class="cost" text-anchor="middle">6</text>
+  <rect x="460" y="221" width="22" height="18" rx="3" fill="#FFF7EC"/>
+  <text x="471" y="235" class="cost" text-anchor="middle">3</text>
+  <rect x="195" y="300" width="22" height="18" rx="3" fill="#FFF7EC"/>
+  <text x="206" y="314" class="cost" text-anchor="middle">7</text>
+  <rect x="375" y="300" width="22" height="18" rx="3" fill="#FFF7EC"/>
+  <text x="386" y="314" class="cost" text-anchor="middle">8</text>
+
+  <!-- nodes -->
+  <circle cx="120" cy="140" r="22" fill="#2A1A2E"/><text x="120" y="146" class="node" text-anchor="middle">A</text>
+  <circle cx="300" cy="140" r="22" fill="#E2557A"/><text x="300" y="146" class="node" text-anchor="middle">B</text>
+  <circle cx="480" cy="140" r="22" fill="#2A1A2E"/><text x="480" y="146" class="node" text-anchor="middle">C</text>
+  <circle cx="120" cy="320" r="22" fill="#2A1A2E"/><text x="120" y="326" class="node" text-anchor="middle">D</text>
+  <circle cx="300" cy="320" r="22" fill="#2A1A2E"/><text x="300" y="326" class="node" text-anchor="middle">F</text>
+  <circle cx="480" cy="320" r="22" fill="#2A1A2E"/><text x="480" y="326" class="node" text-anchor="middle">E</text>
+
+  <text x="120" y="380" class="lbl" text-anchor="middle">weighted topology</text>
+  <text x="300" y="380" class="lbl" text-anchor="middle">cost ∝ 1 / bandwidth</text>
+
+  <!-- ============ LSP packet for B ============ -->
+  <text x="560" y="100" class="hd">B's Link State Packet</text>
+  <rect x="560" y="112" width="170" height="116" rx="6" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="560" y1="140" x2="730" y2="140" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="560" y1="168" x2="730" y2="168" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="560" y1="196" x2="730" y2="196" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="568" y="131" class="mono">Source = B</text>
+  <text x="568" y="159" class="mono">Seq = 21  (32-bit)</text>
+  <text x="568" y="187" class="mono">Age = 60</text>
+  <text x="568" y="215" class="mono">A:4  C:2  F:6</text>
+
+  <!-- ============ Flooding rules ============ -->
+  <text x="32" y="430" class="hd">Flooding rule (per-router seen-set keyed on source)</text>
+  <rect x="32" y="442" width="696" height="92" rx="6" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <circle cx="56" cy="470" r="5" fill="#E2557A"/>
+  <text x="70" y="474" class="mono">higher seq  -> ACCEPT, forward on every line except the arrival line</text>
+
+  <circle cx="56" cy="494" r="5" fill="#2A1A2E"/>
+  <text x="70" y="498" class="mono">equal  seq  -> DISCARD duplicate</text>
+
+  <circle cx="56" cy="518" r="5" fill="#2A1A2E"/>
+  <text x="70" y="522" class="mono">lower  seq  -> REJECT as obsolete   (Age 0 purges stale state)</text>
+
+  <text x="430" y="474" class="lbl">then each router runs Dijkstra</text>
+  <text x="430" y="494" class="lbl">over the reassembled graph to</text>
+  <text x="430" y="518" class="lbl">install next-hop forwarding entries</text>
+</svg>

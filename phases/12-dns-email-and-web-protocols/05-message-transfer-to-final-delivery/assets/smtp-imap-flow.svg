@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" width="1100" height="720">
+  <rect width="1100" height="720" fill="#FFF7EC"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace">
+    <text x="40" y="44" font-size="28" font-weight="700" fill="#2A1A2E">SMTP / IMAP4 Conversation Flow</text>
+    <text x="40" y="70" font-size="14" fill="#2A1A2E">RFC 5321 four-line core + ESMTP extensions on port 25; IMAP4 on port 143 for mailbox reads.</text>
+  </g>
+
+  <!-- SMTP dialogue panel -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" transform="translate(40,100)">
+    <rect width="1020" height="280" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="14" y="24" font-weight="700" fill="#E2557A">SMTP client/server (port 25)</text>
+    <g transform="translate(0,40)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  (client initiates TCP :25)</text>
+    </g>
+    <g transform="translate(0,62)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">S:  220 mail.example.com ESMTP ready</text>
+    </g>
+    <g transform="translate(0,84)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  EHLO sender.example.org</text>
+    </g>
+    <g transform="translate(0,106)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">S:  250-mail.example.com  (multiline extension list)</text>
+    </g>
+    <g transform="translate(0,128)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  STARTTLS                       ; upgrade to TLS (RFC 3207)</text>
+    </g>
+    <g transform="translate(0,150)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">S:  220 2.0.0 Ready to start TLS</text>
+    </g>
+    <g transform="translate(0,172)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  EHLO sender.example.org (over TLS)</text>
+    </g>
+    <g transform="translate(0,194)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">S:  250 AUTH PLAIN LOGIN SIZE 10485760 8BITMIME</text>
+    </g>
+    <g transform="translate(0,216)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  AUTH PLAIN                      ; RFC 4954</text>
+    </g>
+    <g transform="translate(0,238)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">S:  235 2.7.0 Authentication successful</text>
+    </g>
+
+    <g transform="translate(520,40)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  MAIL FROM:&lt;alice@cs.example.org&gt;</text>
+    </g>
+    <g transform="translate(520,62)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">S:  250 2.1.0 Sender ok</text>
+    </g>
+    <g transform="translate(520,84)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  RCPT TO:&lt;bob@ee.example.com&gt;</text>
+    </g>
+    <g transform="translate(520,106)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">S:  250 2.1.5 Recipient ok</text>
+    </g>
+    <g transform="translate(520,128)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  DATA</text>
+    </g>
+    <g transform="translate(520,150)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">S:  354 End data with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt;</text>
+    </g>
+    <g transform="translate(520,172)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  From: Alice ... To: Bob ... (RFC 5322 body)</text>
+    </g>
+    <g transform="translate(520,194)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  .                              ; single dot ends data</text>
+    </g>
+    <g transform="translate(520,216)">
+      <rect width="500" height="22" fill="#FFF7EC"/>
+      <text x="10" y="16" fill="#2A1A2E">S:  250 2.0.0 Ok queued as 9F2C1402A1</text>
+    </g>
+    <g transform="translate(520,238)">
+      <rect width="500" height="22" fill="#FFFFFF"/>
+      <text x="10" y="16" fill="#2A1A2E">C:  QUIT     S: 221 2.0.0 Bye</text>
+    </g>
+  </g>
+
+  <!-- Reply code legend -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" transform="translate(40,400)">
+    <text x="0" y="0" font-size="18" font-weight="700" fill="#2A1A2E">SMTP reply code groups (RFC 5321 Section 4.2)</text>
+    <g transform="translate(0,20)">
+      <rect width="1020" height="32" fill="#2A1A2E"/>
+      <text x="14" y="22" fill="#FFF7EC" font-weight="700">Class</text>
+      <text x="120" y="22" fill="#FFF7EC" font-weight="700">Meaning</text>
+      <text x="500" y="22" fill="#FFF7EC" font-weight="700">Examples</text>
+    </g>
+    <g transform="translate(0,52)">
+      <rect width="1020" height="28" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="20" fill="#2A1A2E">2xx</text>
+      <text x="120" y="20" fill="#2A1A2E">Success</text>
+      <text x="500" y="20" fill="#2A1A2E">250 OK; 354 start input</text>
+    </g>
+    <g transform="translate(0,80)">
+      <rect width="1020" height="28" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="20" fill="#2A1A2E">3xx</text>
+      <text x="120" y="20" fill="#2A1A2E">More input needed</text>
+      <text x="500" y="20" fill="#2A1A2E">334 waiting for AUTH data</text>
+    </g>
+    <g transform="translate(0,108)">
+      <rect width="1020" height="28" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="20" fill="#2A1A2E">4xx</text>
+      <text x="120" y="20" fill="#2A1A2E">Transient failure -- retry</text>
+      <text x="500" y="20" fill="#2A1A2E">421 not available; 451 aborted</text>
+    </g>
+    <g transform="translate(0,136)">
+      <rect width="1020" height="28" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="20" fill="#2A1A2E">5xx</text>
+      <text x="120" y="20" fill="#2A1A2E">Permanent failure -- bounce</text>
+      <text x="500" y="20" fill="#2A1A2E">550 not found; 553 bad name</text>
+    </g>
+  </g>
+
+  <!-- IMAP commands panel -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" transform="translate(40,580)">
+    <text x="0" y="0" font-size="18" font-weight="700" fill="#2A1A2E">IMAP4 selected commands (RFC 3501)</text>
+    <g transform="translate(0,20)">
+      <rect width="1020" height="32" fill="#2A1A2E"/>
+      <text x="14" y="22" fill="#FFF7EC" font-weight="700">Command</text>
+      <text x="180" y="22" fill="#FFF7EC" font-weight="700">Purpose</text>
+      <text x="600" y="22" fill="#FFF7EC" font-weight="700">Example</text>
+    </g>
+    <g transform="translate(0,52)">
+      <rect width="1020" height="26" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="18" fill="#2A1A2E">SELECT/EXAMINE</text>
+      <text x="180" y="18" fill="#2A1A2E">Open folder (R/W or read-only)</text>
+      <text x="600" y="18" fill="#2A1A2E">A003 SELECT INBOX</text>
+    </g>
+    <g transform="translate(0,78)">
+      <rect width="1020" height="26" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="18" fill="#2A1A2E">LIST</text>
+      <text x="180" y="18" fill="#2A1A2E">Enumerate folders</text>
+      <text x="600" y="18" fill="#2A1A2E">A001 LIST "" "*"</text>
+    </g>
+    <g transform="translate(0,104)">
+      <rect width="1020" height="26" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="18" fill="#2A1A2E">FETCH</text>
+      <text x="180" y="18" fill="#2A1A2E">Download message or part</text>
+      <text x="600" y="18" fill="#2A1A2E">A005 UID FETCH 7 (BODY[HEADER])</text>
+    </g>
+    <g transform="translate(0,130)">
+      <rect width="1020" height="26" fill="#FFFFFF" stroke="#2A1A2E"/>
+      <text x="14" y="18" fill="#2A1A2E">SEARCH</text>
+      <text x="180" y="18" fill="#2A1A2E">Server-side filter</text>
+      <text x="600" y="18" fill="#2A1A2E">A004 UID SEARCH SUBJECT "Quarterly"</text>
+    </g>
+  </g>
+</svg>

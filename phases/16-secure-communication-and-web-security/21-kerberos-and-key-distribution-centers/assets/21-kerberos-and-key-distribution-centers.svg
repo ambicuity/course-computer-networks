@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 620" width="920" height="620">
+  <rect width="920" height="620" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 14px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="40" class="title">Kerberos V5: AS, TGS, and the six-message handshake (RFC 4120)</text>
+  <text x="40" y="62" class="sub">Login once; reuse the TGT to fetch service tickets; synchronized clocks replace nonce round-trips.</text>
+
+  <!-- swim lanes -->
+  <rect x="60" y="100" width="160" height="50" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="140" y="130" text-anchor="middle" class="node">Client (Alice)</text>
+
+  <rect x="290" y="100" width="160" height="50" rx="8" fill="#fff" stroke="#E2557A" stroke-width="3"/>
+  <text x="370" y="130" text-anchor="middle" class="node accent">AS</text>
+
+  <rect x="520" y="100" width="160" height="50" rx="8" fill="#fff" stroke="#E2557A" stroke-width="3"/>
+  <text x="600" y="130" text-anchor="middle" class="node accent">TGS</text>
+
+  <rect x="750" y="100" width="160" height="50" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="830" y="130" text-anchor="middle" class="node">Service (Bob)</text>
+
+  <!-- messages -->
+  <line x1="220" y1="180" x2="290" y2="180" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="285,175 295,180 285,185" fill="#2A1A2E"/>
+  <text x="222" y="174" class="mono">1. AS-REQ (A, TGS, t)</text>
+  <text x="222" y="190" class="label">plaintext username</text>
+
+  <line x1="290" y1="220" x2="220" y2="220" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="225,215 215,220 225,225" fill="#2A1A2E"/>
+  <text x="222" y="214" class="mono">2. AS-REP</text>
+  <text x="222" y="230" class="label">K_A(K_S,tgs), K_TGS(A, K_S,tgs, t_exp)</text>
+
+  <line x1="220" y1="270" x2="520" y2="270" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="515,265 525,270 515,275" fill="#2A1A2E"/>
+  <text x="222" y="264" class="mono">3. TGS-REQ</text>
+  <text x="222" y="280" class="label">B, t_req, Auth=K_S,tgs(t_req), TGT</text>
+
+  <line x1="520" y1="320" x2="220" y2="320" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="225,315 215,320 225,325" fill="#2A1A2E"/>
+  <text x="222" y="314" class="mono">4. TGS-REP</text>
+  <text x="222" y="334" class="label">K_S,tgs(B, K_AB, t_exp), ticket_B sealed K_B</text>
+
+  <line x1="220" y1="370" x2="750" y2="370" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="745,365 755,370 745,375" fill="#2A1A2E"/>
+  <text x="222" y="364" class="mono">5. AP-REQ</text>
+  <text x="222" y="384" class="label">ticket_B, Auth=K_AB(t_req)</text>
+
+  <line x1="750" y1="420" x2="220" y2="420" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="225,415 215,420 225,425" fill="#2A1A2E"/>
+  <text x="222" y="414" class="mono">6. AP-REP (optional)</text>
+  <text x="222" y="430" class="label">K_AB(t_req - 1) -- mutual auth</text>
+
+  <!-- ticket diagram -->
+  <rect x="60" y="460" width="800" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="80" y="486" class="node">Two key envelopes</text>
+
+  <rect x="80" y="500" width="360" height="68" rx="6" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="100" y="524" class="mono accent">TGT  =  K_TGS( A, K_S,tgs, t_start, t_exp )</text>
+  <text x="100" y="544" class="label">sealed under TGS long-term key; reusable ~10h</text>
+  <text x="100" y="560" class="label">stored by the workstation after login</text>
+
+  <rect x="460" y="500" width="380" height="68" rx="6" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="480" y="524" class="mono accent">ticket_B  =  K_B( A, K_AB, t_start, t_exp )</text>
+  <text x="480" y="544" class="label">sealed under service key; lifetime ~minutes</text>
+  <text x="480" y="560" class="label">presented to the service in AP-REQ</text>
+
+  <rect x="60" y="592" width="800" height="22" rx="5" fill="#FFF0F4" stroke="#E2557A" stroke-width="1"/>
+  <text x="80" y="608" class="mono accent">Clock skew: RFC 4120 default 300s. Out-of-window timestamps = KRB_AP_ERR_SKEW.</text>
+</svg>

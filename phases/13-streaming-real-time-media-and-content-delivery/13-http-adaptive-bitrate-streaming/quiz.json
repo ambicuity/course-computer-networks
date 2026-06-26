@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why does ABR streaming use HTTP instead of RTSP?",
+      "options": [
+        "HTTP is faster",
+        "HTTP segments are cacheable by existing CDNs and do not require a special streaming server",
+        "RTSP is deprecated",
+        "HTTP supports UDP"
+      ],
+      "correct": 1,
+      "explanation": "ABR breaks video into HTTP-fetchable segments that any CDN cache can serve, reusing the existing HTTP infrastructure without needing stateful streaming servers."
+    },
+    {
+      "stage": "post",
+      "question": "What triggers a quality downgrade in an ABR client?",
+      "options": [
+        "The user pressing a button",
+        "Buffer level falling below the low watermark or bandwidth dropping below the current bitrate",
+        "The video resolution changing",
+        "The CDN switching servers"
+      ],
+      "correct": 1,
+      "explanation": "The ABR client monitors buffer level and bandwidth. If buffer drops below the low watermark or bandwidth cannot sustain the current quality, it downgrades to avoid rebuffering."
+    },
+    {
+      "stage": "post",
+      "question": "What is the purpose of the safety margin in ABR quality selection?",
+      "options": [
+        "It speeds up downloads",
+        "It prevents selecting a bitrate too close to the estimated bandwidth, leaving headroom for fluctuations",
+        "It encrypts the stream",
+        "It reduces the number of segments"
+      ],
+      "correct": 1,
+      "explanation": "The safety margin (e.g., 0.7) means the client only uses 70% of the estimated bandwidth for quality selection, avoiding rebuffering when bandwidth dips slightly."
+    },
+    {
+      "stage": "post",
+      "question": "What is the difference between HLS and DASH manifest formats?",
+      "options": [
+        "HLS uses M3U8 text playlists; DASH uses MPD XML files",
+        "HLS uses UDP; DASH uses TCP",
+        "HLS is for audio only; DASH is for video",
+        "There is no difference"
+      ],
+      "correct": 0,
+      "explanation": "HLS (Apple) uses M3U8 text playlist files, while DASH (MPEG) uses MPD XML manifests. Both serve the same purpose but with different syntax and features."
+    }
+  ]
+}

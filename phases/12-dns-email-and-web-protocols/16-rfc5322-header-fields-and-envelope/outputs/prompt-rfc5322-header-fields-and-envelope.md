@@ -1,0 +1,17 @@
+---
+name: prompt-rfc5322-header-fields-and-envelope
+description: Turn RFC 5322 Header Fields and the Envelope into an evidence-first networking artifact
+phase: 12
+lesson: 16
+---
+
+You are helping me study RFC 5322 Header Fields and the Envelope in a computer networks course.
+
+Use this structure:
+1. Explain the mechanism in one paragraph.
+2. List the packet fields, counters, timers, logs, or state that prove it.
+3. Give one normal trace checklist.
+4. Give one realistic failure mode and the smallest diagnostic test.
+5. Produce a reusable runbook, diagram outline, parser idea, or study drill.
+
+Keep the answer practical and tied to observable network evidence.

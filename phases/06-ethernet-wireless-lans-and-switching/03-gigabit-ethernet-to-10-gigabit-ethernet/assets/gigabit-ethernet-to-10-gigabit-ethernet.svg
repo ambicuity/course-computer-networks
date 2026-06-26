@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560">
+  <rect width="820" height="560" fill="#FFF7EC"/>
+  <style>
+    .t { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .mono { font-family: monospace; fill: #2A1A2E; }
+    .acc { fill: #E2557A; }
+    .accs { stroke: #E2557A; }
+    .ink { stroke: #2A1A2E; }
+  </style>
+
+  <text x="410" y="38" text-anchor="middle" class="t" font-size="24" font-weight="700">
+    Ethernet evolution: 1 Gbps to 10 Gbps
+  </text>
+  <text x="410" y="62" text-anchor="middle" class="t" font-size="13" opacity="0.7">
+    Same 48-bit addressing, same 64-1518B frame format, faster links
+  </text>
+
+  <!-- Gigabit panel -->
+  <rect x="30" y="86" width="370" height="300" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <rect x="30" y="86" width="370" height="34" rx="10" class="acc"/>
+  <text x="215" y="109" text-anchor="middle" class="t" fill="#fff" font-size="17" font-weight="700">
+    Gigabit Ethernet (802.3z / 802.3ab)
+  </text>
+
+  <text x="50" y="148" class="t" font-size="13" font-weight="700">Two modes:</text>
+
+  <rect x="50" y="158" width="150" height="92" rx="8" fill="#FFF7EC" class="accs" stroke-width="1.5"/>
+  <text x="125" y="178" text-anchor="middle" class="t" font-size="13" font-weight="700">Full-duplex</text>
+  <text x="125" y="197" text-anchor="middle" class="t" font-size="11">via SWITCH</text>
+  <text x="125" y="215" text-anchor="middle" class="acc" font-size="11" font-weight="700">no CSMA/CD</text>
+  <text x="125" y="232" text-anchor="middle" class="t" font-size="10" opacity="0.8">length = signal</text>
+  <text x="125" y="244" text-anchor="middle" class="t" font-size="10" opacity="0.8">strength limited</text>
+
+  <rect x="230" y="158" width="150" height="92" rx="8" fill="#FFF7EC" class="ink" stroke-width="1.5"/>
+  <text x="305" y="178" text-anchor="middle" class="t" font-size="13" font-weight="700">Half-duplex</text>
+  <text x="305" y="197" text-anchor="middle" class="t" font-size="11">via HUB</text>
+  <text x="305" y="215" text-anchor="middle" class="t" font-size="11" font-weight="700">CSMA/CD on</text>
+  <text x="305" y="232" text-anchor="middle" class="t" font-size="10" opacity="0.8">carrier extension</text>
+  <text x="305" y="244" text-anchor="middle" class="t" font-size="10" opacity="0.8">+ frame bursting</text>
+
+  <text x="50" y="278" class="t" font-size="12" font-weight="700">Slot fix:</text>
+  <text x="50" y="297" class="mono" font-size="11">64B frame -&gt; 512B slot</text>
+  <text x="50" y="314" class="mono" font-size="11">efficiency = 46/512 = 9%</text>
+
+  <text x="50" y="342" class="t" font-size="12" font-weight="700">Coding:</text>
+  <text x="50" y="361" class="mono" font-size="11">8B/10B  (+25% overhead)</text>
+  <text x="50" y="378" class="t" font-size="11" opacity="0.85">PAUSE 0x8808 - jumbo ~9KB</text>
+
+  <!-- Arrow -->
+  <line x1="402" y1="236" x2="448" y2="236" class="accs" stroke-width="3" marker-end="url(#ar)"/>
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" class="acc"/>
+    </marker>
+  </defs>
+
+  <!-- 10 Gigabit panel -->
+  <rect x="450" y="86" width="340" height="300" rx="10" fill="#fff" class="ink" stroke-width="1.5"/>
+  <rect x="450" y="86" width="340" height="34" rx="10" fill="#2A1A2E"/>
+  <text x="620" y="109" text-anchor="middle" class="t" fill="#fff" font-size="17" font-weight="700">
+    10-Gigabit Ethernet (802.3ae)
+  </text>
+
+  <rect x="470" y="142" width="300" height="50" rx="8" fill="#FFF7EC" class="accs" stroke-width="1.5"/>
+  <text x="620" y="164" text-anchor="middle" class="acc" font-size="14" font-weight="700">Full-duplex ONLY</text>
+  <text x="620" y="183" text-anchor="middle" class="t" font-size="11">CSMA/CD removed entirely</text>
+
+  <text x="470" y="218" class="t" font-size="12" font-weight="700">Coding:</text>
+  <text x="470" y="237" class="mono" font-size="11">scramble + 64B/66B (~3%)</text>
+  <text x="470" y="254" class="t" font-size="11" opacity="0.85">distance freed: ER reaches 40 km</text>
+
+  <text x="470" y="284" class="t" font-size="12" font-weight="700">Media:</text>
+  <text x="470" y="303" class="mono" font-size="10.5">10GBASE-SR  MMF 0.85u   300 m</text>
+  <text x="470" y="320" class="mono" font-size="10.5">10GBASE-LR  SMF 1.3u    10 km</text>
+  <text x="470" y="337" class="mono" font-size="10.5">10GBASE-ER  SMF 1.5u    40 km</text>
+  <text x="470" y="354" class="mono" font-size="10.5">10GBASE-T   Cat-6a UTP  100 m</text>
+  <text x="470" y="371" class="mono" font-size="10.5">  PAM-16 @ 800 Msym/s + LDPC</text>
+
+  <!-- timeline -->
+  <text x="410" y="424" text-anchor="middle" class="t" font-size="13" font-weight="700">Speed / collision-domain trajectory</text>
+  <line x1="70" y1="468" x2="750" y2="468" class="ink" stroke-width="2"/>
+
+  <circle cx="130" cy="468" r="6" class="ink" fill="#FFF7EC" stroke-width="2"/>
+  <text x="130" y="494" text-anchor="middle" class="mono" font-size="11">10 Mbps</text>
+  <text x="130" y="510" text-anchor="middle" class="t" font-size="9.5" opacity="0.75">2500 m / CSMA-CD</text>
+
+  <circle cx="320" cy="468" r="6" class="ink" fill="#FFF7EC" stroke-width="2"/>
+  <text x="320" y="494" text-anchor="middle" class="mono" font-size="11">100 Mbps</text>
+  <text x="320" y="510" text-anchor="middle" class="t" font-size="9.5" opacity="0.75">switched / FD</text>
+
+  <circle cx="510" cy="468" r="6" class="acc"/>
+  <text x="510" y="494" text-anchor="middle" class="mono" font-size="11" font-weight="700">1 Gbps</text>
+  <text x="510" y="510" text-anchor="middle" class="t" font-size="9.5" opacity="0.75">200 m HD / FD</text>
+
+  <circle cx="700" cy="468" r="7" class="acc"/>
+  <text x="700" y="494" text-anchor="middle" class="mono" font-size="11" font-weight="700">10 Gbps</text>
+  <text x="700" y="510" text-anchor="middle" class="t" font-size="9.5" opacity="0.75">FD only / 40 km</text>
+
+  <text x="410" y="544" text-anchor="middle" class="t" font-size="11" opacity="0.65">
+    As speed rises, CSMA/CD fades out and line coding gets leaner (8B/10B -&gt; 64B/66B)
+  </text>
+</svg>

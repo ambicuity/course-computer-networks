@@ -1,0 +1,46 @@
+# Prometheus blackbox_exporter — TLS expiry monitoring
+# Place in /etc/prometheus/blackbox.yml
+
+modules:
+  tls_expiry:
+    prober: tcp
+    timeout: 10s
+    tcp:
+      tls: true
+      tls_config:
+        insecure_skip_verify: false
+
+# --- prometheus.yml scrape config ---
+# - job_name: tls_expiry
+#   scrape_interval: 1h
+#   metrics_path: /probe
+#   params:
+#     module: [tls_expiry]
+#   static_configs:
+#     - targets:
+#         - compliance-vault.example.com:443
+#   relabel_configs:
+#     - source_labels: [__address__]
+#       target_label: __param_target
+#     - target_label: __address__
+#       replacement: blackbox-exporter:9115
+
+# --- Alert rules (alert_rules.yml) ---
+# groups:
+#   - name: tls
+#     rules:
+#       - alert: TLSCertExpiresIn30Days
+#         expr: probe_ssl_earliest_cert_expiry - time() < 30 * 86400
+#         for: 1h
+#         labels:
+#           severity: warning
+#         annotations:
+#           summary: "TLS cert expiring < 30d: {{ $labels.instance }}"
+#
+#       - alert: TLSCertExpiresIn7Days
+#         expr: probe_ssl_earliest_cert_expiry - time() < 7 * 86400
+#         for: 1h
+#         labels:
+#           severity: critical
+#         annotations:
+#           summary: "URGENT: TLS cert expiring < 7d: {{ $labels.instance }}"

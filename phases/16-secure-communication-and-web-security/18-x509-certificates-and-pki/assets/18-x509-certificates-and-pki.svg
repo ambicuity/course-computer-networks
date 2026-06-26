@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" width="920" height="600">
+  <rect width="920" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 14px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="40" class="title">X.509 chain of trust (RFC 5280 §6)</text>
+  <text x="40" y="62" class="sub">Three-tier PKI: a self-signed root signs an intermediate, which signs two leaves. Trust anchors are out-of-band.</text>
+
+  <!-- Root CA box -->
+  <rect x="320" y="90" width="280" height="120" rx="10" fill="#fff" stroke="#E2557A" stroke-width="3"/>
+  <text x="460" y="118" text-anchor="middle" class="node">Root CA  (trust anchor)</text>
+  <text x="460" y="140" text-anchor="middle" class="mono">CN = Test Root</text>
+  <text x="460" y="158" text-anchor="middle" class="mono">RSA-2048  /  BasicConstraints CA:TRUE  pathlen:1</text>
+  <rect x="340" y="170" width="240" height="32" rx="6" fill="#FFF0F4" stroke="#E2557A" stroke-width="1.2"/>
+  <text x="460" y="190" text-anchor="middle" class="mono accent">self-signed  (issuer == subject)</text>
+
+  <!-- Arrow: root -> intermediate -->
+  <line x1="460" y1="210" x2="460" y2="260" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="455,255 465,255 460,265" fill="#2A1A2E"/>
+  <text x="475" y="240" class="label">signs</text>
+
+  <!-- Intermediate CA box -->
+  <rect x="320" y="270" width="280" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="460" y="296" text-anchor="middle" class="node">Intermediate CA</text>
+  <text x="460" y="316" text-anchor="middle" class="mono">CN = Test Intermediate</text>
+  <text x="460" y="334" text-anchor="middle" class="mono">RSA-2048  /  CA:TRUE  pathlen:0</text>
+  <text x="460" y="354" text-anchor="middle" class="label">issued by Test Root, signs leaves</text>
+
+  <!-- Two branches: server and client -->
+  <line x1="420" y1="370" x2="220" y2="430" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="225,425 230,433 220,432" fill="#2A1A2E"/>
+  <line x1="500" y1="370" x2="700" y2="430" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="695,425 700,433 690,432" fill="#2A1A2E"/>
+
+  <!-- leaf server -->
+  <rect x="100" y="430" width="240" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="220" y="456" text-anchor="middle" class="node">leaf: server.internal</text>
+  <text x="220" y="476" text-anchor="middle" class="mono">CN = server.internal</text>
+  <text x="220" y="494" text-anchor="middle" class="mono">SAN: DNS:server.internal</text>
+  <text x="220" y="514" text-anchor="middle" class="label">EKU: serverAuth, clientAuth</text>
+
+  <!-- leaf client -->
+  <rect x="580" y="430" width="240" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="700" y="456" text-anchor="middle" class="node">leaf: alice@internal</text>
+  <text x="700" y="476" text-anchor="middle" class="mono">CN = alice@internal</text>
+  <text x="700" y="494" text-anchor="middle" class="mono">SAN: email:alice@internal</text>
+  <text x="700" y="514" text-anchor="middle" class="label">EKU: clientAuth, 90d validity</text>
+
+  <!-- Validation pass panel -->
+  <rect x="40" y="552" width="840" height="40" rx="6" fill="#FFF0F4" stroke="#E2557A" stroke-width="1"/>
+  <text x="60" y="576" class="mono accent">RFC 5280 §6 path validation:</text>
+  <text x="270" y="576" class="mono">1. signature   2. validity (notBefore..notAfter)   3. issuer==subject chain   4. name constraints   5. revocation (CRL RFC 5280 §5 / OCSP RFC 6960)</text>
+</svg>

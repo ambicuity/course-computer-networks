@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="1000" height="660">
+  <rect width="1000" height="660" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .h { font-size: 14px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="44" class="title">TCP Timer Management</text>
+  <text x="40" y="66" class="sub">four timers, four failure modes -- retransmission (loss), persist (zero window), keepalive (silent peer), 2*MSL (TIME_WAIT)</text>
+
+  <!-- Retransmission timer panel -->
+  <g transform="translate(40,100)">
+    <rect x="0" y="0" width="460" height="240" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+    <text x="14" y="24" class="h">Retransmission timer (RFC 6298)</text>
+    <g transform="translate(0,30)" class="mono">
+      <text x="14" y="22">SRTT_new = (1 - a) * R + a * SRTT_old</text>
+      <text x="14" y="44">RTTVAR_new = (1 - b) * |SRTT - R| + b * RTTVAR_old</text>
+      <text x="14" y="66">RTO = SRTT + max(G, K * RTTVAR)</text>
+      <text x="14" y="88">floored at 1.0s, capped at 60.0s   (a = 1/8, b = 1/4, K = 4)</text>
+    </g>
+    <text x="14" y="146" class="label">Jacobson 1988 -- RTO tracks the recent mean AND variance of RTT samples.</text>
+    <text x="14" y="164" class="label">Without the variance term, RTO = 2*RTT misfires when queues build up.</text>
+    <rect x="14" y="178" width="430" height="50" rx="6" fill="#FFE9C8" stroke="#E2557A"/>
+    <text x="24" y="198" class="mono accent">Karn's algorithm: skip RTT sampling for retransmitted segments;</text>
+    <text x="24" y="218" class="mono accent">double RTO each timeout up to 64 s, then reset on next fresh ack.</text>
+  </g>
+
+  <!-- Fast retransmit panel -->
+  <g transform="translate(520,100)">
+    <rect x="0" y="0" width="440" height="240" rx="10" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="24" class="h">Fast retransmit + fast recovery (RFC 5681)</text>
+    <g transform="translate(0,30)" class="mono">
+      <text x="14" y="22">3 duplicate acks arrive -> single-packet loss inferred</text>
+      <text x="14" y="44">retransmit immediately (do not wait for timer)</text>
+      <text x="14" y="66">ssthresh = cwnd / 2</text>
+      <text x="14" y="88">cwnd = ssthresh + 3 * MSS</text>
+      <text x="14" y="110">stay in congestion avoidance (TCP Reno)</text>
+    </g>
+    <text x="14" y="170" class="label">Tahoe: drops to slow start on any loss.</text>
+    <text x="14" y="186" class="label">Reno: fast retransmit + fast recovery; saw-tooth pattern,</text>
+    <text x="14" y="202" class="label">congestion window oscillates around the BD product.</text>
+  </g>
+
+  <!-- Persist timer -->
+  <g transform="translate(40,360)">
+    <rect x="0" y="0" width="460" height="240" rx="10" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="24" class="h">Persist timer -- zero-window probes</text>
+    <g transform="translate(0,30)" class="mono">
+      <text x="14" y="22">defense against: receiver advertises WIN=0,</text>
+      <text x="14" y="44">the window-update segment is lost</text>
+      <text x="14" y="66">probe schedule: 5s, 10s, 20s, 40s, 60s, 60s, ...</text>
+      <text x="14" y="88">each probe is a 1-byte segment with SEQ = SND.NXT - 1</text>
+      <text x="14" y="110">receiver must respond with current WIN even if still 0</text>
+    </g>
+    <text x="14" y="170" class="label">Modern stacks alternate between 1-byte and 0-byte probes.</text>
+    <text x="14" y="186" class="label">Without the persist timer, the zero-window deadlock would last forever.</text>
+  </g>
+
+  <!-- Keepalive + 2*MSL -->
+  <g transform="translate(520,360)">
+    <rect x="0" y="0" width="440" height="240" rx="10" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="24" class="h">Keepalive + 2*MSL TIME_WAIT</text>
+    <g transform="translate(0,30)" class="mono">
+      <text x="14" y="22">keepalive_time   = 7200 s   (2 h idle before first probe)</text>
+      <text x="14" y="44">keepalive_intvl  = 75 s     (between probes)</text>
+      <text x="14" y="66">keepalive_probes = 9        (max probes)</text>
+      <text x="14" y="88">total deadline   ~ 2.16 hours of idle</text>
+      <text x="14" y="110">TIME_WAIT        = 2 * MSL = 60 s default</text>
+    </g>
+    <text x="14" y="170" class="label">Keepalive is controversial -- adds overhead, can drop</text>
+    <text x="14" y="186" class="label">NAT-bound connections that just paused. Prefer application</text>
+    <text x="14" y="202" class="label">heartbeats when latency requirements are tight.</text>
+  </g>
+
+  <!-- Bottom timeline strip -->
+  <g transform="translate(40,620)">
+    <rect x="0" y="0" width="920" height="34" rx="6" fill="#FFE9C8" stroke="#E2557A" stroke-width="2"/>
+    <text x="14" y="22" class="mono accent">loss -> dup-acks 1,2,3 -> fast retransmit at t+RTO/4 (not t+RTO) -> fast recovery halves cwnd -> linear increase resumes</text>
+  </g>
+</svg>

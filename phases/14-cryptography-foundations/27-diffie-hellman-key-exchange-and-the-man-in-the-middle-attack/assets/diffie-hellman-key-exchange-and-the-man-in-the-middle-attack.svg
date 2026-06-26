@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="800" height="560" fill="#FFF7EC"/>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <text x="400" y="34" text-anchor="middle" font-size="22" fill="#2A1A2E" font-weight="700">Diffie-Hellman &amp; Man-in-the-Middle</text>
+  <text x="400" y="56" text-anchor="middle" font-size="12" fill="#2A1A2E">Shared secret derivation via discrete-log hardness</text>
+
+  <!-- Honest DH -->
+  <text x="40" y="100" font-size="14" fill="#2A1A2E" font-weight="700">Honest DH exchange</text>
+  <line x1="160" y1="130" x2="160" y2="270" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="640" y1="130" x2="640" y2="270" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="160" y="125" text-anchor="middle" font-size="13" fill="#2A1A2E" font-weight="700">Alice (a)</text>
+  <text x="640" y="125" text-anchor="middle" font-size="13" fill="#2A1A2E" font-weight="700">Bob (b)</text>
+
+  <text x="160" y="155" text-anchor="middle" font-size="11" fill="#2A1A2E">A = g^a mod p</text>
+  <line x1="170" y1="180" x2="630" y2="180" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="400" y="173" text-anchor="middle" font-size="10" fill="#2A1A2E">A</text>
+
+  <text x="640" y="200" text-anchor="middle" font-size="11" fill="#2A1A2E">B = g^b mod p</text>
+  <line x1="630" y1="225" x2="170" y2="225" stroke="#E2557A" stroke-width="1.5" marker-end="url(#arrA)"/>
+  <text x="400" y="218" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="700">B</text>
+
+  <text x="160" y="255" text-anchor="middle" font-size="11" fill="#2A1A2E">K = B^a mod p = g^(ab) mod p</text>
+  <text x="640" y="255" text-anchor="middle" font-size="11" fill="#2A1A2E">K = A^b mod p = g^(ab) mod p</text>
+
+  <!-- MITM -->
+  <text x="40" y="305" font-size="14" fill="#2A1A2E" font-weight="700">MITM attack (Trudy substitutes her own values)</text>
+  <line x1="120" y1="335" x2="120" y2="525" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="400" y1="335" x2="400" y2="525" stroke="#E2557A" stroke-width="1.5"/>
+  <line x1="680" y1="335" x2="680" y2="525" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="330" text-anchor="middle" font-size="13" fill="#2A1A2E" font-weight="700">Alice</text>
+  <text x="400" y="330" text-anchor="middle" font-size="13" fill="#E2557A" font-weight="700">Trudy</text>
+  <text x="680" y="330" text-anchor="middle" font-size="13" fill="#2A1A2E" font-weight="700">Bob</text>
+
+  <line x1="130" y1="370" x2="390" y2="370" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="260" y="363" text-anchor="middle" font-size="10" fill="#2A1A2E">A = g^a</text>
+
+  <line x1="410" y1="400" x2="670" y2="400" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="540" y="393" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="700">T_A = g^t_a (forged)</text>
+
+  <line x1="670" y1="430" x2="410" y2="430" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="540" y="423" text-anchor="middle" font-size="10" fill="#2A1A2E">B = g^b</text>
+
+  <line x1="390" y1="460" x2="130" y2="460" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="260" y="453" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="700">T_B = g^t_b (forged)</text>
+
+  <text x="120" y="500" text-anchor="middle" font-size="10" fill="#2A1A2E">K_A = T_B^a (with Trudy)</text>
+  <text x="680" y="500" text-anchor="middle" font-size="10" fill="#2A1A2E">K_B = T_A^b (with Trudy)</text>
+  <text x="400" y="520" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="700">Trudy knows both keys; reads both conversations</text>
+</svg>

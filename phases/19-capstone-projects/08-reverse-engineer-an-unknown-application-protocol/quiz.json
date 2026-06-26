@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the first step in reverse-engineering a binary protocol from a packet capture?",
+      "options": [
+        "Guess the opcode values",
+        "Reassemble the TCP byte stream from ordered segments",
+        "Search for the protocol on Google",
+        "Send a test message to the server"
+      ],
+      "correct": 1,
+      "explanation": "Before you can analyze message structure, you must reassemble the byte stream by ordering TCP payloads by sequence number and concatenating them."
+    },
+    {
+      "stage": "post",
+      "question": "How does entropy analysis help in protocol reverse engineering?",
+      "options": [
+        "It encrypts the protocol",
+        "It distinguishes structured header fields (low entropy) from random payload data (high entropy)",
+        "It compresses the capture file",
+        "It identifies the TCP port number"
+      ],
+      "correct": 1,
+      "explanation": "Byte entropy reveals which parts of a message are structured (repeating patterns, low entropy) versus payload data (high entropy), helping locate field boundaries."
+    },
+    {
+      "stage": "post",
+      "question": "What is a magic number in a binary protocol and why is it useful?",
+      "options": [
+        "A random number that changes every message",
+        "A fixed constant at a known offset that validates protocol identity and version",
+        "A checksum for data integrity",
+        "The TCP sequence number"
+      ],
+      "correct": 1,
+      "explanation": "A magic number is a constant byte pattern (e.g., 0x4B4D) at the start of each message. It confirms the protocol and helps the parser validate framing."
+    },
+    {
+      "stage": "post",
+      "question": "When reconstructing the state machine, how do you match a client request to its server response?",
+      "options": [
+        "By the TCP port number",
+        "By correlating sequence numbers, timing proximity, and opcode pairing",
+        "By the packet size",
+        "By the IP TTL value"
+      ],
+      "correct": 1,
+      "explanation": "Request-response pairs are matched using the application-level sequence number, temporal proximity, and opcode complementarity (e.g., a PUT request matches a PUT response)."
+    },
+    {
+      "stage": "post",
+      "question": "What distinguishes length-prefixed framing from delimiter-based framing?",
+      "options": [
+        "Length-prefixed uses a fixed header size; delimiter-based uses a special byte to mark message end",
+        "They are the same thing",
+        "Length-prefixed is always more efficient",
+        "Delimiter-based requires encryption"
+      ],
+      "correct": 0,
+      "explanation": "Length-prefixed framing embeds the message length in a header field, allowing the parser to read exactly that many bytes. Delimiter-based framing scans for a special byte (e.g., 0x00 or 0x0A) that marks the message boundary."
+    }
+  ]
+}

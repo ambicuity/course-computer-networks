@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the core principle of zero trust network security?",
+      "options": [
+        "Trust everything inside the network",
+        "No workload is trusted by default; every communication flow must be explicitly allowed",
+        "Use a stronger perimeter firewall",
+        "Encrypt all traffic"
+      ],
+      "correct": 1,
+      "explanation": "Zero trust eliminates the concept of a trusted internal network. Every workload is isolated by default, and each communication flow must be explicitly permitted by a microsegmentation policy."
+    },
+    {
+      "stage": "post",
+      "question": "What is microsegmentation and how does it differ from traditional VLAN segmentation?",
+      "options": [
+        "They are the same thing",
+        "Microsegmentation applies per-workload firewall rules with explicit allow/deny, vs. VLAN segmentation which trusts all hosts in the same VLAN",
+        "Microsegmentation only works on wireless networks",
+        "VLAN segmentation is more fine-grained"
+      ],
+      "correct": 1,
+      "explanation": "VLAN segmentation trusts all hosts within a VLAN. Microsegmentation treats each workload as its own security zone with explicit allow rules, preventing lateral movement within the same VLAN."
+    },
+    {
+      "stage": "post",
+      "question": "In a zero-trust policy, what is the default action for a flow not explicitly allowed?",
+      "options": [
+        "Allow (permit by default)",
+        "Deny (default deny - zero trust principle)",
+        "Log only",
+        "Rate limit"
+      ],
+      "correct": 1,
+      "explanation": "Zero trust uses default deny: any flow not explicitly allowed by the policy is denied. This is the opposite of traditional firewall design which often defaults to allow."
+    },
+    {
+      "stage": "post",
+      "question": "How does zero trust microsegmentation limit the blast radius of a compromised workload?",
+      "options": [
+        "It encrypts all data",
+        "The compromised workload can only communicate with explicitly allowed destinations, preventing lateral movement to other tiers like the database",
+        "It shuts down the compromised workload automatically",
+        "It changes all passwords"
+      ],
+      "correct": 1,
+      "explanation": "Even if a web server is compromised, the microsegmentation policy blocks it from reaching the database, cache, or admin ports. The attacker is confined to the web tier's allowed flows, limiting damage."
+    },
+    {
+      "stage": "post",
+      "question": "What does the reachability matrix show and why is it important for verification?",
+      "options": [
+        "It shows CPU usage per workload",
+        "It shows which sources can reach which destinations on which ports, verifying that the policy matches the intended design",
+        "It shows memory usage",
+        "It shows the network topology"
+      ],
+      "correct": 1,
+      "explanation": "The reachability matrix maps all (source, destination, port) pairs to ALLOW or DENY. Comparing it to the intended policy design reveals over-permissive (should deny but allows) or under-permissive (should allow but denies) rules."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why can perceptual audio coding discard bits without audible loss?",
+      "options": [
+        "It uses a smaller sample rate",
+        "It removes components below the psychoacoustic masking threshold",
+        "It compresses with zip",
+        "It increases the channel count"
+      ],
+      "correct": 1,
+      "explanation": "The masking threshold tells the encoder which frequency components the ear cannot hear, so they can be quantized coarsely or dropped."
+    },
+    {
+      "stage": "post",
+      "question": "What does the signal-to-mask ratio (SMR) determine in a perceptual encoder?",
+      "options": [
+        "The sample rate",
+        "The file format",
+        "How many bits are allocated to each subband",
+        "The number of channels"
+      ],
+      "correct": 2,
+      "explanation": "Subbands with high SMR (signal well above the masking threshold) get more bits; subbands with low or negative SMR get few or zero bits."
+    },
+    {
+      "stage": "post",
+      "question": "Why does AAC achieve the same perceived quality as MP3 at a lower bitrate?",
+      "options": [
+        "AAC uses a larger sample size",
+        "AAC replaces the hybrid filter bank with a pure MDCT and adds tools like TNS",
+        "AAC skips the perceptual model",
+        "AAC uses lossless compression only"
+      ],
+      "correct": 1,
+      "explanation": "AAC uses a pure MDCT filter bank with better frequency resolution, improved Huffman codebooks, and tools such as Temporal Noise Shaping, making it more efficient than MP3."
+    },
+    {
+      "stage": "post",
+      "question": "What is simultaneous masking?",
+      "options": [
+        "A loud tone makes nearby quiet tones inaudible at the same time",
+        "Echo cancellation",
+        "Huffman coding of silence",
+        "Stereo downmixing"
+      ],
+      "correct": 0,
+      "explanation": "Simultaneous masking means a strong signal at one frequency raises the detection threshold for nearby frequencies, so quieter components there are not heard."
+    }
+  ]
+}

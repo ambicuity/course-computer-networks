@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "On an 802.1Q trunk, what happens to a frame tagged with a VLAN that is not in the allowed list on the receiving switch?",
+      "options": [
+        "It is retagged with the native VLAN",
+        "It is silently dropped",
+        "It floods to all VLANs",
+        "It triggers a broadcast storm"
+      ],
+      "correct": 1,
+      "explanation": "The allowed-VLAN list is a per-trunk filter; unlisted tags are dropped at ingress to the trunk on the receiving side."
+    },
+    {
+      "stage": "post",
+      "question": "An access switch won STP root election. What is the likely operational impact?",
+      "options": [
+        "No impact; STP is symmetric",
+        "Interswitch traffic detours through the access layer and core uplinks may block",
+        "All VLANs are merged into one",
+        "BPDU Guard disables the core"
+      ],
+      "correct": 1,
+      "explanation": "With the root at the edge, path costs steer traffic through low-bandwidth access links and block redundant core-to-core uplinks."
+    },
+    {
+      "stage": "post",
+      "question": "Which command hardens the intended root bridge on a Cisco core switch?",
+      "options": [
+        "spanning-tree portfast",
+        "spanning-tree vlan 1-100 root primary",
+        "spanning-tree bpduguard enable",
+        "no spanning-tree"
+      ],
+      "correct": 1,
+      "explanation": "root primary lowers the priority so the core wins root election; BPDU Guard is for access ports, not the core."
+    }
+  ]
+}

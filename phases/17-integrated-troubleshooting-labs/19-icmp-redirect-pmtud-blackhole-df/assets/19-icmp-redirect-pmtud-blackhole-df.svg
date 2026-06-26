@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">PMTUD Black Hole with DF</text>
+  <text x="40" y="68" class="sub">Tunnel MTU 1420, egress firewall drops ICMP Type 3 Code 4, host stalls 30s</text>
+
+  <rect x="40" y="120" width="120" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="100" y="148" text-anchor="middle" class="node">Host</text>
+  <text x="100" y="170" text-anchor="middle" class="mono">eth0 MTU 1500</text>
+  <text x="100" y="190" text-anchor="middle" class="label">sends 1500B, DF=1</text>
+
+  <rect x="220" y="120" width="140" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="290" y="148" text-anchor="middle" class="node">Edge Router</text>
+  <text x="290" y="170" text-anchor="middle" class="mono">ipsec0 MTU 1420</text>
+  <text x="290" y="190" text-anchor="middle" class="label">outer IP + ESP + padding</text>
+
+  <rect x="420" y="120" width="140" height="100" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="490" y="148" text-anchor="middle" class="node accent">Firewall</text>
+  <text x="490" y="170" text-anchor="middle" class="mono accent">DROP icmp 3/4 OUT</text>
+  <text x="490" y="190" text-anchor="middle" class="label accent">egress filter</text>
+
+  <rect x="620" y="120" width="120" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="680" y="148" text-anchor="middle" class="node">Remote</text>
+  <text x="680" y="170" text-anchor="middle" class="mono">eth0 MTU 1500</text>
+  <text x="680" y="190" text-anchor="middle" class="label">no TCP MSS option</text>
+
+  <line x1="160" y1="170" x2="220" y2="170" stroke="#2A1A2E" stroke-width="2.5"/>
+  <text x="190" y="166" text-anchor="middle" class="label">1500B</text>
+
+  <line x1="360" y1="170" x2="420" y2="170" stroke="#2A1A2E" stroke-width="2.5"/>
+  <text x="390" y="166" text-anchor="middle" class="label">1420 max</text>
+
+  <line x1="560" y1="170" x2="620" y2="170" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <polygon points="620,170 612,166 612,174" fill="#E2557A"/>
+  <text x="590" y="166" text-anchor="middle" class="label accent">dropped, no ICMP</text>
+
+  <line x1="620" y1="200" x2="160" y2="200" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <text x="390" y="216" text-anchor="middle" class="label accent">ICMP 3/4 filtered at firewall</text>
+
+  <rect x="40" y="320" width="840" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="348" class="node">Four-command diagnostic chain</text>
+  <text x="60" y="372" class="mono">1. ip route get 203.0.113.50                      -- which interface, which next-hop</text>
+  <text x="60" y="392" class="mono">2. tracepath -m 5 203.0.113.50                    -- discover path MTU hop by hop</text>
+  <text x="60" y="412" class="mono">3. ip -d link show ipsec0                          -- MTU on the tunnel interface</text>
+  <text x="60" y="432" class="mono">4. tcpdump -i any -w pmtud.pcap icmp or 'host X and tcp'   &amp;&amp;  ping -c1 -M do -s 1472 X</text>
+  <text x="60" y="464" class="node">Fix</text>
+  <text x="60" y="486" class="mono">iptables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu</text>
+  <text x="60" y="506" class="mono">  MSS = 1420 - 40 (IPv4) = 1380</text>
+  <text x="60" y="526" class="mono">  Or: enable icmp type 3 code 4 outbound on the egress firewall</text>
+</svg>

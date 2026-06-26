@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">IMAP4 vs POP3 Final Delivery</text>
+  <text x="40" y="68" class="sub">SMTP pushes mail to the MTA; POP3 or IMAP pulls it to the user agent</text>
+
+  <!-- POP3 panel -->
+  <rect x="40" y="100" width="420" height="300" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">POP3 (RFC 1939)</text>
+  <text x="60" y="150" class="mono">S: +OK POP3 ready &lt;1896.697170952@...&gt;</text>
+  <text x="60" y="170" class="mono">C: USER alice</text>
+  <text x="60" y="190" class="mono">C: PASS hunter2</text>
+  <text x="60" y="210" class="mono">C: STAT  -&gt; +OK 3 12345</text>
+  <text x="60" y="230" class="mono">C: LIST  -&gt; +OK 2 messages: (1 1234) (2 11111)</text>
+  <text x="60" y="250" class="mono">C: RETR 1 -&gt; +OK 1234 octets &lt;body&gt;</text>
+  <text x="60" y="270" class="mono">C: DELE 1 -&gt; +OK message 1 deleted</text>
+  <text x="60" y="290" class="mono">C: QUIT  -&gt; +OK   (UPDATE: physical removal)</text>
+  <text x="60" y="316" class="label">States: AUTHORIZATION -&gt; TRANSACTION -&gt; UPDATE</text>
+  <text x="60" y="332" class="label">UIDL gives each message a stable unique ID.</text>
+  <text x="60" y="348" class="label">Default behavior: download-and-delete from server.</text>
+  <text x="60" y="364" class="label">Single-device friendly; multi-device painful.</text>
+  <text x="60" y="382" class="label">Ports: 110 (plain, deprecated) / 995 (implicit TLS, RFC 8314).</text>
+
+  <!-- IMAP panel -->
+  <rect x="480" y="100" width="400" height="300" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="500" y="124" class="node accent">IMAP4rev1 (RFC 3501) + IDLE (RFC 2177)</text>
+  <text x="500" y="150" class="mono">S: * OK [CAPABILITY IMAP4rev1 STARTTLS ...]</text>
+  <text x="500" y="170" class="mono">C: a001 STARTTLS  -&gt; S: a001 OK</text>
+  <text x="500" y="190" class="mono">... TLS handshake ...</text>
+  <text x="500" y="210" class="mono">C: a003 LOGIN alice hunter2</text>
+  <text x="500" y="230" class="mono">C: a004 SELECT INBOX</text>
+  <text x="500" y="250" class="mono">S: * 5 EXISTS  * 0 RECENT  * FLAGS (...)</text>
+  <text x="500" y="270" class="mono">C: a005 IDLE  -&gt; S: + idling</text>
+  <text x="500" y="290" class="mono accent">S: * 6 EXISTS   &lt;-- unsolicited push (RFC 2177)</text>
+  <text x="500" y="310" class="mono">C: DONE  -&gt; S: a005 OK</text>
+  <text x="500" y="330" class="mono">C: a006 LOGOUT</text>
+  <text x="500" y="356" class="label">States: NOT_AUTHENTICATED -&gt; AUTHENTICATED -&gt;</text>
+  <text x="500" y="372" class="label">SELECTED -&gt; LOGOUT. Tagged commands.</text>
+  <text x="500" y="388" class="label">Flags: \\Seen \\Answered \\Flagged \\Deleted \\Draft \\Recent.</text>
+
+  <!-- Comparison -->
+  <rect x="40" y="420" width="840" height="120" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="444" class="node">Comparison (decision matrix)</text>
+  <text x="60" y="464" class="mono">Single device, offline, archival pull -&gt; POP3 (995)</text>
+  <text x="60" y="480" class="mono">Multi-device, shared state, server-side search -&gt; IMAP (993)</text>
+  <text x="60" y="496" class="mono">Push notifications (mail arrives instantly) -&gt; IMAP IDLE (RFC 2177)</text>
+  <text x="60" y="512" class="mono">Backups (copy and delete from server) -&gt; POP3 RETR + DELE</text>
+  <text x="60" y="528" class="label">RFC 8314 (2021) recommends implicit TLS (993/995) over STARTTLS for new deployments.</text>
+</svg>

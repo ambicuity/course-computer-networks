@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="820" height="560">
+  <rect width="820" height="560" fill="#FFF7EC"/>
+  <text x="410" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#2A1A2E">From Fourier Harmonics to the Channel Capacity Ceiling</text>
+  <text x="410" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#2A1A2E">A square bit pulse is a sum of sines; the medium filters the high ones; two equations set the hard limit.</text>
+
+  <!-- LEFT: harmonic reconstruction -->
+  <text x="40" y="96" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#2A1A2E">1 — Bandwidth filters harmonics</text>
+
+  <!-- ideal square -->
+  <text x="40" y="120" font-family="monospace" font-size="11" fill="#2A1A2E">ideal square (all harmonics)</text>
+  <polyline points="40,150 80,150 80,128 140,128 140,150 200,150 200,128 260,128 260,150 300,150"
+            fill="none" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- few harmonics -->
+  <text x="40" y="186" font-family="monospace" font-size="11" fill="#2A1A2E">2 harmonics through 3 kHz @ 9600 bps</text>
+  <path d="M40,216 C70,196 90,196 110,216 C130,236 150,236 170,216 C190,196 210,196 230,216 C250,236 270,236 300,216"
+        fill="none" stroke="#E2557A" stroke-width="2.5"/>
+
+  <!-- one harmonic -->
+  <text x="40" y="252" font-family="monospace" font-size="11" fill="#2A1A2E">1 harmonic @ 19200 bps (a blur)</text>
+  <path d="M40,288 C95,256 145,320 200,288 C235,266 270,310 300,288"
+        fill="none" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="5 4"/>
+
+  <text x="40" y="322" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">Fewer surviving harmonics &#8594; rounder pulses &#8594; lower usable rate.</text>
+
+  <!-- divider -->
+  <line x1="345" y1="86" x2="345" y2="340" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 4" opacity="0.4"/>
+
+  <!-- RIGHT: the two equations -->
+  <text x="380" y="96" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#2A1A2E">2 — The two capacity limits</text>
+
+  <rect x="380" y="110" width="400" height="70" rx="8" fill="#ffffff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="396" y="134" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#2A1A2E">Nyquist (noiseless)</text>
+  <text x="396" y="158" font-family="monospace" font-size="15" fill="#E2557A">C = 2 &#183; B &#183; log&#8322;(V)</text>
+  <text x="396" y="174" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">B = bandwidth (Hz), V = signal levels per symbol</text>
+
+  <rect x="380" y="192" width="400" height="70" rx="8" fill="#ffffff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="396" y="216" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#2A1A2E">Shannon (noisy)</text>
+  <text x="396" y="240" font-family="monospace" font-size="15" fill="#E2557A">C = B &#183; log&#8322;(1 + S/N)</text>
+  <text x="396" y="256" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">S/N is LINEAR: convert dB first &#8594; 10^(dB/10)</text>
+
+  <text x="380" y="290" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#2A1A2E">Real ceiling = min( Nyquist , Shannon )</text>
+  <text x="380" y="312" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">More levels V help Nyquist but never beat the Shannon wall.</text>
+
+  <!-- BOTTOM: worked example band -->
+  <rect x="40" y="360" width="740" height="170" rx="10" fill="#ffffff" stroke="#E2557A" stroke-width="2"/>
+  <text x="60" y="388" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#2A1A2E">Worked example: ADSL short loop</text>
+
+  <text x="60" y="416" font-family="monospace" font-size="12" fill="#2A1A2E">B = 1 MHz   V = 256   SNR = 40 dB</text>
+  <text x="60" y="438" font-family="monospace" font-size="12" fill="#2A1A2E">S/N = 10^(40/10) = 10000</text>
+  <text x="60" y="460" font-family="monospace" font-size="12" fill="#2A1A2E">Nyquist  = 2 &#215; 1e6 &#215; log2(256)  = 16.00 Mbps</text>
+  <text x="60" y="482" font-family="monospace" font-size="12" fill="#2A1A2E">Shannon  = 1e6 &#215; log2(1+10000) = 13.29 Mbps</text>
+
+  <rect x="470" y="402" width="290" height="98" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="615" y="430" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#2A1A2E">Verdict</text>
+  <text x="615" y="456" text-anchor="middle" font-family="monospace" font-size="16" fill="#E2557A">&#8804; 13.3 Mbps</text>
+  <text x="615" y="478" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">noise-limited &#8594; Shannon binds</text>
+  <text x="615" y="494" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">adding QAM levels won't help</text>
+
+  <text x="60" y="514" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">To go faster: raise SNR (shorter loop / repeaters) or widen B (ADSL2+).</text>
+</svg>

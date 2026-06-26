@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why does ARP spoofing work on a switched Ethernet segment?",
+      "options": [
+        "ARP replies are authenticated by the switch CPU",
+        "ARP is an unauthenticated trust protocol; any host may claim any IP",
+        "Switches block gratuitous ARP by default",
+        "ARP only travels on wireless media"
+      ],
+      "correct": 1,
+      "explanation": "RFC 826 ARP carries no signature; receivers cache the most recent IP-MAC pair without verifying ownership."
+    },
+    {
+      "stage": "post",
+      "question": "A victim ARP cache flips from the gateway MAC to an unknown MAC every 60 seconds. What is the strongest evidence of an active spoof?",
+      "options": [
+        "The flip frequency exceeds normal DHCP renewal cadence",
+        "The unknown MAC also appears as the source of gratuitous ARP replies",
+        "The victim can still ping 8.8.8.8",
+        "DNS resolves the gateway hostname"
+      ],
+      "correct": 1,
+      "explanation": "Unsolicited gratuitous ARP from a non-gateway MAC binding the gateway IP is the canonical spoof signature."
+    },
+    {
+      "stage": "post",
+      "question": "Which mitigation requires no cooperation from end hosts?",
+      "options": [
+        "Static ARP entries on every client",
+        "Disabling ARP cache entirely",
+        "Dynamic ARP Inspection with a DHCP snooping binding table on the switch",
+        "Lowering the TCP keepalive interval"
+      ],
+      "correct": 2,
+      "explanation": "DAI runs on the switch and validates ARP frames against the DHCP snooping database, protecting all attached hosts transparently."
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="ui-monospace, Menlo, monospace">
+  <rect width="800" height="500" fill="#FFF7EC"/>
+
+  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">Ansible-Driven Drift Detection Pipeline</text>
+  <text x="400" y="52" text-anchor="middle" font-size="12" fill="#2A1A2E">intent (Git) vs observed (live device) — RFC 6902 patch on drift</text>
+
+  <!-- Devices column -->
+  <rect x="40" y="90" width="160" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="115" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Cisco ASR 9001</text>
+  <text x="120" y="133" text-anchor="middle" font-size="10" fill="#2A1A2E">asr9001-01.example.net</text>
+
+  <rect x="40" y="170" width="160" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Juniper MX204</text>
+  <text x="120" y="213" text-anchor="middle" font-size="10" fill="#2A1A2E">mx204-02.example.net</text>
+
+  <rect x="40" y="250" width="160" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="275" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Catalyst 9800 WLC</text>
+  <text x="120" y="293" text-anchor="middle" font-size="10" fill="#2A1A2E">cat9800-wlc-01.example.net</text>
+
+  <!-- Acquisition arrow + box -->
+  <line x1="200" y1="200" x2="260" y2="200" stroke="#E2557A" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="260" y="140" width="170" height="200" rx="8" fill="#FFE9F0" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="345" y="160" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Ansible 8.x</text>
+  <text x="345" y="178" text-anchor="middle" font-size="11" fill="#2A1A2E">control node</text>
+  <text x="345" y="206" text-anchor="middle" font-size="10" fill="#2A1A2E">cisco.ios.ios_facts</text>
+  <text x="345" y="222" text-anchor="middle" font-size="10" fill="#2A1A2E">junipernetworks.junos</text>
+  <text x="345" y="238" text-anchor="middle" font-size="10" fill="#2A1A2E">arista.eos.eos_facts</text>
+  <text x="345" y="262" text-anchor="middle" font-size="10" fill="#2A1A2E">gather_subset: config</text>
+  <text x="345" y="278" text-anchor="middle" font-size="10" fill="#2A1A2E">to_nice_json (NOT canonical)</text>
+  <text x="345" y="316" text-anchor="middle" font-size="10" font-weight="700" fill="#E2557A">delegate_to: localhost</text>
+
+  <!-- Normalizer -->
+  <line x1="430" y1="200" x2="490" y2="200" stroke="#E2557A" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="490" y="100" width="170" height="240" rx="8" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="575" y="122" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Normalizer</text>
+  <text x="575" y="138" text-anchor="middle" font-size="10" fill="#2A1A2E">registry of vendor parsers</text>
+  <text x="505" y="166" font-size="10" fill="#2A1A2E">* bgp { asn, router_id, neighbors }</text>
+  <text x="505" y="182" font-size="10" fill="#2A1A2E">* ospf { process_id, areas }</text>
+  <text x="505" y="198" font-size="10" fill="#2A1A2E">* ntp { servers, vrf }</text>
+  <text x="505" y="214" font-size="10" fill="#2A1A2E">* vrf [ { name, rd } ]</text>
+  <text x="505" y="230" font-size="10" fill="#2A1A2E">* static_routes [ { prefix, mask } ]</text>
+  <text x="505" y="260" font-size="10" font-weight="700" fill="#E2557A">_scrub_timestamps()</text>
+  <text x="505" y="276" font-size="10" fill="#2A1A2E">strips "Last change at ..." lines</text>
+  <text x="505" y="306" font-size="10" fill="#2A1A2E">outputs unified schema dict</text>
+
+  <!-- Fingerprint + diff -->
+  <line x1="660" y1="170" x2="710" y2="170" stroke="#E2557A" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="660" y1="230" x2="710" y2="230" stroke="#E2557A" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="710" y="130" width="70" height="100" rx="6" fill="#FFE9F0" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="745" y="148" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">SHA-256</text>
+  <text x="745" y="166" text-anchor="middle" font-size="9" fill="#2A1A2E">canonical</text>
+  <text x="745" y="180" text-anchor="middle" font-size="9" fill="#2A1A2E">RFC 8785</text>
+  <text x="745" y="216" text-anchor="middle" font-size="9" fill="#2A1A2E">7a:f3:...</text>
+
+  <!-- Report output -->
+  <rect x="490" y="370" width="290" height="80" rx="8" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="635" y="392" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Drift Report (report.json)</text>
+  <text x="635" y="412" text-anchor="middle" font-size="10" fill="#2A1A2E">RFC 6902 ops: add | remove | replace</text>
+  <text x="635" y="428" text-anchor="middle" font-size="10" fill="#2A1A2E">JUnit XML → GitLab CI gate (exit 1)</text>
+  <text x="635" y="444" text-anchor="middle" font-size="10" fill="#2A1A2E">Slack webhook on failure</text>
+
+  <line x1="575" y1="340" x2="575" y2="370" stroke="#E2557A" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Git intent store -->
+  <rect x="260" y="370" width="170" height="80" rx="8" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="345" y="392" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Git: /var/git/intent/</text>
+  <text x="345" y="410" text-anchor="middle" font-size="10" fill="#2A1A2E">asr9001-01.json (canonical)</text>
+  <text x="345" y="426" text-anchor="middle" font-size="10" fill="#2A1A2E">mx204-02.json</text>
+  <text x="345" y="442" text-anchor="middle" font-size="10" fill="#2A1A2E">cat9800-wlc-01.json</text>
+
+  <line x1="345" y1="340" x2="345" y2="370" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- Legend -->
+  <rect x="40" y="380" width="160" height="70" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="50" y="400" font-size="11" font-weight="700" fill="#2A1A2E">Legend</text>
+  <line x1="50" y1="418" x2="80" y2="418" stroke="#E2557A" stroke-width="2"/>
+  <text x="88" y="422" font-size="10" fill="#2A1A2E">data flow</text>
+  <line x1="50" y1="438" x2="80" y2="438" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="88" y="442" font-size="10" fill="#2A1A2E">Git reference</text>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

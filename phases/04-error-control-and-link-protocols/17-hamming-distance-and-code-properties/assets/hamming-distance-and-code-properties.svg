@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+  <style>
+    .ink{fill:#2A1A2E}
+    .berry{fill:#E2557A}
+    .lbl{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;fill:#2A1A2E}
+    .ttl{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-weight:700;fill:#2A1A2E}
+    .mut{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;fill:#2A1A2E;opacity:.7}
+    .small{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:12px;fill:#2A1A2E}
+  </style>
+
+  <text x="40" y="44" class="ttl" font-size="20">Hamming distance and the detect/correct tradeoff</text>
+  <text x="40" y="66" class="mut" font-size="13">distance-3 code: detect 2 errors OR correct 1 — not both at once</text>
+
+  <!-- Codeword layout -->
+  <text x="40" y="104" class="ttl" font-size="14">(11,7) Hamming codeword for ASCII 'A' = 1000001</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <!-- 11 cells, parity in berry -->
+    <g>
+      <rect x="40"  y="116" width="64" height="64" fill="#FFF" stroke="#2A1A2E"/>
+      <rect x="104" y="116" width="64" height="64" fill="#FFF" stroke="#2A1A2E"/>
+      <rect x="168" y="116" width="64" height="64" fill="#FBE4EA" stroke="#2A1A2E"/>
+      <rect x="232" y="116" width="64" height="64" fill="#FFF" stroke="#2A1A2E"/>
+      <rect x="296" y="116" width="64" height="64" fill="#FBE4EA" stroke="#2A1A2E"/>
+      <rect x="360" y="116" width="64" height="64" fill="#FBE4EA" stroke="#2A1A2E"/>
+      <rect x="424" y="116" width="64" height="64" fill="#FBE4EA" stroke="#2A1A2E"/>
+      <rect x="488" y="116" width="64" height="64" fill="#FFF" stroke="#2A1A2E"/>
+      <rect x="552" y="116" width="64" height="64" fill="#FBE4EA" stroke="#2A1A2E"/>
+      <rect x="616" y="116" width="64" height="64" fill="#FBE4EA" stroke="#2A1A2E"/>
+      <rect x="680" y="116" width="64" height="64" fill="#FBE4EA" stroke="#2A1A2E"/>
+    </g>
+    <!-- position numbers -->
+    <g class="mut" font-size="11" text-anchor="middle">
+      <text x="72"  y="132">1</text>
+      <text x="136" y="132">2</text>
+      <text x="200" y="132">3</text>
+      <text x="264" y="132">4</text>
+      <text x="328" y="132">5</text>
+      <text x="392" y="132">6</text>
+      <text x="456" y="132">7</text>
+      <text x="520" y="132">8</text>
+      <text x="584" y="132">9</text>
+      <text x="648" y="132">10</text>
+      <text x="712" y="132">11</text>
+    </g>
+    <!-- bit values: p1=0 p2=0 d3=1 p4=0 d5=0 d6=0 d7=0 p8=1 d9=0 d10=0 d11=1 -->
+    <g text-anchor="middle" fill="#2A1A2E">
+      <text x="72"  y="156">0</text>
+      <text x="136" y="156">0</text>
+      <text x="200" y="156" class="berry">1</text>
+      <text x="264" y="156">0</text>
+      <text x="328" y="156">0</text>
+      <text x="392" y="156">0</text>
+      <text x="456" y="156">0</text>
+      <text x="520" y="156">1</text>
+      <text x="584" y="156">0</text>
+      <text x="648" y="156">0</text>
+      <text x="712" y="156">1</text>
+    </g>
+    <g class="small" text-anchor="middle">
+      <text x="72"  y="172" class="berry">p1</text>
+      <text x="136" y="172" class="berry">p2</text>
+      <text x="200" y="172">d</text>
+      <text x="264" y="172" class="berry">p4</text>
+      <text x="328" y="172">d</text>
+      <text x="392" y="172">d</text>
+      <text x="456" y="172">d</text>
+      <text x="520" y="172" class="berry">p8</text>
+      <text x="584" y="172">d</text>
+      <text x="648" y="172">d</text>
+      <text x="712" y="172">d</text>
+    </g>
+  </g>
+
+  <!-- Tradeoff panel -->
+  <g transform="translate(40,228)">
+    <text x="0" y="0" class="ttl" font-size="14">The tradeoff by minimum distance d_min</text>
+    <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+      <text x="0"   y="28" class="ink">d_min</text>
+      <text x="90"  y="28" class="ink">detect (d+1)</text>
+      <text x="240" y="28" class="ink">correct (2d+1)</text>
+      <text x="400" y="28" class="ink">example</text>
+
+      <text x="0"   y="52">3</text>
+      <text x="90"  y="52">2</text>
+      <text x="240" y="52" class="berry">1</text>
+      <text x="400" y="52" class="mut">(11,7) Hamming</text>
+
+      <text x="0"   y="76">4</text>
+      <text x="90"  y="52"></text>
+      <text x="90"  y="76">3</text>
+      <text x="240" y="76">1</text>
+      <text x="400" y="76" class="mut">extended Hamming</text>
+
+      <text x="0"   y="100">5</text>
+      <text x="90"  y="100">4</text>
+      <text x="240" y="100" class="berry">2</text>
+      <text x="400" y="100" class="mut">textbook 4-word code</text>
+    </g>
+  </g>
+
+  <!-- Syndrome decoding flow -->
+  <g transform="translate(40,360)">
+    <text x="0" y="0" class="ttl" font-size="14">Single-error correction: syndrome = error position</text>
+    <!-- received row with bit 5 flipped -->
+    <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+      <text x="0" y="28" class="mut">received:</text>
+      <text x="90" y="28">0 0 1 0 <tspan class="berry">1</tspan> 0 0 1 0 0 1</text>
+      <text x="0" y="54" class="mut">syndrome:</text>
+      <text x="90" y="54">p8=0 p4=1 p2=0 p1=1  ->  0101 = 5</text>
+      <text x="0" y="80" class="mut">action:</text>
+      <text x="90" y="80">flip position 5, drop parity bits -> 'A' recovered</text>
+    </g>
+  </g>
+
+  <!-- Caption -->
+  <text x="40" y="540" class="mut" font-size="11">Parity bits occupy power-of-two positions (1,2,4,8); each data bit is checked by the parity bits in its binary decomposition (e.g. bit 11 = 1+2+8).</text>
+</svg>

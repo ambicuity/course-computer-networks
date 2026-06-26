@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 620" width="860" height="620">
+  <style>
+    text { font-family: 'Inter', system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; fill: #E2557A; }
+    .field { font-size: 12px; font-weight: 600; }
+    .size { font-size: 10.5px; font-family: monospace; fill: #6b4a5e; }
+    .note { font-size: 11px; fill: #4a3a4e; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.4; }
+    .accent { fill: #FBE3EA; stroke: #E2557A; stroke-width: 1.6; }
+    .soft { fill: #FFF7EC; stroke: #E2557A; stroke-width: 1.2; }
+    .bar { fill: #E2557A; opacity: 0.18; }
+    .arrow { stroke: #2A1A2E; stroke-width: 1.6; fill: none; }
+    .earrow { stroke: #E2557A; stroke-width: 1.8; fill: none; }
+  </style>
+  <rect x="0" y="0" width="860" height="620" fill="#FFF7EC"/>
+
+  <text class="title" x="30" y="38">IPv6: Fixed Header + Address Type Ranges</text>
+  <text class="note" x="30" y="58">RFC 8200  ·  128-bit addresses  ·  :: compression  ·  SLAAC  ·  source-only fragmentation</text>
+
+  <!-- ============ HEADER LAYOUT ============ -->
+  <text class="sub" x="30" y="92">IPv6 base header (40 bytes, fixed)</text>
+
+  <!-- 32-bit grid row 1 -->
+  <g>
+    <rect class="accent" x="30"  y="104" width="84"  height="44"/>
+    <text class="field" x="72"  y="124" text-anchor="middle">Version</text>
+    <text class="size"  x="72"  y="138" text-anchor="middle">4 bits</text>
+
+    <rect class="accent" x="114" y="104" width="120" height="44"/>
+    <text class="field" x="174" y="124" text-anchor="middle">Traffic Class</text>
+    <text class="size"  x="174" y="138" text-anchor="middle">8 bits (DSCP+ECN)</text>
+
+    <rect class="accent" x="234" y="104" width="180" height="44"/>
+    <text class="field" x="324" y="124" text-anchor="middle">Flow Label</text>
+    <text class="size"  x="324" y="138" text-anchor="middle">20 bits</text>
+  </g>
+
+  <!-- row 2 -->
+  <g>
+    <rect class="box" x="30"  y="148" width="156" height="44"/>
+    <text class="field" x="108" y="168" text-anchor="middle">Payload Length</text>
+    <text class="size"  x="108" y="182" text-anchor="middle">16 bits</text>
+
+    <rect class="box" x="186" y="148" width="132" height="44"/>
+    <text class="field" x="252" y="168" text-anchor="middle">Next Header</text>
+    <text class="size"  x="252" y="182" text-anchor="middle">8 bits</text>
+
+    <rect class="box" x="318" y="148" width="96"  height="44"/>
+    <text class="field" x="366" y="168" text-anchor="middle">Hop Limit</text>
+    <text class="size"  x="366" y="182" text-anchor="middle">8 bits</text>
+  </g>
+
+  <!-- source / dest (16 bytes each) -->
+  <g>
+    <rect class="box" x="30" y="192" width="384" height="36"/>
+    <text class="field" x="40" y="214">Source Address</text>
+    <text class="size"  x="40" y="226">128 bits (16 bytes)</text>
+
+    <rect class="box" x="30" y="228" width="384" height="36"/>
+    <text class="field" x="40" y="250">Destination Address</text>
+    <text class="size"  x="40" y="262">128 bits (16 bytes)</text>
+  </g>
+
+  <text class="note" x="30" y="278" fill="#E2557A">removed vs IPv4: IHL, checksum, Protocol, all fragment fields → extension header chain</text>
+
+  <!-- extension header chain -->
+  <text class="sub" x="30" y="308">Extension header chain (Next Header links)</text>
+  <g>
+    <rect class="soft" x="30"  y="322" width="78"  height="36"/>
+    <text class="field" x="69"  y="345" text-anchor="middle">Hop-by-Hop</text>
+    <text class="size"  x="69"  y="322" text-anchor="middle" fill="#E2557A">NH=0</text>
+
+    <rect class="soft" x="116" y="322" width="78"  height="36"/>
+    <text class="field" x="155" y="345" text-anchor="middle">Routing</text>
+    <text class="size"  x="155" y="322" text-anchor="middle" fill="#E2557A">NH=43</text>
+
+    <rect class="soft" x="202" y="322" width="78"  height="36"/>
+    <text class="field" x="241" y="345" text-anchor="middle">Fragment</text>
+    <text class="size"  x="241" y="322" text-anchor="middle" fill="#E2557A">NH=44</text>
+
+    <rect class="soft" x="288" y="322" width="78"  height="36"/>
+    <text class="field" x="327" y="345" text-anchor="middle">AH / ESP</text>
+    <text class="size"  x="327" y="322" text-anchor="middle" fill="#E2557A">50/51</text>
+
+    <rect class="soft" x="374" y="322" width="78"  height="36"/>
+    <text class="field" x="413" y="345" text-anchor="middle">Dest Opts</text>
+    <text class="size"  x="413" y="322" text-anchor="middle" fill="#E2557A">NH=60</text>
+
+    <rect class="accent" x="460" y="322" width="78" height="36"/>
+    <text class="field" x="499" y="345" text-anchor="middle">TCP/UDP</text>
+    <text class="size"  x="499" y="322" text-anchor="middle" fill="#E2557A">6 / 17</text>
+  </g>
+
+  <!-- ============ ADDRESS TYPE RANGES ============ -->
+  <text class="sub" x="30" y="396">Address type ranges (prefix → scope)</text>
+
+  <!-- horizontal address bar 128 bits -->
+  <g>
+    <rect class="box" x="30" y="414" width="800" height="36"/>
+    <rect class="bar" x="30"  y="414" width="6"   height="36"/>
+    <text class="size" x="36" y="437" fill="#E2557A">::  /128</text>
+
+    <rect class="accent" x="62"  y="414" width="42"  height="36"/>
+    <text class="field" x="83"  y="431" text-anchor="middle">::1</text>
+    <text class="size"  x="83"  y="445" text-anchor="middle">loopback</text>
+
+    <rect class="box" x="110" y="414" width="80"  height="36"/>
+    <text class="field" x="150" y="431" text-anchor="middle">fe80::/10</text>
+    <text class="size"  x="150" y="445" text-anchor="middle">link-local</text>
+
+    <rect class="box" x="196" y="414" width="90"  height="36"/>
+    <text class="field" x="241" y="431" text-anchor="middle">fc00::/7</text>
+    <text class="size"  x="241" y="445" text-anchor="middle">unique-local</text>
+
+    <rect class="box" x="292" y="414" width="240" height="36"/>
+    <text class="field" x="412" y="431" text-anchor="middle">2000::/3  global unicast (2001, 2002, 2003 ...)</text>
+    <text class="size"  x="412" y="445" text-anchor="middle">routed on Internet</text>
+
+    <rect class="accent" x="540" y="414" width="100" height="36"/>
+    <text class="field" x="590" y="431" text-anchor="middle">ff00::/8</text>
+    <text class="size"  x="590" y="445" text-anchor="middle">multicast</text>
+
+    <rect class="box" x="648" y="414" width="120" height="36"/>
+    <text class="field" x="708" y="431" text-anchor="middle">::ffff:x.x</text>
+    <text class="size"  x="708" y="445" text-anchor="middle">IPv4-mapped</text>
+  </g>
+
+  <!-- multicast scope detail -->
+  <text class="note" x="30" y="476">Multicast scope (2nd quarter-byte): ff01 interface  ·  ff02 link  ·  ff05 site  ·  ff0e global  ·  ff02::1:ffXX:XXXX solicited-node (ND)</text>
+
+  <!-- ============ SLAAC + EUI-64 ============ -->
+  <text class="sub" x="30" y="510">SLAAC: MAC → EUI-64 → link-local, then RA prefix → global</text>
+  <rect class="box" x="30" y="524" width="380" height="78"/>
+  <text class="mono" x="46" y="548">MAC 00:11:22:33:44:55</text>
+  <text class="mono" x="46" y="568">insert FF:FE + flip U/L bit (b6)</text>
+  <text class="mono" x="46" y="588" fill="#E2557A">EUI-64 02:11:22:ff:fe:33:44:55</text>
+
+  <rect class="box" x="425" y="524" width="405" height="78"/>
+  <text class="mono" x="442" y="548">prepend fe80::/10 → fe80::211:22ff:fe33:4455</text>
+  <text class="mono" x="442" y="568">RA arrives with prefix 2001:db8:1a2b::/64</text>
+  <text class="mono" x="442" y="588" fill="#E2557A">global: 2001:db8:1a2b::211:22ff:fe33:4455</text>
+
+  <!-- footer note -->
+  <text class="note" x="30" y="614" fill="#E2557A">source-only fragmentation: router drops big packet → ICMPv6 Packet Too Big → source runs Path MTU Discovery (min MTU 1280)</text>
+</svg>

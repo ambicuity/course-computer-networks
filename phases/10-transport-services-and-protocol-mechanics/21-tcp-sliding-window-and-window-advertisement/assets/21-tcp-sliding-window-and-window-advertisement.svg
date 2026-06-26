@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" width="1000" height="640">
+  <rect width="1000" height="640" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .h { font-size: 14px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="44" class="title">TCP Sliding Window and Window Advertisement</text>
+  <text x="40" y="66" class="sub">SND.UNA / SND.NXT advance as data flows; RCV.WND grows as the application reads the buffer</text>
+
+  <!-- Sender window bar -->
+  <g transform="translate(40,110)">
+    <text x="0" y="0" class="h">Sender window</text>
+    <rect x="0" y="14" width="160" height="40" fill="#F1E8FF" stroke="#2A1A2E"/>
+    <text x="80" y="38" text-anchor="middle" class="mono">sent (acked)</text>
+
+    <rect x="160" y="14" width="220" height="40" fill="#FFE9C8" stroke="#E2557A" stroke-width="2"/>
+    <text x="270" y="38" text-anchor="middle" class="mono">sent (unacked) -- in flight</text>
+
+    <rect x="380" y="14" width="280" height="40" fill="#FFF0F4" stroke="#E2557A"/>
+    <text x="520" y="38" text-anchor="middle" class="mono">usable window (may send)</text>
+
+    <rect x="660" y="14" width="200" height="40" fill="#fff" stroke="#2A1A2E"/>
+    <text x="760" y="38" text-anchor="middle" class="mono">not yet permitted</text>
+
+    <line x1="160" y1="60" x2="160" y2="78" stroke="#2A1A2E"/>
+    <text x="160" y="92" text-anchor="middle" class="label accent">SND.UNA</text>
+
+    <line x1="380" y1="60" x2="380" y2="78" stroke="#E2557A"/>
+    <text x="380" y="92" text-anchor="middle" class="label accent">SND.NXT</text>
+
+    <line x1="660" y1="60" x2="660" y2="78" stroke="#2A1A2E"/>
+    <text x="660" y="92" text-anchor="middle" class="label">SND.UNA + SND.WND</text>
+  </g>
+
+  <!-- Receiver window bar -->
+  <g transform="translate(40,230)">
+    <text x="0" y="0" class="h">Receiver window</text>
+    <rect x="0" y="14" width="200" height="40" fill="#F1E8FF" stroke="#2A1A2E"/>
+    <text x="100" y="38" text-anchor="middle" class="mono">received, read by app</text>
+
+    <rect x="200" y="14" width="180" height="40" fill="#FFE9C8" stroke="#E2557A" stroke-width="2"/>
+    <text x="290" y="38" text-anchor="middle" class="mono">received, not read</text>
+
+    <rect x="380" y="14" width="240" height="40" fill="#FFF0F4" stroke="#E2557A"/>
+    <text x="500" y="38" text-anchor="middle" class="mono">RCV.WND -- free buffer</text>
+
+    <rect x="620" y="14" width="240" height="40" fill="#fff" stroke="#2A1A2E"/>
+    <text x="740" y="38" text-anchor="middle" class="mono">not yet delivered</text>
+
+    <line x1="200" y1="60" x2="200" y2="78" stroke="#2A1A2E"/>
+    <text x="200" y="92" text-anchor="middle" class="label accent">RCV.NXT (also ack number)</text>
+    <line x1="380" y1="60" x2="380" y2="78" stroke="#E2557A"/>
+    <text x="380" y="92" text-anchor="middle" class="label accent">RCV.NXT + RCV.WND</text>
+  </g>
+
+  <!-- BD product table -->
+  <g transform="translate(40,360)">
+    <text x="0" y="0" class="h">Bandwidth-delay product (the pipe size)</text>
+    <rect x="0" y="14" width="920" height="130" rx="10" fill="#fff" stroke="#2A1A2E"/>
+    <g transform="translate(0,14)" class="mono">
+      <text x="14" y="22" class="label">Path</text>
+      <text x="280" y="22" class="label">Bandwidth</text>
+      <text x="420" y="22" class="label">RTT</text>
+      <text x="500" y="22" class="label">Bytes in pipe</text>
+      <text x="680" y="22" class="label">Fits legacy 64 KB?</text>
+
+      <text x="14" y="46">Home FTTH 100 Mbps</text>
+      <text x="280" y="46">100 Mbps</text>
+      <text x="420" y="46">10 ms</text>
+      <text x="500" y="46">125,000</text>
+      <text x="680" y="46">no</text>
+
+      <text x="14" y="68">Cross-country 1 Gbps</text>
+      <text x="280" y="68">1 Gbps</text>
+      <text x="420" y="68">40 ms</text>
+      <text x="500" y="68">5,000,000</text>
+      <text x="680" y="68">no -- needs Window Scale</text>
+
+      <text x="14" y="90">Geostationary 50 Mbps</text>
+      <text x="280" y="90">50 Mbps</text>
+      <text x="420" y="90">540 ms</text>
+      <text x="500" y="90">3,375,000</text>
+      <text x="680" y="90">no -- needs Window Scale</text>
+
+      <text x="14" y="112">Wi-Fi 600 Mbps</text>
+      <text x="280" y="112">600 Mbps</text>
+      <text x="420" y="112">5 ms</text>
+      <text x="500" y="112">375,000</text>
+      <text x="680" y="112">no</text>
+    </g>
+  </g>
+
+  <!-- Window Scale strip -->
+  <g transform="translate(40,510)">
+    <rect x="0" y="0" width="920" height="44" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+    <text x="14" y="28" class="mono accent">Window Scale 0 = 64 KB | 3 = 512 KB | 7 = 8 MB | 14 = 1 GB  -- negotiated during the 3-way handshake</text>
+  </g>
+
+  <!-- Zero-window panel -->
+  <g transform="translate(40,580)">
+    <rect x="0" y="0" width="920" height="50" rx="10" fill="#fff" stroke="#2A1A2E"/>
+    <text x="14" y="22" class="h">Zero-window deadlock: receiver sets WIN=0, the update is lost. Sender waits forever --</text>
+    <text x="14" y="44" class="label">unless the persistence timer fires and a 1-byte window probe forces the receiver to re-announce the window. Schedule: 5 s, 10 s, 20 s, 40 s, ...</text>
+  </g>
+</svg>

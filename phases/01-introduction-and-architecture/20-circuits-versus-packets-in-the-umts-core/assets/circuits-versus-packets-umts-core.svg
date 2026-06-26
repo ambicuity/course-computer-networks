@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540">
+  <rect width="880" height="540" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; }
+    .berry { fill: #E2557A; }
+    .lbl { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #2A1A2E; }
+    .ttl { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 17px; font-weight: 700; fill: #2A1A2E; }
+    .sub { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #2A1A2E; opacity: 0.75; }
+    .tag { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #E2557A; font-weight: 700; }
+    .iface { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 10px; fill: #E2557A; }
+    .box { fill: #FFF7EC; stroke: #2A1A2E; stroke-width: 1.5; }
+    .circuit { fill: #FFF1F4; stroke: #E2557A; stroke-width: 1.5; }
+    .packet { fill: #EEF6FF; stroke: #2A1A2E; stroke-width: 1.5; }
+    .wire { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+    .cwire { stroke: #E2557A; stroke-width: 1.8; fill: none; }
+    .pwire { stroke: #2A1A2E; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+  </style>
+
+  <text x="30" y="34" class="ttl">UMTS Core Network — Circuit (Iu-CS) vs Packet (Iu-PS)</text>
+  <text x="30" y="52" class="sub">One radio access network, two cores behind the RNC. Voice reserves a slot; data shares a queue.</text>
+
+  <!-- Radio Access Network -->
+  <rect x="30" y="80" width="200" height="150" rx="8" fill="none" stroke="#2A1A2E" stroke-dasharray="4 3"/>
+  <text x="42" y="98" class="tag">RADIO ACCESS NETWORK</text>
+  <rect x="55" y="115" width="60" height="40" rx="6" class="box"/>
+  <text x="85" y="139" text-anchor="middle" class="lbl">Node B</text>
+  <rect x="145" y="115" width="60" height="40" rx="6" class="box"/>
+  <text x="175" y="139" text-anchor="middle" class="lbl">Node B</text>
+  <rect x="100" y="180" width="80" height="38" rx="6" class="box"/>
+  <text x="140" y="204" text-anchor="middle" class="lbl">RNC</text>
+  <line x1="85" y1="155" x2="120" y2="180" class="wire"/>
+  <line x1="175" y1="155" x2="160" y2="180" class="wire"/>
+  <text x="92" y="170" class="iface">Uu / Iub</text>
+
+  <!-- Mobile -->
+  <rect x="60" y="250" width="50" height="28" rx="6" class="box"/>
+  <text x="85" y="268" text-anchor="middle" class="lbl">UE</text>
+  <line x1="85" y1="250" x2="85" y2="155" class="wire"/>
+  <text x="115" y="240" class="iface">Uu (air)</text>
+
+  <!-- Fork from RNC -->
+  <line x1="140" y1="218" x2="140" y2="330" class="wire"/>
+  <line x1="140" y1="330" x2="300" y2="330" class="cwire"/>
+  <line x1="140" y1="330" x2="300" y2="420" class="pwire"/>
+  <text x="200" y="324" class="iface">Iu-CS (circuit)</text>
+  <text x="200" y="438" class="iface">Iu-PS (packet)</text>
+
+  <!-- Circuit core -->
+  <rect x="30" y="300" width="610" height="100" rx="8" fill="none" stroke="#E2557A" stroke-dasharray="4 3"/>
+  <text x="42" y="318" class="tag">CIRCUIT-SWITCHED CORE</text>
+  <rect x="300" y="315" width="70" height="40" rx="6" class="circuit"/>
+  <text x="335" y="339" text-anchor="middle" class="lbl">MSC/GMSC</text>
+  <rect x="410" y="315" width="70" height="40" rx="6" class="circuit"/>
+  <text x="445" y="339" text-anchor="middle" class="lbl">MGW</text>
+  <rect x="520" y="315" width="70" height="40" rx="6" class="circuit"/>
+  <text x="555" y="339" text-anchor="middle" class="lbl">PSTN</text>
+  <line x1="370" y1="335" x2="410" y2="335" class="cwire"/>
+  <line x1="480" y1="335" x2="520" y2="335" class="cwire"/>
+  <text x="380" y="328" class="iface">64 kbps slot</text>
+  <text x="492" y="328" class="iface">PCM</text>
+  <text x="300" y="375" class="sub">reserve-or-reject (busy signal); aborts on path failure</text>
+
+  <!-- Packet core -->
+  <rect x="30" y="408" width="610" height="110" rx="8" fill="none" stroke="#2A1A2E" stroke-dasharray="4 3"/>
+  <text x="42" y="426" class="tag">PACKET-SWITCHED CORE</text>
+  <rect x="300" y="440" width="70" height="40" rx="6" class="packet"/>
+  <text x="335" y="464" text-anchor="middle" class="lbl">SGSN</text>
+  <rect x="430" y="440" width="70" height="40" rx="6" class="packet"/>
+  <text x="465" y="464" text-anchor="middle" class="lbl">GGSN</text>
+  <rect x="560" y="440" width="70" height="40" rx="6" class="packet"/>
+  <text x="595" y="464" text-anchor="middle" class="lbl">Internet</text>
+  <line x1="370" y1="460" x2="430" y2="460" class="pwire"/>
+  <line x1="500" y1="460" x2="560" y2="460" class="pwire"/>
+  <text x="376" y="453" class="iface">Gn (GTP-U UDP/2152)</text>
+  <text x="510" y="453" class="iface">Gi</text>
+  <text x="300" y="505" class="sub">best-effort queue; drops under load; reroutes around failure</text>
+
+  <!-- HSS shared -->
+  <rect x="700" y="370" width="140" height="44" rx="6" class="box"/>
+  <text x="770" y="394" text-anchor="middle" class="lbl">HSS (MAP)</text>
+  <line x1="700" y1="385" x2="370" y2="335" class="wire"/>
+  <line x1="700" y1="395" x2="370" y2="460" class="wire"/>
+  <text x="640" y="362" class="iface">IMSI lookup</text>
+  <text x="700" y="428" class="sub">subscriber + serving node</text>
+
+  <!-- Handover note -->
+  <rect x="670" y="80" width="180" height="92" rx="6" fill="none" stroke="#2A1A2E"/>
+  <text x="682" y="100" class="tag">HANDOVER</text>
+  <text x="682" y="118" class="lbl">soft: 2 Node Bs at once</text>
+  <text x="682" y="135" class="lbl">     (CDMA, 0 gap)</text>
+  <text x="682" y="153" class="lbl">hard: break-before-make</text>
+  <text x="682" y="168" class="lbl">     (gap = break time)</text>
+</svg>

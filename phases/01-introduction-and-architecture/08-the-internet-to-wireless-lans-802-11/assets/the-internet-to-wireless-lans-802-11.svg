@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 600" width="860" height="600">
+  <rect width="860" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5566; }
+    .lbl { font-size: 12px; }
+    .mono { font-family: monospace; font-size: 12px; }
+    .berry { fill: #E2557A; }
+    .stroke { stroke: #2A1A2E; fill: none; }
+    .berryline { stroke: #E2557A; fill: none; }
+  </style>
+
+  <text x="40" y="44" class="title">802.11 DCF: hidden terminal &amp; CSMA/CA timing</text>
+  <text x="40" y="64" class="sub">Why "full signal bars" can still mean collapsed throughput</text>
+
+  <!-- ===== Top panel: hidden terminal topology ===== -->
+  <text x="40" y="98" class="lbl" font-weight="700">Hidden terminals (A and C cannot hear each other)</text>
+
+  <!-- AP -->
+  <rect x="395" y="150" width="70" height="40" rx="6" class="stroke" stroke-width="2" fill="#FFE7D0"/>
+  <text x="430" y="175" text-anchor="middle" class="lbl" font-weight="700">AP (B)</text>
+  <text x="430" y="208" text-anchor="middle" class="sub">BSSID / relays every frame</text>
+
+  <!-- Station A -->
+  <circle cx="150" cy="170" r="26" class="stroke" stroke-width="2" fill="#fff"/>
+  <text x="150" y="175" text-anchor="middle" class="lbl" font-weight="700">A</text>
+  <!-- Station C -->
+  <circle cx="710" cy="170" r="26" class="stroke" stroke-width="2" fill="#fff"/>
+  <text x="710" y="175" text-anchor="middle" class="lbl" font-weight="700">C</text>
+
+  <!-- radio ranges -->
+  <ellipse cx="290" cy="170" rx="200" ry="60" class="stroke" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+  <ellipse cx="570" cy="170" rx="200" ry="60" class="stroke" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+
+  <!-- links A-B and C-B (both reach AP) -->
+  <line x1="176" y1="170" x2="395" y2="170" class="berryline" stroke-width="2"/>
+  <line x1="465" y1="170" x2="684" y2="170" class="berryline" stroke-width="2"/>
+
+  <!-- A cannot hear C -->
+  <line x1="180" y1="135" x2="680" y2="135" class="stroke" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.6"/>
+  <text x="430" y="128" text-anchor="middle" class="sub">A and C are mutually out of range &#8594; no carrier sense</text>
+
+  <!-- collision burst at AP -->
+  <path d="M430 192 l-6 14 l5 -3 l-3 12 l12 -16 l-6 3 z" class="berry" stroke="#E2557A"/>
+  <text x="455" y="230" class="berry lbl" font-weight="700">collisions occur AT the AP</text>
+
+  <!-- ===== Bottom panel: DCF timing diagram ===== -->
+  <line x1="40" y1="270" x2="820" y2="270" class="stroke" stroke-width="0.5" opacity="0.4"/>
+  <text x="40" y="300" class="lbl" font-weight="700">DCF channel access timing (shorter IFS = higher priority)</text>
+
+  <!-- timeline axis -->
+  <line x1="60" y1="430" x2="820" y2="430" class="stroke" stroke-width="2"/>
+  <polygon points="820,430 810,425 810,435" fill="#2A1A2E"/>
+  <text x="800" y="452" class="sub">time &#8594;</text>
+
+  <!-- busy medium block -->
+  <rect x="60" y="400" width="120" height="30" fill="#2A1A2E" opacity="0.85"/>
+  <text x="120" y="420" text-anchor="middle" class="lbl" fill="#FFF7EC">busy</text>
+
+  <!-- DIFS gap -->
+  <line x1="180" y1="395" x2="180" y2="435" class="stroke" stroke-width="1"/>
+  <line x1="270" y1="395" x2="270" y2="435" class="stroke" stroke-width="1"/>
+  <text x="225" y="390" text-anchor="middle" class="sub">DIFS 34&#181;s</text>
+  <path d="M180 412 H270" class="stroke" stroke-width="1"/>
+
+  <!-- backoff slots -->
+  <g>
+    <rect x="270" y="402" width="18" height="26" class="stroke" stroke-width="1" fill="#FFE7D0"/>
+    <rect x="290" y="402" width="18" height="26" class="stroke" stroke-width="1" fill="#FFE7D0"/>
+    <rect x="310" y="402" width="18" height="26" class="berryline" stroke-width="2" fill="#fbd6e0"/>
+    <rect x="330" y="402" width="18" height="26" class="stroke" stroke-width="1" fill="#FFE7D0"/>
+  </g>
+  <text x="309" y="390" text-anchor="middle" class="sub">backoff slots (9&#181;s each)</text>
+  <text x="319" y="468" text-anchor="middle" class="berry sub">counter hits 0</text>
+
+  <!-- DATA frame -->
+  <rect x="348" y="400" width="210" height="30" class="berry" opacity="0.9"/>
+  <text x="453" y="420" text-anchor="middle" class="lbl" fill="#FFF7EC" font-weight="700">DATA frame (sets NAV/Duration)</text>
+
+  <!-- SIFS gap -->
+  <line x1="558" y1="395" x2="558" y2="435" class="stroke" stroke-width="1"/>
+  <line x1="588" y1="395" x2="588" y2="435" class="stroke" stroke-width="1"/>
+  <text x="573" y="390" text-anchor="middle" class="sub">SIFS 16&#181;s</text>
+
+  <!-- ACK -->
+  <rect x="588" y="402" width="70" height="26" class="stroke" stroke-width="2" fill="#FFE7D0"/>
+  <text x="623" y="420" text-anchor="middle" class="lbl" font-weight="700">ACK</text>
+
+  <!-- caption row -->
+  <text x="60" y="500" class="mono">CW: 15 &#8594; 31 &#8594; 63 &#8594; ... &#8594; 1023   (doubles on every missed ACK)</text>
+  <text x="60" y="522" class="lbl">No ACK after SIFS &#8594; assume collision &#8594; double CW, re-arm backoff, set Retry bit.</text>
+  <text x="60" y="544" class="lbl">RTS/CTS fix: CTS from the AP carries a Duration; hidden C copies it into its</text>
+  <text x="60" y="562" class="lbl"><tspan class="berry" font-weight="700">NAV</tspan> (virtual carrier sense) and defers &#8212; even though it never heard A.</text>
+  <text x="60" y="586" class="mono sub">Evidence in a capture: wlan.fc.retry==1, rising wlan.duration, channel utilization</text>
+</svg>

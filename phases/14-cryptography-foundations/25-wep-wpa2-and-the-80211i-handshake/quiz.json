@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why is WEP considered broken even though it uses the RC4 cipher, which is not itself cryptographically weak?",
+    "options": [
+      "A. Because RC4 was reverse-engineered by the NSA and a backdoor was inserted into the IEEE 802.11 standard",
+      "B. Because the per-packet keying material is just a 24-bit IV concatenated to a 40/104-bit shared key, so the 24-bit IV space cycles in hours, and the same (IV, key) pair always produces the same RC4 keystream",
+      "C. Because WEP uses DES instead of AES, and DES has been broken by exhaustive key search since 1998",
+      "D. Because WEP does not include any integrity check, so any bit-flip in transit is undetectable"
+    ],
+    "answer": 1,
+    "explanation": "The RC4 cipher itself is not the problem (RC4 is used in many still-secure systems, e.g., WEP's modern replacements). The problem is the *keying*: a 24-bit IV concatenated to a 40 or 104-bit shared key yields a small effective per-packet key space, and the same (IV, key) pair produces the same keystream on every use. The 24-bit IV space cycles in about 5 hours at 11 Mbps, after which keystreams are reused -- a textbook many-time-pad situation. Fluhrer, Mantin, and Shamir (2001) further showed that for 'weak' IVs, the first RC4 keystream bytes leak information about the secret key. Stubblefield's 2002 implementation recovered WEP keys in about a week of passive capture; modern tools break 104-bit WEP in under a minute."
+  },
+  {
+    "question": "In the 802.11i 4-Way Handshake, which key is used to compute the MIC over EAPOL-Key Message 2, and what does that MIC actually prove?",
+    "options": [
+      "A. The Temporal Key (TK) -- proves the station has the right AES-CCM key for data frames",
+      "B. The PTK directly -- proves both peers know the passphrase and have agreed on the same PTK",
+      "C. The Key Confirmation Key (KCK), which is the first 16 bytes of the PTK -- proves the station knows the PMK and has bound its SNonce to this session",
+      "D. The PMK -- proves the passphrase matches and is sent in the clear inside the MIC field"
+    ],
+    "answer": 2,
+    "explanation": "The KCK (Key Confirmation Key) is the first 16 bytes of the PTK. The station computes MIC = HMAC-SHA-1(KCK, EAPOL-Key-Message-2-body) and embeds it in Message 2. The AP, which has independently derived the same PTK from the PMK + ANonce + SNonce + MACs, recomputes the MIC and accepts the message only if it matches. Because the KCK depends on the PMK (via the PRF), a wrong PSK yields a different KCK and the MIC fails -- so the MIC proves the station knows the PMK without ever sending the PMK on the air. Because the KCK also depends on the SNonce, the MIC binds the station's SNonce to this specific session, preventing an attacker from reusing a captured Message 2 in a later handshake."
+  },
+  {
+    "question": "What makes the 2017 KRACK attack (CVE-2017-13082) possible against otherwise correctly configured WPA2 networks?",
+    "options": [
+      "A. KRACK exploits a weakness in the AES-CCMP cipher itself, allowing an attacker to recover the TK from a small number of captured frames",
+      "B. KRACK exploits the fact that the AP installs the TK on receipt of EAPOL-Key Message 3 (not Message 4), and a replayed Message 1 with a fresh Message 2/3/4 forces the TK to be reinstalled, resetting the transmit packet number and allowing nonce reuse",
+      "C. KRACK exploits a weak PSK derivation in PBKDF2 that makes the PMK recoverable with a dictionary attack in seconds",
+      "D. KRACK exploits the GTK being wrapped with the KEK using AES-Key-Wrap, which has a known plaintext attack"
+    ],
+    "answer": 1,
+    "explanation": "Per 802.11i, the AP installs the TK on the data path after sending Message 3 -- it does not wait for Message 4 (the confirmation from the station). A network attacker who can replay Message 1 can force a fresh 4-Way Handshake; the station will retransmit Message 2/4, the AP will accept and process Message 3 again, and the TK will be reinstalled on the AP side. The reinstall resets the transmit packet number used to construct the CCMP nonce, so the same TK is now used under reused nonces -- and AES-CCM with reused (key, nonce) pairs is catastrophically broken (the keystream XOR and the integrity MAC both leak). Vanhoef's 2017 paper demonstrated this against nearly every WPA2 implementation shipped before October 2017. The fix is to defer TK installation until Message 4 is received, or to enforce monotonic packet numbers across reinstalls."
+  }
+]

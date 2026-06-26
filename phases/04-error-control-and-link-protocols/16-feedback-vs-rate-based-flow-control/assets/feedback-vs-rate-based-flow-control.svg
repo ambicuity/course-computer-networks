@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">Feedback-based vs Rate-based Flow Control</text>
+  <text x="450" y="54" text-anchor="middle" font-size="12" fill="#2A1A2E" opacity="0.7">A windowed sender blocks on credit (left); a token-bucket sender blocks on tokens (right).</text>
+
+  <!-- Divider -->
+  <line x1="450" y1="72" x2="450" y2="540" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4 4" opacity="0.35"/>
+
+  <!-- ============ LEFT: Sliding window timing ============ -->
+  <text x="225" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">Feedback-based — Sliding Window (N=4)</text>
+
+  <!-- Sender / receiver lifelines -->
+  <text x="80" y="118" font-size="12" font-weight="600" fill="#2A1A2E">Sender</text>
+  <line x1="80" y1="126" x2="80" y2="500" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="370" y="118" font-size="12" font-weight="600" fill="#2A1A2E">Receiver</text>
+  <line x1="370" y1="126" x2="370" y2="500" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- Data frames 0..3 sent (window full) -->
+  <g font-size="11" fill="#2A1A2E">
+    <line x1="80" y1="150" x2="370" y2="170" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="225" y="156" text-anchor="middle">seq=0</text>
+    <line x1="80" y1="180" x2="370" y2="200" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="225" y="186" text-anchor="middle">seq=1</text>
+    <line x1="80" y1="210" x2="370" y2="230" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="225" y="216" text-anchor="middle">seq=2</text>
+    <line x1="80" y1="240" x2="370" y2="260" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="225" y="246" text-anchor="middle">seq=3</text>
+  </g>
+
+  <!-- Window-full block marker -->
+  <rect x="62" y="266" width="36" height="44" fill="#E2557A" opacity="0.18" stroke="#E2557A" stroke-width="1"/>
+  <text x="80" y="292" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="700">BLOCK</text>
+  <text x="80" y="324" text-anchor="middle" font-size="9" fill="#E2557A">credit=0</text>
+
+  <!-- ACK returns (cumulative) -->
+  <g font-size="11" fill="#E2557A">
+    <line x1="370" y1="285" x2="80" y2="305" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <text x="225" y="300" text-anchor="middle">ACK (frame_expected=4)</text>
+  </g>
+
+  <!-- Window slides, sender resumes -->
+  <text x="225" y="336" text-anchor="middle" font-size="10" fill="#2A1A2E" opacity="0.7">credit restored → window slides</text>
+  <g font-size="11" fill="#2A1A2E">
+    <line x1="80" y1="350" x2="370" y2="370" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="225" y="356" text-anchor="middle">seq=4</text>
+  </g>
+
+  <!-- Lost data frame + timer -->
+  <line x1="80" y1="390" x2="225" y2="408" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.4"/>
+  <text x="150" y="402" font-size="10" fill="#E2557A">seq=5 LOST</text>
+  <text x="80" y="430" text-anchor="middle" font-size="9" fill="#E2557A">timer fires → retransmit</text>
+  <line x1="80" y1="448" x2="370" y2="468" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="225" y="454" text-anchor="middle" font-size="11" fill="#E2557A">seq=5 (retransmit)</text>
+  <line x1="370" y1="485" x2="80" y2="500" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="225" y="496" text-anchor="middle" font-size="10" fill="#E2557A">ACK=6 (dup suppressed)</text>
+
+  <!-- ============ RIGHT: Token bucket ============ -->
+  <text x="675" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#E2557A">Rate-based — Token Bucket (R, C)</text>
+
+  <!-- Bucket -->
+  <path d="M 600 150 L 560 270 L 790 270 L 750 150 Z" fill="none" stroke="#2A1A2E" stroke-width="1.8"/>
+  <!-- Token fill level -->
+  <path d="M 605 200 L 572 268 L 778 268 L 745 200 Z" fill="#E2557A" opacity="0.18"/>
+  <text x="675" y="172" text-anchor="middle" font-size="11" fill="#2A1A2E">bucket capacity C</text>
+  <text x="675" y="225" text-anchor="middle" font-size="11" fill="#E2557A" font-weight="600">tokens</text>
+
+  <!-- Token rate input -->
+  <line x1="675" y1="118" x2="675" y2="148" stroke="#E2557A" stroke-width="2" marker-end="url(#arrowR)"/>
+  <text x="688" y="134" font-size="11" fill="#E2557A">R tokens/s</text>
+
+  <!-- Output regulated -->
+  <line x1="675" y1="270" x2="675" y2="310" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrowK)"/>
+  <text x="688" y="294" font-size="11" fill="#2A1A2E">regulated ≤ R</text>
+
+  <!-- Producer burst input -->
+  <rect x="555" y="330" width="240" height="56" fill="none" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+  <text x="675" y="352" text-anchor="middle" font-size="11" fill="#2A1A2E">producer burst (peak line rate)</text>
+  <line x1="675" y1="388" x2="675" y2="408" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrowK)"/>
+  <text x="688" y="402" font-size="10" fill="#2A1A2E">offer</text>
+
+  <!-- Timing strip: offered vs sent -->
+  <text x="675" y="432" text-anchor="middle" font-size="12" font-weight="600" fill="#2A1A2E">Output over time</text>
+  <!-- axis -->
+  <line x1="540" y1="520" x2="810" y2="520" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="540" y1="448" x2="540" y2="520" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="533" y="452" text-anchor="end" font-size="9" fill="#2A1A2E">offered</text>
+  <text x="533" y="520" text-anchor="end" font-size="9" fill="#2A1A2E">0</text>
+
+  <!-- offered (bursty) bars -->
+  <g fill="#2A1A2E" opacity="0.35">
+    <rect x="548" y="490" width="14" height="30"/>
+    <rect x="566" y="490" width="14" height="30"/>
+    <rect x="584" y="490" width="14" height="30"/>
+    <rect x="602" y="455" width="14" height="65"/>
+    <rect x="620" y="490" width="14" height="30"/>
+    <rect x="638" y="490" width="14" height="30"/>
+  </g>
+  <!-- sent (capped at R) line -->
+  <polyline points="555,498 573,498 591,498 609,498 627,498 645,498"
+            fill="none" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="740" y="498" font-size="10" fill="#E2557A">sent = R</text>
+  <text x="609" y="448" font-size="9" fill="#2A1A2E" text-anchor="middle">burst clipped to R by bucket</text>
+
+  <defs>
+    <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+    <marker id="arrowK" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

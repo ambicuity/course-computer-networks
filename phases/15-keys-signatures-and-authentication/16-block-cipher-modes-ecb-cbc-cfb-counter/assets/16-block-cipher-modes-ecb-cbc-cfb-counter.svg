@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .h { font-size: 16px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .dim { fill: #6b5560; font-size: 11px; }
+    .box { fill: #fff; stroke: #2A1A2E; stroke-width: 1.5; }
+    .fbox { fill: #FFF0F4; stroke: #E2557A; stroke-width: 1.5; }
+  </style>
+
+  <text x="40" y="46" class="title">Block Cipher Modes of Operation</text>
+  <text x="40" y="68" class="sub">A block cipher is just a permutation. The mode chains permutations into a stream.</text>
+
+  <!-- ECB -->
+  <rect x="40" y="100" width="200" height="160" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="126" class="h">ECB</text>
+  <text x="60" y="146" class="mono">P0 -&gt; [E_K] -&gt; C0</text>
+  <text x="60" y="166" class="mono">P1 -&gt; [E_K] -&gt; C1</text>
+  <text x="60" y="186" class="mono">P2 -&gt; [E_K] -&gt; C2</text>
+  <text x="60" y="214" class="dim">Identical P =&gt; identical C.</text>
+  <text x="60" y="232" class="dim">Structure leaks (Tux).</text>
+  <text x="60" y="250" class="dim accent">Never use for messages.</text>
+
+  <!-- CBC -->
+  <rect x="260" y="100" width="200" height="160" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="280" y="126" class="h">CBC</text>
+  <text x="280" y="146" class="mono">C0 = E_K(P0 XOR IV)</text>
+  <text x="280" y="166" class="mono">C1 = E_K(P1 XOR C0)</text>
+  <text x="280" y="186" class="mono">C2 = E_K(P2 XOR C1)</text>
+  <text x="280" y="214" class="dim">Random IV per message.</text>
+  <text x="280" y="232" class="dim">Bit-flip attacks possible.</text>
+  <text x="280" y="250" class="dim accent">Use HMAC for integrity.</text>
+
+  <!-- CTR -->
+  <rect x="480" y="100" width="200" height="160" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="500" y="126" class="h accent">CTR</text>
+  <text x="500" y="146" class="mono">Ks0 = E_K(IV+0)</text>
+  <text x="500" y="166" class="mono">Ks1 = E_K(IV+1)</text>
+  <text x="500" y="186" class="mono">C_i = P_i XOR Ks_i</text>
+  <text x="500" y="214" class="dim">Random access by index.</text>
+  <text x="500" y="232" class="dim">Nonce MUST be unique.</text>
+  <text x="500" y="250" class="dim accent">Basis for AES-GCM.</text>
+
+  <!-- CFB -->
+  <rect x="700" y="100" width="200" height="160" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="720" y="126" class="h">CFB-8</text>
+  <text x="720" y="146" class="mono">O = E_K(shift)</text>
+  <text x="720" y="166" class="mono">C_i = P_i XOR O[0]</text>
+  <text x="720" y="186" class="mono">shift &lt;&lt;= C_i</text>
+  <text x="720" y="214" class="dim">Self-synchronizing stream.</text>
+  <text x="720" y="232" class="dim">1-bit error -&gt; n bytes bad.</text>
+  <text x="720" y="250" class="dim">Rarely used today.</text>
+
+  <!-- Attacks panel -->
+  <rect x="40" y="290" width="400" height="240" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="60" y="316" class="h accent">Attacks this lesson demonstrates</text>
+  <text x="60" y="346" class="mono">ECB copy-paste:</text>
+  <text x="60" y="364" class="dim">  Swap ciphertext block 12 (Kim's bonus)</text>
+  <text x="60" y="380" class="dim">  with block 4 (Leslie's bonus).</text>
+  <text x="60" y="408" class="mono">CBC bit-flip:</text>
+  <text x="60" y="426" class="dim">  XOR delta into C_{i-1} -&gt; P_i flips by delta.</text>
+  <text x="60" y="450" class="dim">  Defeated by authenticated encryption (GCM).</text>
+  <text x="60" y="478" class="mono">CTR nonce reuse:</text>
+  <text x="60" y="496" class="dim">  C_1 XOR C_2 = P_1 XOR P_2 (crib-drag).</text>
+  <text x="60" y="514" class="dim accent">Every modern protocol forbids ECB and mandates GCM.</text>
+
+  <!-- Selection panel -->
+  <rect x="460" y="290" width="440" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="480" y="316" class="h">Mode selection cheat sheet</text>
+  <text x="480" y="346" class="dim">Disk encryption:    AES-XTS or AES-CTR+ESSIV</text>
+  <text x="480" y="368" class="dim">TLS 1.3 record:     AES-GCM or ChaCha20-Poly1305</text>
+  <text x="480" y="390" class="dim">IPsec ESP:          AES-GCM with 12-byte nonce</text>
+  <text x="480" y="412" class="dim">SSH binary packet:  ChaCha20-Poly1305 (default)</text>
+  <text x="480" y="434" class="dim">Streaming (legacy): AES-CFB-8 for self-sync</text>
+  <text x="480" y="476" class="mono accent">Rule: never ECB; always authenticated for messages.</text>
+  <text x="480" y="498" class="dim">Random IV for CBC; unique nonce for CTR.</text>
+  <text x="480" y="516" class="dim">MAC over ciphertext (or AEAD) for integrity.</text>
+</svg>

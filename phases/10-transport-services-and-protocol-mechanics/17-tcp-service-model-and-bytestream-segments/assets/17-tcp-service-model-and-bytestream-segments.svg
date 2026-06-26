@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <rect width="960" height="540" fill="#FFF7EC"/>
+  <style>text{font-family:Inter,sans-serif;fill:#2A1A2E}.t{font-size:22px;font-weight:700}.s{font-size:12px;fill:#6b5560}.h{font-size:13px;font-weight:700}.m{font-family:monospace;font-size:12px}.a{fill:#E2557A}.l{font-size:11px;fill:#6b5560}</style>
+  <text x="40" y="34" class="t">TCP Service Model and Segments</text>
+  <text x="40" y="52" class="s">byte stream, 5-tuple, 20-byte header + MSS-sized data</text>
+
+  <rect x="40" y="70" width="220" h="140" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="150" y="90" text-anchor="middle" class="h">Application</text>
+  <text x="150" y="106" text-anchor="middle" class="l">four write(512) calls</text>
+  <rect x="60" y="114" width="180" h="18" fill="#FFF0F4" stroke="#E2557A"/><text x="150" y="127" text-anchor="middle" class="m">write(512) W1</text>
+  <rect x="60" y="136" width="180" h="18" fill="#FFF0F4" stroke="#E2557A"/><text x="150" y="149" text-anchor="middle" class="m">write(512) W2</text>
+  <rect x="60" y="158" width="180" h="18" fill="#FFF0F4" stroke="#E2557A"/><text x="150" y="171" text-anchor="middle" class="m">write(512) W3</text>
+  <rect x="60" y="180" width="180" h="18" fill="#FFF0F4" stroke="#E2557A"/><text x="150" y="193" text-anchor="middle" class="m">write(512) W4</text>
+
+  <rect x="290" y="70" width="220" h="140" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="400" y="90" text-anchor="middle" class="h">TCP Send Buffer</text>
+  <text x="400" y="106" text-anchor="middle" class="l">coalesced byte stream</text>
+  <rect x="310" y="116" width="180" h="32" rx="3" fill="#F1E8FF" stroke="#2A1A2E"/>
+  <text x="400" y="130" text-anchor="middle" class="m">W1+W2+W3+W4</text>
+  <text x="400" y="144" text-anchor="middle" class="l">2,048 contiguous bytes</text>
+  <text x="400" y="170" text-anchor="middle" class="m">SEQ = ISN+1 ... ISN+2048</text>
+  <text x="400" y="188" text-anchor="middle" class="l">no record boundaries</text>
+
+  <rect x="540" y="70" width="380" h="140" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="730" y="90" text-anchor="middle" class="h">On the Wire (MSS=1460)</text>
+  <rect x="560" y="106" width="340" h="32" rx="3" fill="#FFF0F4" stroke="#E2557A" stroke-width="2"/>
+  <text x="730" y="122" text-anchor="middle" class="m">SEG1: SEQ=ISN+1, len=1460</text>
+  <text x="730" y="134" text-anchor="middle" class="l">[TCP 20 | data 1460 | IP 20 | Eth 14]</text>
+  <rect x="560" y="146" width="340" h="32" rx="3" fill="#FFF0F4" stroke="#E2557A" stroke-width="2"/>
+  <text x="730" y="162" text-anchor="middle" class="m">SEG2: SEQ=ISN+1461, len=588</text>
+  <text x="730" y="174" text-anchor="middle" class="l">[TCP 20 | data 588  | IP 20 | Eth 14]</text>
+  <text x="730" y="196" text-anchor="middle" class="l">2 segments carry the 2,048 bytes</text>
+
+  <rect x="40" y="240" width="440" h="160" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="60" y="260" class="h">The 5-Tuple (RFC 793)</text>
+  <text x="60" y="278" class="m">{proto=TCP, src IP, src port, dst IP, dst port}</text>
+  <text x="60" y="298" class="l">Unique per connection; remote IP/port differs.</text>
+  <text x="60" y="312" class="l">Same listening socket can host many connections.</text>
+  <rect x="60" y="324" width="400" h="18" fill="#F1E8FF" stroke="#2A1A2E"/><text x="72" y="336" class="m">TCP 10.0.1.10:80 &lt;-&gt; 10.0.0.2:49152 (A)</text>
+  <rect x="60" y="346" width="400" h="18" fill="#F1E8FF" stroke="#2A1A2E"/><text x="72" y="358" class="m">TCP 10.0.1.10:80 &lt;-&gt; 10.0.0.3:62011 (B)</text>
+  <rect x="60" y="368" width="400" h="18" fill="#F1E8FF" stroke="#2A1A2E"/><text x="72" y="380" class="m">TCP 10.0.1.10:22 &lt;-&gt; 10.0.0.4:51000 (ssh)</text>
+
+  <rect x="510" y="240" width="410" h="160" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="530" y="260" class="h">20-Byte TCP Header (fixed part)</text>
+  <rect x="530" y="270" width="60" h="20" fill="#FFF0F4" stroke="#E2557A"/><rect x="592" y="270" width="60" h="20" fill="#FFF0F4" stroke="#E2557A"/><rect x="654" y="270" width="140" h="20" fill="#F1E8FF" stroke="#2A1A2E"/><rect x="796" y="270" width="120" h="20" fill="#F1E8FF" stroke="#2A1A2E"/>
+  <rect x="530" y="292" width="60" h="20" fill="#FFF0F4" stroke="#E2557A"/><rect x="592" y="292" width="60" h="20" fill="#FFF0F4" stroke="#E2557A"/><rect x="654" y="292" width="100" h="20" fill="#F1E8FF" stroke="#2A1A2E"/><rect x="756" y="292" width="80" h="20" fill="#F1E8FF" stroke="#2A1A2E"/><rect x="838" y="292" width="78" h="20" fill="#F1E8FF" stroke="#2A1A2E"/>
+  <rect x="530" y="314" width="386" h="20" fill="#FFF0F4" stroke="#E2557A"/>
+  <text x="560" y="284" text-anchor="middle" class="m">SP(2)</text><text x="622" y="284" text-anchor="middle" class="m">DP(2)</text><text x="724" y="284" text-anchor="middle" class="m">SEQ (4)</text><text x="856" y="284" text-anchor="middle" class="m">ACK (4)</text>
+  <text x="560" y="306" text-anchor="middle" class="m">OFF</text><text x="622" y="306" text-anchor="middle" class="m">FLG</text><text x="704" y="306" text-anchor="middle" class="m">WIN(2)</text><text x="796" y="306" text-anchor="middle" class="m">SUM(2)</text><text x="877" y="306" text-anchor="middle" class="m">URG(2)</text>
+  <text x="723" y="328" text-anchor="middle" class="m">DATA (0..MSS bytes)</text>
+  <text x="530" y="354" class="l">Data offset = header length in 32-bit words (5..15).</text>
+  <text x="530" y="370" class="l">OFF=5 means 20 bytes. MSS = MTU-40 = 1460 on Ethernet.</text>
+
+  <rect x="40" y="430" width="880" h="36" rx="6" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="60" y="452" class="m a">Ethernet 14 | IPv4 20 | TCP 20 | DATA &lt;=1460 | total frame = 1514 B (jumbo up to 9 KB)</text>
+</svg>

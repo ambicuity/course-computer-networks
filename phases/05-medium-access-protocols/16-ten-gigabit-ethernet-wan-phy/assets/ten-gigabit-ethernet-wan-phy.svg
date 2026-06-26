@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="800" height="520" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="400" y="32" text-anchor="middle" font-size="22" font-weight="bold">10 Gigabit Ethernet — PHY family and 64B/66B</text>
+    <text x="400" y="56" text-anchor="middle" font-size="13" font-weight="bold">IEEE 802.3ae (2002) · 802.3an (2006) · Clause 49</text>
+  </g>
+
+  <!-- 64B/66B block diagram -->
+  <g>
+    <rect x="60" y="86" width="680" height="86" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+    <rect x="60" y="86" width="22" height="86" fill="#E2557A"/>
+    <text x="71" y="115" text-anchor="middle" fill="#FFF7EC" font-size="11" font-weight="bold">SYNC</text>
+    <text x="71" y="138" text-anchor="middle" fill="#FFF7EC" font-size="11" font-weight="bold">2b</text>
+    <rect x="82" y="86" width="658" height="86" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+    <g fill="#2A1A2E" font-size="11" font-weight="bold">
+      <text x="411" y="111" text-anchor="middle">64 PAYLOAD BITS (8 bytes)</text>
+      <text x="130" y="146" text-anchor="middle">B0</text>
+      <text x="174" y="146" text-anchor="middle">B1</text>
+      <text x="218" y="146" text-anchor="middle">B2</text>
+      <text x="262" y="146" text-anchor="middle">B3</text>
+      <text x="306" y="146" text-anchor="middle">B4</text>
+      <text x="350" y="146" text-anchor="middle">B5</text>
+      <text x="394" y="146" text-anchor="middle">B6</text>
+      <text x="438" y="146" text-anchor="middle">B7</text>
+      <text x="500" y="146" text-anchor="middle">SYNC = 01 → data block</text>
+      <text x="660" y="146" text-anchor="middle">SYNC = 10 → control</text>
+    </g>
+    <g font-size="10" fill="#2A1A2E">
+      <line x1="82" y1="86" x2="82" y2="172" stroke="#2A1A2E" stroke-width="1"/>
+      <line x1="170" y1="86" x2="170" y2="172" stroke="#2A1A2E" stroke-width="1"/>
+      <line x1="260" y1="86" x2="260" y2="172" stroke="#2A1A2E" stroke-width="1"/>
+      <line x1="350" y1="86" x2="350" y2="172" stroke="#2A1A2E" stroke-width="1"/>
+      <line x1="440" y1="86" x2="440" y2="172" stroke="#2A1A2E" stroke-width="1"/>
+      <line x1="530" y1="86" x2="530" y2="172" stroke="#2A1A2E" stroke-width="1"/>
+      <line x1="620" y1="86" x2="620" y2="172" stroke="#2A1A2E" stroke-width="1"/>
+    </g>
+    <text x="400" y="195" text-anchor="middle" fill="#2A1A2E" font-size="13" font-weight="bold">overhead = 2 / 64 = 3.125%  (vs 8B/10B at 25%)</text>
+  </g>
+
+  <!-- PHY family table -->
+  <g>
+    <text x="60" y="232" fill="#2A1A2E" font-size="14" font-weight="bold">10 GbE PHY family</text>
+    <rect x="60" y="240" width="680" height="240" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+    <g fill="#2A1A2E" font-size="11" font-weight="bold">
+      <text x="68" y="260">PHY</text>
+      <text x="190" y="260">Medium</text>
+      <text x="320" y="260">Reach</text>
+      <text x="400" y="260">λ</text>
+      <text x="460" y="260">Coding</text>
+      <text x="560" y="260">Use</text>
+    </g>
+    <line x1="60" y1="266" x2="740" y2="266" stroke="#2A1A2E" stroke-width="1"/>
+    <g fill="#2A1A2E" font-size="11">
+      <text x="68" y="284">10GBASE-SR</text>
+      <text x="190" y="284">MMF (OM3/OM4)</text>
+      <text x="320" y="284">300 / 400 m</text>
+      <text x="400" y="284">850 nm</text>
+      <text x="460" y="284">64B/66B</text>
+      <text x="560" y="284">DC, short-haul</text>
+
+      <text x="68" y="306">10GBASE-LR</text>
+      <text x="190" y="306">SMF (OS1/OS2)</text>
+      <text x="320" y="306">10 km</text>
+      <text x="400" y="306">1310 nm</text>
+      <text x="460" y="306">64B/66B</text>
+      <text x="560" y="306">Campus / metro</text>
+
+      <text x="68" y="328">10GBASE-ER</text>
+      <text x="190" y="328">SMF</text>
+      <text x="320" y="328">40 km</text>
+      <text x="400" y="328">1550 nm</text>
+      <text x="460" y="328">64B/66B</text>
+      <text x="560" y="328">WAN handoff</text>
+
+      <text x="68" y="350">10GBASE-LX4</text>
+      <text x="190" y="350">MMF / SMF</text>
+      <text x="320" y="350">300 m / 10 km</text>
+      <text x="400" y="350">1310 nm ×4</text>
+      <text x="460" y="350">8B/10B</text>
+      <text x="560" y="350">Legacy WDM</text>
+
+      <text x="68" y="372">10GBASE-T</text>
+      <text x="190" y="372">Cat6a UTP</text>
+      <text x="320" y="372">100 m</text>
+      <text x="400" y="372">n/a</text>
+      <text x="460" y="372">64B/66B+LDPC</text>
+      <text x="560" y="372">Reuse copper</text>
+
+      <text x="68" y="394">10GBASE-CX4</text>
+      <text x="190" y="394">Twinax</text>
+      <text x="320" y="394">15 m</text>
+      <text x="400" y="394">n/a</text>
+      <text x="460" y="394">8B/10B</text>
+      <text x="560" y="394">Rack-to-rack</text>
+
+      <text x="68" y="416">10GBASE-W</text>
+      <text x="190" y="416">SMF (WAN PHY)</text>
+      <text x="320" y="416">10 km</text>
+      <text x="400" y="416">1310 nm</text>
+      <text x="460" y="416">64B/66B</text>
+      <text x="560" y="416">OC-192 handoff</text>
+    </g>
+
+    <!-- No CSMA/CD badge -->
+    <rect x="60" y="430" width="680" height="46" fill="#E2557A" opacity="0.18"/>
+    <text x="68" y="450" fill="#2A1A2E" font-size="12" font-weight="bold">All 10GbE PHYs: full-duplex only — no CSMA/CD, no collision domain. Point-to-point.</text>
+    <text x="68" y="468" fill="#2A1A2E" font-size="11">10GBASE-T adds PAM-16 (16 voltage levels) at 800 Mbaud on each of 4 pairs + LDPC + echo cancellation.</text>
+  </g>
+
+  <text x="400" y="500" text-anchor="middle" fill="#2A1A2E" font-size="11">10 Gbps user data → 10.3125 Gbaud on 64B/66B  ·  autonegotiate down to 1G/100M for compatibility</text>
+</svg>

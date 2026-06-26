@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520">
+  <rect width="800" height="520" fill="#FFF7EC"/>
+  <style>
+    .ink{fill:#2A1A2E}
+    .berry{fill:#E2557A}
+    .line{stroke:#2A1A2E;stroke-width:1.5;fill:none}
+    .berryline{stroke:#E2557A;stroke-width:2;fill:none}
+    text{font-family:Inter,Helvetica,Arial,sans-serif;fill:#2A1A2E}
+    .mono{font-family:'SF Mono',Consolas,monospace;fill:#2A1A2E}
+    .small{font-size:12px}
+    .med{font-size:14px}
+    .big{font-size:16px;font-weight:600}
+    .title{font-size:18px;font-weight:700}
+  </style>
+  <text x="400" y="32" text-anchor="middle" class="title">The Encryption Model and Work Factor</text>
+
+  <!-- Encryption model -->
+  <text x="200" y="70" text-anchor="middle" class="big">C = E_K(P)  /  P = D_K(C)</text>
+  <rect x="40" y="90" width="120" height="40" rx="6" fill="#FFF7EC" class="line"/>
+  <text x="100" y="115" text-anchor="middle" class="med">Plaintext P</text>
+  <rect x="200" y="90" width="120" height="40" rx="6" fill="#E2557A"/>
+  <text x="260" y="115" text-anchor="middle" class="med" fill="#FFF7EC">E_K (encrypt)</text>
+  <rect x="360" y="90" width="120" height="40" rx="6" fill="#FFF7EC" class="line"/>
+  <text x="420" y="115" text-anchor="middle" class="med">Ciphertext C</text>
+  <rect x="520" y="90" width="120" height="40" rx="6" fill="#E2557A"/>
+  <text x="580" y="115" text-anchor="middle" class="med" fill="#FFF7EC">D_K (decrypt)</text>
+  <rect x="680" y="90" width="100" height="40" rx="6" fill="#FFF7EC" class="line"/>
+  <text x="730" y="115" text-anchor="middle" class="med">Plaintext P</text>
+  <path d="M160 110 L200 110" class="line" marker-end="url(#arrow)"/>
+  <path d="M320 110 L360 110" class="line" marker-end="url(#arrow)"/>
+  <path d="M480 110 L520 110" class="berryline" marker-end="url(#arrowb)"/>
+  <path d="M640 110 L680 110" class="line" marker-end="url(#arrow)"/>
+  <text x="260" y="160" text-anchor="middle" class="small">Key K (secret)</text>
+  <text x="580" y="160" text-anchor="middle" class="small">Key K (secret)</text>
+
+  <!-- Intruder -->
+  <rect x="340" y="185" width="120" height="34" rx="4" fill="#E2557A" opacity="0.18"/>
+  <text x="400" y="207" text-anchor="middle" class="small berry">Intruder (passive/active)</text>
+  <path d="M420 150 L400 185" class="berryline"/>
+
+  <!-- Work factor table -->
+  <text x="400" y="260" text-anchor="middle" class="big">Work Factor vs Key Length</text>
+  <rect x="80" y="280" width="640" height="200" fill="none" class="line"/>
+  <line x1="80" y1="312" x2="720" y2="312" class="line"/>
+  <text x="120" y="300" class="med">Key bits</text>
+  <text x="320" y="300" class="med">Key space</text>
+  <text x="560" y="300" class="med">Brute-force time @ 1 ns/key</text>
+  <text x="120" y="332" class="mono small">56</text>
+  <text x="320" y="332" class="mono small">7.2 x 10^16</text>
+  <text x="560" y="332" class="mono small">~20 hours</text>
+  <text x="120" y="360" class="mono small">64</text>
+  <text x="320" y="360" class="mono small">1.8 x 10^19</text>
+  <text x="560" y="360" class="mono small">~585 years</text>
+  <text x="120" y="388" class="mono small">80</text>
+  <text x="320" y="388" class="mono small">1.2 x 10^24</text>
+  <text x="560" y="388" class="mono small">38 million years</text>
+  <text x="120" y="416" class="mono small">128</text>
+  <text x="320" y="416" class="mono small">3.4 x 10^38</text>
+  <text x="560" y="416" class="mono small">10^22 years (sun burns out)</text>
+  <text x="120" y="444" class="mono small">256</text>
+  <text x="320" y="444" class="mono small">1.1 x 10^77</text>
+  <text x="560" y="444" class="mono small">10^60 years</text>
+
+  <text x="400" y="490" text-anchor="middle" class="small">Kerckhoffs (1883): algorithm public, only K secret — work factor is exponential in key length</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrowb" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

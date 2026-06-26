@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580" width="900" height="580">
+  <rect width="900" height="580" fill="#FFF7EC"/>
+  <g font-family="Georgia, serif" fill="#2A1A2E">
+    <text x="40" y="42" font-size="22" font-weight="bold">Other public-key systems</text>
+    <text x="40" y="66" font-size="13" fill="#7a5a6a">Rabin (factoring-equivalent), ElGamal (DLP), knapsack (broken)</text>
+
+    <g transform="translate(40,100)">
+      <rect width="260" height="200" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="130" y="24" text-anchor="middle" font-size="14" font-weight="bold">Rabin (1979)</text>
+      <text x="20" y="50" font-size="11">n = p * q, p ≡ q ≡ 3 mod 4</text>
+      <text x="20" y="68" font-size="11">Encrypt: C = M^2 mod n</text>
+      <text x="20" y="86" font-size="11">Decrypt: 4 square roots via CRT</text>
+      <text x="20" y="120" font-size="11" fill="#E2557A">Disambiguate with redundancy:</text>
+      <text x="20" y="138" font-size="11">append parity bit. Only one of</text>
+      <text x="20" y="156" font-size="11">the four candidates is valid.</text>
+      <text x="20" y="184" font-size="11" fill="#7a5a6a">Security: provably equivalent</text>
+      <text x="20" y="198" font-size="11" fill="#7a5a6a">to integer factorization.</text>
+    </g>
+
+    <g transform="translate(320,100)">
+      <rect width="260" height="200" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="130" y="24" text-anchor="middle" font-size="14" font-weight="bold">ElGamal (1985)</text>
+      <text x="20" y="50" font-size="11">Safe prime p = 2q + 1, q prime</text>
+      <text x="20" y="68" font-size="11">Generator g of q-subgroup.</text>
+      <text x="20" y="86" font-size="11">Private x, public y = g^x mod p</text>
+      <text x="20" y="120" font-size="11">Encrypt with random k:</text>
+      <text x="20" y="138" font-size="11">  c1 = g^k mod p</text>
+      <text x="20" y="156" font-size="11">  c2 = M * y^k mod p</text>
+      <text x="20" y="184" font-size="11" fill="#7a5a6a">Basis of DSA, ECDSA, EdDSA.</text>
+      <text x="20" y="198" font-size="11" fill="#7a5a6a">Ciphertext 2x plaintext size.</text>
+    </g>
+
+    <g transform="translate(600,100)">
+      <rect width="260" height="200" rx="6" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="130" y="24" text-anchor="middle" font-size="14" font-weight="bold">Merkle-Hellman (1978)</text>
+      <text x="20" y="50" font-size="11">Hidden superincreasing a_i:</text>
+      <text x="20" y="68" font-size="11">  a_i &gt; sum of all a_j (j &lt; i)</text>
+      <text x="20" y="86" font-size="11">Trapdoor: multiply by w mod N</text>
+      <text x="20" y="102" font-size="11">  b_i = w * a_i mod N</text>
+      <text x="20" y="138" font-size="11" fill="#E2557A">Broken by Shamir (1984):</text>
+      <text x="20" y="156" font-size="11">  LLL reduction on lattice</text>
+      <text x="20" y="174" font-size="11">  [1, b_1, ..., b_n] recovers a_i.</text>
+    </g>
+
+    <g transform="translate(40,320)">
+      <rect width="820" height="220" rx="6" fill="#fde2c8" stroke="#E2557A" stroke-width="1.5"/>
+      <text x="410" y="24" text-anchor="middle" font-size="14" font-weight="bold">Hardness assumptions and modern systems</text>
+
+      <text x="40" y="60" font-size="12" font-weight="bold">Factoring</text>
+      <text x="40" y="78" font-size="11">  RSA, Rabin. Best classical: GNFS, sub-exp.</text>
+      <text x="40" y="94" font-size="11">  Shor (1994) on quantum: polynomial.</text>
+
+      <text x="280" y="60" font-size="12" font-weight="bold">Discrete log</text>
+      <text x="280" y="78" font-size="11">  ElGamal, DSA, DH. Index calculus: sub-exp in Z*_p.</text>
+      <text x="280" y="94" font-size="11">  Shor: polynomial.  Elliptic curves resist index calculus.</text>
+
+      <text x="560" y="60" font-size="12" font-weight="bold">Lattice (post-quantum)</text>
+      <text x="560" y="78" font-size="11">  NTRU (1996), Kyber (2017), Dilithium (2017).</text>
+      <text x="560" y="94" font-size="11">  Security: module-LWE / module-SIS. No known quantum break.</text>
+
+      <text x="40" y="140" font-size="11">Modern key sizes (128-bit classical security):</text>
+      <text x="40" y="160" font-size="11">  RSA-3072 / DH-3072: ~384 bytes public key</text>
+      <text x="40" y="178" font-size="11">  ECDSA P-256:           32 bytes public key</text>
+      <text x="40" y="196" font-size="11">  Kyber-768:            ~1184 bytes public key (post-quantum)</text>
+    </g>
+  </g>
+</svg>

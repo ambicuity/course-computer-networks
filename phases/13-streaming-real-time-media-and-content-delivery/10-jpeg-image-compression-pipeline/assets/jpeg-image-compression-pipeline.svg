@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 540" font-family="Helvetica, Arial, sans-serif">
+  <rect width="720" height="540" fill="#FFF7EC"/>
+  <rect x="20" y="20" width="680" height="500" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+
+  <text x="40" y="55" font-size="22" font-weight="700" fill="#2A1A2E">JPEG baseline sequential encoder</text>
+  <text x="40" y="78" font-size="12" fill="#2A1A2E">ISO/IEC 10918-1, ITU-T T.81 (1992)</text>
+
+  <!-- Row 1 -->
+  <g>
+    <rect x="40" y="100" width="110" height="50" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="95" y="120" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">RGB input</text>
+    <text x="95" y="138" text-anchor="middle" font-size="9" fill="#2A1A2E">24-bit / pixel</text>
+  </g>
+
+  <g>
+    <rect x="170" y="100" width="110" height="50" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="225" y="120" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">RGB to YCbCr</text>
+    <text x="225" y="138" text-anchor="middle" font-size="9" fill="#2A1A2E">BT.601</text>
+  </g>
+
+  <g>
+    <rect x="300" y="100" width="110" height="50" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="355" y="120" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">4:2:0 chroma</text>
+    <text x="355" y="138" text-anchor="middle" font-size="9" fill="#2A1A2E">Cb, Cr 2x down</text>
+  </g>
+
+  <g>
+    <rect x="430" y="100" width="110" height="50" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="485" y="120" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">8x8 blocks</text>
+    <text x="485" y="138" text-anchor="middle" font-size="9" fill="#2A1A2E">4800 / 1200 / 1200</text>
+  </g>
+
+  <g>
+    <rect x="560" y="100" width="110" height="50" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="615" y="120" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">8x8 DCT</text>
+    <text x="615" y="138" text-anchor="middle" font-size="9" fill="#2A1A2E">64 coeffs / block</text>
+  </g>
+
+  <line x1="150" y1="125" x2="170" y2="125" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="280" y1="125" x2="300" y2="125" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="410" y1="125" x2="430" y2="125" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="540" y1="125" x2="560" y2="125" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Row 2: lossy step highlighted -->
+  <g>
+    <rect x="40" y="200" width="130" height="60" rx="6" fill="#E2557A" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="105" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">Quantize</text>
+    <text x="105" y="240" text-anchor="middle" font-size="9" fill="#FFFFFF">table[8x8] / coeff</text>
+    <text x="105" y="252" text-anchor="middle" font-size="9" fill="#FFFFFF">the ONLY lossy step</text>
+  </g>
+
+  <g>
+    <rect x="190" y="200" width="120" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="250" y="222" text-anchor="middle" font-size="12" font-weight="600" fill="#2A1A2E">DC DPCM</text>
+    <text x="250" y="242" text-anchor="middle" font-size="9" fill="#2A1A2E">delta from prev</text>
+  </g>
+
+  <g>
+    <rect x="330" y="200" width="120" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="390" y="222" text-anchor="middle" font-size="12" font-weight="600" fill="#2A1A2E">Zigzag</text>
+    <text x="390" y="242" text-anchor="middle" font-size="9" fill="#2A1A2E">low freq first</text>
+  </g>
+
+  <g>
+    <rect x="470" y="200" width="120" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="530" y="222" text-anchor="middle" font-size="12" font-weight="600" fill="#2A1A2E">Run-length</text>
+    <text x="530" y="242" text-anchor="middle" font-size="9" fill="#2A1A2E">(run, value) pairs</text>
+  </g>
+
+  <g>
+    <rect x="610" y="200" width="60" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="640" y="222" text-anchor="middle" font-size="12" font-weight="600" fill="#2A1A2E">Huffman</text>
+    <text x="640" y="242" text-anchor="middle" font-size="9" fill="#2A1A2E">luma, chroma</text>
+  </g>
+
+  <line x1="615" y1="150" x2="105" y2="200" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="170" y1="230" x2="190" y2="230" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="310" y1="230" x2="330" y2="230" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="450" y1="230" x2="470" y2="230" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="590" y1="230" x2="610" y2="230" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Output / JFIF -->
+  <g>
+    <rect x="280" y="310" width="160" height="60" rx="6" fill="#E2557A" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="360" y="335" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">JFIF byte stream</text>
+    <text x="360" y="355" text-anchor="middle" font-size="10" fill="#FFFFFF">SOI / DQT / SOF / DHT / SOS / EOI</text>
+  </g>
+
+  <line x1="640" y1="260" x2="440" y2="310" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Quality factor bar -->
+  <g>
+    <rect x="40" y="400" width="640" height="100" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="60" y="420" font-size="11" font-weight="600" fill="#2A1A2E">Quality factor q vs. average bits per 8x8 block</text>
+    <line x1="60" y1="490" x2="660" y2="490" stroke="#2A1A2E" stroke-width="1"/>
+    <line x1="60" y1="430" x2="60" y2="490" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="60" y="495" font-size="9" fill="#2A1A2E">q=10</text>
+    <text x="350" y="495" font-size="9" fill="#2A1A2E">q=75</text>
+    <text x="640" y="495" font-size="9" fill="#2A1A2E">q=100</text>
+    <text x="40" y="450" font-size="9" fill="#2A1A2E">bits</text>
+    <path d="M 60 488 L 200 482 L 350 470 L 500 455 L 660 435" fill="none" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="400" y="450" font-size="9" fill="#E2557A">rising bits with quality</text>
+  </g>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

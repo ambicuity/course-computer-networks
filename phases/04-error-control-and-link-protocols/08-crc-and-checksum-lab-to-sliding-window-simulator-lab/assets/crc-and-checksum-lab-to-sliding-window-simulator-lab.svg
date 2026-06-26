@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    .t  { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .m  { font-family: monospace; fill: #2A1A2E; }
+    .h  { font-family: Inter, sans-serif; fill: #2A1A2E; font-weight: 700; }
+    .a  { fill: #E2557A; }
+    .box { fill: none; stroke: #2A1A2E; stroke-width: 1.5; }
+    .abox { fill: none; stroke: #E2557A; stroke-width: 2; }
+  </style>
+
+  <text x="30" y="36" class="h" font-size="20">Detect, then recover: CRC / checksum into a sliding window</text>
+
+  <!-- Detection lane -->
+  <text x="30" y="72" class="h" font-size="14">1. Error detection on each frame</text>
+
+  <!-- CRC pipeline -->
+  <rect x="30"  y="86" width="150" height="46" class="box" rx="4"/>
+  <text x="105" y="108" class="t" font-size="12" text-anchor="middle">payload bits</text>
+  <text x="105" y="124" class="m" font-size="11" text-anchor="middle">M(x)</text>
+
+  <rect x="210" y="86" width="200" height="46" class="abox" rx="4"/>
+  <text x="310" y="106" class="h" font-size="12" text-anchor="middle">CRC-32 (802.3)</text>
+  <text x="310" y="123" class="m" font-size="10.5" text-anchor="middle">M(x)·x^32 mod 0x04C11DB7</text>
+
+  <rect x="440" y="86" width="290" height="46" class="box" rx="4"/>
+  <text x="585" y="106" class="t" font-size="12" text-anchor="middle">frame + 32-bit FCS, exactly divisible</text>
+  <text x="585" y="123" class="m" font-size="10.5" text-anchor="middle">catches all bursts &#8804; 32 bits, reorders</text>
+
+  <line x1="180" y1="109" x2="208" y2="109" class="abox"/>
+  <polygon points="208,109 200,105 200,113" class="a"/>
+  <line x1="410" y1="109" x2="438" y2="109" class="box"/>
+  <polygon points="438,109 430,105 430,113" fill="#2A1A2E"/>
+
+  <!-- checksum pipeline -->
+  <rect x="30"  y="146" width="150" height="46" class="box" rx="4"/>
+  <text x="105" y="168" class="t" font-size="12" text-anchor="middle">16-bit words</text>
+  <text x="105" y="184" class="m" font-size="11" text-anchor="middle">w0 w1 w2 ...</text>
+
+  <rect x="210" y="146" width="200" height="46" class="abox" rx="4"/>
+  <text x="310" y="166" class="h" font-size="12" text-anchor="middle">Internet checksum</text>
+  <text x="310" y="183" class="m" font-size="10.5" text-anchor="middle">~&#931;w  (RFC 1071, carry fold)</text>
+
+  <rect x="440" y="146" width="290" height="46" class="box" rx="4"/>
+  <text x="585" y="166" class="t" font-size="12" text-anchor="middle">16-bit field, verify == 0xFFFF</text>
+  <text x="585" y="183" class="a" font-size="10.5" text-anchor="middle" font-weight="700">BLIND to 16-bit word reordering</text>
+
+  <line x1="180" y1="169" x2="208" y2="169" class="abox"/>
+  <polygon points="208,169 200,165 200,173" class="a"/>
+  <line x1="410" y1="169" x2="438" y2="169" class="box"/>
+  <polygon points="438,169 430,165 430,173" fill="#2A1A2E"/>
+
+  <line x1="30" y1="214" x2="730" y2="214" stroke="#E2557A" stroke-width="1" stroke-dasharray="5 4"/>
+
+  <!-- Recovery lane: sliding window -->
+  <text x="30" y="244" class="h" font-size="14">2. Recovery: sliding window over a lossy channel</text>
+
+  <!-- sequence cells -->
+  <text x="30" y="276" class="t" font-size="12">seq:</text>
+  <g font-family="monospace" font-size="13">
+    <rect x="70"  y="262" width="40" height="34" class="box"/><text x="90"  y="285" text-anchor="middle" class="t">0</text>
+    <rect x="110" y="262" width="40" height="34" class="box"/><text x="130" y="285" text-anchor="middle" class="t">1</text>
+    <rect x="150" y="262" width="40" height="34" class="abox"/><text x="170" y="285" text-anchor="middle" class="a">2</text>
+    <rect x="190" y="262" width="40" height="34" class="abox"/><text x="210" y="285" text-anchor="middle" class="a">3</text>
+    <rect x="230" y="262" width="40" height="34" class="abox"/><text x="250" y="285" text-anchor="middle" class="a">4</text>
+    <rect x="270" y="262" width="40" height="34" class="abox"/><text x="290" y="285" text-anchor="middle" class="a">5</text>
+    <rect x="310" y="262" width="40" height="34" class="box"/><text x="330" y="285" text-anchor="middle" class="t">6</text>
+    <rect x="350" y="262" width="40" height="34" class="box"/><text x="370" y="285" text-anchor="middle" class="t">7</text>
+  </g>
+  <text x="170" y="318" class="t" font-size="11">acked</text>
+  <text x="250" y="318" class="a" font-size="11" font-weight="700">window W (in flight)</text>
+  <text x="370" y="318" class="t" font-size="11">unsent</text>
+  <line x1="150" y1="300" x2="310" y2="300" class="abox"/>
+
+  <!-- GBN vs SR boxes -->
+  <rect x="30" y="340" width="340" height="160" class="box" rx="6"/>
+  <text x="50" y="364" class="h" font-size="13">Go-Back-N</text>
+  <text x="50" y="386" class="t" font-size="11.5">cumulative ACK, one timer</text>
+  <text x="50" y="406" class="t" font-size="11.5">loss of frame N forces resend of</text>
+  <text x="50" y="423" class="a" font-size="11.5" font-weight="700">the entire window from N</text>
+  <text x="50" y="446" class="m" font-size="11">constraint:  W &#8804; 2^m &#8722; 1</text>
+  <text x="50" y="476" class="t" font-size="11.5">simple receiver; storm under loss</text>
+
+  <rect x="390" y="340" width="340" height="160" class="box" rx="6"/>
+  <text x="410" y="364" class="h" font-size="13">Selective Repeat</text>
+  <text x="410" y="386" class="t" font-size="11.5">per-frame ACK, per-frame timer</text>
+  <text x="410" y="406" class="t" font-size="11.5">receiver buffers out-of-order;</text>
+  <text x="410" y="423" class="a" font-size="11.5" font-weight="700">resend only the lost frame</text>
+  <text x="410" y="446" class="m" font-size="11">constraint:  W &#8804; 2^(m&#8722;1)</text>
+  <text x="410" y="472" class="t" font-size="11.5">violate it and old/new seq</text>
+  <text x="410" y="489" class="a" font-size="11.5">numbers alias &#8594; duplicate as new</text>
+
+  <text x="30" y="534" class="t" font-size="11">Saturate the link: W must cover the bandwidth-delay product,</text>
+  <text x="30" y="550" class="m" font-size="11">U = min(1, W&#183;Tf / (Tf + RTT)).</text>
+</svg>

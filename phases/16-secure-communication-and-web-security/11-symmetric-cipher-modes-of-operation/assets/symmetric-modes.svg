@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="ui-monospace, Menlo, monospace">
+  <rect width="1100" height="720" fill="#FFF7EC"/>
+  <text x="550" y="42" text-anchor="middle" font-size="24" font-weight="700" fill="#2A1A2E">Symmetric Block Cipher Modes of Operation</text>
+  <text x="550" y="66" text-anchor="middle" font-size="13" fill="#2A1A2E">ECB (monoalphabetic) vs. CBC / CFB / CTR (stream-style)</text>
+
+  <!-- ECB -->
+  <g transform="translate(40,110)">
+    <rect width="320" height="170" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="160" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#E2557A">ECB: Electronic Code Book</text>
+    <text x="14" y="48" font-size="12" fill="#2A1A2E">C_i = E_K(P_i) — same P, same C</text>
+    <g transform="translate(14,62)">
+      <rect x="0"   y="0" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="68"  y="0" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="136" y="0" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="204" y="0" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="28"  y="22" text-anchor="middle" font-size="11" fill="#2A1A2E">P0</text>
+      <text x="96"  y="22" text-anchor="middle" font-size="11" fill="#2A1A2E">P1</text>
+      <text x="164" y="22" text-anchor="middle" font-size="11" fill="#2A1A2E">P2</text>
+      <text x="232" y="22" text-anchor="middle" font-size="11" fill="#2A1A2E">P3</text>
+      <path d="M28 36 L28 56 L96 56 L96 72" stroke="#E2557A" fill="none" stroke-width="1.5"/>
+      <path d="M96 36 L96 56 L96 72" stroke="#E2557A" fill="none" stroke-width="1.5"/>
+      <path d="M164 36 L164 56 L164 72" stroke="#E2557A" fill="none" stroke-width="1.5"/>
+      <path d="M232 36 L232 56 L232 72" stroke="#E2557A" fill="none" stroke-width="1.5"/>
+      <rect x="0"   y="76" width="56" height="36" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="68"  y="76" width="56" height="36" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="136" y="76" width="56" height="36" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="204" y="76" width="56" height="36" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="28"  y="98" text-anchor="middle" font-size="11" fill="#FFF7EC">C0</text>
+      <text x="96"  y="98" text-anchor="middle" font-size="11" fill="#FFF7EC">C1</text>
+      <text x="164" y="98" text-anchor="middle" font-size="11" fill="#FFF7EC">C2</text>
+      <text x="232" y="98" text-anchor="middle" font-size="11" fill="#FFF7EC">C3</text>
+    </g>
+    <text x="14" y="156" font-size="11" fill="#2A1A2E">Cut-and-paste attack: swap any C_i, the corresponding</text>
+    <text x="14" y="166" font-size="11" fill="#2A1A2E">P_i decrypts to whatever the source block said.</text>
+  </g>
+
+  <!-- CBC -->
+  <g transform="translate(390,110)">
+    <rect width="320" height="170" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="160" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#E2557A">CBC: Cipher Block Chaining</text>
+    <text x="14" y="48" font-size="12" fill="#2A1A2E">C_i = E_K(P_i XOR C_{i-1}); C_-1 = IV</text>
+    <g transform="translate(14,62)">
+      <rect x="0"   y="0" width="40" height="28" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="60"  y="0" width="40" height="28" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="120" y="0" width="40" height="28" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="180" y="0" width="40" height="28" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="20"  y="18" text-anchor="middle" font-size="10" fill="#2A1A2E">P0</text>
+      <text x="80"  y="18" text-anchor="middle" font-size="10" fill="#2A1A2E">P1</text>
+      <text x="140" y="18" text-anchor="middle" font-size="10" fill="#2A1A2E">P2</text>
+      <text x="200" y="18" text-anchor="middle" font-size="10" fill="#2A1A2E">P3</text>
+      <circle cx="50"  cy="14" r="6" fill="#E2557A"/>
+      <circle cx="110" cy="14" r="6" fill="#E2557A"/>
+      <circle cx="170" cy="14" r="6" fill="#E2557A"/>
+      <path d="M40 14 L60 14" stroke="#2A1A2E"/>
+      <path d="M100 14 L120 14" stroke="#2A1A2E"/>
+      <path d="M160 14 L180 14" stroke="#2A1A2E"/>
+      <text x="-8" y="18" font-size="9" fill="#2A1A2E">IV</text>
+      <rect x="0"   y="50" width="40" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="60"  y="50" width="40" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="120" y="50" width="40" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="180" y="50" width="40" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="20"  y="68" text-anchor="middle" font-size="10" fill="#FFF7EC">E</text>
+      <text x="80"  y="68" text-anchor="middle" font-size="10" fill="#FFF7EC">E</text>
+      <text x="140" y="68" text-anchor="middle" font-size="10" fill="#FFF7EC">E</text>
+      <text x="200" y="68" text-anchor="middle" font-size="10" fill="#FFF7EC">E</text>
+      <rect x="0"   y="100" width="40" height="28" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="60"  y="100" width="40" height="28" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="120" y="100" width="40" height="28" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <rect x="180" y="100" width="40" height="28" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="20"  y="118" text-anchor="middle" font-size="10" fill="#2A1A2E">C0</text>
+      <text x="80"  y="118" text-anchor="middle" font-size="10" fill="#2A1A2E">C1</text>
+      <text x="140" y="118" text-anchor="middle" font-size="10" fill="#2A1A2E">C2</text>
+      <text x="200" y="118" text-anchor="middle" font-size="10" fill="#2A1A2E">C3</text>
+      <path d="M40 100 C 50 100, 50 50, 60 50" stroke="#2A1A2E" fill="none"/>
+      <path d="M100 100 C 110 100, 110 50, 120 50" stroke="#2A1A2E" fill="none"/>
+      <path d="M160 100 C 170 100, 170 50, 180 50" stroke="#2A1A2E" fill="none"/>
+    </g>
+    <text x="14" y="156" font-size="11" fill="#2A1A2E">Each block depends on every earlier block;</text>
+    <text x="14" y="166" font-size="11" fill="#2A1A2E">random IV required (BEAST 2011 used predictable IVs).</text>
+  </g>
+
+  <!-- CTR -->
+  <g transform="translate(740,110)">
+    <rect width="320" height="170" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="160" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#E2557A">CTR: Counter Mode (stream cipher)</text>
+    <text x="14" y="48" font-size="12" fill="#2A1A2E">C_i = P_i XOR E_K(nonce || i)</text>
+    <g transform="translate(14,62)">
+      <text x="0" y="14" font-size="10" fill="#2A1A2E">nonce||0</text>
+      <text x="0" y="36" font-size="10" fill="#2A1A2E">nonce||1</text>
+      <text x="0" y="58" font-size="10" fill="#2A1A2E">nonce||2</text>
+      <text x="0" y="80" font-size="10" fill="#2A1A2E">nonce||3</text>
+      <rect x="68"  y="2"  width="40" height="22" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="68"  y="24" width="40" height="22" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="68"  y="46" width="40" height="22" fill="#E2557A" stroke="#2A1A2E"/>
+      <rect x="68"  y="68" width="40" height="22" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="88" y="17" text-anchor="middle" font-size="10" fill="#FFF7EC">E_K</text>
+      <text x="88" y="39" text-anchor="middle" font-size="10" fill="#FFF7EC">E_K</text>
+      <text x="88" y="61" text-anchor="middle" font-size="10" fill="#FFF7EC">E_K</text>
+      <text x="88" y="83" text-anchor="middle" font-size="10" fill="#FFF7EC">E_K</text>
+      <circle cx="124" cy="13" r="5" fill="#E2557A"/>
+      <circle cx="124" cy="35" r="5" fill="#E2557A"/>
+      <circle cx="124" cy="57" r="5" fill="#E2557A"/>
+      <circle cx="124" cy="79" r="5" fill="#E2557A"/>
+      <text x="148" y="16" font-size="10" fill="#2A1A2E">P0</text>
+      <text x="148" y="38" font-size="10" fill="#2A1A2E">P1</text>
+      <text x="148" y="60" font-size="10" fill="#2A1A2E">P2</text>
+      <text x="148" y="82" font-size="10" fill="#2A1A2E">P3</text>
+      <text x="200" y="16" font-size="10" fill="#2A1A2E">C0</text>
+      <text x="200" y="38" font-size="10" fill="#2A1A2E">C1</text>
+      <text x="200" y="60" font-size="10" fill="#2A1A2E">C2</text>
+      <text x="200" y="82" font-size="10" fill="#2A1A2E">C3</text>
+    </g>
+    <text x="14" y="156" font-size="11" fill="#2A1A2E">Nonce reuse = two-time pad (WEP); for</text>
+    <text x="14" y="166" font-size="11" fill="#2A1A2E">AES-GCM it also leaks the auth key.</text>
+  </g>
+
+  <!-- CFB -->
+  <g transform="translate(215,320)">
+    <rect width="320" height="170" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="160" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#E2557A">CFB: Cipher Feedback (8-bit)</text>
+    <text x="14" y="48" font-size="12" fill="#2A1A2E">K_i = E_K(IV || C_{i-1}); C_i = P_i XOR K_i</text>
+    <g transform="translate(14,62)">
+      <rect x="0" y="0" width="280" height="28" fill="#FFF7EC" stroke="#2A1A2E"/>
+      <text x="140" y="20" text-anchor="middle" font-size="11" fill="#2A1A2E">128-bit shift register (loaded with IV initially)</text>
+      <rect x="100" y="50" width="60" height="28" fill="#E2557A" stroke="#2A1A2E"/>
+      <text x="130" y="68" text-anchor="middle" font-size="10" fill="#FFF7EC">E_K</text>
+      <circle cx="100" cy="92" r="6" fill="#E2557A"/>
+      <text x="50" y="96" font-size="11" fill="#2A1A2E">P_byte</text>
+      <path d="M30 92 L94 92" stroke="#2A1A2E"/>
+      <text x="180" y="68" font-size="11" fill="#2A1A2E">leftmost 8 bits of</text>
+      <text x="180" y="82" font-size="11" fill="#2A1A2E">E_K output -> C_byte</text>
+      <text x="14" y="120" font-size="11" fill="#2A1A2E">Self-synchronizing: after the bad byte leaves the</text>
+      <text x="14" y="134" font-size="11" fill="#2A1A2E">register, decryption recovers automatically.</text>
+    </g>
+  </g>
+
+  <!-- Properties table -->
+  <g transform="translate(560,320)">
+    <rect width="500" height="330" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2" rx="6"/>
+    <text x="250" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#E2557A">Mode Comparison</text>
+    <g transform="translate(14,40)">
+      <text x="0"   y="14" font-size="11" font-weight="700" fill="#2A1A2E">Mode</text>
+      <text x="80"  y="14" font-size="11" font-weight="700" fill="#2A1A2E">Parallel enc?</text>
+      <text x="200" y="14" font-size="11" font-weight="700" fill="#2A1A2E">Reuse failure</text>
+      <text x="380" y="14" font-size="11" font-weight="700" fill="#2A1A2E">Used in</text>
+      <line x1="0" y1="20" x2="486" y2="20" stroke="#2A1A2E"/>
+      <text x="0"   y="40" font-size="11" fill="#2A1A2E">ECB</text>
+      <text x="80"  y="40" font-size="11" fill="#2A1A2E">Yes</text>
+      <text x="200" y="40" font-size="11" fill="#2A1A2E">Pattern-preserving</text>
+      <text x="380" y="40" font-size="11" fill="#2A1A2E">Legacy only</text>
+      <text x="0"   y="60" font-size="11" fill="#2A1A2E">CBC</text>
+      <text x="80"  y="60" font-size="11" fill="#2A1A2E">No (chained)</text>
+      <text x="200" y="60" font-size="11" fill="#2A1A2E">Predictable IV (BEAST)</text>
+      <text x="380" y="60" font-size="11" fill="#2A1A2E">TLS 1.0-1.1, IPsec</text>
+      <text x="0"   y="80" font-size="11" fill="#2A1A2E">CFB</text>
+      <text x="80"  y="80" font-size="11" fill="#2A1A2E">No (feedback)</text>
+      <text x="200" y="80" font-size="11" fill="#2A1A2E">Two-time pad</text>
+      <text x="380" y="80" font-size="11" fill="#2A1A2E">Satellite, TLS 1.0 fb</text>
+      <text x="0"   y="100" font-size="11" fill="#2A1A2E">OFB</text>
+      <text x="80"  y="100" font-size="11" fill="#2A1A2E">No (keystream)</text>
+      <text x="200" y="100" font-size="11" fill="#2A1A2E">Two-time pad</text>
+      <text x="380" y="100" font-size="11" fill="#2A1A2E">Rare</text>
+      <text x="0"   y="120" font-size="11" fill="#2A1A2E">CTR</text>
+      <text x="80"  y="120" font-size="11" fill="#2A1A2E">Yes</text>
+      <text x="200" y="120" font-size="11" fill="#2A1A2E">Two-time pad</text>
+      <text x="380" y="120" font-size="11" fill="#2A1A2E">AES-GCM, IPsec, QUIC</text>
+      <text x="0"   y="140" font-size="11" fill="#2A1A2E">GCM</text>
+      <text x="80"  y="140" font-size="11" fill="#2A1A2E">Yes (CTR + MAC)</text>
+      <text x="200" y="140" font-size="11" fill="#2A1A2E">Catastrophic on nonce reuse</text>
+      <text x="380" y="140" font-size="11" fill="#2A1A2E">TLS 1.2/1.3</text>
+    </g>
+    <text x="14" y="220" font-size="11" fill="#2A1A2E">Auth: ECB/CBC/CFB/CTR alone give confidentiality only.</text>
+    <text x="14" y="240" font-size="11" fill="#2A1A2E">Always combine with a MAC or use an AEAD (GCM, ChaCha20-Poly1305).</text>
+    <text x="14" y="270" font-size="11" font-weight="700" fill="#E2557A">Key rule: a (key, IV/nonce) pair is single-use.</text>
+    <text x="14" y="290" font-size="11" fill="#2A1A2E">Reuse reveals plaintexts (two-time pad); in AEAD it also</text>
+    <text x="14" y="304" font-size="11" fill="#2A1A2E">lets an attacker forge arbitrary ciphertexts.</text>
+  </g>
+</svg>

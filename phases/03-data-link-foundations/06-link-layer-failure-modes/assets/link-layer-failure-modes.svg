@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" width="860" height="520">
+  <rect x="0" y="0" width="860" height="520" fill="#FFF7EC"/>
+  <style>
+    .title { font: 700 22px Inter, sans-serif; fill: #2A1A2E; }
+    .sub   { font: 600 13px Inter, sans-serif; fill: #2A1A2E; }
+    .lbl   { font: 600 11px Inter, sans-serif; fill: #2A1A2E; }
+    .small { font: 11px Inter, sans-serif; fill: #2A1A2E; }
+    .mono  { font: 12px monospace; fill: #2A1A2E; }
+    .berry { fill: #E2557A; }
+    .berrytxt { font: 700 11px Inter, sans-serif; fill: #E2557A; }
+  </style>
+
+  <text x="30" y="40" class="title">Link-Layer Failure Modes — the 802.3 frame &amp; its boundaries</text>
+
+  <!-- Frame layout -->
+  <text x="30" y="74" class="sub">IEEE 802.3 frame layout (bytes)</text>
+
+  <!-- field boxes -->
+  <g>
+    <rect x="30"  y="86" width="70"  height="46" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="100" y="86" width="40"  height="46" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="140" y="86" width="90"  height="46" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="230" y="86" width="90"  height="46" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="320" y="86" width="80"  height="46" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="400" y="86" width="290" height="46" fill="#FCE6EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="690" y="86" width="100" height="46" fill="none" stroke="#E2557A" stroke-width="2"/>
+
+    <text x="65"  y="106" class="lbl"  text-anchor="middle">Preamble</text>
+    <text x="65"  y="122" class="small" text-anchor="middle">7 · 0x55</text>
+    <text x="120" y="106" class="lbl"  text-anchor="middle">SFD</text>
+    <text x="120" y="122" class="small" text-anchor="middle">1·0xD5</text>
+    <text x="185" y="106" class="lbl"  text-anchor="middle">Dest MAC</text>
+    <text x="185" y="122" class="small" text-anchor="middle">6</text>
+    <text x="275" y="106" class="lbl"  text-anchor="middle">Src MAC</text>
+    <text x="275" y="122" class="small" text-anchor="middle">6</text>
+    <text x="360" y="106" class="lbl"  text-anchor="middle">Type/Len</text>
+    <text x="360" y="122" class="small" text-anchor="middle">2</text>
+    <text x="545" y="106" class="lbl"  text-anchor="middle">Payload</text>
+    <text x="545" y="122" class="small" text-anchor="middle">46 – 1500</text>
+    <text x="740" y="106" class="berrytxt" text-anchor="middle">FCS</text>
+    <text x="740" y="122" class="small" text-anchor="middle">CRC-32 · 4</text>
+  </g>
+
+  <!-- brace: on-wire length DST..FCS -->
+  <line x1="140" y1="146" x2="790" y2="146" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="140" y1="142" x2="140" y2="150" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="790" y1="142" x2="790" y2="150" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="465" y="162" class="small" text-anchor="middle">on-wire frame: 64 min  ·  1518 max (1522 with 802.1Q tag)</text>
+
+  <!-- Length classifier number line -->
+  <text x="30" y="205" class="sub">Length classifier</text>
+  <line x1="30" y1="240" x2="790" y2="240" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- ticks -->
+  <line x1="210" y1="232" x2="210" y2="248" stroke="#E2557A" stroke-width="2"/>
+  <line x1="620" y1="232" x2="620" y2="248" stroke="#E2557A" stroke-width="2"/>
+  <text x="210" y="268" class="berrytxt" text-anchor="middle">64 B</text>
+  <text x="620" y="268" class="berrytxt" text-anchor="middle">1518 / 1522 B</text>
+
+  <text x="115" y="226" class="lbl" text-anchor="middle">RUNT</text>
+  <text x="115" y="288" class="small" text-anchor="middle">collision debris,</text>
+  <text x="115" y="302" class="small" text-anchor="middle">duplex mismatch</text>
+
+  <text x="415" y="226" class="lbl" text-anchor="middle">GOOD</text>
+  <text x="415" y="288" class="small" text-anchor="middle">valid range</text>
+
+  <text x="705" y="226" class="lbl" text-anchor="middle">GIANT / JABBER</text>
+  <text x="705" y="288" class="small" text-anchor="middle">MTU mismatch;</text>
+  <text x="705" y="302" class="small" text-anchor="middle">+FCS-bad = jabber</text>
+
+  <!-- Decision panel -->
+  <rect x="30" y="330" width="365" height="160" rx="8" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="48" y="355" class="sub">FCS &amp; collision rules</text>
+  <text x="48" y="380" class="mono">if computed_CRC32 != trailer  -&gt; FCS BAD</text>
+  <text x="48" y="400" class="small">FCS bad rising with LOAD  -&gt; duplex mismatch</text>
+  <text x="48" y="418" class="small">FCS bad flat vs load      -&gt; bad cable / PHY</text>
+  <line x1="48" y1="430" x2="377" y2="430" stroke="#E2557A" stroke-width="1"/>
+  <text x="48" y="450" class="mono">slot time = 512 bits = 64 bytes</text>
+  <text x="48" y="468" class="small">collision after 64 B  -&gt; LATE (never normal)</text>
+  <text x="48" y="484" class="small">any collision on FULL duplex -&gt; fault</text>
+
+  <!-- L2 loop panel -->
+  <rect x="415" y="330" width="375" height="160" rx="8" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="433" y="355" class="sub">L2 loop &amp; broadcast storm</text>
+
+  <!-- two switches with redundant links -->
+  <rect x="455" y="378" width="70" height="34" rx="4" fill="#FCE6EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="490" y="399" class="lbl" text-anchor="middle">SW-A</text>
+  <rect x="660" y="378" width="70" height="34" rx="4" fill="#FCE6EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="695" y="399" class="lbl" text-anchor="middle">SW-B</text>
+
+  <line x1="525" y1="388" x2="660" y2="388" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="525" y1="402" x2="660" y2="402" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <text x="592" y="382" class="small" text-anchor="middle">forwarding</text>
+  <text x="592" y="424" class="berrytxt" text-anchor="middle">should be STP-BLOCKED</text>
+
+  <text x="433" y="452" class="small">MAC flap = same src MAC on 2 ports</text>
+  <text x="433" y="470" class="small">RSTP (802.1w) converges &lt; 1s on edge p2p</text>
+  <text x="433" y="486" class="small">STP (802.1D) ~30–50s; storm saturates VLAN</text>
+</svg>

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 600" width="860" height="600">
+  <style>
+    text { font-family: 'Inter', system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; fill: #E2557A; }
+    .field { font-size: 12px; font-weight: 600; }
+    .size { font-size: 10.5px; font-family: monospace; fill: #6b4a5e; }
+    .note { font-size: 11px; fill: #4a3a4e; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.4; }
+    .accent { fill: #FBE3EA; stroke: #E2557A; stroke-width: 1.6; }
+    .row { font-size: 11.5px; font-family: monospace; }
+  </style>
+  <rect x="0" y="0" width="860" height="600" fill="#FFF7EC"/>
+  <text class="title" x="30" y="38">IPv4 Addressing: Classes + VLSM on 192.168.1.0/24</text>
+  <text class="note" x="30" y="58">32-bit hierarchical address | network prefix + host | RFC 1918 + CIDR</text>
+  <text class="sub" x="30" y="92">Classful ranges (historical, pre-1993)</text>
+  <rect class="accent" x="30" y="100" width="60"  height="28"/>
+  <text class="field" x="60" y="118" text-anchor="middle">Class</text>
+  <rect class="accent" x="90" y="100" width="70"  height="28"/>
+  <text class="field" x="125" y="118" text-anchor="middle">Prefix</text>
+  <rect class="accent" x="160" y="100" width="130" height="28"/>
+  <text class="field" x="225" y="118" text-anchor="middle">First-octet range</text>
+  <rect class="accent" x="290" y="100" width="120" height="28"/>
+  <text class="field" x="350" y="118" text-anchor="middle">Usable hosts</text>
+  <rect class="accent" x="410" y="100" width="120" height="28"/>
+  <text class="field" x="470" y="118" text-anchor="middle">Leading bits</text>
+  <g>
+    <rect class="box" x="30" y="128" width="60" height="26"/>
+    <text class="row" x="60" y="146" text-anchor="middle">A</text>
+    <rect class="box" x="90" y="128" width="70" height="26"/>
+    <text class="row" x="125" y="146" text-anchor="middle">/8</text>
+    <rect class="box" x="160" y="128" width="130" height="26"/>
+    <text class="row" x="225" y="146" text-anchor="middle">0 - 127</text>
+    <rect class="box" x="290" y="128" width="120" height="26"/>
+    <text class="row" x="350" y="146" text-anchor="middle">16,777,214</text>
+    <rect class="box" x="410" y="128" width="120" height="26"/>
+    <text class="row" x="470" y="146" text-anchor="middle">0...</text>
+  </g>
+  <g>
+    <rect class="box" x="30" y="154" width="60" height="26"/>
+    <text class="row" x="60" y="172" text-anchor="middle">B</text>
+    <rect class="box" x="90" y="154" width="70" height="26"/>
+    <text class="row" x="125" y="172" text-anchor="middle">/16</text>
+    <rect class="box" x="160" y="154" width="130" height="26"/>
+    <text class="row" x="225" y="172" text-anchor="middle">128 - 191</text>
+    <rect class="box" x="290" y="154" width="120" height="26"/>
+    <text class="row" x="350" y="172" text-anchor="middle">65,534</text>
+    <rect class="box" x="410" y="154" width="120" height="26"/>
+    <text class="row" x="470" y="172" text-anchor="middle">10...</text>
+  </g>
+  <g>
+    <rect class="box" x="30" y="180" width="60" height="26"/>
+    <text class="row" x="60" y="198" text-anchor="middle">C</text>
+    <rect class="box" x="90" y="180" width="70" height="26"/>
+    <text class="row" x="125" y="198" text-anchor="middle">/24</text>
+    <rect class="box" x="160" y="180" width="130" height="26"/>
+    <text class="row" x="225" y="198" text-anchor="middle">192 - 223</text>
+    <rect class="box" x="290" y="180" width="120" height="26"/>
+    <text class="row" x="350" y="198" text-anchor="middle">254</text>
+    <rect class="box" x="410" y="180" width="120" height="26"/>
+    <text class="row" x="470" y="198" text-anchor="middle">110...</text>
+  </g>
+  <g>
+    <rect class="box" x="30" y="206" width="60" height="26"/>
+    <text class="row" x="60" y="224" text-anchor="middle">D</text>
+    <rect class="box" x="90" y="206" width="70" height="26"/>
+    <text class="row" x="125" y="224" text-anchor="middle">n/a</text>
+    <rect class="box" x="160" y="206" width="130" height="26"/>
+    <text class="row" x="225" y="224" text-anchor="middle">224 - 239</text>
+    <rect class="box" x="290" y="206" width="120" height="26"/>
+    <text class="row" x="350" y="224" text-anchor="middle">multicast</text>
+    <rect class="box" x="410" y="206" width="120" height="26"/>
+    <text class="row" x="470" y="224" text-anchor="middle">1110...</text>
+  </g>
+  <g>
+    <rect class="box" x="30" y="232" width="60" height="26"/>
+    <text class="row" x="60" y="250" text-anchor="middle">E</text>
+    <rect class="box" x="90" y="232" width="70" height="26"/>
+    <text class="row" x="125" y="250" text-anchor="middle">n/a</text>
+    <rect class="box" x="160" y="232" width="130" height="26"/>
+    <text class="row" x="225" y="250" text-anchor="middle">240 - 255</text>
+    <rect class="box" x="290" y="232" width="120" height="26"/>
+    <text class="row" x="350" y="250" text-anchor="middle">reserved</text>
+    <rect class="box" x="410" y="232" width="120" height="26"/>
+    <text class="row" x="470" y="250" text-anchor="middle">1111...</text>
+  </g>
+  <rect class="box" x="30" y="270" width="500" height="40"/>
+  <text class="field" x="46" y="288">RFC 1918 private ranges</text>
+  <text class="mono" x="46" y="304">10.0.0.0/8 | 172.16.0.0/12 | 192.168.0.0/16 (not on public Net)</text>
+  <text class="sub" x="30" y="340">VLSM: carve 192.168.1.0/24 into 4 subnets (largest first)</text>
+  <rect class="accent" x="30" y="352" width="500" height="22"/>
+  <text class="field" x="280" y="368" text-anchor="middle" fill="#E2557A">192.168.1.0/24 (256 addr, .0-.255)</text>
+  <rect class="box" x="30" y="392" width="125" height="34"/>
+  <text class="field" x="92" y="408" text-anchor="middle">Eng /26</text>
+  <text class="size" x="92" y="422" text-anchor="middle">.0-.63 (62)</text>
+  <rect class="box" x="155" y="392" width="62" height="34"/>
+  <text class="field" x="186" y="408" text-anchor="middle">Sales /27</text>
+  <text class="size" x="186" y="422" text-anchor="middle">.64-.95</text>
+  <rect class="box" x="217" y="392" width="31" height="34"/>
+  <text class="field" x="232" y="408" text-anchor="middle" font-size="9">/28</text>
+  <text class="size" x="232" y="422" text-anchor="middle" font-size="9">.96-111</text>
+  <rect class="box" x="248" y="392" width="8" height="34" fill="#FBE3EA"/>
+  <text class="size" x="252" y="430" text-anchor="middle" font-size="8">/30</text>
+  <rect class="box" x="256" y="392" width="274" height="34" fill="none" stroke-dasharray="4,3"/>
+  <text class="note" x="393" y="414" text-anchor="middle">free .116-.255 (140 addr)</text>
+  <text class="note" x="30" y="442" fill="#E2557A">boundaries aligned to 2^(32-prefix); each subnet reserves net + bcast</text>
+  <text class="sub" x="30" y="470">Subnet mask: AND(IP, mask) = network address</text>
+  <rect class="box" x="30" y="482" width="500" height="90"/>
+  <text class="mono" x="46" y="502">IP   192.168.1.55  11000000 10101000 00000001 00110111</text>
+  <text class="mono" x="46" y="522">mask 255.255.255.192 11111111 11111111 11111111 11000000 (/26)</text>
+  <text class="mono" x="46" y="542">AND  192.168.1.0   11000000 10101000 00000001 00000000 (net)</text>
+  <text class="mono" x="46" y="562" fill="#E2557A">bcast 192.168.1.63 = net | ~mask</text>
+</svg>

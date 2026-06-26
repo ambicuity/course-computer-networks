@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="880" height="640" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="440" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">Connection-Oriented Data Link Service — Three Phases</text>
+  <text x="440" y="54" text-anchor="middle" font-size="12" fill="#2A1A2E" opacity="0.7">HDLC-style SABM/UA · sequenced I-frames · DISC/UA  (stop-and-wait, 1-bit N(S))</text>
+
+  <!-- Endpoint headers -->
+  <line x1="120" y1="78" x2="120" y2="600" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="760" y1="78" x2="760" y2="600" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="70" y="62" width="100" height="28" rx="4" fill="#2A1A2E"/>
+  <text x="120" y="81" text-anchor="middle" font-size="13" font-weight="600" fill="#FFF7EC">Side A</text>
+  <rect x="710" y="62" width="100" height="28" rx="4" fill="#2A1A2E"/>
+  <text x="760" y="81" text-anchor="middle" font-size="13" font-weight="600" fill="#FFF7EC">Side B</text>
+
+  <!-- ============ PHASE 1 ============ -->
+  <text x="40" y="120" font-size="13" font-weight="700" fill="#E2557A">Phase 1</text>
+  <text x="40" y="136" font-size="11" fill="#2A1A2E">Establish</text>
+
+  <!-- SABM -->
+  <line x1="120" y1="140" x2="755" y2="140" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="755,140 747,136 747,144" fill="#2A1A2E"/>
+  <rect x="360" y="126" width="150" height="20" rx="3" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="435" y="140" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">SABM (P=1)</text>
+
+  <!-- init note B -->
+  <text x="770" y="172" font-size="10" fill="#E2557A">init V(S)=0, V(R)=0</text>
+  <text x="770" y="185" font-size="10" fill="#E2557A">allocate buffers</text>
+
+  <!-- UA -->
+  <line x1="755" y1="200" x2="125" y2="200" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="125,200 133,196 133,204" fill="#2A1A2E"/>
+  <rect x="380" y="186" width="120" height="20" rx="3" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="440" y="200" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">UA (F=1)</text>
+
+  <!-- init note A -->
+  <text x="30" y="172" font-size="10" fill="#E2557A">init V(S)=0, V(R)=0</text>
+  <text x="30" y="185" font-size="10" fill="#E2557A">allocate buffers</text>
+
+  <line x1="20" y1="220" x2="860" y2="220" stroke="#2A1A2E" stroke-width="0.5" stroke-dasharray="3,4" opacity="0.4"/>
+
+  <!-- ============ PHASE 2 ============ -->
+  <text x="40" y="244" font-size="13" font-weight="700" fill="#E2557A">Phase 2</text>
+  <text x="40" y="260" font-size="11" fill="#2A1A2E">Data transfer</text>
+
+  <!-- I-frame seq=0 -->
+  <line x1="120" y1="276" x2="755" y2="276" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="755,276 747,272 747,280" fill="#2A1A2E"/>
+  <rect x="330" y="262" width="210" height="20" rx="3" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="435" y="276" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">I-frame  N(S)=0  N(R)=0</text>
+
+  <!-- RR ack (dropped) -->
+  <line x1="755" y1="306" x2="125" y2="306" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <polygon points="125,306 133,302 133,310" fill="#E2557A"/>
+  <rect x="370" y="292" width="130" height="20" rx="3" fill="#FFF7EC" stroke="#E2557A"/>
+  <text x="435" y="306" text-anchor="middle" font-size="11" fill="#E2557A">RR N(R)=1  ✗ lost</text>
+
+  <!-- RTO note -->
+  <text x="135" y="330" font-size="10" fill="#E2557A">RTO fires → retransmit seq=0</text>
+
+  <!-- resend I-frame seq=0 -->
+  <line x1="120" y1="346" x2="755" y2="346" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="755,346 747,342 747,350" fill="#2A1A2E"/>
+  <rect x="320" y="332" width="230" height="20" rx="3" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="435" y="346" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">I-frame  N(S)=0  (resend)</text>
+
+  <!-- duplicate discard note -->
+  <text x="770" y="370" font-size="10" fill="#E2557A">dup seq=0 → discard</text>
+  <text x="770" y="383" font-size="10" fill="#E2557A">re-ACK N(R)=1</text>
+
+  <!-- RR ack arrives -->
+  <line x1="755" y1="398" x2="125" y2="398" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="125,398 133,394 133,402" fill="#2A1A2E"/>
+  <rect x="380" y="384" width="120" height="20" rx="3" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="440" y="398" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">RR N(R)=1</text>
+
+  <!-- I-frame seq=1 -->
+  <line x1="120" y1="430" x2="755" y2="430" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="755,430 747,426 747,434" fill="#2A1A2E"/>
+  <rect x="330" y="416" width="210" height="20" rx="3" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="435" y="430" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">I-frame  N(S)=1  N(R)=0</text>
+
+  <line x1="20" y1="460" x2="860" y2="460" stroke="#2A1A2E" stroke-width="0.5" stroke-dasharray="3,4" opacity="0.4"/>
+
+  <!-- ============ PHASE 3 ============ -->
+  <text x="40" y="484" font-size="13" font-weight="700" fill="#E2557A">Phase 3</text>
+  <text x="40" y="500" font-size="11" fill="#2A1A2E">Release</text>
+
+  <!-- DISC -->
+  <line x1="120" y1="516" x2="755" y2="516" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="755,516 747,512 747,520" fill="#2A1A2E"/>
+  <rect x="380" y="502" width="120" height="20" rx="3" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="440" y="516" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">DISC (P=1)</text>
+
+  <text x="770" y="548" font-size="10" fill="#E2557A">free buffers</text>
+
+  <!-- UA -->
+  <line x1="755" y1="564" x2="125" y2="564" stroke="#2A1A2E" stroke-width="1.5"/>
+  <polygon points="125,564 133,560 133,568" fill="#2A1A2E"/>
+  <rect x="380" y="550" width="120" height="20" rx="3" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="440" y="564" text-anchor="middle" font-size="11" font-weight="600" fill="#2A1A2E">UA (F=1)</text>
+
+  <text x="30" y="548" font-size="10" fill="#E2557A">free buffers</text>
+
+  <!-- Legend -->
+  <rect x="40" y="600" width="14" height="10" fill="#FFF7EC" stroke="#2A1A2E"/>
+  <text x="60" y="609" font-size="10" fill="#2A1A2E">delivered frame</text>
+  <line x1="180" y1="605" x2="200" y2="605" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="206" y="609" font-size="10" fill="#2A1A2E">lost (timer retransmits)</text>
+  <text x="380" y="609" font-size="10" fill="#2A1A2E">N(S)=send seq   N(R)=next expected (ACK)</text>
+</svg>

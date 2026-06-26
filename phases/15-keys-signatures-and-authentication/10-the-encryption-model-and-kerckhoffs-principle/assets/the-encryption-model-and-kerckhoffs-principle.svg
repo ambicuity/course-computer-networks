@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 600" width="860" height="600">
+  <rect width="860" height="600" fill="#FFF7EC"/>
+  <style>
+    text { font-family: 'Inter', system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; fill: #E2557A; }
+    .field { font-size: 12px; font-weight: 600; }
+    .size { font-size: 10.5px; font-family: monospace; fill: #6b4a5e; }
+    .note { font-size: 11px; fill: #4a3a4e; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .box { fill: #FFFFFF; stroke: #2A1A2E; stroke-width: 1.4; }
+    .accent { fill: #E2557A; }
+    .accent-stroke { stroke: #E2557A; }
+    .arrow { stroke: #2A1A2E; stroke-width: 1.4; fill: none; }
+    .label { font-size: 10px; fill: #6b4a5e; }
+  </style>
+  <text x="430" y="36" text-anchor="middle" class="title">Encryption Model &amp; Kerckhoffs's Principle</text>
+  <text x="430" y="56" text-anchor="middle" class="sub">C = E_K(P), P = D_K(C); algorithm public, key secret</text>
+
+  <!-- The encryption model boxes -->
+  <rect x="40" y="100" width="200" height="80" class="box" rx="6"/>
+  <text x="140" y="128" text-anchor="middle" class="field">Plaintext P</text>
+  <text x="140" y="148" text-anchor="middle" class="note">"attack at dawn"</text>
+  <text x="140" y="166" text-anchor="middle" class="size">visible: no (or to attacker for CPA)</text>
+
+  <rect x="310" y="100" width="240" height="80" class="box" rx="6" fill="#FFFFFF"/>
+  <text x="430" y="124" text-anchor="middle" class="field">Encryption E_K / Decryption D_K</text>
+  <text x="430" y="146" text-anchor="middle" class="note">"algorithms PUBLIC" (Kerckhoffs)</text>
+  <text x="430" y="164" text-anchor="middle" class="size">symmetric: same K; asymmetric: E public, D private</text>
+
+  <rect x="620" y="100" width="200" height="80" class="box" rx="6"/>
+  <text x="720" y="128" text-anchor="middle" class="field">Ciphertext C</text>
+  <text x="720" y="148" text-anchor="middle" class="mono">0xA7 3F 91 BC ...</text>
+  <text x="720" y="166" text-anchor="middle" class="size">visible: yes (Trudy sees)</text>
+
+  <line x1="240" y1="140" x2="310" y2="140" class="arrow"/>
+  <text x="275" y="132" text-anchor="middle" class="label">C = E_K(P)</text>
+  <line x1="550" y1="140" x2="620" y2="140" class="arrow"/>
+  <text x="585" y="132" text-anchor="middle" class="label">on the wire</text>
+
+  <!-- Key channel (the only secret) -->
+  <rect x="310" y="220" width="240" height="48" class="box" rx="6" fill="#FFE5EC"/>
+  <text x="430" y="240" text-anchor="middle" class="field accent">Key K</text>
+  <text x="430" y="256" text-anchor="middle" class="size">visible: no (the only secret)</text>
+  <line x1="430" y1="220" x2="430" y2="180" class="arrow accent-stroke"/>
+  <text x="445" y="205" class="label accent">parameterises E and D</text>
+
+  <!-- Trudy -->
+  <rect x="40" y="220" width="200" height="48" class="box" rx="6" fill="#FFE5EC"/>
+  <text x="140" y="240" text-anchor="middle" class="field accent">Trudy (attacker)</text>
+  <text x="140" y="256" text-anchor="middle" class="size">sees C; not K; not P</text>
+
+  <!-- Work-factor table -->
+  <text x="40" y="320" class="sub">Work factor (years of brute force at 10^9 keys/sec)</text>
+  <g font-family="monospace" font-size="11" fill="#2A1A2E">
+    <text x="40" y="345">k bits</text>
+    <text x="140" y="345">2^k</text>
+    <text x="280" y="345">years @ 10^9 k/s</text>
+    <text x="480" y="345">classification</text>
+  </g>
+  <line x1="40" y1="352" x2="800" y2="352" stroke="#2A1A2E" stroke-width="0.8"/>
+  <g font-family="monospace" font-size="11" fill="#2A1A2E">
+    <text x="40" y="370">32</text>
+    <text x="140" y="370">4.3e9</text>
+    <text x="280" y="370">7.0e-2 s</text>
+    <text x="480" y="370">trivial (online guessing)</text>
+
+    <text x="40" y="390">56</text>
+    <text x="140" y="390">7.2e16</text>
+    <text x="280" y="390">2.3 years</text>
+    <text x="480" y="390" fill="#E2557A">DES (broken by COPACOBANA in days)</text>
+
+    <text x="40" y="410">64</text>
+    <text x="140" y="410">1.8e19</text>
+    <text x="280" y="410">570 years</text>
+    <text x="480" y="410">kid-brother territory</text>
+
+    <text x="40" y="430">128</text>
+    <text x="140" y="430">3.4e38</text>
+    <text x="280" y="430">1.1e22 years</text>
+    <text x="480" y="430" fill="#E2557A">AES-128 commercial baseline</text>
+
+    <text x="40" y="450">192</text>
+    <text x="140" y="450">6.2e57</text>
+    <text x="280" y="450">2.0e41 years</text>
+    <text x="480" y="450">AES-192</text>
+
+    <text x="40" y="470">256</text>
+    <text x="140" y="470">1.2e77</text>
+    <text x="280" y="470">3.7e60 years</text>
+    <text x="480" y="470" fill="#E2557A">AES-256 nation-state resistant</text>
+  </g>
+  <line x1="40" y1="478" x2="800" y2="478" stroke="#2A1A2E" stroke-width="0.8"/>
+
+  <!-- Three attack models -->
+  <text x="40" y="510" class="sub">Three attack models (in increasing attacker power)</text>
+  <g font-size="11" fill="#2A1A2E">
+    <rect x="40" y="520" width="240" height="60" class="box" rx="4"/>
+    <text x="160" y="540" text-anchor="middle" class="field">Ciphertext-only</text>
+    <text x="160" y="558" text-anchor="middle" class="note">Attacker has only C.</text>
+    <text x="160" y="572" text-anchor="middle" class="size">Frequency analysis breaks monoalphabetic.</text>
+
+    <rect x="310" y="520" width="240" height="60" class="box" rx="4"/>
+    <text x="430" y="540" text-anchor="middle" class="field">Known-plaintext</text>
+    <text x="430" y="558" text-anchor="middle" class="note">Attacker has matched (P, C) pairs.</text>
+    <text x="430" y="572" text-anchor="middle" class="size">"login:" header reveals the key byte.</text>
+
+    <rect x="580" y="520" width="240" height="60" class="box" rx="4" fill="#FFE5EC"/>
+    <text x="700" y="540" text-anchor="middle" class="field accent">Chosen-plaintext</text>
+    <text x="700" y="558" text-anchor="middle" class="note">Attacker encrypts chosen P.</text>
+    <text x="700" y="572" text-anchor="middle" class="size">IND-CPA: only random IV protects you.</text>
+  </g>
+</svg>

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620">
+  <rect width="880" height="620" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #5a4a5e; }
+    .lbl { font-size: 12px; }
+    .small { font-size: 10px; fill: #5a4a5e; }
+    .mono { font-family: ui-monospace, monospace; font-size: 12px; }
+    .band { font-size: 11px; font-weight: 600; }
+  </style>
+
+  <text class="title" x="32" y="40">Power Lines to the Electromagnetic Spectrum</text>
+  <text class="sub" x="32" y="60">One channel, two extremes: the hostile mains vs. the wide-open spectrum  (lambda . f = c)</text>
+
+  <!-- ===== TOP: power-line channel ===== -->
+  <text class="band" x="32" y="98">A. Mains as a data channel  (HomePlug / IEEE 1901, ~2-28 MHz OFDM)</text>
+
+  <!-- hot wire with superimposed signals -->
+  <line x1="40" y1="150" x2="840" y2="150" stroke="#2A1A2E" stroke-width="2"/>
+  <text class="small" x="40" y="142">50/60 Hz power  +  MHz data carrier on the same "hot" wire</text>
+
+  <!-- low-freq power sine -->
+  <path d="M40 150 Q 90 110 140 150 T 240 150 T 340 150 T 440 150"
+        fill="none" stroke="#2A1A2E" stroke-width="1.5" opacity="0.5"/>
+  <!-- fast data ripple -->
+  <path d="M460 150 q 8 -22 16 0 q 8 22 16 0 q 8 -22 16 0 q 8 22 16 0 q 8 -22 16 0 q 8 22 16 0 q 8 -22 16 0 q 8 22 16 0 q 8 -22 16 0 q 8 22 16 0"
+        fill="none" stroke="#E2557A" stroke-width="2"/>
+
+  <!-- branch tap (reflection / multipath) -->
+  <line x1="300" y1="150" x2="300" y2="195" stroke="#2A1A2E" stroke-width="1.5"/>
+  <circle cx="300" cy="150" r="3" fill="#2A1A2E"/>
+  <text class="small" x="306" y="190">branch tap -&gt; impedance</text>
+  <text class="small" x="306" y="202">mismatch -&gt; reflection</text>
+
+  <!-- impulse noise -->
+  <path d="M600 150 l 6 -34 l 6 34 l 6 -22 l 6 22" fill="none" stroke="#E2557A" stroke-width="2"/>
+  <text class="small" x="566" y="200">appliance switch</text>
+  <text class="small" x="566" y="212">-&gt; impulse noise</text>
+
+  <!-- radiation -->
+  <path d="M760 150 q 18 -16 36 0" fill="none" stroke="#E2557A" stroke-width="1.5"/>
+  <path d="M752 150 q 26 -26 52 0" fill="none" stroke="#E2557A" stroke-width="1.5" opacity="0.6"/>
+  <text class="small" x="700" y="200">no twist -&gt; radiates</text>
+  <text class="small" x="700" y="212">(notch ham bands)</text>
+
+  <rect x="40" y="220" width="800" height="30" rx="4" fill="#fff" stroke="#2A1A2E" stroke-width="1"/>
+  <text class="mono" x="52" y="240">~917 subcarriers, per-carrier bit loading, FEC + interleaver, notched mask  ->  100+ Mbps</text>
+
+  <!-- ===== BOTTOM: spectrum ladder ===== -->
+  <text class="band" x="32" y="292">B. The electromagnetic spectrum  (log frequency, ITU bands)</text>
+
+  <!-- axis -->
+  <line x1="60" y1="420" x2="840" y2="420" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="840,420 830,415 830,425" fill="#2A1A2E"/>
+  <text class="small" x="800" y="440">f (Hz)</text>
+
+  <!-- decade ticks -->
+  <g class="small">
+    <line x1="110" y1="415" x2="110" y2="425" stroke="#2A1A2E"/><text x="98" y="440">10^4</text>
+    <line x1="195" y1="415" x2="195" y2="425" stroke="#2A1A2E"/><text x="183" y="440">10^6</text>
+    <line x1="280" y1="415" x2="280" y2="425" stroke="#2A1A2E"/><text x="268" y="440">10^8</text>
+    <line x1="365" y1="415" x2="365" y2="425" stroke="#2A1A2E"/><text x="350" y="440">10^10</text>
+    <line x1="450" y1="415" x2="450" y2="425" stroke="#2A1A2E"/><text x="435" y="440">10^12</text>
+    <line x1="535" y1="415" x2="535" y2="425" stroke="#2A1A2E"/><text x="520" y="440">10^14</text>
+    <line x1="620" y1="415" x2="620" y2="425" stroke="#2A1A2E"/><text x="605" y="440">10^16</text>
+    <line x1="705" y1="415" x2="705" y2="425" stroke="#2A1A2E"/><text x="690" y="440">10^18</text>
+    <line x1="790" y1="415" x2="790" y2="425" stroke="#2A1A2E"/><text x="775" y="440">10^20</text>
+  </g>
+
+  <!-- region bars above the axis -->
+  <rect x="110" y="356" width="255" height="22" rx="3" fill="#2A1A2E" opacity="0.12"/>
+  <text class="lbl" x="200" y="372">Radio</text>
+  <rect x="365" y="356" width="100" height="22" rx="3" fill="#2A1A2E" opacity="0.18"/>
+  <text class="lbl" x="380" y="372">Microwave</text>
+  <rect x="465" y="356" width="85" height="22" rx="3" fill="#2A1A2E" opacity="0.12"/>
+  <text class="lbl" x="476" y="372">Infrared</text>
+  <rect x="550" y="356" width="40" height="22" rx="3" fill="#E2557A" opacity="0.35"/>
+  <text class="small" x="552" y="372">visible</text>
+  <rect x="590" y="356" width="250" height="22" rx="3" fill="#2A1A2E" opacity="0.08"/>
+  <text class="lbl" x="640" y="372">UV / X-ray / Gamma</text>
+
+  <!-- ITU band names below axis -->
+  <g class="small">
+    <text x="150" y="460">LF</text>
+    <text x="195" y="460">MF</text>
+    <text x="240" y="460">HF</text>
+    <text x="285" y="460">VHF</text>
+    <text x="330" y="460">UHF</text>
+    <text x="375" y="460">SHF</text>
+    <text x="420" y="460">EHF</text>
+  </g>
+
+  <!-- markers -->
+  <g>
+    <circle cx="200" cy="420" r="4" fill="#E2557A"/>
+    <text class="small" x="172" y="490">power-line</text>
+    <text class="small" x="180" y="502">2-28 MHz</text>
+    <line x1="200" y1="424" x2="200" y2="476" stroke="#E2557A" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <circle cx="333" cy="420" r="4" fill="#E2557A"/>
+    <text class="small" x="312" y="490">Wi-Fi 2.4G</text>
+    <line x1="333" y1="424" x2="333" y2="476" stroke="#E2557A" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <circle cx="520" cy="420" r="4" fill="#E2557A"/>
+    <text class="small" x="498" y="490">fiber ~10^14</text>
+    <line x1="520" y1="424" x2="520" y2="476" stroke="#E2557A" stroke-width="1" stroke-dasharray="3 3"/>
+  </g>
+
+  <!-- Shannon callout -->
+  <rect x="600" y="478" width="240" height="86" rx="6" fill="#fff" stroke="#2A1A2E" stroke-width="1"/>
+  <text class="mono" x="614" y="500">C = B . log2(1 + SNR)</text>
+  <text class="small" x="614" y="522">mains:  26 MHz, 15 dB  -&gt; ~130 Mbps</text>
+  <text class="small" x="614" y="538">fiber:  30,000 GHz, 10 dB -&gt; ~300 Tbps</text>
+  <text class="small" x="614" y="556" fill="#E2557A">rate tracks bandwidth, not SNR</text>
+
+  <text class="small" x="60" y="600" fill="#5a4a5e">lambda[m] . f[MHz] ~ 300   |   1 GHz ~ 0.3 m, 2.4 GHz ~ 12.5 cm   |   c ~ 3x10^8 m/s</text>
+</svg>

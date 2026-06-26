@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700" font-family="ui-sans-serif, system-ui, sans-serif">
+  <rect width="1000" height="700" fill="#FFF7EC"/>
+  <rect x="20" y="20" width="960" height="660" fill="none" stroke="#2A1A2E" stroke-width="2" rx="12"/>
+
+  <!-- Title -->
+  <text x="40" y="58" font-size="22" font-weight="700" fill="#2A1A2E">Small Campus Network Design — Northbridge Polytechnic</text>
+  <text x="40" y="82" font-size="13" fill="#2A1A2E">Three buildings · 4 floor wings · 472 users · 26 VLANs · VRRPv3 · 10G LACP access uplinks · 25G LACP core uplinks</text>
+
+  <!-- ISP Edge -->
+  <rect x="380" y="110" width="240" height="50" fill="#FFE9D6" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="500" y="142" text-anchor="middle" font-size="14" font-weight="600" fill="#2A1A2E">Edge Router (HA Pair)</text>
+
+  <!-- Core Layer -->
+  <rect x="280" y="200" width="200" height="70" fill="#FFD6BC" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="380" y="232" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">Core SW1</text>
+  <text x="380" y="252" text-anchor="middle" font-size="11" fill="#2A1A2E">64x 100G · OSPF area 0</text>
+
+  <rect x="520" y="200" width="200" height="70" fill="#FFD6BC" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="620" y="232" text-anchor="middle" font-size="14" font-weight="700" fill="#2A1A2E">Core SW2</text>
+  <text x="620" y="252" text-anchor="middle" font-size="11" fill="#2A1A2E">64x 100G · OSPF area 0</text>
+
+  <!-- MLAG between cores -->
+  <line x1="480" y1="235" x2="520" y2="235" stroke="#E2557A" stroke-width="3"/>
+  <text x="500" y="225" text-anchor="middle" font-size="10" fill="#E2557A">MLAG peer-link</text>
+
+  <!-- Edge to Core -->
+  <line x1="430" y1="160" x2="380" y2="200" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="570" y1="160" x2="620" y2="200" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- Distribution buildings -->
+  <g>
+    <rect x="60" y="320" width="240" height="80" fill="#FCD3D8" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+    <text x="180" y="350" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Engineering Dist (Pair)</text>
+    <text x="180" y="370" text-anchor="middle" font-size="10" fill="#2A1A2E">10.10.0.0/16 summary · 25G LACP</text>
+    <text x="180" y="386" text-anchor="middle" font-size="10" fill="#2A1A2E">VRRPv3 groups 10-15</text>
+
+    <rect x="380" y="320" width="240" height="80" fill="#FCD3D8" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+    <text x="500" y="350" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Liberal Arts Dist (Pair)</text>
+    <text x="500" y="370" text-anchor="middle" font-size="10" fill="#2A1A2E">10.26.0.0/16 summary · 25G LACP</text>
+    <text x="500" y="386" text-anchor="middle" font-size="10" fill="#2A1A2E">VRRPv3 groups 16-21</text>
+
+    <rect x="700" y="320" width="240" height="80" fill="#FCD3D8" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+    <text x="820" y="350" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Data Center Dist (Pair)</text>
+    <text x="820" y="370" text-anchor="middle" font-size="10" fill="#2A1A2E">10.42.0.0/16 summary · 25G LACP</text>
+    <text x="820" y="386" text-anchor="middle" font-size="10" fill="#2A1A2E">VRRPv3 groups 22-25</text>
+  </g>
+
+  <!-- Core to Distribution -->
+  <line x1="320" y1="270" x2="180" y2="320" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="440" y1="270" x2="500" y2="320" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="500" y1="270" x2="500" y2="320" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="560" y1="270" x2="500" y2="320" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="560" y1="270" x2="820" y2="320" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="680" y1="270" x2="820" y2="320" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- Access floor stacks -->
+  <g>
+    <rect x="40" y="440" width="80" height="60" fill="#F7F0E1" stroke="#2A1A2E" stroke-width="1.5" rx="4"/>
+    <text x="80" y="465" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">ENG F1</text>
+    <text x="80" y="481" text-anchor="middle" font-size="9" fill="#2A1A2E">10.10.0.0/24</text>
+    <text x="80" y="494" text-anchor="middle" font-size="9" fill="#2A1A2E">48p PoE++</text>
+
+    <rect x="140" y="440" width="80" height="60" fill="#F7F0E1" stroke="#2A1A2E" stroke-width="1.5" rx="4"/>
+    <text x="180" y="465" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">ENG F2</text>
+    <text x="180" y="481" text-anchor="middle" font-size="9" fill="#2A1A2E">10.10.10.0/24</text>
+
+    <rect x="240" y="440" width="80" height="60" fill="#F7F0E1" stroke="#2A1A2E" stroke-width="1.5" rx="4"/>
+    <text x="280" y="465" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">ENG F3</text>
+    <text x="280" y="481" text-anchor="middle" font-size="9" fill="#2A1A2E">10.10.20.0/24</text>
+
+    <rect x="400" y="440" width="80" height="60" fill="#F7F0E1" stroke="#2A1A2E" stroke-width="1.5" rx="4"/>
+    <text x="440" y="465" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">LA F1</text>
+    <text x="440" y="481" text-anchor="middle" font-size="9" fill="#2A1A2E">10.26.0.0/24</text>
+
+    <rect x="500" y="440" width="80" height="60" fill="#F7F0E1" stroke="#2A1A2E" stroke-width="1.5" rx="4"/>
+    <text x="540" y="465" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">LA F2</text>
+    <text x="540" y="481" text-anchor="middle" font-size="9" fill="#2A1A2E">10.26.10.0/24</text>
+
+    <rect x="740" y="440" width="80" height="60" fill="#F7F0E1" stroke="#2A1A2E" stroke-width="1.5" rx="4"/>
+    <text x="780" y="465" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">DC F1</text>
+    <text x="780" y="481" text-anchor="middle" font-size="9" fill="#2A1A2E">10.42.0.0/24</text>
+
+    <rect x="840" y="440" width="80" height="60" fill="#F7F0E1" stroke="#2A1A2E" stroke-width="1.5" rx="4"/>
+    <text x="880" y="465" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">DC F2</text>
+    <text x="880" y="481" text-anchor="middle" font-size="9" fill="#2A1A2E">10.42.10.0/24</text>
+  </g>
+
+  <!-- Dist to Access uplinks -->
+  <line x1="180" y1="400" x2="80" y2="440" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="180" y1="400" x2="180" y2="440" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="180" y1="400" x2="280" y2="440" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="500" y1="400" x2="440" y2="440" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="500" y1="400" x2="540" y2="440" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="820" y1="400" x2="780" y2="440" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="820" y1="400" x2="880" y2="440" stroke="#2A1A2E" stroke-width="1"/>
+
+  <!-- Wireless overlay -->
+  <g>
+    <rect x="60" y="540" width="240" height="60" fill="#FFE9D6" stroke="#E2557A" stroke-width="1.5" rx="4"/>
+    <text x="180" y="562" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Engineering Wireless (8 APs)</text>
+    <text x="180" y="578" text-anchor="middle" font-size="10" fill="#2A1A2E">Wi-Fi 6E · 2.5G uplinks · VLAN 12</text>
+    <text x="180" y="592" text-anchor="middle" font-size="10" fill="#2A1A2E">PoE budget: 204 W / 1440 W</text>
+
+    <rect x="380" y="540" width="240" height="60" fill="#FFE9D6" stroke="#E2557A" stroke-width="1.5" rx="4"/>
+    <text x="500" y="562" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Liberal Arts Wireless (6 APs)</text>
+    <text x="500" y="578" text-anchor="middle" font-size="10" fill="#2A1A2E">Wi-Fi 6 · 1G uplinks · VLAN 18</text>
+    <text x="500" y="592" text-anchor="middle" font-size="10" fill="#2A1A2E">PoE budget: 153 W / 1440 W</text>
+
+    <rect x="700" y="540" width="240" height="60" fill="#FFE9D6" stroke="#E2557A" stroke-width="1.5" rx="4"/>
+    <text x="820" y="562" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">DC Wireless (2 APs)</text>
+    <text x="820" y="578" text-anchor="middle" font-size="10" fill="#2A1A2E">Wi-Fi 6E · 2.5G uplinks · VLAN 24</text>
+    <text x="820" y="592" text-anchor="middle" font-size="10" fill="#2A1A2E">PoE budget: 51 W / 1440 W</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(40, 630)">
+    <rect x="0" y="0" width="14" height="14" fill="#FFD6BC" stroke="#2A1A2E"/>
+    <text x="20" y="11" font-size="11" fill="#2A1A2E">Core (L3 transport)</text>
+    <rect x="160" y="0" width="14" height="14" fill="#FCD3D8" stroke="#2A1A2E"/>
+    <text x="180" y="11" font-size="11" fill="#2A1A2E">Distribution (L3 + policy)</text>
+    <rect x="350" y="0" width="14" height="14" fill="#F7F0E1" stroke="#2A1A2E"/>
+    <text x="370" y="11" font-size="11" fill="#2A1A2E">Access (L2 + PoE)</text>
+    <rect x="490" y="0" width="14" height="14" fill="#FFE9D6" stroke="#E2557A"/>
+    <text x="510" y="11" font-size="11" fill="#2A1A2E">Wi-Fi overlay</text>
+    <line x1="620" y1="7" x2="650" y2="7" stroke="#E2557A" stroke-width="3"/>
+    <text x="660" y="11" font-size="11" fill="#2A1A2E">MLAG peer-link / LACP</text>
+  </g>
+
+  <text x="40" y="668" font-size="10" fill="#2A1A2E">Topology: Core (100G) → Distribution (25G LACP) → Access stacks (10G LACP) → Wi-Fi 6E APs (2.5G PoE++). FHRP: VRRPv3 fast-hello, BFD 50ms, convergence &lt; 1s.</text>
+</svg>

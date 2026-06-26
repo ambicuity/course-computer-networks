@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why is multicast more efficient than unicast for a live stream with many viewers?",
+      "options": [
+        "Multicast compresses the stream more",
+        "Multicast sends one copy from the source; the network replicates only at branches where receivers joined, so source egress stays constant",
+        "Multicast uses TCP which is faster",
+        "Multicast skips routers entirely"
+      ],
+      "correct": 1,
+      "explanation": "With unicast the source sends one copy per viewer, so egress scales linearly with audience size. Multicast sends one copy to a group address; routers replicate only where at least one downstream receiver has joined via IGMP."
+    },
+    {
+      "stage": "post",
+      "question": "How many IPv4 multicast group addresses map to a single Ethernet MAC address, and why?",
+      "options": [
+        "1:1 mapping, no ambiguity",
+        "32 IP groups share one MAC because only the low 23 bits of the IP group are copied into the MAC",
+        "256 IP groups share one MAC",
+        "All class D addresses share one MAC"
+      ],
+      "correct": 1,
+      "explanation": "The Ethernet multicast MAC uses only the low 23 bits of the IP group address, dropping bit 24 of the third octet. That 5-bit loss means 2^5 = 32 IP groups map to each MAC. The IP stack filters by full IP address to resolve the ambiguity."
+    },
+    {
+      "stage": "post",
+      "question": "What does an IGMP Leave Group message (v2/v3) let the router do that IGMPv1 could not?",
+      "options": [
+        "Encrypt the group",
+        "Prune the group immediately instead of waiting for the query timeout to expire",
+        "Join a new group",
+        "Increase the TTL"
+      ],
+      "correct": 1,
+      "explanation": "IGMPv1 had no leave message, so a router kept forwarding a group until the query interval timed out with no response. IGMPv2/v3 adds a Leave Group message so the router can send a group-specific query and prune the interface right away, reclaiming bandwidth."
+    },
+    {
+      "stage": "post",
+      "question": "What problem does IGMP snooping solve on a layer-2 switch?",
+      "options": [
+        "It routes multicast between VLANs",
+        "It inspects IGMP reports and leaves to learn which ports joined which groups, so the switch forwards multicast only to those ports instead of flooding",
+        "It encrypts multicast traffic",
+        "It elects the designated querier"
+      ],
+      "correct": 1,
+      "explanation": "A switch does not route IP, so by default it floods multicast to every port. IGMP snooping has the switch inspect IGMP control messages to build a group-to-port map, forwarding frames only to ports that joined the group, avoiding waste."
+    }
+  ]
+}

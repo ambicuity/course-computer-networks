@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why use FEC instead of retransmission (ARQ) for real-time media?",
+      "options": [
+        "FEC is simpler",
+        "Retransmission is too slow: by the time the retransmitted packet arrives, its playout deadline has passed",
+        "FEC uses less bandwidth",
+        "ARQ does not work over UDP"
+      ],
+      "correct": 1,
+      "explanation": "In real-time media, the playout deadline is tight. FEC sends redundant data proactively so the receiver can repair losses immediately without waiting for a round-trip retransmission."
+    },
+    {
+      "stage": "post",
+      "question": "Why does XOR-based FEC fail to repair burst loss?",
+      "options": [
+        "XOR is too slow",
+        "A burst often hits 2+ packets in the same FEC group, but one parity can only repair one loss",
+        "Burst loss corrupts the parity packet",
+        "FEC only works on random loss"
+      ],
+      "correct": 1,
+      "explanation": "XOR parity can repair exactly one lost packet per group. A burst loss of 2+ consecutive packets likely falls in the same FEC group, exceeding the single-loss repair capacity."
+    },
+    {
+      "stage": "post",
+      "question": "How does interleaving help FEC handle burst loss?",
+      "options": [
+        "It compresses the packets",
+        "It spreads consecutive packets across different FEC groups, so a burst hits different groups as single losses",
+        "It adds more parity packets",
+        "It reduces the packet size"
+      ],
+      "correct": 1,
+      "explanation": "Interleaving reorders packets so consecutive media frames are in different FEC groups. A burst loss of 3 transmission slots becomes 3 single losses in 3 different groups, each repairable by FEC."
+    },
+    {
+      "stage": "post",
+      "question": "What is the bandwidth overhead of XOR FEC with group size k=4?",
+      "options": [
+        "10%",
+        "25% (1 parity per 4 media packets)",
+        "50%",
+        "100%"
+      ],
+      "correct": 1,
+      "explanation": "With k=4, one parity packet is sent for every 4 media packets: 5 total for 4 original, which is 1/4 = 25% overhead."
+    }
+  ]
+}

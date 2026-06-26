@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <title>Shortest Path Routing Lab — topology with Dijkstra shortest path highlighted</title>
+  <desc>Five routers A B C D E with weighted links; the shortest path tree from A is highlighted in berry.</desc>
+
+  <rect width="720" height="480" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="360" y="38" text-anchor="middle" fill="#2A1A2E" font-size="20" font-weight="700">Shortest Path Routing Lab</text>
+  <text x="360" y="60" text-anchor="middle" fill="#2A1A2E" font-size="13" opacity="0.7">Dijkstra SPF tree from A (highlighted) — costs shown on every link</text>
+
+  <!-- Legend -->
+  <g font-size="12" fill="#2A1A2E">
+    <line x1="40" y1="92" x2="80" y2="92" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="88" y="96">link (cost)</text>
+    <line x1="180" y1="92" x2="220" y2="92" stroke="#E2557A" stroke-width="4"/>
+    <text x="228" y="96">shortest path tree from A</text>
+  </g>
+
+  <!-- Edges (non-tree) drawn first so tree sits on top -->
+  <g stroke="#2A1A2E" stroke-width="2" fill="none">
+    <!-- A-C direct, cost 4 (not on tree: A reaches C via B at cost 2) -->
+    <line x1="120" y1="280" x2="360" y2="180"/>
+    <!-- B-C cost 1 (on tree: B reaches C) -->
+    <line x1="240" y1="280" x2="360" y2="180"/>
+  </g>
+
+  <!-- Edges (tree) highlighted in berry -->
+  <g stroke="#E2557A" stroke-width="4" fill="none">
+    <!-- A-B cost 1 -->
+    <line x1="120" y1="280" x2="240" y2="280"/>
+    <!-- C-E cost 0 -->
+    <line x1="360" y1="180" x2="540" y2="180"/>
+    <!-- B-D cost 2 -->
+    <line x1="240" y1="280" x2="420" y2="380"/>
+  </g>
+
+  <!-- Edge cost labels -->
+  <g fill="#2A1A2E" font-size="13" font-weight="600">
+    <text x="174" y="272" text-anchor="middle">1</text>
+    <text x="232" y="226" text-anchor="middle">4</text>
+    <text x="304" y="226" text-anchor="middle">1</text>
+    <text x="330" y="272" text-anchor="middle">2</text>
+    <text x="454" y="172" text-anchor="middle">0</text>
+  </g>
+
+  <!-- Router nodes -->
+  <g>
+    <!-- A -->
+    <circle cx="120" cy="280" r="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="3"/>
+    <text x="120" y="286" text-anchor="middle" fill="#2A1A2E" font-size="18" font-weight="700">A</text>
+    <text x="120" y="328" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">source</text>
+    <!-- B -->
+    <circle cx="240" cy="280" r="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="3"/>
+    <text x="240" y="286" text-anchor="middle" fill="#2A1A2E" font-size="18" font-weight="700">B</text>
+    <text x="240" y="328" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">cost 1, via B</text>
+    <!-- C -->
+    <circle cx="360" cy="180" r="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="3"/>
+    <text x="360" y="186" text-anchor="middle" fill="#2A1A2E" font-size="18" font-weight="700">C</text>
+    <text x="360" y="148" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">cost 2, via B</text>
+    <!-- D -->
+    <circle cx="420" cy="380" r="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="3"/>
+    <text x="420" y="386" text-anchor="middle" fill="#2A1A2E" font-size="18" font-weight="700">D</text>
+    <text x="420" y="428" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">cost 3, via B</text>
+    <!-- E -->
+    <circle cx="540" cy="180" r="26" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="3"/>
+    <text x="540" y="186" text-anchor="middle" fill="#2A1A2E" font-size="18" font-weight="700">E</text>
+    <text x="540" y="148" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">cost 2, via B</text>
+  </g>
+
+  <!-- Forwarding table at A (right side) -->
+  <g font-size="12" fill="#2A1A2E">
+    <text x="600" y="280" text-anchor="middle" font-weight="700">Forwarding table at A</text>
+    <line x1="556" y1="290" x2="684" y2="290" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="560" y="308" font-weight="600">dest</text>
+    <text x="600" y="308" font-weight="600">cost</text>
+    <text x="640" y="308" font-weight="600">next</text>
+    <line x1="556" y1="316" x2="684" y2="316" stroke="#2A1A2E" stroke-width="1" opacity="0.4"/>
+    <text x="560" y="334">B</text><text x="600" y="334">1</text><text x="640" y="334">B</text>
+    <text x="560" y="354">C</text><text x="600" y="354">2</text><text x="640" y="354">B</text>
+    <text x="560" y="374">D</text><text x="600" y="374">3</text><text x="640" y="374">B</text>
+    <text x="560" y="394">E</text><text x="600" y="394">2</text><text x="640" y="394">B</text>
+  </g>
+
+  <!-- Footer note -->
+  <text x="360" y="462" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.6">A reaches C via B (1+1=2) cheaper than direct (4) — the next-hop walk-back picks B, not C</text>
+</svg>

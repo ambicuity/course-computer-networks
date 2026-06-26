@@ -1,0 +1,35 @@
+[
+  {
+    "question": "How long is the fixed DNS message header, and which RFC defines its layout?",
+    "options": [
+      "A. 8 bytes, defined by RFC 2782",
+      "B. 12 bytes, defined by RFC 1035 §4.1.1",
+      "C. 16 bytes, defined by RFC 6891",
+      "D. 20 bytes, defined by RFC 7766"
+    ],
+    "answer": 1,
+    "explanation": "RFC 1035 §4.1.1 specifies a 12-byte fixed header: 2-byte ID, 2-byte flags, then four 16-bit section counts (QD/AN/NS/AR)."
+  },
+  {
+    "question": "A response has its TC bit set. What must the client do per RFC 7766?",
+    "options": [
+      "A. Drop the query entirely because DNS only works over UDP",
+      "B. Send the same query again over TCP and ignore the truncated UDP response",
+      "C. Cache whatever portion of the answer it received and stop retrying",
+      "D. Send the query to a different resolver IP"
+    ],
+    "answer": 1,
+    "explanation": "TC=1 means the response was truncated to fit the UDP buffer. RFC 7766 requires stub resolvers to retry the same query over TCP and use the full TCP response."
+  },
+  {
+    "question": "An OPT pseudo-record sits in the additional section. What does its CLASS field actually carry?",
+    "options": [
+      "A. The DNS class, normally IN=1",
+      "B. The query type, A=1",
+      "C. The advertised UDP payload size in bytes (RFC 6891 EDNS(0))",
+      "D. The TTL of the cached record"
+    ],
+    "answer": 2,
+    "explanation": "RFC 6891 reuses the CLASS field of the OPT pseudo-RR to carry the UDP payload buffer size the client can receive. Common values are 1232 (IPv6-safe) and 4096."
+  }
+]

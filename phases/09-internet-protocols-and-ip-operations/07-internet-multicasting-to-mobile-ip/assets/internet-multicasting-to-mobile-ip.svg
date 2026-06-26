@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580">
+  <rect width="880" height="580" fill="#FFF7EC"/>
+  <style>
+    .ink { fill:#2A1A2E; font-family:Inter, ui-sans-serif, system-ui, sans-serif; }
+    .berry { fill:#E2557A; }
+    .stroke-ink { stroke:#2A1A2E; fill:none; }
+    .mono { font-family: ui-monospace, Menlo, Consolas, monospace; fill:#2A1A2E; }
+    .small { font-size:11px; }
+    .sec { font-size:18px; font-weight:700; }
+    .tag { font-size:10px; font-weight:700; fill:#FFF7EC; }
+  </style>
+  <text x="440" y="32" text-anchor="middle" class="ink sec">IP Multicasting (IGMP/PIM) and Mobile IP (RFC 3344)</text>
+
+  <!-- Multicast side -->
+  <text x="40" y="68" class="ink sec">IGMP + PIM — one packet, N receivers</text>
+  <g class="mono small">
+    <text x="40" y="96" class="ink">Class-D: 224.0.0.0/4  · 28 bits for group ID</text>
+    <text x="40" y="114" class="ink">Local (never leaves LAN): 244.0.0.0/24</text>
+    <text x="40" y="132" class="ink">  224.0.0.1 all systems · 0.2 routers · 0.5 OSPF · 0.251 mDNS</text>
+    <text x="40" y="160" class="ink">Join: host → router: "I want group G" (IGMP v3 report)</text>
+    <text x="40" y="178" class="ink">Router sends Membership Query (224.0.0.1) every ~60s</text>
+    <text x="40" y="206" class="ink">PIM Dense Mode: flood then prune (LAN-dense, e.g. datacenter)</text>
+    <text x="40" y="224" class="ink">PIM Sparse Mode: rendezvous-point trees (WAN, e.g. CDN)</text>
+    <text x="40" y="242" class="ink">PIM-SSM: one sender, optimized join tree (RFC 3569)</text>
+    <text x="40" y="270" fill="#E2557A">Failure: IGMP snooping off on switch → 12 copies unicast</text>
+  </g>
+
+  <!-- Mobile IP side -->
+  <text x="500" y="68" class="ink sec">Mobile IP — home agent + care-of</text>
+  <g stroke="#2A1A2E" stroke-width="1.4" fill="none">
+    <rect x="500" y="90" width="140" height="60"/>
+    <rect x="700" y="90" width="140" height="60"/>
+    <rect x="600" y="220" width="160" height="60"/>
+  </g>
+  <g class="mono small">
+    <text x="570" y="118" text-anchor="middle" class="ink">Home agent</text>
+    <text x="570" y="138" text-anchor="middle" class="ink">(home LAN)</text>
+    <text x="770" y="118" text-anchor="middle" class="ink">Correspondent</text>
+    <text x="770" y="138" text-anchor="middle" class="ink">(source host)</text>
+    <text x="680" y="246" text-anchor="middle" class="ink">Mobile host</text>
+    <text x="680" y="266" text-anchor="middle" class="ink">(care-of address)</text>
+  </g>
+  <g class="mono small">
+    <text x="640" y="180" class="ink">1. Packet to mobile</text>
+    <text x="640" y="198" class="ink">2. Home agent intercepts via proxy ARP</text>
+    <text x="640" y="216" class="ink">3. Tunnel: IP-in-IP to care-of addr</text>
+    <text x="640" y="300" class="ink">4. Mobile replies directly from care-of</text>
+  </g>
+  <text x="40" y="320" class="ink sec">Complications</text>
+  <g class="mono small">
+    <text x="40" y="346" class="ink">Triangle routing: home-agent → mobile → correspondent</text>
+    <text x="40" y="364" class="ink">  longer than direct; IPv6 route-optimization (RFC 3775)</text>
+    <text x="40" y="392" class="ink">NAT: must tunnel inside UDP header (RFC 3519)</text>
+    <text x="40" y="420" class="ink">Ingress filtering: mobile must reverse-tunnel via home agent</text>
+    <text x="40" y="438" fill="#E2557A">  else foreign-AS filters its "out-of-place" source IP.</text>
+    <text x="40" y="466" class="ink">NEMO (RFC 3963): entire moving network (e.g. plane router)</text>
+  </g>
+  <text x="40" y="540" class="ink small">Evidence: tcpdump 'ip proto 2' (IGMP), Wireshark PIM filter, ICMP Router Advertisement, IP-in-IP (proto 4)</text>
+</svg>

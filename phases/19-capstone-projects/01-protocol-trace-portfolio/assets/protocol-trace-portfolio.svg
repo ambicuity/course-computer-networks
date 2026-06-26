@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <rect width="1000" height="720" fill="#FFF7EC"/>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E2557A"/>
+    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+  <text x="500" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#2A1A2E">Protocol Trace Portfolio: A Full HTTP Transaction in Nine Packets</text>
+  <text x="500" y="62" text-anchor="middle" font-size="12" fill="#2A1A2E" opacity="0.75">Layered evidence from Ethernet to HTTP, annotated with state and timing</text>
+
+  <!-- Lanes -->
+  <line x1="180" y1="100" x2="180" y2="650" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="820" y1="100" x2="820" y2="650" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Lane labels -->
+  <rect x="60" y="90" width="120" height="36" rx="6" fill="#2A1A2E"/>
+  <text x="120" y="105" text-anchor="middle" font-size="11" fill="#FFF7EC" font-weight="600">CLIENT</text>
+  <text x="120" y="120" text-anchor="middle" font-size="10" fill="#FFF7EC" opacity="0.85">10.0.0.5 : 50000</text>
+  <rect x="820" y="90" width="120" height="36" rx="6" fill="#2A1A2E"/>
+  <text x="880" y="105" text-anchor="middle" font-size="11" fill="#FFF7EC" font-weight="600">SERVER</text>
+  <text x="880" y="120" text-anchor="middle" font-size="10" fill="#FFF7EC" opacity="0.85">93.184.216.34 : 80</text>
+
+  <!-- Time axis ticks -->
+  <g font-size="9" fill="#2A1A2E" opacity="0.6">
+    <text x="155" y="148" text-anchor="end">t=0.000</text>
+    <text x="155" y="208" text-anchor="end">t=0.015</text>
+    <text x="155" y="248" text-anchor="end">t=0.016</text>
+    <text x="155" y="298" text-anchor="end">t=0.020</text>
+    <text x="155" y="358" text-anchor="end">t=0.080</text>
+    <text x="155" y="398" text-anchor="end">t=0.085</text>
+    <text x="155" y="448" text-anchor="end">t=0.100</text>
+    <text x="155" y="498" text-anchor="end">t=0.115</text>
+    <text x="155" y="538" text-anchor="end">t=0.116</text>
+  </g>
+
+  <!-- Packet 1: SYN -->
+  <line x1="180" y1="150" x2="820" y2="150" stroke="#E2557A" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="450" y="135" width="100" height="20" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1"/>
+  <text x="500" y="149" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">1: SYN seq=0</text>
+
+  <!-- Packet 2: SYN-ACK -->
+  <line x1="820" y1="210" x2="180" y2="210" stroke="#E2557A" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="445" y="195" width="110" height="20" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1"/>
+  <text x="500" y="209" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">2: SYN-ACK seq=0 ack=1</text>
+
+  <!-- Packet 3: ACK -->
+  <line x1="180" y1="250" x2="820" y2="250" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#ah-blue)"/>
+  <rect x="470" y="235" width="60" height="20" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="500" y="249" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">3: ACK</text>
+
+  <!-- Packet 4: GET -->
+  <line x1="180" y1="300" x2="820" y2="300" stroke="#E2557A" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="455" y="285" width="90" height="20" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1"/>
+  <text x="500" y="299" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">4: GET /</text>
+
+  <!-- Packet 5: 200 OK -->
+  <line x1="820" y1="360" x2="180" y2="360" stroke="#E2557A" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="455" y="345" width="90" height="20" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1"/>
+  <text x="500" y="359" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">5: 200 OK 1280 B</text>
+
+  <!-- Packet 6: ACK -->
+  <line x1="180" y1="400" x2="820" y2="400" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#ah-blue)"/>
+  <rect x="470" y="385" width="60" height="20" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="500" y="399" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">6: ACK</text>
+
+  <!-- Packet 7: FIN -->
+  <line x1="180" y1="450" x2="820" y2="450" stroke="#E2557A" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="465" y="435" width="70" height="20" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1"/>
+  <text x="500" y="449" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">7: FIN-ACK</text>
+
+  <!-- Packet 8: FIN-ACK -->
+  <line x1="820" y1="500" x2="180" y2="500" stroke="#E2557A" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="455" y="485" width="90" height="20" rx="4" fill="#FFF7EC" stroke="#E2557A" stroke-width="1"/>
+  <text x="500" y="499" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">8: FIN-ACK</text>
+
+  <!-- Packet 9: final ACK -->
+  <line x1="180" y1="540" x2="820" y2="540" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#ah-blue)"/>
+  <rect x="455" y="525" width="90" height="20" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="500" y="539" text-anchor="middle" font-size="11" fill="#2A1A2E" font-weight="600">9: final ACK</text>
+
+  <!-- Phase brackets -->
+  <g font-size="10" fill="#2A1A2E" opacity="0.7">
+    <text x="40" y="190" font-weight="600">HANDSHAKE</text>
+    <line x1="40" y1="200" x2="40" y2="260" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="40" y="350" font-weight="600">REQUEST</text>
+    <line x1="40" y1="360" x2="40" y2="410" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="40" y="500" font-weight="600">TEAR-DOWN</text>
+    <line x1="40" y1="510" x2="40" y2="550" stroke="#2A1A2E" stroke-width="1.5"/>
+  </g>
+
+  <!-- Layered callouts at bottom -->
+  <g>
+    <rect x="60" y="590" width="880" height="100" rx="8" fill="#FFF" stroke="#2A1A2E" stroke-width="1" opacity="0.95"/>
+    <text x="80" y="612" font-size="12" font-weight="700" fill="#2A1A2E">LAYERED EVIDENCE PER PACKET</text>
+    <text x="80" y="632" font-size="10" fill="#2A1A2E">L2 Ethernet: src/dst MAC + Ethertype 0x0800 (IPv4)</text>
+    <text x="80" y="650" font-size="10" fill="#2A1A2E">L3 IPv4: src/dst IP, TTL=64, protocol=6 (TCP), total length, identification</text>
+    <text x="80" y="668" font-size="10" fill="#2A1A2E">L4 TCP: src/dst port, seq/ack numbers, flags (SYN, ACK, FIN, PSH), window</text>
+    <text x="540" y="632" font-size="10" fill="#2A1A2E">L7 HTTP: method, path, status, headers (Host, User-Agent, Content-Type)</text>
+    <text x="540" y="650" font-size="10" fill="#2A1A2E">Timing: handshake 15 ms | GET-RTT 60 ms | session 116 ms</text>
+    <text x="540" y="668" font-size="10" fill="#2A1A2E">Failure markers: retransmit (same seq), duplicate ACK, zero window, RST</text>
+  </g>
+</svg>

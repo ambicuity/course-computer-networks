@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480" width="820" height="480" font-family="ui-monospace,monospace">
+  <rect width="820" height="480" fill="#FFF7EC"/>
+  <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#2A1A2E">MPLS Label Switching &amp; FECs</text>
+  <text x="410" y="50" text-anchor="middle" font-size="11" fill="#2A1A2E">32-bit shim · LER push/swap/pop · LSP · RSVP-TE for traffic engineering</text>
+
+  <!-- shim -->
+  <g>
+    <rect x="40" y="80" width="740" height="80" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="100" font-size="12" font-weight="bold" fill="#2A1A2E">32-bit shim header (between L2 and IP)</text>
+    <rect x="60" y="115" width="370" height="35" fill="#E2557A" opacity="0.7"/>
+    <text x="245" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">Label (20 bits)</text>
+    <rect x="430" y="115" width="60" height="35" fill="#2A1A2E" opacity="0.7"/>
+    <text x="460" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">TC 3b</text>
+    <rect x="490" y="115" width="30" height="35" fill="#2A1A2E" opacity="0.7"/>
+    <text x="505" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">S</text>
+    <rect x="520" y="115" width="200" height="35" fill="#2A1A2E" opacity="0.5"/>
+    <text x="620" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">TTL (8 bits)</text>
+  </g>
+
+  <!-- LSP walk -->
+  <g>
+    <rect x="40" y="180" width="740" height="180" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="200" font-size="12" font-weight="bold" fill="#2A1A2E">LSP walk — LER1 → LSR2 → LSR3 → LER4</text>
+    <rect x="80" y="240" width="60" height="50" fill="#E2557A"/>
+    <text x="110" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">LER1</text>
+    <rect x="260" y="240" width="60" height="50" fill="#2A1A2E" opacity="0.6"/>
+    <text x="290" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">LSR2</text>
+    <rect x="440" y="240" width="60" height="50" fill="#2A1A2E" opacity="0.6"/>
+    <text x="470" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">LSR3</text>
+    <rect x="620" y="240" width="60" height="50" fill="#E2557A"/>
+    <text x="650" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">LER4</text>
+    <line x1="140" y1="265" x2="260" y2="265" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="320" y1="265" x2="440" y2="265" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="500" y1="265" x2="620" y2="265" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="200" y="258" text-anchor="middle" font-size="10" font-weight="bold" fill="#2A1A2E">21</text>
+    <text x="380" y="258" text-anchor="middle" font-size="10" font-weight="bold" fill="#2A1A2E">38</text>
+    <text x="560" y="258" text-anchor="middle" font-size="10" font-weight="bold" fill="#2A1A2E">57</text>
+    <text x="650" y="258" text-anchor="middle" font-size="10" font-weight="bold" fill="#2A1A2E">pop</text>
+    <text x="200" y="310" text-anchor="middle" font-size="10" fill="#2A1A2E">[push 21]</text>
+    <text x="380" y="310" text-anchor="middle" font-size="10" fill="#2A1A2E">[swap 21→38]</text>
+    <text x="560" y="310" text-anchor="middle" font-size="10" fill="#2A1A2E">[swap 38→57]</text>
+    <text x="650" y="310" text-anchor="middle" font-size="10" fill="#2A1A2E">[pop &amp; IP fwd]</text>
+    <text x="200" y="340" text-anchor="middle" font-size="10" fill="#E2557A">PHP on 3→4 link</text>
+  </g>
+
+  <!-- LDP / RSVP -->
+  <g>
+    <rect x="40" y="380" width="740" height="80" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="400" font-size="12" font-weight="bold" fill="#2A1A2E">Label distribution</text>
+    <text x="60" y="422" font-size="10" fill="#2A1A2E">LDP (RFC 5036) — TCP-based, downstream unsolicited/on-demand; maps FEC to label.</text>
+    <text x="60" y="442" font-size="10" fill="#2A1A2E">RSVP-TE (RFC 3209) — explicit path + bandwidth reservation for traffic-engineered LSPs.</text>
+  </g>
+</svg>

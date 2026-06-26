@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A Java client gets SSLPeerUnverifiedException connecting to https://api.example.com on shared IP 203.0.113.10. openssl s_client without -servername returns a leaf with subject=CN=app.example.com. What is the cause?",
+      "options": [
+        "A. The trust store is corrupt",
+        "B. The server is down",
+        "C. The client did not send SNI, so the server returned its default certificate for app.example.com, which does not match api.example.com",
+        "D. The Java client disabled TLS 1.2"
+      ],
+      "answer": 2,
+      "explanation": "On a shared-IP server, the default certificate is returned only when the ClientHello carries no SNI extension. The Java client's default code path did not put SNI in the ClientHello, the server picked the fallback certificate, and the hostname check failed. Adding -servername to s_client forces SNI in the ClientHello and the server returns the right leaf."
+    },
+    {
+      "question": "openssl s_client -showcerts shows only the leaf. The client cannot verify the first certificate. What is wrong?",
+      "options": [
+        "A. The server is using TLS 1.0",
+        "B. The chain is incomplete; the intermediate CA is missing from the server's Certificate record",
+        "C. ALPN is not negotiated",
+        "D. The leaf is expired"
+      ],
+      "answer": 1,
+      "explanation": "The Certificate record the server sends must include enough entries for the client to walk from the leaf to a trusted root. If the server only sent the leaf and skipped the intermediate, the client cannot bridge to a root in its trust store, and s_client reports 'Verify return code: 21 (unable to verify the first certificate)'. The fix is server-side: configure the web server to send the full chain."
+    },
+    {
+      "question": "Why has the certificate's Common Name (CN) been deprecated for hostname validation?",
+      "options": [
+        "A. CNs are too long",
+        "B. RFC 6125 and the CA/B Forum Baseline Requirements deprecate CN; only the Subject Alternative Name (SAN) extension is trusted",
+        "C. CNs use SHA-1",
+        "D. CNs are part of the cipher suite"
+      ],
+      "answer": 1,
+      "explanation": "Since RFC 6125 and the CA/B Forum BRs, modern clients ignore the CN in the subject and require the requested hostname to be in the Subject Alternative Name (SAN) extension. The diagnostic is 'openssl x509 -text -noout | grep -A1 Subject Alternative Name' to read the SAN list."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the difference between delay and jitter?",
+      "options": [
+        "They are the same thing",
+        "Delay is the absolute transit time; jitter is the variation in transit time between packets",
+        "Jitter is always larger than delay",
+        "Delay only affects video, jitter only affects audio"
+      ],
+      "correct": 1,
+      "explanation": "Delay is how long a packet takes to arrive. Jitter is how much that delay varies from packet to packet. The playout buffer absorbs jitter, not delay."
+    },
+    {
+      "stage": "post",
+      "question": "What happens when a packet arrives after its scheduled playout time?",
+      "options": [
+        "It is buffered for the next frame",
+        "It is too late and must be discarded (late loss)",
+        "The receiver pauses playback",
+        "The sender retransmits it"
+      ],
+      "correct": 1,
+      "explanation": "A late packet has missed its playout deadline. In real-time media it cannot be used, so it is discarded as a late loss. This is different from network packet loss."
+    },
+    {
+      "stage": "post",
+      "question": "What is the fundamental tradeoff in choosing playout delay?",
+      "options": [
+        "Quality vs bandwidth",
+        "Latency vs late-packet loss: more delay means less loss but higher latency",
+        "CPU vs memory",
+        "TCP vs UDP"
+      ],
+      "correct": 1,
+      "explanation": "A larger playout buffer absorbs more jitter (fewer late packets) but adds latency. A smaller buffer reduces latency but increases the chance of late loss."
+    },
+    {
+      "stage": "post",
+      "question": "Why does adaptive playout delay adjust during talkspurt boundaries?",
+      "options": [
+        "Because the network is faster during silence",
+        "To avoid audible glitches: adjusting during silence makes the change imperceptible",
+        "Because packets are larger during talkspurts",
+        "It does not matter when adjustment happens"
+      ],
+      "correct": 1,
+      "explanation": "Adjusting playout delay during a talkspurt would stretch or compress speech, causing an audible glitch. Adjusting during silence (between talkspurts) makes the change imperceptible."
+    }
+  ]
+}

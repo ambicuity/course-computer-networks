@@ -1,0 +1,35 @@
+[
+  {
+    "question": "An application calls write() four times with 512 bytes each. What can the receiver observe from a single connection?",
+    "options": [
+      "A. Four read() calls, each returning exactly 512 bytes, every time",
+      "B. Any combination of reads that sums to 2,048 bytes, because TCP is a byte stream with no record boundaries",
+      "C. One read() of 2,048 bytes the first time and four reads of 512 bytes the next time",
+      "D. The receiver will always receive exactly one segment with all 2,048 bytes"
+    ],
+    "answer": 1,
+    "explanation": "TCP is a byte stream (RFC 793). It makes no promise about preserving write() boundaries. The receiver's read() may return any contiguous slice the OS chooses -- four 512-byte reads, one 2,048-byte read, or anything in between. Applications that need message framing must add their own length prefix or delimiter."
+  },
+  {
+    "question": "Over an Ethernet link with MTU 1,500, what is the default TCP MSS and why?",
+    "options": [
+      "A. 1,500 bytes because TCP can use the full MTU",
+      "B. 1,460 bytes because MSS is MTU minus the 20-byte IPv4 header and 20-byte TCP header",
+      "C. 536 bytes because that is the RFC 879 fallback when no MSS option is negotiated",
+      "D. 65,495 bytes because that is the largest legal TCP payload"
+    ],
+    "answer": 1,
+    "explanation": "MSS is the maximum TCP data bytes per segment, not including headers. With a 1,500-byte Ethernet MTU and 20-byte IPv4 + 20-byte TCP headers, MSS = 1500 - 20 - 20 = 1,460. The 65,495-byte maximum only applies if path MTU discovery finds a much larger MTU. RFC 879 specifies 536 as the fallback only when MSS is not advertised."
+  },
+  {
+    "question": "A web server listens on 10.0.1.10:80. Two clients from the same NAT arrive with source ports 49152 and 62011. How does the server keep the connections separate?",
+    "options": [
+      "A. The 16-bit local port (80) is unique per connection",
+      "B. The 5-tuple adds the remote IP and remote port, which differ between the two clients",
+      "C. TCP cannot support more than one connection per listening socket",
+      "D. The server creates a new socket for each client and they share no state"
+    ],
+    "answer": 1,
+    "explanation": "TCP identifies a connection by the 5-tuple {protocol, src IP, src port, dst IP, dst port}. The two clients have different source ports (49152 vs 62011), so even though they share the server's listening socket (10.0.1.10:80) the tuples differ and the server can multiplex them. This is exactly why one HTTP server can serve thousands of clients concurrently."
+  }
+]

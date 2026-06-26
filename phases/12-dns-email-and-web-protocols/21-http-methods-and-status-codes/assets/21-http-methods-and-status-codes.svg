@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">HTTP Request Methods and Status Code Groups</text>
+  <text x="40" y="68" class="sub">Request line and status line carry the verbs and codes that drive the Web (RFC 7230 / 7231 / 9110)</text>
+
+  <!-- Request line -->
+  <rect x="40" y="100" width="420" height="180" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">Request line (RFC 7230 §3.1.1)</text>
+  <text x="60" y="156" class="mono">GET /index.html HTTP/1.1</text>
+  <text x="60" y="184" class="mono">method   : GET   (case-sensitive)</text>
+  <text x="60" y="200" class="mono">target   : /index.html</text>
+  <text x="60" y="216" class="mono">version  : HTTP/1.1 (or HTTP/2)</text>
+  <text x="60" y="244" class="label">Standard methods:</text>
+  <text x="60" y="260" class="mono">GET HEAD POST PUT DELETE CONNECT OPTIONS TRACE</text>
+  <text x="60" y="276" class="mono">+ PATCH (RFC 5789), WebDAV set (RFC 4918)</text>
+
+  <!-- Status line -->
+  <rect x="480" y="100" width="400" height="180" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="500" y="124" class="node accent">Status line (RFC 7230 §3.1.2)</text>
+  <text x="500" y="156" class="mono">HTTP/1.1 200 OK</text>
+  <text x="500" y="184" class="mono">version  : HTTP/1.1</text>
+  <text x="500" y="200" class="mono">code     : 200   (3-digit int)</text>
+  <text x="500" y="216" class="mono">reason   : OK    (clients MUST ignore)</text>
+  <text x="500" y="244" class="label">The reason phrase is human decoration;</text>
+  <text x="500" y="260" class="label">clients should branch on the code only.</text>
+  <text x="500" y="276" class="label">HTTP/1.1 allows an empty reason phrase.</text>
+
+  <!-- Status class table -->
+  <rect x="40" y="300" width="840" height="240" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="324" class="node">Five status code classes (RFC 7231 §6)</text>
+  <text x="60" y="350" class="mono accent">1xx  informational     100 Continue  101 Switching Protocols</text>
+  <text x="60" y="370" class="mono">2xx  success          200 OK  201 Created  204 No Content  206 Partial Content</text>
+  <text x="60" y="390" class="mono">3xx  redirection      301 Moved Permanently  302 Found  303 See Other</text>
+  <text x="80" y="408" class="mono">                     304 Not Modified  307 Temporary Redirect  308 Permanent Redirect</text>
+  <text x="60" y="430" class="mono">4xx  client error     400 Bad Request  401 Unauthorized  403 Forbidden</text>
+  <text x="80" y="448" class="mono">                     404 Not Found  405 Method Not Allowed  406 Not Acceptable</text>
+  <text x="80" y="466" class="mono">                     409 Conflict  410 Gone  418 I'm a Teapot (RFC 2324)</text>
+  <text x="80" y="484" class="mono">                     422 Unprocessable Entity  429 Too Many Requests</text>
+  <text x="60" y="504" class="mono">5xx  server error     500 Internal Server Error  501 Not Implemented</text>
+  <text x="80" y="522" class="mono">                     502 Bad Gateway  503 Service Unavailable  504 Gateway Timeout</text>
+</svg>

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" font-family="ui-monospace,Menlo,Consolas,monospace">
+  <rect width="880" height="600" fill="#FFF7EC"/>
+  <text x="440" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#2A1A2E">Peer-to-Peer Networks: BitTorrent + Chord DHT</text>
+  <text x="440" y="58" text-anchor="middle" font-size="12" fill="#2A1A2E">Self-scaling capacity, rarest-first replication, tit-for-tat reciprocity, O(log N) DHT lookups</text>
+
+  <!-- BitTorrent panel -->
+  <rect x="20" y="80" width="410" height="240" fill="#FFEFD8" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="40" y="104" font-size="14" font-weight="700" fill="#2A1A2E">1. BitTorrent swarm (Cohen, 2001)</text>
+  <text x="40" y="122" font-size="10" fill="#2A1A2E">.torrent metafile, tracker, rarest-first, tit-for-tat</text>
+
+  <!-- tracker -->
+  <rect x="60" y="150" width="80" height="40" fill="#FFC2A0" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="100" y="174" text-anchor="middle" font-size="10" fill="#2A1A2E">Tracker</text>
+
+  <!-- seeder -->
+  <g stroke="#2A1A2E" stroke-width="1" fill="#E2557A">
+    <rect x="60" y="220" width="60" height="30"/>
+    <text x="90" y="240" text-anchor="middle" font-size="9" fill="#FFF7EC">seed</text>
+  </g>
+
+  <!-- peers -->
+  <g stroke="#2A1A2E" stroke-width="1" fill="#F2A0B5">
+    <rect x="180" y="150" width="60" height="30"/>
+    <text x="210" y="170" text-anchor="middle" font-size="9" fill="#2A1A2E">peer-1</text>
+    <rect x="260" y="150" width="60" height="30"/>
+    <text x="290" y="170" text-anchor="middle" font-size="9" fill="#2A1A2E">peer-2</text>
+    <rect x="340" y="150" width="60" height="30"/>
+    <text x="370" y="170" text-anchor="middle" font-size="9" fill="#2A1A2E">peer-3</text>
+    <rect x="180" y="200" width="60" height="30"/>
+    <text x="210" y="220" text-anchor="middle" font-size="9" fill="#2A1A2E">peer-4</text>
+    <rect x="260" y="200" width="60" height="30"/>
+    <text x="290" y="220" text-anchor="middle" font-size="9" fill="#2A1A2E">peer-5</text>
+    <rect x="340" y="200" width="60" height="30"/>
+    <text x="370" y="220" text-anchor="middle" font-size="9" fill="#2A1A2E">peer-6</text>
+  </g>
+
+  <line x1="120" y1="190" x2="180" y2="180" stroke="#2A1A2E" stroke-width="0.8" stroke-dasharray="2 2"/>
+  <line x1="120" y1="190" x2="260" y2="180" stroke="#2A1A2E" stroke-width="0.8" stroke-dasharray="2 2"/>
+  <line x1="120" y1="190" x2="340" y2="180" stroke="#2A1A2E" stroke-width="0.8" stroke-dasharray="2 2"/>
+  <text x="135" y="186" font-size="8" fill="#2A1A2E">peer list</text>
+
+  <g stroke="#2A1A2E" stroke-width="0.8" fill="none">
+    <path d="M 90 220 L 210 180"/>
+    <path d="M 210 180 L 290 180"/>
+    <path d="M 290 180 L 370 180"/>
+    <path d="M 210 220 L 290 220"/>
+    <path d="M 290 220 L 370 220"/>
+    <path d="M 210 220 L 290 180"/>
+  </g>
+
+  <text x="40" y="278" font-size="10" fill="#2A1A2E">Piece selection: rarest-first (avoids seeder bottleneck)</text>
+  <text x="40" y="294" font-size="10" fill="#E2557A">Incentive: tit-for-tat + 1 optimistic unchoke / 10s</text>
+
+  <!-- Chord DHT panel -->
+  <rect x="450" y="80" width="410" height="240" fill="#FFEFD8" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="470" y="104" font-size="14" font-weight="700" fill="#2A1A2E">2. Chord DHT (Stoica et al., 2001)</text>
+  <text x="470" y="122" font-size="10" fill="#2A1A2E">m-bit identifier ring, finger table gives O(log N) lookup</text>
+
+  <!-- chord ring -->
+  <circle cx="655" cy="200" r="90" fill="none" stroke="#2A1A2E" stroke-width="1.4"/>
+  <circle cx="655" cy="200" r="60" fill="none" stroke="#2A1A2E" stroke-width="0.8" stroke-dasharray="2 2"/>
+  <circle cx="655" cy="200" r="30" fill="none" stroke="#2A1A2E" stroke-width="0.6" stroke-dasharray="2 2"/>
+
+  <!-- node markers on ring -->
+  <g fill="#E2557A" stroke="#2A1A2E" stroke-width="0.8">
+    <circle cx="655" cy="110" r="5"/>
+    <circle cx="745" cy="200" r="5"/>
+    <circle cx="625" cy="138" r="5"/>
+    <circle cx="625" cy="262" r="5"/>
+    <circle cx="685" cy="262" r="5"/>
+  </g>
+  <g font-size="9" fill="#2A1A2E">
+    <text x="655" y="100" text-anchor="middle">1</text>
+    <text x="750" y="195">4</text>
+    <text x="610" y="135">7</text>
+    <text x="610" y="278">12</text>
+    <text x="690" y="278">15</text>
+  </g>
+
+  <!-- lookup arrow -->
+  <line x1="655" y1="110" x2="685" y2="262" stroke="#E2557A" stroke-width="2"/>
+  <line x1="685" y1="262" x2="685" y2="200" stroke="#E2557A" stroke-width="2"/>
+  <text x="660" y="180" font-size="10" fill="#E2557A" font-weight="700">lookup key 16</text>
+  <text x="660" y="195" font-size="9" fill="#E2557A">1 &#8594; 12 &#8594; 15 &#8594; 20</text>
+
+  <text x="470" y="310" font-size="10" fill="#2A1A2E">Finger table entry i at node k = successor(k + 2^i mod 2^m)</text>
+
+  <!-- Self-scaling argument -->
+  <rect x="20" y="350" width="410" height="220" fill="#FFE7C2" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="40" y="374" font-size="14" font-weight="700" fill="#2A1A2E">3. The self-scaling argument</text>
+  <text x="40" y="392" font-size="10" fill="#2A1A2E">N users, 1 Mbps up, file of F pieces</text>
+
+  <g font-size="11" fill="#2A1A2E">
+    <text x="40" y="416">Centralized server (capacity C):</text>
+    <text x="40" y="432" fill="#E2557A">  throughput = C (fixed), capped at C * 1 Mbps</text>
+    <text x="40" y="454">P2P binary-tree pipeline (N users):</text>
+    <text x="40" y="470" fill="#E2557A">  throughput = N Mbps (grows with users)</text>
+  </g>
+
+  <line x1="40" y1="490" x2="40" y2="540" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="40" y1="540" x2="420" y2="540" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="40" y="556" font-size="9" text-anchor="end" fill="#2A1A2E">0</text>
+  <text x="230" y="556" font-size="9" text-anchor="middle" fill="#2A1A2E">N peers</text>
+  <text x="420" y="556" font-size="9" text-anchor="end" fill="#2A1A2E">N Mbps</text>
+
+  <line x1="40" y1="535" x2="420" y2="500" stroke="#E2557A" stroke-width="2"/>
+  <text x="280" y="510" font-size="9" fill="#E2557A">P2P capacity</text>
+  <line x1="40" y1="535" x2="200" y2="525" stroke="#2A1A2E" stroke-width="1.4" stroke-dasharray="3 2"/>
+  <text x="210" y="522" font-size="9" fill="#2A1A2E">CDN cap (fixed)</text>
+
+  <!-- Discovery flow -->
+  <rect x="450" y="350" width="410" height="220" fill="#FFE7C2" stroke="#2A1A2E" stroke-width="1.4" rx="6"/>
+  <text x="470" y="374" font-size="14" font-weight="700" fill="#2A1A2E">4. Modern BitTorrent (BEP-3 + BEP-5)</text>
+  <text x="470" y="392" font-size="10" fill="#2A1A2E">.torrent metafile + Mainline DHT (Kademlia) for tracker-less discovery</text>
+
+  <g font-size="10" fill="#2A1A2E">
+    <text x="470" y="416" font-weight="700">1.</text><text x="490" y="416">Fetch .torrent from a Web site (or magnet link)</text>
+    <text x="470" y="434" font-weight="700">2.</text><text x="490" y="434">Compute infohash = SHA-1 of the bencoded info dict</text>
+    <text x="470" y="452" font-weight="700">3.</text><text x="490" y="452">DHT.get(infohash) &#8594; list of peer IPs in the swarm</text>
+    <text x="470" y="470" font-weight="700">4.</text><text x="490" y="470">Connect to 30-80 peers via TCP, do BitTorrent handshake</text>
+    <text x="470" y="488" font-weight="700">5.</text><text x="490" y="488">Request pieces rarest-first; unchoke top uploaders (tit-for-tat)</text>
+    <text x="470" y="506" font-weight="700">6.</text><text x="490" y="506">Periodically announce self to DHT (store own IP under infohash)</text>
+    <text x="470" y="524" font-weight="700">7.</text><text x="490" y="524">When done, stay as a seed for a few minutes to help others</text>
+    <text x="470" y="552" fill="#E2557A">No central operator. No single point of legal pressure. Self-scaling.</text>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="800" height="500" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold">802.11 PHY — DSSS, OFDM, and MIMO across a/b/g/n</text>
+    <text x="400" y="50" text-anchor="middle" font-size="11" font-weight="bold">802.11b Barker-11 spreading · 802.11a/g 52-OFDM subcarriers · 802.11n MIMO up to 4×4</text>
+  </g>
+
+  <g>
+    <rect x="40" y="80" width="720" height="120" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="100" font-size="13" font-weight="bold" fill="#2A1A2E">802.11b — HR-DSSS, 11-chip Barker / CCK</text>
+    <text x="60" y="120" font-size="11" fill="#2A1A2E">1 bit → 11 chips (Barker: ±1, ±1, ±1, ±1, ±1, -1, +1, -1, +1, -1, +1)</text>
+    <text x="60" y="138" font-size="11" fill="#2A1A2E">CCK: 5.5 Mbps (4-bit symbol, 8-chip) · 11 Mbps (8-bit symbol, 8-chip)</text>
+    <text x="60" y="156" font-size="11" fill="#2A1A2E">2.4 GHz ISM · 22 MHz channel · 3 non-overlapping in 2.4 GHz (1, 6, 11)</text>
+    <text x="60" y="174" font-size="11" fill="#E2557A" font-weight="bold">peak 11 Mbps PHY · real 5-6 Mbps</text>
+    <text x="60" y="190" font-size="10" fill="#2A1A2E">Complementary Code Keying (CCK) for 5.5/11 Mbps; PBCC optional.</text>
+  </g>
+
+  <g>
+    <rect x="40" y="210" width="720" height="140" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="230" font-size="13" font-weight="bold" fill="#2A1A2E">802.11a/g — OFDM, 52 subcarriers (48 data + 4 pilots)</text>
+    <text x="60" y="250" font-size="11" fill="#2A1A2E">64-point FFT · useful symbol 3.2 us · cyclic prefix 0.8 us · total 4.0 us</text>
+    <text x="60" y="268" font-size="11" fill="#2A1A2E">BPSK(1/2)=6 · QPSK(1/2)=12 · 16-QAM(1/2)=24 · 64-QAM(2/3)=48 · 64-QAM(3/4)=54 Mbps</text>
+    <text x="60" y="286" font-size="11" fill="#2A1A2E">802.11a: 5 GHz U-NII (up to 23 non-overlapping 20 MHz channels)</text>
+    <text x="60" y="304" font-size="11" fill="#2A1A2E">802.11g: OFDM in 2.4 GHz, falls back to b with CTS/RTS protection</text>
+    <text x="60" y="322" font-size="11" fill="#E2557A" font-weight="bold">peak 54 Mbps PHY · real ~25 Mbps</text>
+    <text x="60" y="338" font-size="10" fill="#2A1A2E">Convolutional coding (1/2, 2/3, 3/4) interleaved across 48 data tones.</text>
+  </g>
+
+  <g>
+    <rect x="40" y="360" width="720" height="120" fill="none" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="60" y="380" font-size="13" font-weight="bold" fill="#2A1A2E">802.11n — MIMO-OFDM, 40 MHz, short GI</text>
+    <text x="60" y="400" font-size="11" fill="#2A1A2E">HT: up to 4 spatial streams · 20/40 MHz · 400 ns short GI option</text>
+    <text x="60" y="418" font-size="11" fill="#2A1A2E">MCS 0-31 · 64-QAM-5/6 + 40 MHz + SGI + 4×4 = 600 Mbps peak PHY</text>
+    <text x="60" y="436" font-size="11" fill="#2A1A2E">Greenfield preamble, Mixed Mode for b/g compatibility</text>
+    <text x="60" y="454" font-size="11" fill="#E2557A" font-weight="bold">peak 600 Mbps PHY · real 150-200 Mbps</text>
+    <text x="60" y="470" font-size="10" fill="#2A1A2E">2.4 / 5 GHz · HT-SIG and HT-Cap / HT-Info Information Elements.</text>
+  </g>
+</svg>

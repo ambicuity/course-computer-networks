@@ -1,0 +1,35 @@
+[
+  {
+    "question": "The flag byte in a captured segment is 0x12. Which flags are set, and what does the segment mean?",
+    "options": [
+      "A. FIN and ACK -- graceful close",
+      "B. SYN and ACK -- the second leg of the three-way handshake",
+      "C. RST and ACK -- abort with prior data acknowledged",
+      "D. PSH and ACK -- data segment with push"
+    ],
+    "answer": 1,
+    "explanation": "0x12 = 0001 0010 in binary. Bit 4 (ACK) and bit 1 (SYN) are set. SYN+ACK is the second segment of the three-way handshake, sent by the server. It carries ACK = ISN_client + 1 and consumes one byte of the server's sequence space."
+  },
+  {
+    "question": "A SYN segment carries sequence number 1000. The responder replies with ACK = 1001. Why exactly 1001?",
+    "options": [
+      "A. Because TCP always adds 1 to whatever sequence number it receives",
+      "B. Because the SYN segment consumed one byte of sequence space, and the ACK names the next byte expected",
+      "C. Because the receiver always shifts the sequence number by the length of the IP header",
+      "D. Because TCP uses odd sequence numbers during connection setup and even numbers afterward"
+    ],
+    "answer": 1,
+    "explanation": "A SYN carries no data but still consumes one sequence number. The rule (RFC 793) lets the receiver acknowledge the SYN unambiguously: ACK = ISN + 1 means 'I have received everything up to and including your SYN, and the next byte I expect is one past it.' Without this rule, the receiver could not tell a SYN from a zero-byte data segment."
+  },
+  {
+    "question": "The Data Offset field is stored in 4 bits. Why 4 bits, and what value would indicate a 40-byte header (eight 32-bit option words)?",
+    "options": [
+      "A. 4 bits because there are exactly 4 bits available; the value would be 40",
+      "B. 4 bits because the header is measured in 32-bit words and 15 is the max; the value would be 10",
+      "C. 4 bits because the window size field is 16 bits; the value would be 15",
+      "D. 4 bits because RFC 793 was written in 1981 when CPUs had 4-bit registers; the value would be 5"
+    ],
+    "answer": 1,
+    "explanation": "Data Offset counts 32-bit words in the header. 4 bits encodes 0..15; the valid range is 5..15 (5 = 20-byte fixed header, 15 = 60-byte maximum). For a 40-byte header, 40 / 4 = 10 words, so Data Offset = 10. This is the field that lets the receiver find the start of the payload when the Options section is variable length."
+  }
+]

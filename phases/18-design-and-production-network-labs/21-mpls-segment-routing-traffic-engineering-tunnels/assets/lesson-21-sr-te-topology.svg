@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="1000" height="600" font-family="'Helvetica Neue', Arial, sans-serif">
+  <rect width="1000" height="600" fill="#FFF7EC"/>
+  <defs>
+    <marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+  <text x="500" y="32" text-anchor="middle" font-size="22" font-weight="700" fill="#2A1A2E">SR-TE Tunnel Topology - MidContinent Carrier</text>
+  <text x="500" y="52" text-anchor="middle" font-size="12" fill="#2A1A2E">SRGB 16001-16100 - SRLB 15001-15500 - 14 PoPs - 30 links</text>
+
+  <!-- Ring layout: 14 PoPs in a circle -->
+  <g>
+    <!-- KCMO (top center) -->
+    <rect x="430" y="80" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="470" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">KCMO</text>
+    <text x="470" y="114" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16001</text>
+    <!-- OKC -->
+    <rect x="600" y="115" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="640" y="135" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">OKC</text>
+    <text x="640" y="149" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16002</text>
+    <!-- DAL -->
+    <rect x="700" y="220" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="740" y="240" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">DAL</text>
+    <text x="740" y="254" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16003</text>
+    <!-- HOU -->
+    <rect x="640" y="340" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="680" y="360" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">HOU</text>
+    <text x="680" y="374" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16004</text>
+    <!-- ATL -->
+    <rect x="450" y="420" width="80" height="40" rx="5" fill="#E2557A"/>
+    <text x="490" y="440" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">ATL</text>
+    <text x="490" y="454" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16005</text>
+    <!-- MIA -->
+    <rect x="280" y="440" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="320" y="460" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">MIA</text>
+    <text x="320" y="474" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16006</text>
+    <!-- MEM -->
+    <rect x="180" y="340" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="220" y="360" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">MEM</text>
+    <text x="220" y="374" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16008</text>
+    <!-- BNA -->
+    <rect x="200" y="240" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="240" y="260" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">BNA</text>
+    <text x="240" y="274" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16007</text>
+    <!-- STL -->
+    <rect x="260" y="140" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="300" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">STL</text>
+    <text x="300" y="174" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16009</text>
+    <!-- CHI -->
+    <rect x="380" y="80" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="420" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">CHI</text>
+    <text x="420" y="114" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16010</text>
+    <!-- IND -->
+    <rect x="450" y="140" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="490" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">IND</text>
+    <text x="490" y="174" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16011</text>
+    <!-- DTW -->
+    <rect x="540" y="80" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="580" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">DTW</text>
+    <text x="580" y="114" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16012</text>
+    <!-- MSP -->
+    <rect x="660" y="60" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="700" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">MSP</text>
+    <text x="700" y="94" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16013</text>
+    <!-- OMA -->
+    <rect x="540" y="20" width="80" height="40" rx="5" fill="#2A1A2E"/>
+    <text x="580" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#FFF7EC">OMA</text>
+    <text x="580" y="54" text-anchor="middle" font-size="9" fill="#FFF7EC">SID 16014</text>
+  </g>
+
+  <!-- Primary ring (the SR-TE optimized path) -->
+  <g stroke="#E2557A" stroke-width="2.5" fill="none" marker-end="url(#arrow-accent)">
+    <line x1="510" y1="100" x2="600" y2="135"/>
+    <line x1="680" y1="135" x2="700" y2="220"/>
+    <line x1="780" y1="240" x2="640" y2="340"/>
+    <line x1="640" y1="380" x2="530" y2="420"/>
+    <line x1="450" y1="440" x2="360" y2="440"/>
+    <line x1="280" y1="440" x2="260" y2="380"/>
+    <line x1="200" y1="340" x2="220" y2="280"/>
+    <line x1="220" y1="240" x2="280" y2="180"/>
+    <line x1="300" y1="140" x2="380" y2="100"/>
+    <line x1="460" y1="100" x2="420" y2="120"/>
+    <line x1="500" y1="180" x2="450" y2="120"/>
+    <line x1="500" y1="180" x2="540" y2="120"/>
+    <line x1="540" y1="120" x2="580" y2="120"/>
+    <line x1="620" y1="100" x2="700" y2="100"/>
+    <line x1="700" y1="100" x2="660" y2="60"/>
+  </g>
+
+  <!-- Secondary (10G backup) ring -->
+  <g stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3" fill="none">
+    <line x1="500" y1="120" x2="540" y2="160"/>
+    <line x1="280" y1="180" x2="220" y2="240"/>
+    <line x1="220" y1="280" x2="200" y2="340"/>
+    <line x1="240" y1="360" x2="320" y2="440"/>
+    <line x1="340" y1="160" x2="380" y2="100"/>
+    <line x1="540" y1="40" x2="620" y2="100"/>
+  </g>
+
+  <!-- Annotation: head-end -->
+  <g>
+    <rect x="60" y="200" width="120" height="40" rx="4" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="120" y="218" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Head-end: KCMO</text>
+    <text x="120" y="232" text-anchor="middle" font-size="10" fill="#2A1A2E">NCS 5501 (Cisco)</text>
+  </g>
+  <line x1="180" y1="220" x2="430" y2="100" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Annotation: tail-end -->
+  <g>
+    <rect x="820" y="420" width="120" height="40" rx="4" fill="#FFFFFF" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="880" y="438" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">Tail-end: ATL</text>
+    <text x="880" y="452" text-anchor="middle" font-size="10" fill="#2A1A2E">7750 SR-1 (Nokia)</text>
+  </g>
+  <line x1="820" y1="440" x2="530" y2="440" stroke="#E2557A" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Segment list example -->
+  <g>
+    <rect x="700" y="490" width="280" height="80" rx="4" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="840" y="510" text-anchor="middle" font-size="11" font-weight="700" fill="#2A1A2E">KCMO -&gt; ATL Segment List</text>
+    <text x="840" y="528" text-anchor="middle" font-size="10" fill="#2A1A2E">SL-LSP-KCMO-ATL-00: 16003 (DAL), 16005 (ATL)</text>
+    <text x="840" y="544" text-anchor="middle" font-size="10" fill="#2A1A2E">TI-LFA backup: 16007 (BNA) via 10G ring</text>
+    <text x="840" y="560" text-anchor="middle" font-size="10" fill="#E2557A">Binding-SID: 17000 - Latency: 19.0 ms</text>
+  </g>
+
+  <!-- Legend -->
+  <g>
+    <rect x="20" y="490" width="280" height="80" rx="4" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1"/>
+    <line x1="40" y1="510" x2="80" y2="510" stroke="#E2557A" stroke-width="2.5"/>
+    <text x="90" y="514" font-size="11" fill="#2A1A2E">Primary 100G trunk</text>
+    <line x1="40" y1="530" x2="80" y2="530" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="90" y="534" font-size="11" fill="#2A1A2E">Backup 10G ring</text>
+    <rect x="40" y="545" width="14" height="14" fill="#2A1A2E"/>
+    <text x="60" y="556" font-size="11" fill="#2A1A2E">Cisco / Juniper / Nokia PoP</text>
+  </g>
+
+  <text x="500" y="588" text-anchor="middle" font-size="10" fill="#2A1A2E">28 SR-TE LSPs - Type 0/1/2 mix - TI-LFA per RFC 9565 - Cap 60% util on 100G trunks</text>
+</svg>

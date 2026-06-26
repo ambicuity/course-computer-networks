@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Which of the following is the RFC 5321 SMTP envelope sender that the receiving MTA uses for routing and bounce handling?",
+    "options": [
+      "A. From: alice@example.com",
+      "B. MAIL FROM:<alice@example.com>",
+      "C. Sender: alice@example.com",
+      "D. Reply-To: alice@example.com"
+    ],
+    "answer": 1,
+    "explanation": "RFC 5321's MAIL FROM carries the envelope sender. The visible From: header is RFC 5322 and is not what MTAs route on; SPF and bounce handling operate on MAIL FROM."
+  },
+  {
+    "question": "Which header is stripped from the copy of a message that is delivered to a non-Bcc recipient?",
+    "options": [
+      "A. From:",
+      "B. To:",
+      "C. Bcc:",
+      "D. Received:"
+    ],
+    "answer": 2,
+    "explanation": "RFC 5322 §3.6.3 specifies that Bcc is removed from every delivered copy except the sender's archive copy. The To:, Cc:, From:, and Received: headers remain."
+  },
+  {
+    "question": "A message has two Received: headers. The most recent is at the top of the message; reading them top-to-bottom reconstructs the hops in what order?",
+    "options": [
+      "A. From the originator to the final delivery (bottom-to-top is most recent)",
+      "B. From the final delivery back to the originator (top-to-bottom is most recent)",
+      "C. Alphabetically by sender domain",
+      "D. In the order the user agent inserted them"
+    ],
+    "answer": 1,
+    "explanation": "Each MTA prepends its own Received: header, so the most recent hop is at the top. Reading top-to-bottom is newest-first; reverse the list to get the actual path from origin to delivery."
+  }
+]

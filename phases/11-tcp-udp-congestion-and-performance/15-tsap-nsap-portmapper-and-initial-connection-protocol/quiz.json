@@ -1,0 +1,35 @@
+[
+  {
+    "question": "What is the well-known TSAP of the portmapper in the Internet, and why is that port special?",
+    "options": [
+      "A. 111 -- privileged; the only address every client can hard-code, and the seed of all service discovery.",
+      "B. 80 -- same as HTTP, so existing tooling can find the portmapper.",
+      "C. 22 -- the SSH port, repurposed for control traffic.",
+      "D. 0 -- there is no well-known TSAP; portmapper is found via broadcast."
+    ],
+    "answer": 0,
+    "explanation": "The portmapper (`rpcbind`) listens on UDP and TCP port 111. It must be well-known so that every client can hard-code its address and ask 'what is the TSAP for service X?'. 111 is the only seed; every other service is found dynamically. The 'well-known' is essential: if you do not know the portmap's port, you cannot ask it what its port is."
+  },
+  {
+    "question": "What is the initial connection protocol (Figure 6-9) and which real-world service implements it?",
+    "options": [
+      "A. A protocol that the portmapper runs to register services; modern equivalent is Consul.",
+      "B. A process-server (inetd) that listens on many TSAPs and forks the registered service on demand when a connection arrives, passing the connected socket as FD 0/1/2 to the child.",
+      "C. The three-way handshake used to establish a TCP connection.",
+      "D. A protocol that negotiates the MTU of a path before the first data segment is sent."
+    ],
+    "answer": 1,
+    "explanation": "The initial connection protocol from Figure 6-9 has one process (the process server, modern name: `inetd` or `systemd` socket activation) listen on a *set* of TSAPs. When a connection arrives, it `fork()`s, `exec()`s the registered daemon, and passes the connected socket FD to the child via FDs 0, 1, 2. Rare services consume zero resources until first use; the cost is the cold-start fork+exec latency."
+  },
+  {
+    "question": "Why is the portmapper not on the data path of the connections it helps establish?",
+    "options": [
+      "A. Because the portmapper only runs over UDP and TCP requires a session.",
+      "B. Because the portmapper forwards every byte to a randomly chosen server.",
+      "C. Because the portmapper is stateless; the client gets the TSAP and opens a direct connection to the service, leaving the portmap out of the data flow.",
+      "D. Because the portmapper hands out only well-known ports, so the client never speaks to it again."
+    ],
+    "answer": 2,
+    "explanation": "The portmapper handles only control traffic: one UDP `PMAPPROC_SET` from the server on registration, one UDP `PMAPPROC_GETPORT` from the client to look up the port, and one UDP response. The real TCP connection is opened directly between the client and the service. This is why the portmapper is not a bottleneck for the data plane -- it sees only the metadata exchanges."
+  }
+]

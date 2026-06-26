@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A bulk TCP transfer's throughput is 50% of expected. tc -s qdisc shows ecn_mark 12045 and dropped 0. The receiver's tcp_ecn=1. What is the cause?",
+      "options": [
+        "A. CoDel is dropping packets",
+        "B. CoDel is marking CE; the receiver echoes ECE; the sender halves its CWND on every feedback. Throughput collapses.",
+        "C. The DNS is wrong",
+        "D. The link is down"
+      ],
+      "answer": 1,
+      "explanation": "When CoDel is configured with the `ecn` parameter, it marks CE on congested packets instead of dropping. The receiver sees the CE, sets ECE in the next ACK, and the sender halves its CWND. With 12,000 ECN feedbacks, the sender's CWND is repeatedly halved and slow-start cannot recover; throughput collapses. The fix is to remove the `ecn` parameter (CoDel drops instead), or use sysctl tcp_ecn=1 with proper negotiation."
+    },
+    {
+      "question": "What do the four values of the IPv4 TOS / IPv6 Traffic Class lower 2 bits represent in ECN?",
+      "options": [
+        "A. 00 = Not-ECT, 01 = ECT(1), 10 = ECT(0), 11 = CE",
+        "B. 00 = CE, 11 = Not-ECT",
+        "C. 01 = Not-ECT, 10 = CE, others reserved",
+        "D. All four values are equivalent"
+      ],
+      "answer": 0,
+      "explanation": "RFC 3168 defines the four ECN field values: 00 = Not-ECT (not ECN-capable), 01 = ECT(1) (ECN-capable transport 1), 10 = ECT(0) (ECN-capable transport 0), 11 = CE (Congestion Experienced). A router marks CE only if the packet is ECT(0) or ECT(1)."
+    },
+    {
+      "question": "What is the difference between CoDel's `target` and `interval` parameters?",
+      "options": [
+        "A. target is the acceptable sojourn time (default 5ms); interval is the time the sojourn time can exceed target before CoDel reacts (default 100ms)",
+        "B. target is the queue size; interval is the drain rate",
+        "C. They are the same value",
+        "D. target is in seconds; interval is in packets"
+      ],
+      "answer": 0,
+      "explanation": "RFC 8289 defines target as the acceptable queue-sojourn time (default 5ms) and interval as the time the sojourn time can exceed the target before CoDel reacts (default 100ms). The 5ms target is appropriate for 1 Gbps links with ~50 microsecond per-packet serialization; for 10 Gbps, the target should be lower (1ms)."
+    }
+  ]
+}

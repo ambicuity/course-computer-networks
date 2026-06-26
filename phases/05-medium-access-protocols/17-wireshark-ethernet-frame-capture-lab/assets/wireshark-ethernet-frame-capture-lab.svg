@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="820" height="500" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold">Wireshark — Ethernet II frame dissection</text>
+    <text x="410" y="50" text-anchor="middle" font-size="11" font-weight="bold">DIX frame: 6B DA · 6B SA · 2B EtherType · 0-1500 B payload · 4B CRC-32</text>
+  </g>
+
+  <!-- 3-pane Wireshark mock -->
+  <g>
+    <rect x="40" y="80" width="500" height="380" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="100" font-size="12" font-weight="bold" fill="#2A1A2E">Wireshark three-pane view</text>
+    <line x1="40" y1="108" x2="540" y2="108" stroke="#2A1A2E" stroke-width="0.5"/>
+
+    <text x="60" y="128" font-size="10" fill="#2A1A2E">No.  Time   Source                Dest                  Proto  Len  Info</text>
+    <text x="60" y="148" font-size="10" fill="#2A1A2E">  1  0.000  00:1b:44:11:3a:b7  ff:ff:ff:ff:ff:ff     ARP    42   Who has 10.0.0.5?</text>
+    <text x="60" y="166" font-size="10" fill="#2A1A2E">  2  0.001  aa:bb:cc:dd:ee:01  aa:bb:cc:dd:ee:ff     TCP    74   443 → 54321 [SYN]</text>
+    <text x="60" y="184" font-size="10" fill="#E2557A" font-weight="bold">  3  0.002  aa:bb:cc:dd:ee:01  01:00:5e:01:02:03    IPv4   60   224.1.2.3 → 10.0.0.5</text>
+    <text x="60" y="202" font-size="10" fill="#2A1A2E">  4  0.003  aa:bb:cc:dd:ee:01  33:33:00:00:00:01    IPv6   80   fe80::1 → ff02::1</text>
+
+    <line x1="40" y1="220" x2="540" y2="220" stroke="#2A1A2E" stroke-width="0.5"/>
+    <text x="60" y="240" font-size="10" fill="#2A1A2E" font-weight="bold">▾ Frame 3: 60 bytes on wire, 60 bytes captured (60 bits captured)</text>
+    <text x="60" y="258" font-size="10" fill="#2A1A2E">  ▾ Ethernet II, Src: aa:bb:cc:dd:ee:01, Dst: 01:00:5e:01:02:03</text>
+    <text x="60" y="274" font-size="10" fill="#E2557A">    ▸ Destination: 01:00:5e:01:02:03 (IPv4mcast_01:02:03)</text>
+    <text x="60" y="290" font-size="10" fill="#2A1A2E">    ▸ Source: aa:bb:cc:dd:ee:01</text>
+    <text x="60" y="306" font-size="10" fill="#2A1A2E">    Type: IPv4 (0x0800)</text>
+    <text x="60" y="322" font-size="10" fill="#2A1A2E">  ▸ Internet Protocol Version 4</text>
+    <text x="60" y="338" font-size="10" fill="#2A1A2E">  ▸ User Datagram Protocol, Src Port: 443, Dst Port: 54321</text>
+
+    <line x1="40" y1="356" x2="540" y2="356" stroke="#2A1A2E" stroke-width="0.5"/>
+    <g fill="#2A1A2E" font-size="9">
+      <text x="60" y="374">0000  01 00 5e 01 02 03 aa bb cc dd ee 01 08 00 45 00  ..^...........E.</text>
+      <text x="60" y="390">0010  00 2c 00 01 40 00 40 11 44 ec ac 10 00 05 e0 01  .,..@.@.D......</text>
+      <text x="60" y="406">0020  02 03 c0 1b 4d 41 00 18 6f 7c 41 41 41 41 41 41  ....MA..o|AAAAAA</text>
+      <text x="60" y="422">0030  41 41 41 41 41 41 41 41 00 00 00 00 00 00 00 00  AAAAAAAAA.......</text>
+    </g>
+  </g>
+
+  <!-- Filter and EtherType table on the right -->
+  <g>
+    <rect x="560" y="80" width="220" height="200" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="580" y="100" font-size="12" font-weight="bold" fill="#2A1A2E">Display filters</text>
+    <line x1="560" y1="108" x2="780" y2="108" stroke="#2A1A2E" stroke-width="0.5"/>
+    <g fill="#2A1A2E" font-size="9">
+      <text x="580" y="128">eth.addr == aa:bb:..</text>
+      <text x="580" y="142">eth.dst == ff:ff:..</text>
+      <text x="580" y="156">eth.type == 0x0800</text>
+      <text x="580" y="170">eth.src[0:3] == 00:1b:44</text>
+      <text x="580" y="184">frame.len &lt; 64</text>
+      <text x="580" y="198">eth.fcs_bad == 1</text>
+      <text x="580" y="212">vlan.id == 100</text>
+      <text x="580" y="226">eth.trailer</text>
+      <text x="580" y="240">eth.lg == 1 (jumbo)</text>
+      <text x="580" y="254">eth.fcs == 0x...</text>
+    </g>
+  </g>
+
+  <g>
+    <rect x="560" y="290" width="220" height="170" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="580" y="310" font-size="12" font-weight="bold" fill="#2A1A2E">Common EtherType</text>
+    <g fill="#2A1A2E" font-size="9">
+      <text x="580" y="332">0x0800  IPv4</text>
+      <text x="580" y="346">0x0806  ARP</text>
+      <text x="580" y="360">0x86DD  IPv6</text>
+      <text x="580" y="374">0x8100  802.1Q VLAN</text>
+      <text x="580" y="388">0x8847  MPLS unicast</text>
+      <text x="580" y="402">0x8848  MPLS multicast</text>
+      <text x="580" y="416">0x88CC  LLDP</text>
+      <text x="580" y="430">0x8808  Ethernet flow control</text>
+      <text x="580" y="444">0x22F3  TRILL</text>
+    </g>
+    <text x="580" y="458" font-size="9" fill="#2A1A2E">Type vs Length: ≤ 0x600 (1536) = 802.3 Length; &gt; 0x600 = DIX Type</text>
+  </g>
+</svg>

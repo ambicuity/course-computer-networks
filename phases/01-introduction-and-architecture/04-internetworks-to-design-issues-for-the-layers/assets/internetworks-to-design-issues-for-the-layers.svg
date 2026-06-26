@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    .t  { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .m  { font-family: monospace; fill: #2A1A2E; }
+    .h  { font-family: Inter, sans-serif; fill: #2A1A2E; font-weight: 700; }
+    .a  { fill: #E2557A; }
+    .lbl{ font-family: Inter, sans-serif; fill: #E2557A; font-weight: 700; }
+  </style>
+
+  <text x="30" y="40" class="h" font-size="22">Internetwork: a router joins links with different MTUs</text>
+  <text x="30" y="62" class="t" font-size="13">A 4000-byte IPv4 datagram (DF=0) is fragmented onto a 1500-byte link, then reassembled.</text>
+
+  <!-- Two networks joined by a router -->
+  <rect x="30" y="90" width="180" height="90" rx="10" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="120" y="118" class="h" font-size="14" text-anchor="middle">Network A</text>
+  <text x="120" y="140" class="m" font-size="12" text-anchor="middle">Ethernet 802.3</text>
+  <text x="120" y="160" class="m" font-size="12" text-anchor="middle">MTU 9000 (jumbo)</text>
+
+  <rect x="550" y="90" width="180" height="90" rx="10" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="640" y="118" class="h" font-size="14" text-anchor="middle">Network B</text>
+  <text x="640" y="140" class="m" font-size="12" text-anchor="middle">Ethernet 802.3</text>
+  <text x="640" y="160" class="m" font-size="12" text-anchor="middle">MTU 1500</text>
+
+  <!-- Router (layer-3 gateway) -->
+  <circle cx="380" cy="135" r="46" fill="#E2557A"/>
+  <text x="380" y="130" class="t" font-size="14" font-weight="700" fill="#FFF7EC" text-anchor="middle">ROUTER</text>
+  <text x="380" y="150" class="t" font-size="11" fill="#FFF7EC" text-anchor="middle">L3 gateway</text>
+
+  <line x1="210" y1="135" x2="334" y2="135" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="426" y1="135" x2="550" y2="135" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="270" y="125" class="m" font-size="11">4000B in</text>
+  <text x="465" y="125" class="m" font-size="11">&#8804;1500B out</text>
+
+  <!-- Original datagram -->
+  <text x="30" y="225" class="lbl" font-size="13">ORIGINAL DATAGRAM  (Identification = 0xB1A5, Total Length = 4000)</text>
+  <rect x="30" y="235" width="60" height="34" fill="#2A1A2E"/>
+  <text x="60" y="257" class="m" font-size="11" fill="#FFF7EC" text-anchor="middle">hdr 20</text>
+  <rect x="90" y="235" width="640" height="34" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="410" y="257" class="m" font-size="12" text-anchor="middle">payload 3980 bytes</text>
+
+  <!-- Fragments -->
+  <text x="30" y="305" class="lbl" font-size="13">FRAGMENTS  (offset counted in 8-byte units; non-final payload is a multiple of 8)</text>
+
+  <!-- frag 0 -->
+  <rect x="30" y="318" width="46" height="30" fill="#2A1A2E"/>
+  <text x="53" y="338" class="m" font-size="10" fill="#FFF7EC" text-anchor="middle">hdr</text>
+  <rect x="76" y="318" width="220" height="30" fill="#FBD9E2" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="186" y="337" class="m" font-size="11" text-anchor="middle">1480 bytes</text>
+  <text x="30" y="367" class="m" font-size="11">offset=0   MF=1   TotalLen=1500</text>
+
+  <!-- frag 1 -->
+  <rect x="30" y="388" width="46" height="30" fill="#2A1A2E"/>
+  <text x="53" y="408" class="m" font-size="10" fill="#FFF7EC" text-anchor="middle">hdr</text>
+  <rect x="76" y="388" width="220" height="30" fill="#FBD9E2" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="186" y="407" class="m" font-size="11" text-anchor="middle">1480 bytes</text>
+  <text x="30" y="437" class="m" font-size="11">offset=185   MF=1   TotalLen=1500</text>
+
+  <!-- frag 2 -->
+  <rect x="400" y="318" width="46" height="30" fill="#2A1A2E"/>
+  <text x="423" y="338" class="m" font-size="10" fill="#FFF7EC" text-anchor="middle">hdr</text>
+  <rect x="446" y="318" width="160" height="30" fill="#FBD9E2" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="526" y="337" class="m" font-size="11" text-anchor="middle">1020 bytes</text>
+  <text x="400" y="367" class="m" font-size="11">offset=370   MF=0   TotalLen=1040</text>
+  <text x="400" y="400" class="t" font-size="12" font-weight="700">MF=0 marks the last fragment.</text>
+  <text x="400" y="420" class="t" font-size="12">Receiver groups by (Src, Dst, Proto,</text>
+  <text x="400" y="437" class="t" font-size="12">Identification) and orders by offset.</text>
+
+  <!-- Design issues strip -->
+  <text x="30" y="478" class="h" font-size="15">Recurring design issues for every layer</text>
+  <rect x="30" y="488" width="700" height="54" rx="8" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="42" y="510" class="t" font-size="12">Reliability (CRC/checksum) &#183; Routing (Dijkstra) &#183; Addressing &#183; Scalability</text>
+  <text x="42" y="530" class="t" font-size="12">Statistical multiplexing &#183; Flow control (window) &#183; Congestion (AIMD) &#183; <tspan class="a" font-weight="700">Security</tspan></text>
+</svg>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="1000" height="600" font-family="'Helvetica Neue', Arial, sans-serif">
+  <rect width="1000" height="600" fill="#FFF7EC"/>
+  <defs>
+    <marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+  <text x="500" y="40" text-anchor="middle" font-size="24" font-weight="700" fill="#2A1A2E">PIM-SM Live Video Distribution Topology</text>
+  <text x="500" y="62" text-anchor="middle" font-size="13" fill="#2A1A2E">Source 10.100.0.50/32 (DC1) - Anycast-RP 10.255.255.1/32 - Group 239.16.32.0/24</text>
+
+  <!-- Source encoder -->
+  <g>
+    <rect x="60" y="240" width="140" height="70" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="130" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Encoder</text>
+    <text x="130" y="288" text-anchor="middle" font-size="11" fill="#2A1A2E">10.100.0.50/32</text>
+    <text x="130" y="304" text-anchor="middle" font-size="10" fill="#E2557A">H.265 25 Mbps</text>
+  </g>
+
+  <!-- DC1 spine -->
+  <g>
+    <rect x="270" y="180" width="160" height="50" rx="6" fill="#2A1A2E"/>
+    <text x="350" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#FFF7EC">DC1 Spine</text>
+    <text x="350" y="218" text-anchor="middle" font-size="10" fill="#FFF7EC">Cisco N9K-C9336C-FX2</text>
+  </g>
+  <g>
+    <rect x="270" y="100" width="160" height="55" rx="6" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="350" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">RP-D1-1 (10.255.0.1)</text>
+    <text x="350" y="138" text-anchor="middle" font-size="10" fill="#2A1A2E">Cat 9500-48Y4C / pri 200</text>
+    <text x="350" y="150" text-anchor="middle" font-size="10" fill="#E2557A">BSR + Anycast-RP</text>
+  </g>
+  <g>
+    <rect x="270" y="270" width="160" height="55" rx="6" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="350" y="290" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">RP-D1-2 (10.255.0.2)</text>
+    <text x="350" y="308" text-anchor="middle" font-size="10" fill="#2A1A2E">Cat 9500-48Y4C / pri 192</text>
+    <text x="350" y="320" text-anchor="middle" font-size="10" fill="#E2557A">MSDP peer</text>
+  </g>
+
+  <!-- DC2 -->
+  <g>
+    <rect x="500" y="180" width="160" height="50" rx="6" fill="#2A1A2E"/>
+    <text x="580" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#FFF7EC">DC2 Spine</text>
+    <text x="580" y="218" text-anchor="middle" font-size="10" fill="#FFF7EC">Juniper MX204</text>
+  </g>
+  <g>
+    <rect x="500" y="100" width="160" height="55" rx="6" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="580" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">RP-D2-1 (10.255.0.3)</text>
+    <text x="580" y="138" text-anchor="middle" font-size="10" fill="#2A1A2E">MX204 / pri 180</text>
+  </g>
+  <g>
+    <rect x="500" y="270" width="160" height="55" rx="6" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="580" y="290" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">RP-D2-2 (10.255.0.4)</text>
+    <text x="580" y="308" text-anchor="middle" font-size="10" fill="#2A1A2E">MX204 / pri 170</text>
+  </g>
+
+  <!-- DC3 -->
+  <g>
+    <rect x="730" y="180" width="160" height="50" rx="6" fill="#2A1A2E"/>
+    <text x="810" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#FFF7EC">DC3 Spine</text>
+    <text x="810" y="218" text-anchor="middle" font-size="10" fill="#FFF7EC">Arista 7800R3</text>
+  </g>
+  <g>
+    <rect x="730" y="100" width="160" height="55" rx="6" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="810" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">RP-D3-1 (10.255.0.5)</text>
+    <text x="810" y="138" text-anchor="middle" font-size="10" fill="#2A1A2E">7800R3 / pri 160</text>
+  </g>
+  <g>
+    <rect x="730" y="270" width="160" height="55" rx="6" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="810" y="290" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">RP-D3-2 (10.255.0.6)</text>
+    <text x="810" y="308" text-anchor="middle" font-size="10" fill="#2A1A2E">7800R3 / pri 150</text>
+  </g>
+
+  <!-- Links: encoder to DC1 spine -->
+  <line x1="200" y1="275" x2="270" y2="205" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow-ink)"/>
+  <text x="220" y="232" font-size="10" fill="#2A1A2E">eth1/49</text>
+  <text x="220" y="246" font-size="10" fill="#2A1A2E">10G</text>
+
+  <!-- DC1 spine to RPs -->
+  <line x1="350" y1="180" x2="350" y2="155" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow-ink)"/>
+  <line x1="350" y1="230" x2="350" y2="270" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow-ink)"/>
+
+  <!-- Inter-DC links -->
+  <line x1="430" y1="205" x2="500" y2="205" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow-ink)"/>
+  <text x="465" y="195" text-anchor="middle" font-size="10" fill="#2A1A2E">PIM-SSM 232.16.32.0/24</text>
+  <line x1="660" y1="205" x2="730" y2="205" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow-ink)"/>
+  <text x="695" y="195" text-anchor="middle" font-size="10" fill="#2A1A2E">PIM-SSM 232.16.32.0/24</text>
+
+  <!-- DC2 spine to RPs -->
+  <line x1="580" y1="180" x2="580" y2="155" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow-ink)"/>
+  <line x1="580" y1="230" x2="580" y2="270" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow-ink)"/>
+
+  <!-- DC3 spine to RPs -->
+  <line x1="810" y1="180" x2="810" y2="155" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow-ink)"/>
+  <line x1="810" y1="230" x2="810" y2="270" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow-ink)"/>
+
+  <!-- MSDP mesh lines -->
+  <line x1="350" y1="135" x2="580" y2="135" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="350" y1="135" x2="810" y2="135" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="580" y1="135" x2="810" y2="135" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="350" y1="305" x2="580" y2="305" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="350" y1="305" x2="810" y2="305" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="580" y1="305" x2="810" y2="305" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="600" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="#E2557A">MSDP full mesh (6 RPs)</text>
+
+  <!-- Access layer -->
+  <g>
+    <rect x="60" y="420" width="160" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="140" y="442" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Branch site-00..09</text>
+    <text x="140" y="458" text-anchor="middle" font-size="10" fill="#2A1A2E">Cat 9300-48UXM</text>
+    <text x="140" y="472" text-anchor="middle" font-size="10" fill="#E2557A">1,180 receivers</text>
+  </g>
+  <g>
+    <rect x="420" y="420" width="160" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="500" y="442" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Branch site-10..19</text>
+    <text x="500" y="458" text-anchor="middle" font-size="10" fill="#2A1A2E">MX204 / EX4300</text>
+    <text x="500" y="472" text-anchor="middle" font-size="10" fill="#E2557A">1,200 receivers</text>
+  </g>
+  <g>
+    <rect x="780" y="420" width="160" height="60" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="860" y="442" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Branch site-20..27</text>
+    <text x="860" y="458" text-anchor="middle" font-size="10" fill="#2A1A2E">Arista 720XP / 7800R3</text>
+    <text x="860" y="472" text-anchor="middle" font-size="10" fill="#E2557A">1,120 receivers</text>
+  </g>
+
+  <line x1="140" y1="420" x2="140" y2="345" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="500" y1="420" x2="580" y2="345" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="860" y1="420" x2="810" y2="345" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <text x="60" y="395" font-size="10" fill="#2A1A2E">(*,G) + (S,G) state</text>
+  <text x="430" y="395" font-size="10" fill="#2A1A2E">PIM-SM joins via RP-D1</text>
+  <text x="780" y="395" font-size="10" fill="#2A1A2E">PIM-SM joins via RP-D3</text>
+
+  <!-- Legend -->
+  <g>
+    <rect x="60" y="520" width="880" height="60" rx="4" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1"/>
+    <rect x="80" y="538" width="20" height="12" fill="#2A1A2E"/>
+    <text x="108" y="548" font-size="11" fill="#2A1A2E">Spine / core (Cisco, Juniper, Arista)</text>
+    <rect x="340" y="538" width="20" height="12" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="368" y="548" font-size="11" fill="#2A1A2E">RP candidate (BSR + Anycast-RP)</text>
+    <line x1="620" y1="544" x2="660" y2="544" stroke="#E2557A" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="668" y="548" font-size="11" fill="#2A1A2E">MSDP peer (TCP, SA messages)</text>
+    <text x="80" y="568" font-size="10" fill="#2A1A2E">Source encoder: 10.100.0.50/32 - Group range: 239.16.32.0/24 (PIM-SM) and 232.16.32.0/24 (PIM-SSM, inter-DC)</text>
+  </g>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" width="860" height="520">
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 600; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .small { font-size: 11px; fill: #2A1A2E; }
+    .node { fill: #FFF7EC; stroke: #2A1A2E; stroke-width: 2; }
+    .link { stroke: #2A1A2E; stroke-width: 1.6; fill: none; }
+    .accent { stroke: #E2557A; stroke-width: 3; fill: none; }
+    .accentfill { fill: #E2557A; }
+    .accenttext { fill: #E2557A; font-weight: 700; }
+  </style>
+
+  <rect x="0" y="0" width="860" height="520" fill="#FFF7EC"/>
+  <text x="30" y="36" class="title">Two services at the network / transport interface</text>
+  <line x1="430" y1="58" x2="430" y2="498" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ============ LEFT: Datagram ============ -->
+  <text x="30" y="78" class="sub">Connectionless (datagram) — IP</text>
+  <text x="30" y="96" class="small">Full dest address per packet · no router state · routed independently</text>
+
+  <!-- nodes -->
+  <g>
+    <circle cx="80"  cy="170" r="20" class="node"/><text x="74" y="175" class="mono">A</text>
+    <circle cx="80"  cy="280" r="20" class="node"/><text x="74" y="285" class="mono">B</text>
+    <circle cx="190" cy="170" r="20" class="node"/><text x="184" y="175" class="mono">C</text>
+    <circle cx="190" cy="280" r="20" class="node"/><text x="184" y="285" class="mono">D</text>
+    <circle cx="300" cy="225" r="20" class="node"/><text x="294" y="230" class="mono">E</text>
+    <circle cx="390" cy="170" r="20" class="node"/><text x="384" y="175" class="mono">F</text>
+  </g>
+  <!-- base links -->
+  <line x1="100" y1="170" x2="170" y2="170" class="link"/>
+  <line x1="80"  y1="190" x2="80"  y2="260" class="link"/>
+  <line x1="100" y1="280" x2="170" y2="280" class="link"/>
+  <line x1="190" y1="190" x2="190" y2="260" class="link"/>
+  <line x1="208" y1="185" x2="285" y2="215" class="link"/>
+  <line x1="208" y1="270" x2="285" y2="238" class="link"/>
+  <line x1="318" y1="212" x2="372" y2="183" class="link"/>
+
+  <!-- packets 1-3 path A->C->E->F (ink) -->
+  <text x="120" y="158" class="small">pkts 1-3</text>
+  <!-- packet 4 reroute A->B->D->E->F (berry) -->
+  <path d="M80,190 L80,260 M100,280 L170,280 M190,260 L190,190" class="accent" opacity="0"/>
+  <path d="M82,192 L82,258" class="accent"/>
+  <path d="M102,282 L168,282" class="accent"/>
+  <path d="M208,272 L285,240" class="accent"/>
+  <text x="84" y="330" class="accenttext" font-size="12">pkt 4 reroutes A→B→D→E→F</text>
+  <text x="30" y="380" class="small">A's table changes one entry (E,F: C → B):</text>
+  <rect x="30" y="390" width="170" height="86" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.3"/>
+  <text x="42" y="408" class="mono">dest  initially  later</text>
+  <text x="42" y="426" class="mono"> E  ->   C        B</text>
+  <text x="42" y="444" class="mono"> F  ->   C        B</text>
+  <text x="42" y="466" class="small">no per-flow state kept</text>
+
+  <!-- ============ RIGHT: Virtual circuit ============ -->
+  <text x="460" y="78" class="sub">Connection-oriented (virtual circuit) — MPLS</text>
+  <text x="460" y="96" class="small">Route fixed at setup · short label per packet · per-VC state</text>
+
+  <g>
+    <circle cx="510" cy="170" r="20" class="node"/><text x="504" y="175" class="mono">A</text>
+    <circle cx="620" cy="170" r="20" class="node"/><text x="614" y="175" class="mono">C</text>
+    <circle cx="730" cy="170" r="20" class="node"/><text x="724" y="175" class="mono">E</text>
+    <circle cx="810" cy="225" r="20" class="node"/><text x="804" y="230" class="mono">F</text>
+  </g>
+  <!-- the single fixed path, accent -->
+  <line x1="530" y1="170" x2="600" y2="170" class="accent"/>
+  <line x1="640" y1="170" x2="710" y2="170" class="accent"/>
+  <line x1="746" y1="183" x2="794" y2="212" class="accent"/>
+  <text x="540" y="158" class="accenttext" font-size="11">label 1</text>
+
+  <!-- two hosts opening VCs -->
+  <rect x="455" y="120" width="40" height="22" class="node"/><text x="462" y="135" class="mono">H1</text>
+  <rect x="455" y="200" width="40" height="22" class="node"/><text x="462" y="215" class="mono">H3</text>
+  <line x1="495" y1="131" x2="500" y2="165" class="link"/>
+  <line x1="495" y1="211" x2="500" y2="178" class="link"/>
+
+  <!-- A's VC table showing relabel -->
+  <text x="460" y="270" class="small">A relabels the clashing VC (both picked 1):</text>
+  <rect x="460" y="280" width="340" height="104" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.3"/>
+  <text x="472" y="300" class="mono">A's VC table   in           out</text>
+  <text x="472" y="320" class="mono">(H1, 1)   ->   (C, 1)</text>
+  <text x="472" y="340" class="mono accenttext" fill="#E2557A">(H3, 1)   ->   (C, 2)   relabeled</text>
+  <text x="472" y="368" class="small">C cannot tell two "1"s apart, so A swaps the label.</text>
+
+  <!-- failure note spanning both -->
+  <rect x="460" y="410" width="370" height="66" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.6"/>
+  <text x="474" y="432" class="sub accenttext" fill="#E2557A">Router C fails:</text>
+  <text x="474" y="452" class="small">datagram side loses only in-flight pkts 1-3;</text>
+  <text x="474" y="468" class="small">VC side tears down EVERY circuit through C.</text>
+</svg>

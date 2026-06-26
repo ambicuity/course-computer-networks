@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620">
+  <rect width="880" height="620" fill="#FFF7EC"/>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 12px; fill: #2A1A2E; opacity: 0.7; }
+    .lbl { font-size: 12px; font-weight: 600; }
+    .val { font-size: 11px; }
+    .acc { fill: #E2557A; }
+    .box { fill: none; stroke: #2A1A2E; stroke-width: 1.5; }
+    .abox { fill: #FFF; stroke: #2A1A2E; stroke-width: 1.5; }
+    .arr { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 11px; }
+    .state { font-size: 12px; font-weight: 700; }
+  </style>
+
+  <text x="40" y="40" class="title">PPP over SONET — encode pipeline &amp; frame format</text>
+  <text x="40" y="60" class="sub">RFC 1661 / 1662 / 2615 — Packet over SONET (POS)</text>
+
+  <!-- Encode pipeline -->
+  <text x="40" y="98" class="lbl">Encode pipeline (router → SONET SPE)</text>
+  <g>
+    <rect x="40" y="108" width="120" height="40" class="abox" rx="4"/>
+    <text x="100" y="126" class="val" text-anchor="middle">IP packet</text>
+    <text x="100" y="140" class="val acc" text-anchor="middle">payload</text>
+
+    <rect x="190" y="108" width="120" height="40" class="abox" rx="4"/>
+    <text x="250" y="126" class="val" text-anchor="middle">PPP body</text>
+    <text x="250" y="140" class="val acc" text-anchor="middle">Addr Ctrl Proto</text>
+
+    <rect x="340" y="108" width="120" height="40" class="abox" rx="4"/>
+    <text x="400" y="126" class="val" text-anchor="middle">+ FCS-32</text>
+    <text x="400" y="140" class="val acc" text-anchor="middle">CRC 0x04C11DB7</text>
+
+    <rect x="490" y="108" width="120" height="40" class="abox" rx="4"/>
+    <text x="550" y="126" class="val" text-anchor="middle">byte-stuff</text>
+    <text x="550" y="140" class="val acc" text-anchor="middle">0x7D + XOR 0x20</text>
+
+    <rect x="640" y="108" width="120" height="40" class="abox" rx="4"/>
+    <text x="700" y="126" class="val" text-anchor="middle">scramble</text>
+    <text x="700" y="140" class="val acc" text-anchor="middle">x^7+x^6+1</text>
+
+    <path d="M160 128 L188 128" class="arr" marker-end="url(#a)"/>
+    <path d="M310 128 L338 128" class="arr" marker-end="url(#a)"/>
+    <path d="M460 128 L488 128" class="arr" marker-end="url(#a)"/>
+    <path d="M610 128 L638 128" class="arr" marker-end="url(#a)"/>
+    <path d="M760 128 L798 128" class="arr" marker-end="url(#a)"/>
+    <text x="820" y="132" class="val acc">SONET</text>
+    <text x="820" y="146" class="val acc">SPE</text>
+  </g>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- Frame format -->
+  <text x="40" y="200" class="lbl">PPP frame on the wire (uncompressed, RFC 2615 = 4-byte FCS)</text>
+  <g font-family="ui-monospace, monospace">
+    <rect x="40" y="212" width="40" height="44" class="box" fill="#FFF"/>
+    <text x="60" y="232" class="mono" text-anchor="middle">Flag</text>
+    <text x="60" y="248" class="mono acc" text-anchor="middle">7E</text>
+
+    <rect x="80" y="212" width="50" height="44" class="box" fill="#FFF"/>
+    <text x="105" y="232" class="mono" text-anchor="middle">Addr</text>
+    <text x="105" y="248" class="mono acc" text-anchor="middle">FF</text>
+
+    <rect x="130" y="212" width="50" height="44" class="box" fill="#FFF"/>
+    <text x="155" y="232" class="mono" text-anchor="middle">Ctrl</text>
+    <text x="155" y="248" class="mono acc" text-anchor="middle">03</text>
+
+    <rect x="180" y="212" width="70" height="44" class="box" fill="#FFF"/>
+    <text x="215" y="232" class="mono" text-anchor="middle">Protocol</text>
+    <text x="215" y="248" class="mono acc" text-anchor="middle">00 21</text>
+
+    <rect x="250" y="212" width="320" height="44" class="box" fill="#FFF"/>
+    <text x="410" y="232" class="mono" text-anchor="middle">Payload (IP packet, stuffed)</text>
+    <text x="410" y="248" class="mono acc" text-anchor="middle">≤ MRU (default 1500)</text>
+
+    <rect x="570" y="212" width="90" height="44" class="box" fill="#FFF"/>
+    <text x="615" y="232" class="mono" text-anchor="middle">FCS-32</text>
+    <text x="615" y="248" class="mono acc" text-anchor="middle">4 bytes</text>
+
+    <rect x="660" y="212" width="40" height="44" class="box" fill="#FFF"/>
+    <text x="680" y="232" class="mono" text-anchor="middle">Flag</text>
+    <text x="680" y="248" class="mono acc" text-anchor="middle">7E</text>
+
+    <text x="60" y="274" class="val" text-anchor="middle">1</text>
+    <text x="105" y="274" class="val" text-anchor="middle">1</text>
+    <text x="155" y="274" class="val" text-anchor="middle">1</text>
+    <text x="215" y="274" class="val" text-anchor="middle">2</text>
+    <text x="410" y="274" class="val" text-anchor="middle">variable</text>
+    <text x="615" y="274" class="val" text-anchor="middle">4</text>
+    <text x="680" y="274" class="val" text-anchor="middle">1</text>
+    <text x="700" y="274" class="sub">bytes</text>
+  </g>
+
+  <!-- Byte stuffing example -->
+  <text x="40" y="310" class="lbl">Byte stuffing: 0x7E in payload → 0x7D 0x5E (XOR 0x20)</text>
+  <g font-family="ui-monospace, monospace">
+    <text x="40" y="332" class="mono">input:  41 7E 7D 00</text>
+    <text x="40" y="350" class="mono acc">on wire: 41 7D 5E 7D 5D 7D 00</text>
+    <text x="40" y="368" class="sub">only a bare 0x7E delimits a frame — escapes keep it sacred</text>
+  </g>
+
+  <!-- State machine -->
+  <text x="40" y="408" class="lbl">LCP state machine (RFC 1661)</text>
+  <g>
+    <rect x="40" y="420" width="90" height="34" class="abox" rx="17"/>
+    <text x="85" y="442" class="state" text-anchor="middle">DEAD</text>
+
+    <rect x="170" y="420" width="110" height="34" class="abox" rx="17"/>
+    <text x="225" y="442" class="state" text-anchor="middle">ESTABLISH</text>
+
+    <rect x="320" y="420" width="120" height="34" class="abox" rx="17"/>
+    <text x="380" y="442" class="state" text-anchor="middle">AUTHENTICATE</text>
+
+    <rect x="480" y="420" width="90" height="34" class="abox" rx="17"/>
+    <text x="525" y="442" class="state" text-anchor="middle">NETWORK</text>
+
+    <rect x="610" y="420" width="70" height="34" class="abox" rx="17" fill="#E2557A"/>
+    <text x="645" y="442" class="state" text-anchor="middle" fill="#FFF7EC">OPEN</text>
+
+    <rect x="720" y="420" width="100" height="34" class="abox" rx="17"/>
+    <text x="770" y="442" class="state" text-anchor="middle">TERMINATE</text>
+
+    <path d="M130 437 L168 437" class="arr" marker-end="url(#a)"/>
+    <path d="M280 437 L318 437" class="arr" marker-end="url(#a)"/>
+    <path d="M440 437 L478 437" class="arr" marker-end="url(#a)"/>
+    <path d="M570 437 L608 437" class="arr" marker-end="url(#a)"/>
+    <path d="M680 437 L718 437" class="arr" marker-end="url(#a)"/>
+    <path d="M770 454 Q770 490 200 490 Q85 490 85 456" class="arr" marker-end="url(#a)"/>
+
+    <text x="149" y="414" class="val acc" text-anchor="middle">carrier</text>
+    <text x="299" y="414" class="val acc" text-anchor="middle">LCP ok</text>
+    <text x="459" y="414" class="val acc" text-anchor="middle">auth ok</text>
+    <text x="589" y="414" class="val acc" text-anchor="middle">NCP ok</text>
+    <text x="699" y="414" class="val acc" text-anchor="middle">LCP Term</text>
+    <text x="430" y="506" class="val acc" text-anchor="middle">carrier dropped / physical layer down</text>
+  </g>
+
+  <!-- Note -->
+  <g>
+    <rect x="40" y="540" width="800" height="60" class="box" rx="6" fill="#FFF"/>
+    <text x="56" y="562" class="lbl">Why these choices on SONET (RFC 2615)</text>
+    <text x="56" y="580" class="val">• 4-byte CRC-32 (not CRC-16): FCS is the only error check across PHY+link+net on a POS link.</text>
+    <text x="56" y="594" class="val">• Scramble with x^7+x^6+1: stops long runs of 0s from desyncing the SONET clock-recovery PLL.</text>
+    <text x="430" y="580" class="val">• Do NOT compress Addr/Ctrl/Protocol: ~2 byte saving is noise at OC-48, and</text>
+    <text x="430" y="594" class="val">  uncompressed fields keep framers &amp; analyzers simple.</text>
+  </g>
+</svg>

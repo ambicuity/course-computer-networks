@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" width="860" height="520">
+  <rect width="860" height="520" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="430" y="34" font-family="Inter, sans-serif" font-size="17" font-weight="700" fill="#2A1A2E" text-anchor="middle">Ethernet MAC Frame Layout (DIX / IEEE 802.3)</text>
+
+  <!-- Frame fields row -->
+  <!-- Preamble 8B -->
+  <rect x="20" y="58" width="80" height="54" rx="4" fill="#F0EBE8" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="81" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">Preamble</text>
+  <text x="60" y="96" font-family="Inter, sans-serif" font-size="10" fill="#E2557A" text-anchor="middle" font-weight="600">8 bytes</text>
+  <text x="60" y="110" font-family="monospace, monospace" font-size="8.5" fill="#2A1A2E" text-anchor="middle">10101011</text>
+
+  <!-- Dst addr 6B -->
+  <rect x="104" y="58" width="90" height="54" rx="4" fill="#FDE8EE" stroke="#E2557A" stroke-width="2"/>
+  <text x="149" y="81" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">Dest Addr</text>
+  <text x="149" y="96" font-family="Inter, sans-serif" font-size="10" fill="#E2557A" text-anchor="middle" font-weight="600">6 bytes</text>
+  <text x="149" y="110" font-family="monospace, monospace" font-size="8.5" fill="#2A1A2E" text-anchor="middle">ff:ff:ff:ff:ff:ff</text>
+
+  <!-- Src addr 6B -->
+  <rect x="198" y="58" width="90" height="54" rx="4" fill="#FDE8EE" stroke="#E2557A" stroke-width="2"/>
+  <text x="243" y="81" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">Src Addr</text>
+  <text x="243" y="96" font-family="Inter, sans-serif" font-size="10" fill="#E2557A" text-anchor="middle" font-weight="600">6 bytes</text>
+  <text x="243" y="110" font-family="monospace, monospace" font-size="8.5" fill="#2A1A2E" text-anchor="middle">aa:bb:cc:00:11:22</text>
+
+  <!-- Type/Length 2B -->
+  <rect x="292" y="58" width="82" height="54" rx="4" fill="#FFF0C0" stroke="#C9962A" stroke-width="2"/>
+  <text x="333" y="78" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">Type /</text>
+  <text x="333" y="91" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">Length</text>
+  <text x="333" y="104" font-family="Inter, sans-serif" font-size="10" fill="#C9962A" text-anchor="middle" font-weight="600">2 bytes</text>
+
+  <!-- Data 0-1500B -->
+  <rect x="378" y="58" width="210" height="54" rx="4" fill="#F0EBE8" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="483" y="81" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">Data (+ Pad if needed)</text>
+  <text x="483" y="96" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E" text-anchor="middle" font-weight="600">46–1500 bytes</text>
+  <text x="483" y="110" font-family="Inter, sans-serif" font-size="8.5" fill="#888" text-anchor="middle">padded to min 46 if short</text>
+
+  <!-- FCS 4B -->
+  <rect x="592" y="58" width="76" height="54" rx="4" fill="#F0EBE8" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="630" y="81" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">FCS</text>
+  <text x="630" y="96" font-family="Inter, sans-serif" font-size="10" fill="#E2557A" text-anchor="middle" font-weight="600">4 bytes</text>
+  <text x="630" y="110" font-family="Inter, sans-serif" font-size="8.5" fill="#2A1A2E" text-anchor="middle">CRC-32</text>
+
+  <!-- Total frame size bracket -->
+  <line x1="104" y1="122" x2="668" y2="122" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="104" y1="118" x2="104" y2="126" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="668" y1="118" x2="668" y2="126" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="386" y="136" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E" text-anchor="middle">64 – 1518 bytes (min enforced for collision detect; excl. preamble)</text>
+
+  <!-- ===== 48-bit Address Anatomy ===== -->
+  <text x="40" y="172" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#2A1A2E">48-bit MAC Address Anatomy</text>
+
+  <!-- bit 47 label -->
+  <text x="44" y="195" font-family="monospace, monospace" font-size="9.5" fill="#888">bit 47 (first TX bit)</text>
+  <text x="44" y="207" font-family="monospace, monospace" font-size="9.5" fill="#888">I/G</text>
+  <rect x="44" y="212" width="22" height="22" rx="3" fill="#FDE8EE" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="55" y="228" font-family="monospace, monospace" font-size="11" fill="#E2557A" text-anchor="middle">I/G</text>
+
+  <rect x="70" y="212" width="22" height="22" rx="3" fill="#FDE8EE" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="81" y="228" font-family="monospace, monospace" font-size="11" fill="#E2557A" text-anchor="middle">U/L</text>
+
+  <!-- OUI bytes -->
+  <rect x="96" y="212" width="96" height="22" rx="3" fill="#FFF0C0" stroke="#C9962A" stroke-width="1.5"/>
+  <text x="144" y="228" font-family="monospace, monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">OUI  (3 bytes)</text>
+
+  <!-- NIC bytes -->
+  <rect x="196" y="212" width="96" height="22" rx="3" fill="#F0EBE8" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="244" y="228" font-family="monospace, monospace" font-size="10" fill="#2A1A2E" text-anchor="middle">NIC ID (3 bytes)</text>
+
+  <!-- legend -->
+  <text x="320" y="220" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">I/G = 0 → unicast, 1 → multicast/broadcast</text>
+  <text x="320" y="234" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">U/L = 0 → globally unique (OUI-assigned), 1 → locally administered</text>
+
+  <!-- OUI example -->
+  <text x="44" y="255" font-family="monospace, monospace" font-size="9.5" fill="#888">Example: 00:1A:2B:3C:4D:5E</text>
+  <rect x="44" y="260" width="54" height="18" rx="3" fill="#FFF0C0" stroke="#C9962A" stroke-width="1.2"/>
+  <text x="71" y="273" font-family="monospace, monospace" font-size="9" fill="#2A1A2E" text-anchor="middle">00:1A:2B</text>
+  <text x="71" y="285" font-family="Inter, sans-serif" font-size="8.5" fill="#888" text-anchor="middle">OUI (vendor)</text>
+  <rect x="102" y="260" width="54" height="18" rx="3" fill="#F0EBE8" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="129" y="273" font-family="monospace, monospace" font-size="9" fill="#2A1A2E" text-anchor="middle">3C:4D:5E</text>
+  <text x="129" y="285" font-family="Inter, sans-serif" font-size="8.5" fill="#888" text-anchor="middle">device serial</text>
+
+  <!-- ===== Type vs Length Decision ===== -->
+  <text x="40" y="316" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#2A1A2E">Type-vs-Length Disambiguation (IEEE 802.3-1997)</text>
+
+  <rect x="40" y="326" width="160" height="32" rx="5" fill="#FDE8EE" stroke="#E2557A" stroke-width="2"/>
+  <text x="120" y="347" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">Field value ≤ 0x0600 (1536)</text>
+
+  <rect x="40" y="368" width="160" height="28" rx="5" fill="#FFF0C0" stroke="#C9962A" stroke-width="2"/>
+  <text x="120" y="387" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">→ LENGTH (IEEE 802.3)</text>
+
+  <rect x="260" y="326" width="160" height="32" rx="5" fill="#FDE8EE" stroke="#E2557A" stroke-width="2"/>
+  <text x="340" y="347" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">Field value &gt; 0x0600</text>
+
+  <rect x="260" y="368" width="160" height="28" rx="5" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="340" y="387" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">→ ETHERTYPE (DIX/802.3)</text>
+
+  <!-- common EtherTypes -->
+  <text x="470" y="340" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#2A1A2E">Common EtherType values:</text>
+  <text x="470" y="356" font-family="monospace, monospace" font-size="10" fill="#2A1A2E">0x0800 → IPv4</text>
+  <text x="470" y="370" font-family="monospace, monospace" font-size="10" fill="#2A1A2E">0x0806 → ARP</text>
+  <text x="470" y="384" font-family="monospace, monospace" font-size="10" fill="#2A1A2E">0x86DD → IPv6</text>
+  <text x="470" y="398" font-family="monospace, monospace" font-size="10" fill="#2A1A2E">0x8100 → 802.1Q VLAN tag</text>
+
+  <!-- arrows -->
+  <line x1="120" y1="358" x2="120" y2="368" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="340" y1="358" x2="340" y2="368" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L8,4 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Minimum frame size rationale ===== -->
+  <text x="40" y="430" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#2A1A2E">Minimum Frame Size — Collision Detection Constraint</text>
+
+  <rect x="40" y="440" width="780" height="56" rx="6" fill="#F8F0FF" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="60" y="458" font-family="Inter, sans-serif" font-size="10.5" fill="#2A1A2E">10 Mbps, 2500 m max cable, 4 repeaters → worst-case RTT ≈ 50 µs → 500 bits must still be in transit.</text>
+  <text x="60" y="472" font-family="Inter, sans-serif" font-size="10.5" fill="#2A1A2E">Rounded up with safety margin → 512 bits = 64 bytes minimum (Dest + Src + Type/Len + Data/Pad + FCS).</text>
+  <text x="60" y="486" font-family="Inter, sans-serif" font-size="10.5" fill="#E2557A">Pad field (0–46 bytes) fills short payloads up to the 46-byte data minimum so total frame ≥ 64 bytes.</text>
+
+  <!-- footer -->
+  <text x="430" y="512" font-family="Inter, sans-serif" font-size="9" fill="#888" text-anchor="middle">IEEE 802.3 / DIX Ethernet — course-computer-networks phase 05, lesson 09</text>
+</svg>

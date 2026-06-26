@@ -1,0 +1,35 @@
+[
+  {
+    "question": "On a 10 Gbps link with 80 ms RTT, what is the bandwidth-delay product and the minimum TCP window required to fill the pipe?",
+    "options": [
+      "A. 100 MB BD product, 100 MB minimum window",
+      "B. 80 MB BD product, 65 KB minimum window",
+      "C. 10 GB BD product, 100 KB minimum window",
+      "D. 800 MB BD product, 800 KB minimum window"
+    ],
+    "answer": 0,
+    "explanation": "BD product = bandwidth * RTT = 10 Gbps * 0.080 s = 0.8 Gbit = 100 MB. The minimum window to fill the pipe is the same number (in bytes), about 100 MB. The legacy 16-bit Window field caps at 65,535 bytes, which would limit throughput to ~6.5 Mbps on this link -- Window Scale (RFC 1323) is required to recover."
+  },
+  {
+    "question": "Why does the Bundle Protocol use URI-like identifiers instead of IP addresses?",
+    "options": [
+      "A. Because URI is shorter than IP addresses",
+      "B. Because the protocol must work across heterogeneous convergence layers (TCP, UDP, LTP, raw files) where IP may not even be involved",
+      "C. Because URIs are easier to encrypt",
+      "D. Because RFC 5050 required it for backward compatibility"
+    ],
+    "answer": 1,
+    "explanation": "The Bundle Protocol is designed to run over multiple transports and across multiple 'internets' that may not use IP at all (deep-space links use LTP, sensor networks use radios that speak different protocols). Defining its own URI-like identifiers (e.g., dtn://server/bundle) decouples the protocol from any single addressing scheme, the same way DNS decouples names from IP addresses."
+  },
+  {
+    "question": "Why does the Bundle Protocol support custody transfer, while TCP does not?",
+    "options": [
+      "A. Because custody transfer is faster than TCP retransmission",
+      "B. Because in a DTN the source may be disconnected for hours and cannot retransmit; custody transfer lets a DTN node closer to the destination take over that responsibility",
+      "C. Because custody transfer is mandatory in IPv6",
+      "D. Because TCP is being deprecated in favor of DTN"
+    ],
+    "answer": 1,
+    "explanation": "In the Internet, the source is usually the custodian -- it retransmits on loss. In a DTN the source node may be physically disconnected for hours and unable to retransmit. Custody transfer lets an intermediate DTN node take over the retransmission responsibility (over its own convergence-layer transport), and the source is no longer obligated to retain the bundle. Each custody transfer is acknowledged, and the chain of custody is preserved in the bundle metadata."
+  }
+]

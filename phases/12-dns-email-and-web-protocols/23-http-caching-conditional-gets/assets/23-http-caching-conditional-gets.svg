@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">HTTP Caching and Conditional GETs</text>
+  <text x="40" y="68" class="sub">Serve from cache when fresh; revalidate with If-None-Match when stale; 304 saves the body bytes</text>
+
+  <!-- Freshness / Validation row -->
+  <rect x="40" y="100" width="420" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">Freshness (RFC 7234)</text>
+  <text x="60" y="148" class="mono">Cache-Control: max-age=300    &lt;-- primary directive</text>
+  <text x="60" y="166" class="mono">Cache-Control: s-maxage=600   &lt;-- shared caches only</text>
+  <text x="60" y="184" class="mono">Expires: Thu, 25 Jun 2026 ... &lt;-- legacy absolute</text>
+  <text x="60" y="208" class="mono accent">Age &lt; max-age?</text>
+  <text x="70" y="228" class="mono accent">yes: serve from cache (no contact with origin)</text>
+  <text x="70" y="246" class="mono accent">no:  revalidate or refetch</text>
+  <text x="60" y="276" class="label">Private cache: end-user (browser, app)</text>
+  <text x="60" y="292" class="label">Shared cache:  CDN, corporate proxy</text>
+
+  <!-- Validation row -->
+  <rect x="480" y="100" width="400" height="220" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="500" y="124" class="node accent">Validation (RFC 7232)</text>
+  <text x="500" y="148" class="mono">response:  ETag: "5e9c1a3a-1f0"</text>
+  <text x="500" y="166" class="mono">response:  Last-Modified: Thu, 25 Jun 2026 13:00:00 GMT</text>
+  <text x="500" y="190" class="mono">client -&gt; If-None-Match: "5e9c1a3a-1f0"</text>
+  <text x="500" y="208" class="mono">client -&gt; If-Modified-Since: Thu, 25 Jun 2026 13:00:00 GMT</text>
+  <text x="500" y="232" class="mono accent">origin -&gt; 304 Not Modified, no body</text>
+  <text x="500" y="250" class="mono accent">origin -&gt; 200 OK, full body (etag changed)</text>
+  <text x="500" y="276" class="label">304 revalidation saves body bytes</text>
+  <text x="500" y="292" class="label">but still costs an RTT to the origin.</text>
+
+  <!-- Cache-Control directive table -->
+  <rect x="40" y="340" width="840" height="200" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="364" class="node">Cache-Control directives (RFC 7234 §5.2)</text>
+  <text x="60" y="388" class="mono">max-age=N         &lt;-- fresh for N seconds</text>
+  <text x="60" y="406" class="mono">no-store          &lt;-- do not store at all (sensitive)</text>
+  <text x="60" y="424" class="mono">no-cache          &lt;-- store but always revalidate</text>
+  <text x="60" y="442" class="mono">private / public  &lt;-- who may store</text>
+  <text x="60" y="460" class="mono">immutable         &lt;-- skip revalidation during freshness (RFC 8246)</text>
+  <text x="60" y="478" class="mono">stale-while-revalidate=N (RFC 5861)</text>
+  <text x="60" y="496" class="mono">Vary: Accept-Encoding  &lt;-- cache key includes compression preference</text>
+  <text x="60" y="514" class="label">Vary too narrow: correctness bug.  Vary too wide: cache fragmentation.</text>
+  <text x="60" y="530" class="label">Heuristic freshness (no explicit Cache-Control): 0.1 * (Date - Last-Modified).</text>
+</svg>

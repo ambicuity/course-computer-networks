@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5a6f; }
+    .band { font-size: 15px; font-weight: 700; }
+    .mode { font-size: 12px; }
+    .freq { font-family: monospace; font-size: 11px; fill: #6b5a6f; }
+    .tag { font-size: 11px; font-weight: 700; fill: #FFF7EC; }
+    .note { font-size: 11px; fill: #2A1A2E; }
+  </style>
+
+  <text x="40" y="46" class="title">As frequency climbs, radio behaves more like light</text>
+  <text x="40" y="68" class="sub">Three unguided bands on one log-frequency axis &#8212; propagation, licensing, and failure modes</text>
+
+  <!-- Frequency axis -->
+  <line x1="60" y1="120" x2="840" y2="120" stroke="#2A1A2E" stroke-width="2"/>
+  <polygon points="840,114 856,120 840,126" fill="#2A1A2E"/>
+  <text x="60" y="108" class="freq">3 kHz</text>
+  <text x="240" y="108" class="freq">3 MHz</text>
+  <text x="360" y="108" class="freq">30 MHz</text>
+  <text x="470" y="108" class="freq">100 MHz</text>
+  <text x="700" y="108" class="freq">300 GHz</text>
+  <text x="810" y="108" class="freq">IR / light</text>
+  <line x1="240" y1="116" x2="240" y2="124" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="360" y1="116" x2="360" y2="124" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="490" y1="116" x2="490" y2="124" stroke="#2A1A2E" stroke-width="2"/>
+  <line x1="710" y1="116" x2="710" y2="124" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- RADIO segment -->
+  <rect x="60" y="150" width="430" height="150" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="60" y="150" width="430" height="26" rx="8" fill="#2A1A2E"/>
+  <text x="74" y="168" class="tag">RADIO &#183; kHz &#8211; 100 MHz &#183; omnidirectional, penetrates walls</text>
+
+  <!-- ground wave -->
+  <text x="80" y="200" class="band">VLF / LF / MF</text>
+  <path d="M80 230 Q140 250 210 230" fill="none" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="80" y="262" class="mode">Ground wave &#8212; follows earth&#8217;s</text>
+  <text x="80" y="278" class="mode">curve, up to ~1000 km (AM)</text>
+
+  <!-- sky wave -->
+  <text x="300" y="200" class="band">HF / VHF</text>
+  <line x1="300" y1="250" x2="360" y2="216" stroke="#E2557A" stroke-width="2.5"/>
+  <line x1="360" y1="216" x2="430" y2="250" stroke="#E2557A" stroke-width="2.5"/>
+  <line x1="300" y1="250" x2="430" y2="250" stroke="#6b5a6f" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="335" y="210" class="freq">ionosphere</text>
+  <text x="300" y="278" class="mode">Sky wave &#8212; refracts off ionosphere</text>
+
+  <!-- MICROWAVE segment -->
+  <rect x="60" y="320" width="560" height="170" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="60" y="320" width="560" height="26" rx="8" fill="#E2557A"/>
+  <text x="74" y="338" class="tag">MICROWAVE &#183; &gt;100 MHz, GHz &#183; focused line-of-sight beam</text>
+
+  <!-- LOS towers -->
+  <rect x="90" y="400" width="6" height="50" fill="#2A1A2E"/>
+  <rect x="240" y="400" width="6" height="50" fill="#2A1A2E"/>
+  <path d="M93 400 L120 392 L93 408 Z" fill="#E2557A"/>
+  <path d="M243 400 L216 392 L243 408 Z" fill="#E2557A"/>
+  <line x1="96" y1="398" x2="240" y2="398" stroke="#E2557A" stroke-width="2"/>
+  <!-- multipath reflection -->
+  <path d="M96 400 Q168 360 240 400" fill="none" stroke="#6b5a6f" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="92" y="468" class="mode">Aligned dishes; repeaters</text>
+  <text x="92" y="484" class="mode">~80 km @ 100 m towers</text>
+  <text x="150" y="356" class="freq">delayed copy</text>
+
+  <text x="300" y="372" class="band">Failure modes</text>
+  <text x="300" y="394" class="note">&#8226; Multipath fading: out-of-phase</text>
+  <text x="312" y="409" class="note">reflection cancels signal (keep 10% spare)</text>
+  <text x="300" y="429" class="note">&#8226; Rain absorption above ~4 GHz</text>
+  <text x="300" y="449" class="note">&#8226; ISM 2.4 GHz / U-NII 5 GHz unlicensed,</text>
+  <text x="312" y="464" class="note">~1 W cap + spread spectrum</text>
+  <text x="300" y="484" class="note">&#8226; 60 GHz: oxygen-absorbed, short range</text>
+
+  <!-- INFRARED segment -->
+  <rect x="650" y="320" width="190" height="170" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <rect x="650" y="320" width="190" height="26" rx="8" fill="#2A1A2E"/>
+  <text x="664" y="338" class="tag">INFRARED &#183; below light</text>
+  <text x="664" y="368" class="band">IrDA / remotes</text>
+  <!-- wall blocking -->
+  <rect x="745" y="385" width="8" height="60" fill="#2A1A2E"/>
+  <line x1="664" y1="415" x2="742" y2="415" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="700" y="378" class="freq">wall</text>
+  <text x="757" y="415" class="freq">&#10007;</text>
+  <text x="664" y="462" class="note">Directional, wall-blocked,</text>
+  <text x="664" y="478" class="note">license-free, eavesdrop-safe</text>
+
+  <text x="40" y="528" class="sub">6 dB lost per doubling of distance (free space) vs ~20 dB / 100 m (twisted pair) &#8212; inverse-square law</text>
+  <text x="40" y="548" class="sub">Source: Tanenbaum, Computer Networks 5e, &#167;2.3.2&#8211;2.3.4</text>
+</svg>

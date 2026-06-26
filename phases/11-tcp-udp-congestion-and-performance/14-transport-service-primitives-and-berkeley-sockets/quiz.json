@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Which call returns a brand-new file descriptor for the per-connection socket while leaving the listening FD unchanged?",
+    "options": [
+      "A. SOCKET(2)",
+      "B. BIND(2)",
+      "C. ACCEPT(2)",
+      "D. LISTEN(2)"
+    ],
+    "answer": 2,
+    "explanation": "ACCEPT(2) blocks until a connection is pending on the listening socket, then creates a fresh FD for that connection. The listening FD is preserved so the server can call ACCEPT again. This is why the textbook server uses `while True: client_fd, _ = accept(listen_fd, ...)`. SOCKET just creates the endpoint, BIND assigns an address, LISTEN allocates the queue."
+  },
+  {
+    "question": "Why does a Web server sometimes issue RST to close a connection instead of running the full FIN handshake?",
+    "options": [
+      "A. Because TCP requires the server to RST before the client sends its FIN.",
+      "B. Because the request/response pattern is known and the server can prove no data is in flight, so it can skip TIME_WAIT.",
+      "C. Because RST is faster than FIN only on Linux, not on Windows.",
+      "D. Because HTTP/2 mandates RST to be used for connection teardown."
+    ],
+    "answer": 1,
+    "explanation": "The HTTP request/response is one-shot: the client sends a request (the only client data) and the server sends a response. After the response is on the wire, the server knows there is no in-flight data either way, so an asymmetric RST cannot lose any bytes. Skipping the FIN handshake lets the server avoid the TIME_WAIT state that would otherwise hold the port for 2*MSL (typically 60 s)."
+  },
+  {
+    "question": "What is the half-open-connection hazard and how does TCP recover from it?",
+    "options": [
+      "A. Two peers both believe the connection is established but the network path is gone; the keepalive rule fires after K seconds of silence and the connection is auto-disconnected.",
+      "B. A peer is alive but slow; TCP doubles the retransmission timer until it reaches 60 s.",
+      "C. A peer crashes mid-handshake; the three-way handshake restarts automatically after 1 s.",
+      "D. The ISN space wraps; the receiver drops any segment with an out-of-window sequence number."
+    ],
+    "answer": 0,
+    "explanation": "When one peer crashes, the other still holds a TCB and thinks the connection is ESTABLISHED. The recovery is the keepalive rule: a 'quiet' timer (default 7200 s on Linux, configurable) is restarted on every segment. When it expires, the side sends a zero-window probe. If N probes go unacknowledged (defaults: 9 probes every 75 s), the connection is auto-closed. The two-army problem proves no protocol can be provably correct; this is the practical compromise."
+  }
+]

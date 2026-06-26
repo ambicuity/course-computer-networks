@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="ui-sans-serif, system-ui, sans-serif">
+  <rect width="880" height="620" fill="#FFF7EC"/>
+  <rect x="0" y="0" width="880" height="50" fill="#2A1A2E"/>
+  <text x="20" y="32" font-size="18" font-weight="700" fill="#FFF7EC">High Latency Video Call - Four-Step Diagnostic Chain</text>
+  <text x="20" y="74" font-size="13" fill="#2A1A2E" font-style="italic">Four failure classes share the symptom "video call is bad". Disambiguating them takes four steps, each with a different decisive metric.</text>
+
+  <!-- four failure classes across the top -->
+  <g>
+    <rect x="40" y="100" width="200" height="130" rx="6" fill="#F2E0CE" stroke="#E2557A" stroke-width="2"/>
+    <text x="60" y="124" font-size="13" font-weight="700" fill="#E2557A">A. Bufferbloat</text>
+    <text x="60" y="146" font-size="11" fill="#2A1A2E">Standing queue delay</text>
+    <text x="60" y="164" font-size="11" fill="#2A1A2E">idle RTT=8ms</text>
+    <text x="60" y="182" font-size="11" fill="#2A1A2E">loaded RTT=248ms</text>
+    <text x="60" y="200" font-size="11" fill="#2A1A2E">Fix: enable CAKE</text>
+  </g>
+  <g>
+    <rect x="250" y="100" width="200" height="130" rx="6" fill="#F2E0CE" stroke="#E2557A" stroke-width="2"/>
+    <text x="270" y="124" font-size="13" font-weight="700" fill="#E2557A">B. RF Interference</text>
+    <text x="270" y="146" font-size="11" fill="#2A1A2E">802.11 retries climb</text>
+    <text x="270" y="164" font-size="11" fill="#2A1A2E">tx_retries/tx_pkts=0.25</text>
+    <text x="270" y="182" font-size="11" fill="#2A1A2E">loss=5%</text>
+    <text x="270" y="200" font-size="11" fill="#2A1A2E">Fix: change AP channel</text>
+  </g>
+  <g>
+    <rect x="460" y="100" width="200" height="130" rx="6" fill="#F2E0CE" stroke="#E2557A" stroke-width="2"/>
+    <text x="480" y="124" font-size="13" font-weight="700" fill="#E2557A">C. Roaming</text>
+    <text x="480" y="146" font-size="11" fill="#2A1A2E">Periodic 500ms blips</text>
+    <text x="480" y="164" font-size="11" fill="#2A1A2E">FT roam attempts logged</text>
+    <text x="480" y="182" font-size="11" fill="#2A1A2E">4 blips in 30s</text>
+    <text x="480" y="200" font-size="11" fill="#2A1A2E">Fix: align mobility dom.</text>
+  </g>
+  <g>
+    <rect x="670" y="100" width="180" height="130" rx="6" fill="#F2E0CE" stroke="#E2557A" stroke-width="2"/>
+    <text x="690" y="124" font-size="13" font-weight="700" fill="#E2557A">D. Codec</text>
+    <text x="690" y="146" font-size="11" fill="#2A1A2E">Network is clean</text>
+    <text x="690" y="164" font-size="11" fill="#2A1A2E">MOS=3.2, PLC spikes</text>
+    <text x="690" y="182" font-size="11" fill="#2A1A2E">jitter buffer 200ms</text>
+    <text x="690" y="200" font-size="11" fill="#2A1A2E">Fix: tune jitter buffer</text>
+  </g>
+
+  <!-- four-step chain -->
+  <g>
+    <rect x="40" y="260" width="810" height="58" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="284" font-size="14" font-weight="700" fill="#2A1A2E">Step 1. iperf3 -u -b 5M -t 30 -c <gateway> -J</text>
+    <text x="60" y="304" font-size="12" fill="#2A1A2E">UDP throughput, jitter, loss. Healthy: loss &lt; 0.5%, jitter &lt; 5 ms. Decisive: distinguishes RF/queue from app/codec.</text>
+  </g>
+  <g>
+    <rect x="40" y="328" width="810" height="58" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="352" font-size="14" font-weight="700" fill="#2A1A2E">Step 2. ping (idle vs loaded with -b 50M iperf3 in parallel)</text>
+    <text x="60" y="372" font-size="12" fill="#2A1A2E">Standing queue delay. Healthy: loaded RTT within 10 ms of idle. Decisive: bufferbloat signature.</text>
+  </g>
+  <g>
+    <rect x="40" y="396" width="810" height="58" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="420" font-size="14" font-weight="700" fill="#2A1A2E">Step 3. iw dev wlan0 station dump / vendor MIB</text>
+    <text x="60" y="440" font-size="12" fill="#2A1A2E">tx_retries / tx_packets. Healthy: &lt; 5%. Decisive: a high ratio on one station is conclusive RF evidence.</text>
+  </g>
+  <g>
+    <rect x="40" y="464" width="810" height="58" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="488" font-size="14" font-weight="700" fill="#2A1A2E">Step 4. Softphone MOS score, jitter buffer, PLC log</text>
+    <text x="60" y="508" font-size="12" fill="#2A1A2E">Application-layer symptoms. Healthy: MOS &gt; 4.0, no PLC events. Decisive: app/codec misconfig.</text>
+  </g>
+
+  <!-- latency budget -->
+  <g>
+    <rect x="40" y="540" width="810" height="64" rx="6" fill="#F2E0CE" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="562" font-size="13" font-weight="700" fill="#2A1A2E">Latency budget for a transcontinental VoIP call:</text>
+    <g font-size="11" fill="#2A1A2E">
+      <text x="60"  y="582">  Codec 20ms + Jitter buffer 60ms + 802.11 5ms + LAN 2ms + ISP 50ms = 137 ms one-way</text>
+      <text x="60"  y="600">  &lt; 150 ms = natural conversation; 150-250 ms = tolerable; 250-400 ms = push-to-talk; &gt; 400 ms = unusable</text>
+    </g>
+  </g>
+</svg>

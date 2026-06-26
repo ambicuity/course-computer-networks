@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the role of RTCP in an RTP session?",
+      "options": [
+        "It carries the media data",
+        "It provides quality feedback (loss, jitter, RTT) between sender and receiver",
+        "It encrypts the stream",
+        "It sets up the TCP connection"
+      ],
+      "correct": 1,
+      "explanation": "RTCP (RTP Control Protocol) periodically sends quality reports so the sender knows about packet loss, jitter, and round-trip time at the receiver."
+    },
+    {
+      "stage": "post",
+      "question": "How is round-trip time calculated from RTCP reports?",
+      "options": [
+        "By pinging the receiver",
+        "RTT = current_NTP_time - LSR - DLSR, using timestamps exchanged in SR and RR",
+        "By measuring TCP handshake time",
+        "It cannot be calculated from RTCP"
+      ],
+      "correct": 1,
+      "explanation": "The sender includes its NTP timestamp in SR. The receiver echoes it as LSR and adds DLSR (delay since receiving that SR). The sender computes RTT = now - LSR - DLSR."
+    },
+    {
+      "stage": "post",
+      "question": "What does the RTP sequence number detect?",
+      "options": [
+        "The codec being used",
+        "Packet loss and reordering by tracking gaps in the sequence",
+        "The timestamp of the packet",
+        "The SSRC of the sender"
+      ],
+      "correct": 1,
+      "explanation": "The sequence number increments by 1 per packet. Gaps indicate lost packets, and out-of-order values indicate reordering."
+    },
+    {
+      "stage": "post",
+      "question": "What does the interarrival jitter field in an RTCP RR represent?",
+      "options": [
+        "Absolute network delay in milliseconds",
+        "Smoothed variation in packet interarrival time, measured in RTP timestamp units",
+        "The number of lost packets",
+        "The codec sampling rate"
+      ],
+      "correct": 1,
+      "explanation": "Jitter is the smoothed estimate of the variation in interarrival time between consecutive packets, expressed in RTP timestamp units (not absolute delay)."
+    }
+  ]
+}

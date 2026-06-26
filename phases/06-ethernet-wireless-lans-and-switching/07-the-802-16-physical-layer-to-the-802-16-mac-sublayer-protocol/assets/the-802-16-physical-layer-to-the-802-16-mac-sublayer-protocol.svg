@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" width="820" height="470">
+  <rect width="820" height="470" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5a6e; }
+    .lbl { font-size: 12px; font-weight: 600; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .axis { stroke: #2A1A2E; stroke-width: 1.5; }
+  </style>
+
+  <text x="32" y="40" class="title">802.16 (WiMAX) TDD Frame — one base station, many subscriber stations</text>
+  <text x="32" y="60" class="sub">Time runs left to right; the base station rewrites DL-MAP / UL-MAP every frame.</text>
+
+  <!-- Time axis -->
+  <line x1="40" y1="120" x2="788" y2="120" class="axis" marker-end="url(#arrow)"/>
+  <text x="700" y="112" class="sub">Time &#8594;</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- Frame blocks: y 130..210 -->
+  <!-- Preamble -->
+  <rect x="40" y="130" width="58" height="80" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="69" y="166" text-anchor="middle" class="lbl">Pre-</text>
+  <text x="69" y="182" text-anchor="middle" class="lbl">amble</text>
+
+  <!-- DL-MAP / UL-MAP -->
+  <rect x="98" y="130" width="92" height="80" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="144" y="162" text-anchor="middle" class="lbl" fill="#fff">DL-MAP</text>
+  <text x="144" y="180" text-anchor="middle" class="lbl" fill="#fff">UL-MAP</text>
+  <text x="144" y="196" text-anchor="middle" class="mono" fill="#fff">slot grants</text>
+
+  <!-- Downlink bursts -->
+  <rect x="190" y="130" width="250" height="80" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="273" y1="130" x2="273" y2="210" stroke="#2A1A2E" stroke-dasharray="3 3"/>
+  <line x1="356" y1="130" x2="356" y2="210" stroke="#2A1A2E" stroke-dasharray="3 3"/>
+  <text x="315" y="148" text-anchor="middle" class="lbl">Downlink bursts (BS &#8594; SS)</text>
+  <text x="231" y="182" text-anchor="middle" class="mono">SS-A</text>
+  <text x="231" y="196" text-anchor="middle" class="mono">QAM64</text>
+  <text x="314" y="182" text-anchor="middle" class="mono">SS-B</text>
+  <text x="314" y="196" text-anchor="middle" class="mono">QAM16</text>
+  <text x="398" y="182" text-anchor="middle" class="mono">SS-C</text>
+  <text x="398" y="196" text-anchor="middle" class="mono">QPSK</text>
+
+  <!-- Guard -->
+  <rect x="440" y="130" width="26" height="80" fill="#f0e3d6" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="453" y="174" text-anchor="middle" class="mono" transform="rotate(-90 453 174)">guard</text>
+
+  <!-- Uplink bursts -->
+  <rect x="466" y="130" width="226" height="80" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="546" y1="130" x2="546" y2="210" stroke="#2A1A2E" stroke-dasharray="3 3"/>
+  <line x1="620" y1="130" x2="620" y2="210" stroke="#2A1A2E" stroke-dasharray="3 3"/>
+  <text x="579" y="148" text-anchor="middle" class="lbl">Uplink bursts (SS &#8594; BS)</text>
+  <text x="506" y="186" text-anchor="middle" class="mono">SS-A</text>
+  <text x="583" y="186" text-anchor="middle" class="mono">SS-B</text>
+
+  <!-- Ranging contention slot -->
+  <rect x="620" y="130" width="72" height="80" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="656" y="180" text-anchor="middle" class="lbl" fill="#fff">Ranging</text>
+  <text x="656" y="196" text-anchor="middle" class="mono" fill="#fff">contention</text>
+
+  <!-- next frame ghost -->
+  <rect x="692" y="130" width="96" height="80" fill="none" stroke="#6b5a6e" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="740" y="174" text-anchor="middle" class="sub">next frame</text>
+
+  <text x="265" y="230" class="sub">Downlink subframe</text>
+  <text x="560" y="230" class="sub">Uplink subframe</text>
+
+  <!-- callout: ranging -->
+  <line x1="656" y1="210" x2="656" y2="252" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="656" y="268" text-anchor="middle" class="sub">New stations adjust timing &amp; request bandwidth here</text>
+  <text x="656" y="284" text-anchor="middle" class="sub">— collisions resolved by binary exponential backoff</text>
+
+  <!-- QoS / MAC header panel -->
+  <rect x="40" y="310" width="360" height="140" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="56" y="332" class="lbl">Connection-oriented MAC — 4 QoS classes</text>
+  <text x="56" y="354" class="mono">CBR     dedicated bursts, never asks   (voice)</text>
+  <text x="56" y="372" class="mono">rt-VBR  polled at fixed interval       (video)</text>
+  <text x="56" y="390" class="mono">nrt-VBR polled often, not rigid        (files)</text>
+  <text x="56" y="408" class="mono">BE      contends in ranging slot       (rest)</text>
+  <text x="56" y="434" class="sub">Uplink grants flow from the UL-MAP the BS controls.</text>
+
+  <rect x="420" y="310" width="368" height="140" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="436" y="332" class="lbl">Generic MAC header — 6 bytes</text>
+  <!-- header byte strip -->
+  <g>
+    <rect x="436" y="344" width="44" height="30" fill="#E2557A" stroke="#2A1A2E"/>
+    <rect x="480" y="344" width="44" height="30" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="524" y="344" width="44" height="30" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="568" y="344" width="88" height="30" fill="#fff" stroke="#2A1A2E"/>
+    <rect x="656" y="344" width="44" height="30" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="458" y="364" text-anchor="middle" class="mono" fill="#fff">HT/EC</text>
+    <text x="502" y="364" text-anchor="middle" class="mono">CI/EK</text>
+    <text x="546" y="364" text-anchor="middle" class="mono">Len</text>
+    <text x="612" y="364" text-anchor="middle" class="mono">Conn ID</text>
+    <text x="678" y="364" text-anchor="middle" class="mono" fill="#fff">CRC</text>
+  </g>
+  <text x="436" y="396" class="sub">Header CRC over x&#8312;+x&#178;+x+1 (8 bits).</text>
+  <text x="436" y="414" class="sub">Payload + full-frame CRC are both optional —</text>
+  <text x="436" y="430" class="sub">PHY FEC corrects errors; real-time frames are not resent.</text>
+</svg>

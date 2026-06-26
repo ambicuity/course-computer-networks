@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="440" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">
+    NASA rate-1/2, k=7 binary convolutional encoder
+  </text>
+  <text x="440" y="54" text-anchor="middle" font-size="12" fill="#2A1A2E">
+    generators g1 = 171₈ ,  g2 = 133₈  ·  1 input bit → 2 output bits per step
+  </text>
+
+  <!-- ============== Encoder register diagram ============== -->
+  <g id="encoder">
+    <!-- input arrow -->
+    <line x1="40" y1="150" x2="110" y2="150" stroke="#2A1A2E" stroke-width="2"/>
+    <polygon points="110,150 102,145 102,155" fill="#2A1A2E"/>
+    <text x="44" y="140" font-size="12" fill="#2A1A2E">input u</text>
+
+    <!-- input tap node -->
+    <circle cx="120" cy="150" r="5" fill="#E2557A"/>
+    <text x="112" y="172" font-size="11" fill="#2A1A2E">u (current)</text>
+
+    <!-- 6 register boxes -->
+    <g font-size="12" fill="#2A1A2E" text-anchor="middle">
+      <rect x="160" y="132" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+      <text x="188" y="155">s1</text>
+      <rect x="240" y="132" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+      <text x="268" y="155">s2</text>
+      <rect x="320" y="132" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+      <text x="348" y="155">s3</text>
+      <rect x="400" y="132" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+      <text x="428" y="155">s4</text>
+      <rect x="480" y="132" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+      <text x="508" y="155">s5</text>
+      <rect x="560" y="132" width="56" height="36" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+      <text x="588" y="155">s6</text>
+    </g>
+
+    <!-- connections between boxes -->
+    <g stroke="#2A1A2E" stroke-width="2">
+      <line x1="120" y1="150" x2="160" y2="150"/>
+      <line x1="216" y1="150" x2="240" y2="150"/>
+      <line x1="296" y1="150" x2="320" y2="150"/>
+      <line x1="376" y1="150" x2="400" y2="150"/>
+      <line x1="456" y1="150" x2="480" y2="150"/>
+      <line x1="536" y1="150" x2="560" y2="150"/>
+      <line x1="616" y1="150" x2="660" y2="150"/>
+    </g>
+    <polygon points="660,150 652,145 652,155" fill="#2A1A2E"/>
+    <text x="624" y="140" font-size="11" fill="#2A1A2E">shift →</text>
+
+    <!-- tap nodes for g1 (171) : u, s1, s2, s5, s6 -->
+    <g fill="#E2557A">
+      <circle cx="120" cy="150" r="4"/>
+      <circle cx="188" cy="150" r="4"/>
+      <circle cx="268" cy="150" r="4"/>
+      <circle cx="508" cy="150" r="4"/>
+      <circle cx="588" cy="150" r="4"/>
+    </g>
+
+    <!-- tap nodes for g2 (133) : u, s2, s3, s5 -->
+    <g fill="#2A1A2E">
+      <circle cx="120" cy="150" r="2"/>
+      <circle cx="268" cy="150" r="2"/>
+      <circle cx="348" cy="150" r="2"/>
+      <circle cx="508" cy="150" r="2"/>
+    </g>
+
+    <!-- g1 XOR tree (upper) -->
+    <g stroke="#E2557A" stroke-width="1.5" fill="none">
+      <path d="M120 150 L120 96 L340 96"/>
+      <path d="M188 150 L188 96"/>
+      <path d="M268 150 L268 96"/>
+      <path d="M508 150 L508 96 L340 96"/>
+      <path d="M588 150 L588 96 L340 96"/>
+    </g>
+    <circle cx="340" cy="96" r="9" fill="#FFF7EC" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="340" y="100" text-anchor="middle" font-size="10" fill="#E2557A">⊕</text>
+    <text x="356" y="100" font-size="11" fill="#E2557A">g1 = 171₈</text>
+    <line x1="349" y1="96" x2="430" y2="96" stroke="#E2557A" stroke-width="1.5"/>
+    <polygon points="430,96 422,91 422,101" fill="#E2557A"/>
+    <text x="436" y="100" font-size="12" font-weight="600" fill="#E2557A">P1 (output bit 1)</text>
+
+    <!-- g2 XOR tree (lower) -->
+    <g stroke="#2A1A2E" stroke-width="1.5" fill="none">
+      <path d="M120 150 L120 214 L348 214"/>
+      <path d="M268 150 L268 214"/>
+      <path d="M348 150 L348 214"/>
+      <path d="M508 150 L508 214 L348 214"/>
+    </g>
+    <circle cx="348" cy="214" r="9" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="348" y="218" text-anchor="middle" font-size="10" fill="#2A1A2E">⊕</text>
+    <text x="364" y="218" font-size="11" fill="#2A1A2E">g2 = 133₈</text>
+    <line x1="357" y1="214" x2="430" y2="214" stroke="#2A1A2E" stroke-width="1.5"/>
+    <polygon points="430,214 422,209 422,219" fill="#2A1A2E"/>
+    <text x="436" y="218" font-size="12" font-weight="600" fill="#2A1A2E">P2 (output bit 2)</text>
+
+    <text x="40" y="250" font-size="11" fill="#2A1A2E">
+      rate R = 1/2 (one input bit → two output bits) · constraint length k = 7 (1 input + 6 memory) · non-systematic, linear
+    </text>
+  </g>
+
+  <!-- ============== Trellis (2-state abstraction for clarity) ============== -->
+  <g id="trellis">
+    <text x="440" y="288" text-anchor="middle" font-size="15" font-weight="700" fill="#2A1A2E">
+      Trellis &amp; Viterbi survivor (full code has 2⁶ = 64 states; 2 shown for clarity)
+    </text>
+
+    <!-- state labels -->
+    <text x="70" y="330" font-size="12" fill="#2A1A2E">state 0</text>
+    <text x="70" y="430" font-size="12" fill="#2A1A2E">state 1</text>
+
+    <!-- time columns -->
+    <g font-size="11" fill="#2A1A2E" text-anchor="middle">
+      <text x="150" y="305">t=0</text>
+      <text x="270" y="305">t=1</text>
+      <text x="390" y="305">t=2</text>
+      <text x="510" y="305">t=3</text>
+      <text x="630" y="305">t=4</text>
+      <text x="750" y="305">t=5</text>
+    </g>
+
+    <!-- state dots -->
+    <g fill="#2A1A2E">
+      <circle cx="150" cy="325" r="5"/><circle cx="270" cy="325" r="5"/><circle cx="390" cy="325" r="5"/>
+      <circle cx="510" cy="325" r="5"/><circle cx="630" cy="325" r="5"/><circle cx="750" cy="325" r="5"/>
+      <circle cx="150" cy="425" r="5"/><circle cx="270" cy="425" r="5"/><circle cx="390" cy="425" r="5"/>
+      <circle cx="510" cy="425" r="5"/><circle cx="630" cy="425" r="5"/><circle cx="750" cy="425" r="5"/>
+    </g>
+
+    <!-- solid survivor path: 0 -> 0 (in 0) -> 0 -> 1 (in 1) -> 0 -> 0 -->
+    <g stroke="#E2557A" stroke-width="3" fill="none">
+      <line x1="150" y1="325" x2="270" y2="325"/>
+      <line x1="270" y1="325" x2="390" y2="325"/>
+      <line x1="390" y1="325" x2="510" y2="425"/>
+      <line x1="510" y1="425" x2="630" y2="325"/>
+      <line x1="630" y1="325" x2="750" y2="325"/>
+    </g>
+    <!-- pruned (non-survivor) branches -->
+    <g stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.5">
+      <line x1="150" y1="325" x2="270" y2="425"/>
+      <line x1="270" y1="425" x2="390" y2="325"/>
+      <line x1="270" y1="425" x2="390" y2="425"/>
+      <line x1="390" y1="425" x2="510" y2="425"/>
+      <line x1="510" y1="325" x2="630" y2="425"/>
+    </g>
+
+    <!-- branch labels (input/output) -->
+    <g font-size="10" fill="#2A1A2E">
+      <text x="205" y="318">0 / 00</text>
+      <text x="325" y="318">0 / 00</text>
+      <text x="445" y="372">1 / 11</text>
+      <text x="565" y="372">0 / 10</text>
+      <text x="685" y="318">0 / 00</text>
+    </g>
+
+    <text x="150" y="470" font-size="11" fill="#E2557A">solid = survivor (min Hamming metric)</text>
+    <text x="150" y="486" font-size="11" fill="#2A1A2E">dashed = pruned branch (larger metric)</text>
+    <text x="150" y="502" font-size="11" fill="#2A1A2E">branch label: input bit / 2-bit output pair (P1 P2)</text>
+  </g>
+
+  <!-- footer note -->
+  <text x="440" y="540" text-anchor="middle" font-size="11" fill="#2A1A2E">
+    d_free = 10  →  corrects ⌊(10−1)/2⌋ = 4 hard errors;  k−1 = 6 zero tail bits terminate the trellis to state 0
+  </text>
+</svg>

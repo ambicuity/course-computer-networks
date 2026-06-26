@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <rect width="900" height="560" fill="#FFF7EC"/>
+  <text x="450" y="44" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#2A1A2E">ASN.1 DER: Tag-Length-Value Everywhere</text>
+  <text x="450" y="72" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#2A1A2E">ITU-T X.690: every byte in an X.509 cert is a TLV triple.</text>
+
+  <!-- Universal tag table -->
+  <rect x="40" y="100" width="380" height="350" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="230" y="126" text-anchor="middle" font-family="Georgia, serif" font-size="15" font-weight="700" fill="#2A1A2E">Universal Tags (X.680)</text>
+
+  <text x="60" y="156" font-family="monospace" font-size="11" fill="#2A1A2E">0x01  BOOLEAN</text>
+  <text x="60" y="174" font-family="monospace" font-size="11" fill="#2A1A2E">0x02  INTEGER</text>
+  <text x="60" y="192" font-family="monospace" font-size="11" fill="#E2557A">0x03  BIT STRING</text>
+  <text x="60" y="210" font-family="monospace" font-size="11" fill="#2A1A2E">0x04  OCTET STRING</text>
+  <text x="60" y="228" font-family="monospace" font-size="11" fill="#2A1A2E">0x05  NULL</text>
+  <text x="60" y="246" font-family="monospace" font-size="11" fill="#E2557A">0x06  OBJECT IDENTIFIER</text>
+  <text x="60" y="264" font-family="monospace" font-size="11" fill="#2A1A2E">0x0C  UTF8String</text>
+  <text x="60" y="282" font-family="monospace" font-size="11" fill="#2A1A2E">0x13  PrintableString</text>
+  <text x="60" y="300" font-family="monospace" font-size="11" fill="#2A1A2E">0x17  UTCTime</text>
+  <text x="60" y="318" font-family="monospace" font-size="11" fill="#2A1A2E">0x18  GeneralizedTime</text>
+  <text x="60" y="336" font-family="monospace" font-size="11" fill="#E2557A">0x30  SEQUENCE  (constructed)</text>
+  <text x="60" y="354" font-family="monospace" font-size="11" fill="#E2557A">0x31  SET       (constructed)</text>
+  <text x="60" y="372" font-family="monospace" font-size="11" fill="#2A1A2E">0xA0  [0] context-specific (version)</text>
+  <text x="60" y="390" font-family="monospace" font-size="11" fill="#2A1A2E">0xA3  [3] context-specific (extensions)</text>
+
+  <!-- TLV diagram -->
+  <rect x="460" y="100" width="400" height="350" fill="#FFE7C9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="660" y="126" text-anchor="middle" font-family="Georgia, serif" font-size="15" font-weight="700" fill="#2A1A2E">TLV Layout</text>
+
+  <rect x="490" y="156" width="60" height="40" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="520" y="180" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">Tag</text>
+
+  <rect x="560" y="156" width="60" height="40" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="590" y="180" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">Length</text>
+
+  <rect x="630" y="156" width="200" height="40" fill="#E2557A" stroke="#2A1A2E"/>
+  <text x="730" y="180" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">Value</text>
+
+  <text x="490" y="220" font-family="monospace" font-size="11" fill="#2A1A2E">length &lt; 128: 1 byte</text>
+  <text x="490" y="238" font-family="monospace" font-size="11" fill="#2A1A2E">length &ge; 128: 0x80 | nbytes, then nbytes bytes big-endian</text>
+
+  <text x="490" y="280" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#2A1A2E">Example: INTEGER 840</text>
+  <rect x="490" y="300" width="20" height="30" fill="#FFE7C9" stroke="#2A1A2E"/>
+  <text x="500" y="320" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">02</text>
+  <rect x="514" y="300" width="20" height="30" fill="#FFE7C9" stroke="#2A1A2E"/>
+  <text x="524" y="320" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">02</text>
+  <rect x="538" y="300" width="60" height="30" fill="#FFE7C9" stroke="#2A1A2E"/>
+  <text x="568" y="320" text-anchor="middle" font-family="monospace" font-size="10" fill="#2A1A2E">03 48</text>
+
+  <text x="490" y="358" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#2A1A2E">OID 1.2.840.113549.1.1.11</text>
+  <text x="490" y="378" font-family="monospace" font-size="11" fill="#2A1A2E">06 09 2A 86 48 86 F7 0D 01 01 0B</text>
+  <text x="490" y="396" font-family="monospace" font-size="11" fill="#2A1A2E">first byte = 40*1 + 2 = 0x2A</text>
+  <text x="490" y="414" font-family="monospace" font-size="11" fill="#2A1A2E">840 = 6*128 + 72  =&gt; 0x86 0x48</text>
+
+  <text x="490" y="436" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#2A1A2E">DER rules</text>
+  <text x="490" y="450" font-family="monospace" font-size="10" fill="#2A1A2E">shortest length form; shortest INTEGER; no BER indefinite.</text>
+
+  <text x="450" y="510" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2A1A2E">Try: openssl asn1parse -in cert.pem -inform PEM</text>
+  <text x="450" y="528" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#E2557A">Lesson 17 showed the structure; this lesson shows the bytes.</text>
+</svg>

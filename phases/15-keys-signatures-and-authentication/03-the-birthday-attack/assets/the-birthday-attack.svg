@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" width="720" height="500">
+  <rect width="720" height="500" fill="#FFF7EC"/>
+  <style>
+    .ink { fill: #2A1A2E; }
+    .berry { fill: #E2557A; }
+    .stroke { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+    .arrow { stroke: #2A1A2E; stroke-width: 2; fill: none; marker-end: url(#arr); }
+    .barrow { stroke: #E2557A; stroke-width: 2; fill: none; marker-end: url(#barr); }
+    text { font-family: 'Inter', sans-serif; }
+    .mono { font-family: monospace; }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="barr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+  <text x="360" y="30" text-anchor="middle" class="ink" font-size="18" font-weight="bold">The Birthday Attack</text>
+  <!-- Paradox curve -->
+  <text x="180" y="60" text-anchor="middle" class="ink" font-size="13" font-weight="bold">Birthday Paradox (k=365)</text>
+  <rect x="40" y="70" width="280" height="160" class="stroke" fill="#FFF"/>
+  <path d="M55 220 Q 80 220, 90 215 T 120 180 T 150 120 T 180 95 T 210 85 T 240 80 T 270 78 T 300 76"
+        class="barrow" stroke-width="1.5" fill="none"/>
+  <line x1="55" y1="225" x2="310" y2="225" class="stroke"/>
+  <line x1="55" y1="225" x2="55" y2="75" class="stroke"/>
+  <text x="180" y="240" text-anchor="middle" class="ink mono" font-size="9">n (people)</text>
+  <text x="50" y="150" text-anchor="end" class="ink mono" font-size="9" transform="rotate(-90 50 150)">P</text>
+  <text x="100" y="200" class="ink mono" font-size="9">n=23 → P=0.507</text>
+  <circle cx="100" cy="170" r="3" class="berry"/>
+  <text x="220" y="110" class="berry mono" font-size="9">n=50 → P=0.970</text>
+  <circle cx="220" cy="88" r="3" class="berry"/>
+  <!-- Swindle flow -->
+  <text x="500" y="60" text-anchor="middle" class="ink" font-size="13" font-weight="bold">Yuval's Tenure Swindle</text>
+  <rect x="400" y="75" width="140" height="40" rx="6" class="stroke" fill="#FFF"/>
+  <text x="470" y="95" text-anchor="middle" class="ink mono" font-size="10">Letter A (good)</text>
+  <text x="470" y="108" text-anchor="middle" class="ink mono" font-size="8">32 options → 2^32</text>
+  <rect x="560" y="75" width="140" height="40" rx="6" class="stroke" fill="#FFF"/>
+  <text x="630" y="95" text-anchor="middle" class="ink mono" font-size="10">Letter B (bad)</text>
+  <text x="630" y="108" text-anchor="middle" class="ink mono" font-size="8">32 options → 2^32</text>
+  <path d="M470 120 L470 138" class="arrow"/>
+  <path d="M630 120 L630 138" class="arrow"/>
+  <rect x="400" y="142" width="140" height="30" rx="4" class="stroke"/>
+  <text x="470" y="160" text-anchor="middle" class="ink mono" font-size="9">hash all → {d→A}</text>
+  <rect x="560" y="142" width="140" height="30" rx="4" class="stroke"/>
+  <text x="630" y="160" text-anchor="middle" class="ink mono" font-size="9">hash all → {d→B}</text>
+  <path d="M470 178 Q 470 195, 500 195 L 600 195 Q 630 195, 630 178" class="barrow"/>
+  <text x="550" y="212" text-anchor="middle" class="berry mono" font-size="10">find d: A_i, B_j share hash</text>
+  <rect x="430" y="220" width="260" height="40" rx="6" class="stroke" fill="#FFE9F0"/>
+  <text x="560" y="240" text-anchor="middle" class="berry mono" font-size="10">Marilyn signs MD(A_i) = d</text>
+  <text x="560" y="254" text-anchor="middle" class="ink mono" font-size="9">Ellen delivers B_j (same digest d)</text>
+  <path d="M560 268 L560 285" class="barrow"/>
+  <rect x="430" y="290" width="260" height="36" rx="6" class="stroke" fill="#FFF"/>
+  <text x="560" y="308" text-anchor="middle" class="ink mono" font-size="10">Dean: MD(B_j) = d → verify OK</text>
+  <text x="560" y="320" text-anchor="middle" class="berry mono" font-size="9">Tom fired. No crypto broken.</text>
+  <!-- Work factor table -->
+  <text x="360" y="370" text-anchor="middle" class="ink" font-size="13" font-weight="bold">Work factor: birthday bound halves security</text>
+  <rect x="60" y="385" width="600" height="90" class="stroke" fill="#FFF"/>
+  <text x="80" y="405" class="ink mono" font-size="10" font-weight="bold">Digest     m    Brute 2^m      Birthday 2^(m/2)    Safe?</text>
+  <text x="80" y="425" class="ink mono" font-size="10">MD5        128  2^128         2^64              NO</text>
+  <text x="80" y="442" class="ink mono" font-size="10">64-bit MAC 64   2^64          2^32              NO</text>
+  <text x="80" y="459" class="ink mono" font-size="10">SHA-1      160  2^160         2^80              marginal</text>
+  <text x="400" y="425" class="ink mono" font-size="10">SHA-256    256  2^256         2^128             YES</text>
+  <text x="400" y="448" class="berry mono" font-size="9">2^80 @ 1T digests/s ≈ 32000 yr</text>
+  <text x="400" y="462" class="berry mono" font-size="9">2^80 @ 1M chips      ≈ 2 weeks</text>
+</svg>

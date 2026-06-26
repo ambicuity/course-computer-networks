@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Which header flag tells a name server that the client wants the server to do all the work and return a final answer (or NXDOMAIN)?",
+    "options": [
+      "A. AA (Authoritative Answer)",
+      "B. RD (Recursion Desired)",
+      "C. RA (Recursion Available)",
+      "D. TC (Truncated)"
+    ],
+    "answer": 1,
+    "explanation": "RD=1 (Recursion Desired) is set by stub resolvers that want the queried server to perform full recursion. RA=1 in the response means the server actually did it."
+  },
+  {
+    "question": "A root server receives a query with RD=1 for www.example.com. What does it return?",
+    "options": [
+      "A. The A record for www.example.com directly, since RD=1 was set",
+      "B. NS records for the .com TLD, with RA=0 in the response header",
+      "C. An empty answer with RCODE=4 NOTIMP",
+      "D. A SERVFAIL with RA=1"
+    ],
+    "answer": 1,
+    "explanation": "Root servers are delegation-only (RFC 1035 §6): they return the NS records for the next zone down and set RA=0 regardless of the RD bit, because they do not perform recursion on behalf of clients."
+  },
+  {
+    "question": "A referral response from a TLD server includes both an authority section with NS records and an additional section with A records. What are those A records called, and why are they needed?",
+    "options": [
+      "A. Hint records: arbitrary optimization",
+      "B. Glue records: A/AAAA for NS hostnames so the resolver does not loop resolving them",
+      "C. Alias records: legacy from RFC 1034",
+      "D. Round-robin records: load balancing"
+    ],
+    "answer": 1,
+    "explanation": "Glue records (RFC 1034 §3.6) break the chicken-and-egg loop: the resolver is told to ask NS hostname X, and the additional section provides the A record for X so it does not have to ask the same zone again just to find X."
+  }
+]

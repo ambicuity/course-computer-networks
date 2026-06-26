@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 620" width="840" height="620">
+  <rect width="840" height="620" fill="#FFF7EC"/>
+  <text x="32" y="42" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#2A1A2E">Light through free space: FSO link &amp; orbital regions</text>
+  <text x="32" y="66" font-family="Inter, sans-serif" font-size="14" fill="#2A1A2E">Same physics core: signal propagates through free space, delay = d / c</text>
+
+  <!-- ============ LEFT: Free-space optics rooftop link ============ -->
+  <text x="32" y="108" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#E2557A">A. Free-space optics (rooftop laser, 500 m)</text>
+
+  <!-- building A -->
+  <rect x="40" y="150" width="70" height="130" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="75" y="300" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E" text-anchor="middle">Building A</text>
+  <rect x="100" y="160" width="16" height="12" fill="#E2557A"/>
+  <text x="62" y="146" font-family="monospace" font-size="11" fill="#2A1A2E">laser+PD</text>
+
+  <!-- building B -->
+  <rect x="350" y="150" width="70" height="130" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="385" y="300" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E" text-anchor="middle">Building B</text>
+  <rect x="344" y="160" width="16" height="12" fill="#E2557A"/>
+
+  <!-- beam cone (slightly defocused) -->
+  <polygon points="116,164 344,158 344,176 116,170" fill="#E2557A" fill-opacity="0.30"/>
+  <line x1="116" y1="167" x2="344" y2="167" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="230" y="192" font-family="monospace" font-size="11" fill="#2A1A2E" text-anchor="middle">1 = pulse of light, 0 = darkness</text>
+  <text x="230" y="142" font-family="monospace" font-size="11" fill="#2A1A2E" text-anchor="middle">beam ~1 mm, lenses defocus to widen target</text>
+
+  <!-- impairments -->
+  <text x="40" y="330" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#2A1A2E">Four FSO impairments</text>
+  <text x="40" y="352" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">1. Pointing error (wind, sway) walks beam off PD</text>
+  <text x="40" y="372" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">2. Scintillation (thermal gradients bend beam)</text>
+  <text x="40" y="392" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">3. Rain / fog absorption -&gt; link goes dark</text>
+  <text x="40" y="412" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">4. Divergence loss ~ 1/d&#178;</text>
+  <text x="40" y="438" font-family="monospace" font-size="11" fill="#E2557A">No FCC license (carrier ~3&#215;10&#185;&#8308; Hz infrared)</text>
+  <text x="40" y="456" font-family="monospace" font-size="11" fill="#2A1A2E">In vacuum (inter-sat) only #1 remains</text>
+
+  <!-- divider -->
+  <line x1="470" y1="96" x2="470" y2="470" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 5"/>
+
+  <!-- ============ RIGHT: orbital regions ============ -->
+  <text x="492" y="108" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#E2557A">B. Orbital regions &amp; speed-of-light latency</text>
+
+  <!-- earth -->
+  <circle cx="640" cy="430" r="58" fill="none" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="640" y="435" font-family="Inter, sans-serif" font-size="13" fill="#2A1A2E" text-anchor="middle">Earth</text>
+
+  <!-- LEO arc -->
+  <circle cx="640" cy="430" r="86" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <circle cx="640" cy="344" r="5" fill="#E2557A"/>
+  <text x="558" y="330" font-family="monospace" font-size="11" fill="#2A1A2E">LEO 750 km</text>
+  <text x="558" y="345" font-family="monospace" font-size="10" fill="#2A1A2E">~2.5 ms | 66 sats</text>
+
+  <!-- lower Van Allen belt -->
+  <circle cx="640" cy="430" r="108" fill="none" stroke="#E2557A" stroke-width="6" stroke-opacity="0.25"/>
+  <text x="492" y="280" font-family="monospace" font-size="10" fill="#E2557A">lower Van Allen belt</text>
+
+  <!-- MEO arc (highlight) -->
+  <circle cx="640" cy="430" r="138" fill="none" stroke="#E2557A" stroke-width="2.5"/>
+  <circle cx="640" cy="292" r="6" fill="#E2557A"/>
+  <text x="700" y="288" font-family="monospace" font-size="11" font-weight="700" fill="#E2557A">MEO 20,200 km</text>
+  <text x="700" y="303" font-family="monospace" font-size="10" fill="#2A1A2E">~67 ms | ~30 GPS sats</text>
+  <text x="700" y="316" font-family="monospace" font-size="10" fill="#2A1A2E">drifts -&gt; must be tracked</text>
+
+  <!-- upper Van Allen belt -->
+  <circle cx="640" cy="430" r="166" fill="none" stroke="#E2557A" stroke-width="6" stroke-opacity="0.25"/>
+  <text x="492" y="170" font-family="monospace" font-size="10" fill="#E2557A">upper Van Allen belt</text>
+
+  <!-- GEO arc -->
+  <circle cx="640" cy="430" r="196" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <circle cx="640" cy="234" r="5" fill="#2A1A2E"/>
+  <text x="700" y="232" font-family="monospace" font-size="11" fill="#2A1A2E">GEO 35,800 km</text>
+  <text x="700" y="247" font-family="monospace" font-size="10" fill="#2A1A2E">~119 ms | 24 h | 3 sats</text>
+
+  <!-- latency formula box -->
+  <rect x="492" y="486" width="318" height="58" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="504" y="508" font-family="monospace" font-size="13" fill="#2A1A2E">one-way  t = d / c    RTT = 2d / c</text>
+  <text x="504" y="528" font-family="monospace" font-size="12" fill="#E2557A">c &#8776; 3&#215;10&#8308; km/s &#8212; no bandwidth removes this floor</text>
+
+  <!-- Kepler note -->
+  <text x="32" y="500" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">Kepler: T &#8733; r^(3/2). GEO period = 24 h so it appears motionless;</text>
+  <text x="32" y="520" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">MEO ~6&#8211;12 h so it drifts. Lower orbit = lower latency, more satellites.</text>
+
+  <text x="32" y="596" font-family="monospace" font-size="11" fill="#2A1A2E">Tanenbaum, Computer Networks 6e, &#167;2.3 (free-space optics) &amp; &#167;2.4 (satellites)</text>
+</svg>

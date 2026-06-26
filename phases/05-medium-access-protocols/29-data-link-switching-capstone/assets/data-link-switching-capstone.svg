@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="820" height="480" fill="#FFF7EC"/>
+  <g fill="#2A1A2E">
+    <text x="410" y="30" text-anchor="middle" font-size="20" font-weight="bold">Backbone Switching — STP/RSTP, 802.1Q VLAN Tag</text>
+    <text x="410" y="50" text-anchor="middle" font-size="11" font-weight="bold">Learning bridge · 802.1D/RSTP root election · 802.1Q 4-byte tag</text>
+  </g>
+
+  <!-- 3 switches in a triangle with spanning tree -->
+  <g>
+    <rect x="40" y="80" width="380" height="240" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="100" font-size="13" font-weight="bold" fill="#2A1A2E">Spanning tree: 3 switches in a triangle</text>
+
+    <!-- 3 switches -->
+    <rect x="170" y="120" width="60" height="40" fill="#E2557A"/>
+    <text x="200" y="146" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF7EC">SW1 (root)</text>
+
+    <rect x="80" y="240" width="60" height="40" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="110" y="266" text-anchor="middle" font-size="11" fill="#2A1A2E">SW2</text>
+
+    <rect x="320" y="240" width="60" height="40" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="350" y="266" text-anchor="middle" font-size="11" fill="#2A1A2E">SW3</text>
+
+    <!-- links: 1-2 (active), 1-3 (active), 2-3 (BLOCKED) -->
+    <line x1="200" y1="160" x2="110" y2="240" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="135" y="200" font-size="10" fill="#2A1A2E" font-weight="bold">Designated</text>
+
+    <line x1="230" y1="160" x2="320" y2="240" stroke="#2A1A2E" stroke-width="2"/>
+    <text x="295" y="200" font-size="10" fill="#2A1A2E" font-weight="bold">Designated</text>
+
+    <line x1="140" y1="260" x2="320" y2="260" stroke="#E2557A" stroke-width="3" stroke-dasharray="6 3"/>
+    <text x="230" y="252" text-anchor="middle" font-size="10" fill="#E2557A" font-weight="bold">BLOCKED (loop broken)</text>
+
+    <text x="60" y="306" font-size="10" fill="#2A1A2E">Bridge ID: 8 bytes (priority 4B + MAC 6B). Lowest wins root election.</text>
+  </g>
+
+  <!-- 802.1Q tag layout -->
+  <g>
+    <rect x="440" y="80" width="340" height="200" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="610" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#2A1A2E">802.1Q VLAN tag (4 bytes)</text>
+
+    <rect x="460" y="120" width="60" height="50" fill="#E2557A"/>
+    <text x="490" y="148" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">TPID</text>
+    <text x="490" y="162" text-anchor="middle" font-size="9" fill="#FFF7EC">0x8100</text>
+
+    <rect x="520" y="120" width="20" height="50" fill="#2A1A2E" opacity="0.5"/>
+    <text x="530" y="148" text-anchor="middle" font-size="9" fill="#FFF7EC">PCP</text>
+    <text x="530" y="160" text-anchor="middle" font-size="8" fill="#FFF7EC">3b</text>
+
+    <rect x="540" y="120" width="20" height="50" fill="#2A1A2E" opacity="0.5"/>
+    <text x="550" y="148" text-anchor="middle" font-size="9" fill="#FFF7EC">CFI</text>
+    <text x="550" y="160" text-anchor="middle" font-size="8" fill="#FFF7EC">1b</text>
+
+    <rect x="560" y="120" width="200" height="50" fill="#2A1A2E" opacity="0.7"/>
+    <text x="660" y="148" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFF7EC">VID  (12 bits, 0-4095)</text>
+
+    <text x="460" y="190" font-size="10" fill="#2A1A2E">Inserted between Source MAC and EtherType/Length.</text>
+    <text x="460" y="206" font-size="10" fill="#2A1A2E">Native VLAN = untagged traffic on a trunk port (VLAN 1 default).</text>
+    <text x="460" y="222" font-size="10" fill="#2A1A2E">Q-in-Q (802.1ad): double tag, customer + service-provider.</text>
+    <text x="460" y="238" font-size="10" fill="#2A1A2E">GVRP/GARP for VLAN auto-propagation; MVRP in 802.1Q-2014.</text>
+    <text x="460" y="254" font-size="10" fill="#2A1A2E">MSTP maps VLAN groups to separate spanning-tree instances.</text>
+  </g>
+
+  <!-- RSTP convergence -->
+  <g>
+    <rect x="40" y="340" width="740" height="120" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="360" font-size="13" font-weight="bold" fill="#2A1A2E">RSTP (802.1w/802.1Q-2014) fast convergence</text>
+
+    <g fill="#2A1A2E" font-size="11">
+      <text x="60" y="384">Classic 802.1D: 30-50 s blocking → listening → learning → forwarding.</text>
+      <text x="60" y="402">RSTP: Proposal/Agreement handshake on P2P links; sub-second convergence.</text>
+      <text x="60" y="420">Port roles: Root · Designated · Alternate · Backup · Edge.</text>
+      <text x="60" y="438">States: Discarding · Learning · Forwarding (3, not 5).</text>
+    </g>
+    <text x="540" y="384" font-size="10" fill="#2A1A2E" font-weight="bold">BPDU: 01:80:C2:00:00:00</text>
+    <text x="540" y="402" font-size="10" fill="#2A1A2E">Protocol 0x0000, Ver 0 (RSTP: Ver 2)</text>
+    <text x="540" y="420" font-size="10" fill="#2A1A2E">Fields: root ID, cost, sender ID, port ID</text>
+    <text x="540" y="438" font-size="10" fill="#2A1A2E">Hello 2 s, MaxAge 20 s, FwdDelay 15 s</text>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+[
+  {
+    "question": "In a site-to-site IPsec VPN using ESP tunnel mode, which IP header carries the protocol number that tells the intermediate Internet router the next header is ESP?",
+    "options": [
+      "A. The inner IP header (the one with 10.10.x.y addresses)",
+      "B. The outer IP header (the one with the public gateway addresses)",
+      "C. Both the inner and the outer IP headers carry protocol 50",
+      "D. Neither -- protocol 50 only appears in the ESP trailer, not in any IP header"
+    ],
+    "answer": 1,
+    "explanation": "Tunnel mode wraps the entire original (inner) IP packet inside a fresh outer IP header. The outer header is the one the Internet sees, and its Protocol field is set to 50 (ESP). The inner IP header keeps its original protocol (e.g., 6 for TCP) but lives entirely inside the encrypted region, so intermediate routers never read it."
+  },
+  {
+    "question": "What does the ESP Security Parameters Index (SPI) actually identify, and who chooses its value?",
+    "options": [
+      "A. A 32-bit secret that authenticates the sender; chosen by the sender at random per packet",
+      "B. A 32-bit index into the receiver's Security Association Database; chosen by the receiver when the SA is created and not secret",
+      "C. A 64-bit anti-replay counter shared between both peers, selected during IKE_SA_INIT",
+      "D. The Diffie-Hellman group negotiated in IKE_AUTH, encoded into 32 bits"
+    ],
+    "answer": 1,
+    "explanation": "Per RFC 4303 §2.1, the SPI is a 32-bit value the receiver picks when it creates the SA. It indexes the receiver's SAD entry that holds the keys, algorithms, and anti-replay window for that SA. The SPI is *not* a secret -- it appears in every packet in the clear -- and it is meaningless without the matching destination IP and protocol (50), which together form the SA lookup triple."
+  },
+  {
+    "question": "Why is the 32-bit ESP Sequence Number allowed to wrap only at rekey (CREATE_CHILD_SA) and not silently in the middle of a session?",
+    "options": [
+      "A. Because RFC 4303 forbids wrap, so a wrapped sequence number is a protocol violation that the kernel must reset",
+      "B. Because anti-replay depends on the receiver being able to tell that any two packets with the same sequence number are duplicates; wrapping would break that guarantee",
+      "C. Because the SPI is XORed with the sequence number, and wrap would corrupt the SPI",
+      "D. Because AES-CBC requires a sequence number that strictly increases to keep the IV chain unique"
+    ],
+    "answer": 1,
+    "explanation": "Anti-replay protection assumes a strictly increasing sequence space within an SA: the receiver uses the sequence number to detect duplicates and reorderings inside its sliding window. If the 32-bit counter silently wrapped, two different packets would carry the same sequence number, and the receiver could not tell a legitimate retransmission from a malicious replay. RFC 4303 therefore requires a new SA (via CREATE_CHILD_SA) before the counter can reach 2^32. (RFC 4304 extends the counter to 64 bits via ESN, but the no-wrap rule is the same.)"
+  }
+]

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620">
+  <rect width="900" height="620" fill="#FFF7EC"/>
+  <style>
+    .ink{fill:#2A1A2E}
+    .berry{fill:#E2557A}
+    .st{stroke:#2A1A2E;stroke-width:1.4;fill:none}
+    .arr{stroke:#2A1A2E;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+    .barr{stroke:#E2557A;stroke-width:1.6;fill:none;marker-end:url(#ahb)}
+    .dash{stroke:#2A1A2E;stroke-width:1;stroke-dasharray:4 3;fill:none}
+    .lbl{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:12px;fill:#2A1A2E}
+    .sm{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:11px;fill:#2A1A2E}
+    .hi{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:11px;fill:#E2557A;font-weight:600}
+    .ttl{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:15px;font-weight:700;fill:#2A1A2E}
+    .sub{font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:11px;fill:#E2557A;font-weight:600}
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/></marker>
+  </defs>
+
+  <text x="40" y="34" class="ttl">Stop-and-wait ARQ — three timing cases</text>
+  <text x="40" y="52" class="sub">Acknowledged connectionless service (802.11-style). seq bit = 0/1, ACK carries next-expected.</text>
+
+  <!-- Three lanes -->
+  <text x="70" y="92" class="lbl" font-weight="600">Sender (S)</text>
+  <text x="760" y="92" class="lbl" font-weight="600">Receiver (R)</text>
+  <line x1="120" y1="88" x2="740" y2="88" class="st"/>
+  <line x1="120" y1="88" x2="120" y2="600" class="dash"/>
+  <line x1="740" y1="88" x2="740" y2="600" class="dash"/>
+
+  <!-- Case 1: clean exchange -->
+  <text x="40" y="118" class="sub">Case 1 — clean delivery</text>
+  <path d="M120,140 L735,165" class="arr"/>
+  <text x="300" y="138" class="lbl">DATA seq=0</text>
+  <path d="M740,185 L125,210" class="barr"/>
+  <text x="300" y="183" class="hi">ACK seq=1</text>
+  <text x="40" y="178" class="sm">S advances seq 0→1</text>
+
+  <!-- Case 2: DATA lost -->
+  <text x="40" y="240" class="sub">Case 2 — DATA lost, timeout → retransmit</text>
+  <path d="M120,260 L420,278" class="st"/>
+  <text x="180" y="256" class="hi">DATA seq=0 (lost)</text>
+  <path d="M420,278 L470,292" class="st" stroke-dasharray="3 3"/>
+  <text x="438" y="296" class="sm">✗ dropped</text>
+  <!-- timeout arc -->
+  <path d="M120,300 q40,12 0,24" class="st"/>
+  <text x="50" y="318" class="sm">timeout</text>
+  <path d="M120,330 L735,352" class="arr"/>
+  <text x="290" y="328" class="lbl">DATA seq=0 (retry)</text>
+  <path d="M740,372 L125,394" class="barr"/>
+  <text x="300" y="370" class="hi">ACK seq=1</text>
+
+  <!-- Case 3: ACK lost, duplicate suppressed -->
+  <text x="40" y="425" class="sub">Case 3 — ACK lost → retransmit → duplicate suppressed</text>
+  <path d="M120,445 L735,465" class="arr"/>
+  <text x="300" y="442" class="lbl">DATA seq=0 (accepted)</text>
+  <path d="M740,482 L440,498" class="barr"/>
+  <text x="180" y="490" class="hi">ACK seq=1 (lost)</text>
+  <path d="M440,498 L390,510" class="barr" stroke-dasharray="3 3"/>
+  <text x="386" y="512" class="sm">✗</text>
+  <path d="M120,528 L735,548" class="arr"/>
+  <text x="270" y="525" class="lbl">DATA seq=0 (retry)</text>
+  <path d="M740,566 L125,586" class="barr"/>
+  <text x="300" y="580" class="hi">ACK seq=1 (re-ack)</text>
+  <text x="500" y="548" class="hi">R: duplicate, discard</text>
+  <text x="40" y="572" class="sm">network layer sees rec once</text>
+</svg>

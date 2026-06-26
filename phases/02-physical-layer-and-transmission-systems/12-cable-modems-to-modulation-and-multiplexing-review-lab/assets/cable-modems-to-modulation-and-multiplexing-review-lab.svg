@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .h { font-size: 20px; font-weight: 700; }
+    .s { font-size: 13px; font-weight: 600; }
+    .l { font-size: 11px; }
+    .m { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .berry { fill: #E2557A; }
+  </style>
+
+  <text x="30" y="34" class="h">DOCSIS: one coax, four multiplexing layers</text>
+
+  <!-- FDM channel plan -->
+  <text x="30" y="68" class="s">1 · FDM — the spectrum is sliced into channels</text>
+  <rect x="30" y="78" width="700" height="46" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="170" y1="78" x2="170" y2="124" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="310" y1="78" x2="310" y2="124" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="450" y1="78" x2="450" y2="124" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="590" y1="78" x2="590" y2="124" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="30" y="78" width="140" height="46" fill="#E2557A" opacity="0.18"/>
+  <text x="100" y="98" class="l" text-anchor="middle">upstream</text>
+  <text x="100" y="113" class="m" text-anchor="middle">QPSK..QAM-128</text>
+  <text x="240" y="105" class="l" text-anchor="middle">6 MHz down</text>
+  <text x="380" y="105" class="l" text-anchor="middle">6 MHz down</text>
+  <text x="520" y="105" class="l" text-anchor="middle">6 MHz down</text>
+  <text x="660" y="105" class="l" text-anchor="middle">6 MHz down</text>
+  <text x="30" y="142" class="m">freq →   each channel: 6 MHz (US) / 8 MHz (EuroDOCSIS), guard-banded</text>
+
+  <!-- QAM ladder -->
+  <text x="30" y="180" class="s">2 · QAM — bits per symbol = log2(M), chosen from SNR</text>
+  <g class="m">
+    <rect x="30" y="192" width="150" height="22" fill="none" stroke="#2A1A2E"/>
+    <text x="40" y="207">QPSK   M=4   → 2 b/sym</text>
+    <rect x="30" y="216" width="150" height="22" fill="none" stroke="#2A1A2E"/>
+    <text x="40" y="231">QAM-16  M=16 → 4 b/sym</text>
+    <rect x="30" y="240" width="150" height="22" fill="#E2557A" opacity="0.18"/>
+    <rect x="30" y="240" width="150" height="22" fill="none" stroke="#2A1A2E"/>
+    <text x="40" y="255">QAM-64  M=64 → 6 b/sym</text>
+    <rect x="30" y="264" width="150" height="22" fill="#E2557A" opacity="0.18"/>
+    <rect x="30" y="264" width="150" height="22" fill="none" stroke="#2A1A2E"/>
+    <text x="40" y="279">QAM-256 M=256→ 8 b/sym</text>
+  </g>
+  <text x="200" y="210" class="l">6 MHz × QAM-64  → ~36 Mbps raw</text>
+  <text x="200" y="230" class="l">             → ~27 Mbps net (after FEC)</text>
+  <text x="200" y="258" class="l berry">6 MHz × QAM-256 → ~39 Mbps net</text>
+  <text x="200" y="282" class="l">Down: 204-byte MPEG-2 cell, 184 payload,</text>
+  <text x="200" y="298" class="l">Reed-Solomon FEC, STDM (one sender)</text>
+
+  <!-- Ranging + minislots -->
+  <text x="30" y="338" class="s">3 · Ranging — modems pre-advance timing by their distance</text>
+  <circle cx="60" cy="372" r="14" fill="#E2557A" opacity="0.22" stroke="#2A1A2E"/>
+  <text x="60" y="376" class="l" text-anchor="middle">CMTS</text>
+  <line x1="74" y1="372" x2="240" y2="358" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="74" y1="372" x2="320" y2="396" stroke="#2A1A2E" stroke-width="1"/>
+  <circle cx="245" cy="357" r="9" fill="none" stroke="#2A1A2E"/>
+  <text x="258" y="352" class="m">near 2 km → advance 10 µs</text>
+  <circle cx="325" cy="397" r="9" fill="none" stroke="#2A1A2E"/>
+  <text x="340" y="402" class="m">far 14 km → advance 70 µs</text>
+
+  <!-- Minislot timeline -->
+  <text x="30" y="438" class="s">4 · TDM — upstream time split into minislots (~8-byte payload)</text>
+  <g>
+    <rect x="30" y="448" width="60" height="28" fill="#E2557A" opacity="0.20" stroke="#2A1A2E"/>
+    <rect x="90" y="448" width="60" height="28" fill="none" stroke="#2A1A2E"/>
+    <rect x="150" y="448" width="120" height="28" fill="#E2557A" opacity="0.20" stroke="#2A1A2E"/>
+    <rect x="270" y="448" width="60" height="28" fill="none" stroke="#2A1A2E"/>
+    <rect x="330" y="448" width="180" height="28" fill="#E2557A" opacity="0.20" stroke="#2A1A2E"/>
+    <rect x="510" y="448" width="220" height="28" fill="none" stroke="#2A1A2E"/>
+  </g>
+  <text x="60" y="466" class="m" text-anchor="middle">REQ</text>
+  <text x="120" y="466" class="m" text-anchor="middle">·</text>
+  <text x="210" y="466" class="m" text-anchor="middle">modem-B burst</text>
+  <text x="420" y="466" class="m" text-anchor="middle">modem-A burst (consecutive)</text>
+  <text x="620" y="466" class="m" text-anchor="middle">free</text>
+  <text x="30" y="492" class="m">time → CMTS MAP grants consecutive minislots; bursts may not overlap</text>
+
+  <!-- Contention note -->
+  <rect x="30" y="510" width="700" height="36" fill="none" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="44" y="524" class="l">Shared REQ minislot collides → </text>
+  <text x="44" y="540" class="m berry">CDMA codes separate senders, OR slotted ALOHA + binary exponential backoff (no carrier sense on the bus)</text>
+</svg>

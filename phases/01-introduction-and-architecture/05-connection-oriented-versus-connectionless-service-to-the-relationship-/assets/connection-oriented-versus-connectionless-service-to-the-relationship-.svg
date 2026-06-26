@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 620" width="860" height="620">
+  <rect width="860" height="620" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5a6e; }
+    .cell { font-size: 13px; }
+    .hdr { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+  </style>
+
+  <text x="40" y="44" class="title">Service models &#215; reliability = six service classes</text>
+  <text x="40" y="66" class="sub">Connection model (telephone vs postal) crossed with reliability and message boundaries</text>
+
+  <!-- Matrix -->
+  <g>
+    <!-- column headers -->
+    <rect x="40" y="90" width="160" height="40" fill="#2A1A2E"/>
+    <text x="120" y="115" class="hdr" fill="#FFF7EC" text-anchor="middle">Group</text>
+    <rect x="200" y="90" width="300" height="40" fill="#2A1A2E"/>
+    <text x="350" y="115" class="hdr" fill="#FFF7EC" text-anchor="middle">Service class</text>
+    <rect x="500" y="90" width="200" height="40" fill="#2A1A2E"/>
+    <text x="600" y="115" class="hdr" fill="#FFF7EC" text-anchor="middle">Example</text>
+    <rect x="700" y="90" width="120" height="40" fill="#2A1A2E"/>
+    <text x="760" y="115" class="hdr" fill="#FFF7EC" text-anchor="middle">Protocol</text>
+
+    <!-- connection-oriented band -->
+    <rect x="40" y="130" width="160" height="120" fill="#E2557A" opacity="0.18"/>
+    <text x="120" y="186" class="hdr accent" text-anchor="middle">Connection-</text>
+    <text x="120" y="204" class="hdr accent" text-anchor="middle">oriented</text>
+    <text x="120" y="226" class="sub" text-anchor="middle">(the "tube")</text>
+
+    <!-- CO rows -->
+    <g class="cell">
+      <rect x="200" y="130" width="620" height="40" fill="none" stroke="#d8c8d0"/>
+      <text x="210" y="155">Reliable message sequence (boundaries kept)</text>
+      <text x="510" y="155">Pages to typesetter</text>
+      <text x="710" y="155" class="mono">SCTP</text>
+
+      <rect x="200" y="170" width="620" height="40" fill="#fff" stroke="#d8c8d0"/>
+      <text x="210" y="195">Reliable byte stream (no boundaries)</text>
+      <text x="510" y="195">Movie download</text>
+      <text x="710" y="195" class="mono">TCP</text>
+
+      <rect x="200" y="210" width="620" height="40" fill="none" stroke="#d8c8d0"/>
+      <text x="210" y="235">Unreliable connection</text>
+      <text x="510" y="235">Voice over IP</text>
+      <text x="710" y="235" class="mono">RTP</text>
+    </g>
+
+    <!-- connectionless band -->
+    <rect x="40" y="250" width="160" height="120" fill="#2A1A2E" opacity="0.10"/>
+    <text x="120" y="306" class="hdr" text-anchor="middle">Connection-</text>
+    <text x="120" y="324" class="hdr" text-anchor="middle">less</text>
+    <text x="120" y="346" class="sub" text-anchor="middle">(the "post")</text>
+
+    <g class="cell">
+      <rect x="200" y="250" width="620" height="40" fill="#fff" stroke="#d8c8d0"/>
+      <text x="210" y="275">Unreliable datagram</text>
+      <text x="510" y="275">Junk mail</text>
+      <text x="710" y="275" class="mono">UDP</text>
+
+      <rect x="200" y="290" width="620" height="40" fill="none" stroke="#d8c8d0"/>
+      <text x="210" y="315">Acknowledged datagram (per-message ACK)</text>
+      <text x="510" y="315">Text messaging</text>
+      <text x="710" y="315" class="mono">CoAP</text>
+
+      <rect x="200" y="330" width="620" height="40" fill="#fff" stroke="#d8c8d0"/>
+      <text x="210" y="355">Request-reply</text>
+      <text x="510" y="355">DNS / map query</text>
+      <text x="710" y="355" class="mono">DNS</text>
+    </g>
+  </g>
+
+  <!-- Service vs Protocol panel -->
+  <text x="40" y="418" class="title">Service &#8800; Protocol</text>
+  <text x="40" y="438" class="sub">A service is the interface; a protocol is the wire format. They are decoupled.</text>
+
+  <!-- two stacked machines -->
+  <g>
+    <!-- left machine -->
+    <rect x="60" y="460" width="200" height="50" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="160" y="490" class="hdr" text-anchor="middle">Layer k+1 (user)</text>
+    <rect x="60" y="525" width="200" height="60" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="160" y="552" class="hdr" text-anchor="middle">Layer k (provider)</text>
+    <text x="160" y="572" class="mono" text-anchor="middle">send / recv</text>
+
+    <!-- right machine -->
+    <rect x="600" y="460" width="200" height="50" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="700" y="490" class="hdr" text-anchor="middle">Layer k+1 (user)</text>
+    <rect x="600" y="525" width="200" height="60" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="700" y="552" class="hdr" text-anchor="middle">Layer k (provider)</text>
+    <text x="700" y="572" class="mono" text-anchor="middle">send / recv</text>
+
+    <!-- service interface arrows (vertical, within a machine) -->
+    <line x1="160" y1="510" x2="160" y2="525" stroke="#E2557A" stroke-width="2"/>
+    <text x="172" y="522" class="sub accent">SERVICE</text>
+    <line x1="700" y1="510" x2="700" y2="525" stroke="#E2557A" stroke-width="2"/>
+    <text x="600" y="522" class="sub accent" text-anchor="end">SERVICE </text>
+
+    <!-- protocol arrow (horizontal, peer to peer) -->
+    <line x1="260" y1="555" x2="600" y2="555" stroke="#2A1A2E" stroke-width="2" stroke-dasharray="7 5"/>
+    <polygon points="600,555 588,549 588,561" fill="#2A1A2E"/>
+    <polygon points="260,555 272,549 272,561" fill="#2A1A2E"/>
+    <rect x="370" y="540" width="120" height="22" fill="#FFF7EC"/>
+    <text x="430" y="556" class="hdr" text-anchor="middle">PROTOCOL</text>
+    <text x="430" y="600" class="sub" text-anchor="middle">Swap Reno&#8594;CUBIC&#8594;BBR here; service above is unchanged.</text>
+  </g>
+</svg>

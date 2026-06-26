@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <rect width="800" height="560" fill="#FFF7EC"/>
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="40" font-size="22" font-weight="700">Addressing &amp; Three-Way Handshake</text>
+    <text x="32" y="62" font-size="13" fill="#7A5478">Tanenbaum 6.2.1-6.2.2 — TSAP/NSAP, Tomlinson ISN, Fig. 6-11(a)</text>
+  </g>
+
+  <!-- Top: TSAP/NSAP layering -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="100" font-size="14" font-weight="700">TSAP/NSAP layering (Fig. 6-8)</text>
+
+    <rect x="60" y="120" width="200" height="50" rx="6" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="72" y="140" font-size="12" font-weight="700">Application: maild, httpd, sshd</text>
+    <text x="72" y="158" font-size="11" fill="#7A5478">attaches to local TSAP (port 25/80/22)</text>
+
+    <rect x="60" y="180" width="200" height="50" rx="6" fill="#FFCFB8" stroke="#E2557A"/>
+    <text x="72" y="200" font-size="12" font-weight="700">Transport: TCP/UDP</text>
+    <text x="72" y="218" font-size="11" fill="#7A5478">TSAPs share one NSAP via demux on port</text>
+
+    <rect x="60" y="240" width="200" height="50" rx="6" fill="#FFB19D" stroke="#E2557A"/>
+    <text x="72" y="260" font-size="12" font-weight="700">Network: IP</text>
+    <text x="72" y="278" font-size="11" fill="#7A5478">NSAP = 192.168.1.1 (single address)</text>
+
+    <line x1="160" y1="170" x2="160" y2="180" stroke="#E2557A" stroke-width="2"/>
+    <line x1="160" y1="230" x2="160" y2="240" stroke="#E2557A" stroke-width="2"/>
+
+    <!-- right side: well-known / portmapper / inetd -->
+    <rect x="320" y="120" width="440" height="170" rx="6" fill="#FFE9D6" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="332" y="140" font-size="13" font-weight="700">How does a client find a TSAP?</text>
+    <text x="332" y="162" font-size="12">1. Stable well-known: /etc/services — port 25 = SMTP, 80 = HTTP, 443 = HTTPS</text>
+    <text x="332" y="182" font-size="12">2. Portmapper: connect to (host, 111); send "smtp"; receive (host, port)</text>
+    <text x="332" y="202" font-size="12">3. Process server (inetd): listens on a set of ports; forks real server on first SYN</text>
+    <text x="332" y="226" font-size="11" fill="#7A5478">inetd's trick: dup2(connected_fd) into the child, exec(server); the child reads/writes</text>
+    <text x="332" y="246" font-size="11" fill="#7A5478">on a socket that was accepted by its parent — kernel hands the connection off seamlessly.</text>
+    <text x="332" y="272" font-size="11" fill="#7A5478">Cost: one fork+exec per request (cheap on modern UNIX; was expensive on 1980s BSD).</text>
+  </g>
+
+  <!-- Middle: 3-way handshake diagram (Fig 6-11 a) -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="320" font-size="14" font-weight="700">Three-way handshake (Fig. 6-11(a), normal case)</text>
+    <line x1="120" y1="350" x2="120" y2="450" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="650" y1="350" x2="650" y2="450" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="60" y="346" font-size="12" font-weight="700">client</text>
+    <text x="610" y="346" font-size="12" font-weight="700">server</text>
+
+    <line x1="120" y1="370" x2="650" y2="370" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="650,370 640,366 640,374" fill="#E2557A"/>
+    <text x="350" y="364" font-size="12">CR(seq=x)  —  ISN from low 32 bits of clock</text>
+
+    <line x1="650" y1="396" x2="120" y2="396" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="120,396 130,392 130,400" fill="#E2557A"/>
+    <text x="350" y="390" font-size="12">ACK(seq=y, ack=x)  —  server picks its own ISN y</text>
+
+    <line x1="120" y1="422" x2="650" y2="422" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="650,422 640,418 640,426" fill="#E2557A"/>
+    <text x="350" y="416" font-size="12">DATA(seq=x+1, ack=y+1)  —  first data acknowledges y</text>
+
+    <line x1="120" y1="446" x2="650" y2="446" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="120" y="464" font-size="11" fill="#7A5478">ESTABLISHED — defensive against delayed duplicates because the third segment is the only one</text>
+    <text x="120" y="478" font-size="11" fill="#7A5478">the client must send; if it never arrives, the server times out and drops the half-open state.</text>
+  </g>
+
+  <!-- Bottom: clock + forbidden region -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="510" font-size="13" font-weight="700">Clock ISN &amp; forbidden region (Fig. 6-10(a))</text>
+    <text x="32" y="528" font-size="11">Clock ticks C = 1 us; sequence space S = 2^32. Inequality: S/C = 4294 s &gt; T = 120 s.</text>
+    <text x="32" y="544" font-size="11" fill="#7A5478">Forbidden region: any ISN inside the most recent (T · C) issued values can be impersonated by a delayed duplicate.</text>
+  </g>
+</svg>

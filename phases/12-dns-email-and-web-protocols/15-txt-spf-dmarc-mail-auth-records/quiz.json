@@ -1,0 +1,35 @@
+[
+  {
+    "question": "A TXT lookup for example.com returns TWO records both starting with v=spf1. According to RFC 7208, what happens?",
+    "options": [
+      "A. Receivers merge them and apply both policies",
+      "B. Receivers apply only the longer one",
+      "C. The check returns permerror and the message fails authentication",
+      "D. The second one overrides the first; behavior is the same as a single record"
+    ],
+    "answer": 2,
+    "explanation": "RFC 7208 permits exactly one SPF record per domain. If multiple v=spf1 TXT records are returned, the result is permerror and the message is treated as failing."
+  },
+  {
+    "question": "Where is a DKIM public key published in DNS?",
+    "options": [
+      "A. At the apex example.com as a TXT record starting with v=DKIM1",
+      "B. At _dmarc.example.com as a TXT record",
+      "C. At <selector>._domainkey.example.com as a TXT record",
+      "D. In an MX record at example.com"
+    ],
+    "answer": 2,
+    "explanation": "RFC 6376 publishes the DKIM key at <selector>._domainkey.<signing-domain>. The selector is the value of the s= tag in the DKIM-Signature header."
+  },
+  {
+    "question": "DMARC with p=reject is published. A message arrives with From: alice@example.com, MAIL FROM: bounces@gmail.com, DKIM d=example.com and DKIM result pass, SPF result pass. What is the DMARC verdict under relaxed alignment?",
+    "options": [
+      "A. fail, because the SPF MAIL FROM is gmail.com not example.com",
+      "B. pass, because DKIM signed for example.com and aligns with From: example.com",
+      "C. fail, because two identifiers are involved",
+      "D. pass, because SPF returned pass"
+    ],
+    "answer": 1,
+    "explanation": "Under relaxed alignment, the DKIM d=example.com aligns with From: example.com because both share the organizational domain example.com. DKIM aligned pass is sufficient under DMARC, so the message passes even though SPF does not align."
+  }
+]

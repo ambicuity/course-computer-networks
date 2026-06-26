@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" width="760" height="460">
+  <rect width="760" height="460" fill="#FFF7EC"/>
+  <style>
+    .t { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .m { font-family: monospace; fill: #2A1A2E; }
+    .b { font-weight: 700; }
+  </style>
+
+  <text x="30" y="36" class="t b" font-size="20">Subnetting 10.20.1.130 /25 — the AND that finds the network</text>
+  <text x="30" y="58" class="t" font-size="13">A 32-bit IPv4 address (RFC 791) split by the prefix length into network bits and host bits.</text>
+
+  <!-- octet headers -->
+  <g font-size="12" class="m" text-anchor="middle">
+    <text x="125" y="92">octet 1 (10)</text>
+    <text x="295" y="92">octet 2 (20)</text>
+    <text x="465" y="92">octet 3 (1)</text>
+    <text x="635" y="92">octet 4 (130)</text>
+  </g>
+
+  <!-- address row -->
+  <text x="30" y="124" class="m" font-size="12">addr</text>
+  <g font-family="monospace" font-size="13" text-anchor="middle" fill="#2A1A2E">
+    <!-- network bits (25) in ink, host bits (7) in berry -->
+    <rect x="70" y="106" width="540" height="26" fill="#2A1A2E" opacity="0.06"/>
+    <text x="125" y="124">1 0 0 0 1 0 1 0</text>
+    <text x="295" y="124">0 0 0 1 0 1 0 0</text>
+    <text x="465" y="124">0 0 0 0 0 0 0 1</text>
+    <text x="552" y="124">1 0 0</text>
+    <text x="630" y="124" fill="#E2557A" class="b">0 0 0 1 0</text>
+  </g>
+
+  <!-- prefix boundary -->
+  <line x1="588" y1="80" x2="588" y2="300" stroke="#E2557A" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="588" y="76" class="t b" font-size="12" fill="#E2557A" text-anchor="middle">/25 boundary</text>
+  <text x="300" y="148" class="t" font-size="11" text-anchor="middle">25 network bits</text>
+  <text x="660" y="148" class="t" font-size="11" text-anchor="middle" fill="#E2557A">7 host bits</text>
+
+  <!-- mask row -->
+  <text x="30" y="186" class="m" font-size="12">mask</text>
+  <g font-family="monospace" font-size="13" text-anchor="middle" fill="#2A1A2E">
+    <text x="125" y="186">1 1 1 1 1 1 1 1</text>
+    <text x="295" y="186">1 1 1 1 1 1 1 1</text>
+    <text x="465" y="186">1 1 1 1 1 1 1 1</text>
+    <text x="552" y="186">1 0 0</text>
+    <text x="630" y="186" fill="#E2557A">0 0 0 0 0</text>
+  </g>
+  <text x="660" y="206" class="m" font-size="11" text-anchor="middle">255.255.255.128</text>
+
+  <!-- AND symbol -->
+  <text x="30" y="232" class="t b" font-size="16" fill="#E2557A">AND</text>
+  <line x1="70" y1="214" x2="710" y2="214" stroke="#2A1A2E" stroke-width="1"/>
+
+  <!-- network result row -->
+  <text x="30" y="252" class="m" font-size="12">net</text>
+  <g font-family="monospace" font-size="13" text-anchor="middle" fill="#2A1A2E">
+    <rect x="70" y="234" width="540" height="26" fill="#E2557A" opacity="0.12"/>
+    <text x="125" y="252">1 0 0 0 1 0 1 0</text>
+    <text x="295" y="252">0 0 0 1 0 1 0 0</text>
+    <text x="465" y="252">0 0 0 0 0 0 0 1</text>
+    <text x="552" y="252">1 0 0</text>
+    <text x="630" y="252" fill="#E2557A" class="b">0 0 0 0 0</text>
+  </g>
+  <text x="660" y="280" class="m b" font-size="12" text-anchor="middle">= 10.20.1.128</text>
+
+  <!-- result boxes -->
+  <g>
+    <rect x="30" y="320" width="220" height="110" rx="8" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="46" y="344" class="t b" font-size="13">Network address</text>
+    <text x="46" y="366" class="m" font-size="13">10.20.1.128</text>
+    <text x="46" y="388" class="t" font-size="11">all host bits = 0 (reserved,</text>
+    <text x="46" y="404" class="t" font-size="11">not assignable) — RFC 919</text>
+
+    <rect x="270" y="320" width="220" height="110" rx="8" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="286" y="344" class="t b" font-size="13">Broadcast (OR ~mask)</text>
+    <text x="286" y="366" class="m" font-size="13">10.20.1.255</text>
+    <text x="286" y="388" class="t" font-size="11">all host bits = 1 (directed</text>
+    <text x="286" y="404" class="t" font-size="11">broadcast, not assignable)</text>
+
+    <rect x="510" y="320" width="220" height="110" rx="8" fill="#FFFFFF" stroke="#E2557A" stroke-width="2"/>
+    <text x="526" y="344" class="t b" font-size="13" fill="#E2557A">Usable hosts</text>
+    <text x="526" y="366" class="m" font-size="12">.129 – .254</text>
+    <text x="526" y="388" class="t" font-size="11">126 hosts = 2^7 − 2</text>
+    <text x="526" y="404" class="t" font-size="11">.130 and .200 share this /25</text>
+  </g>
+</svg>

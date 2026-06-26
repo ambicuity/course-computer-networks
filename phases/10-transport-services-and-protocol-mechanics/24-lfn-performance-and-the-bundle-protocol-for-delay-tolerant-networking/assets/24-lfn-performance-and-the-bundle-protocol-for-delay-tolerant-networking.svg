@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 580" width="980" height="580">
+  <rect width="980" height="580" fill="#FFF7EC"/>
+  <style>text{font-family:Inter,sans-serif;fill:#2A1A2E}.t{font-size:22px;font-weight:700}.s{font-size:12px;fill:#6b5560}.h{font-size:13px;font-weight:700}.m{font-family:monospace;font-size:12px}.a{fill:#E2557A}.l{font-size:11px;fill:#6b5560}</style>
+  <text x="40" y="34" class="t">LFN Performance + Bundle Protocol (Capstone)</text>
+  <text x="40" y="52" class="s">LFNs stretch TCP (RFC 1323); DTNs abandon end-to-end (RFC 4838 / 5050 / 9171)</text>
+
+  <rect x="20" y="80" width="460" h="240" rx="8" fill="#fff" stroke="#2A1A2E"/>
+  <text x="40" y="102" class="h">The four LFN problems and their RFC fixes</text>
+  <g transform="translate(40,114)" class="m">
+    <text x="0" y="14" class="l">Problem</text><text x="180" y="14" class="l">Fix</text><text x="320" y="14" class="l">RFC</text>
+    <text x="0" y="34">seq wrap</text><text x="180" y="34">Timestamps + PAWS</text><text x="320" y="34">1323</text>
+    <text x="0" y="54">64 KB window cap</text><text x="180" y="54">Window Scale (up to 14)</text><text x="320" y="54">1323</text>
+    <text x="0" y="74">go-back-n waste</text><text x="180" y="74">Selective ACK</text><text x="320" y="74">2018/3517</text>
+    <text x="0" y="94">speed-of-light bound</text><text x="180" y="94">design for speed</text><text x="320" y="94">Mogul 1993</text>
+  </g>
+  <rect x="40" y="240" width="420" h="70" rx="6" fill="#FFE9C8" stroke="#E2557A"/>
+  <text x="50" y="262" class="m a">BD product (1 Gbps / 40 ms) = 5,000,000 bytes</text>
+  <text x="50" y="280" class="m a">64 KB window caps throughput at ~13 Mbps</text>
+  <text x="50" y="298" class="m a">Window Scale=7 (8 MB effective) restores 1 Gbps</text>
+
+  <rect x="500" y="80" width="460" h="240" rx="8" fill="#fff" stroke="#2A1A2E"/>
+  <text x="520" y="102" class="h">DTN architecture (RFC 4838)</text>
+  <rect x="530" y="118" width="80" h="36" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="570" y="140" text-anchor="middle" class="m">Source</text>
+  <rect x="680" y="118" width="80" h="36" rx="4" fill="#FFE9C8" stroke="#E2557A"/><text x="720" y="140" text-anchor="middle" class="m">DTN</text>
+  <rect x="680" y="180" width="80" h="36" rx="4" fill="#FFE9C8" stroke="#E2557A"/><text x="720" y="202" text-anchor="middle" class="m">DTN</text>
+  <rect x="830" y="180" width="80" h="36" rx="4" fill="#F1E8FF" stroke="#2A1A2E"/><text x="870" y="202" text-anchor="middle" class="m">Dest</text>
+  <line x1="610" y1="136" x2="680" y2="136" stroke="#2A1A2E" stroke-dasharray="4 4"/>
+  <text x="645" y="130" text-anchor="middle" class="l">contact</text>
+  <line x1="760" y1="198" x2="830" y2="198" stroke="#2A1A2E" stroke-dasharray="4 4"/>
+  <text x="795" y="192" text-anchor="middle" class="l">contact</text>
+  <text x="520" y="246" class="l">No end-to-end path at any moment -- store-carry-forward</text>
+  <text x="520" y="262" class="l">Custody transfer shifts retransmission responsibility</text>
+  <text x="520" y="278" class="l">Convergence layers: TCP, UDP, LTP, raw file</text>
+  <text x="520" y="294" class="l">Bundle = primary block + payload + optional security</text>
+
+  <rect x="20" y="340" width="940" h="100" rx="8" fill="#fff" stroke="#2A1A2E"/>
+  <text x="40" y="362" class="h">Bundle Protocol primary block (RFC 5050, updated RFC 9171)</text>
+  <rect x="40" y="376" width="60" h="20" fill="#F1E8FF" stroke="#2A1A2E"/><rect x="100" y="376" width="80" h="20" fill="#F1E8FF" stroke="#2A1A2E"/><rect x="180" y="376" width="120" h="20" fill="#FFE9C8" stroke="#E2557A"/><rect x="300" y="376" width="120" h="20" fill="#FFE9C8" stroke="#E2557A"/><rect x="420" y="376" width="100" h="20" fill="#FFE9C8" stroke="#E2557A"/><rect x="520" y="376" width="80" h="20" fill="#FFE9C8" stroke="#E2557A"/><rect x="600" y="376" width="100" h="20" fill="#FFE9C8" stroke="#E2557A"/><rect x="700" y="376" width="80" h="20" fill="#FFE9C8" stroke="#E2557A"/><rect x="780" y="376" width="120" h="20" fill="#FFE9C8" stroke="#E2557A"/>
+  <text x="70" y="390" text-anchor="middle" class="m">Ver(8)</text><text x="140" y="390" text-anchor="middle" class="m">Flags(20)</text>
+  <text x="240" y="390" text-anchor="middle" class="m">Dest URI</text><text x="360" y="390" text-anchor="middle" class="m">Source URI</text>
+  <text x="470" y="390" text-anchor="middle" class="m">Custodian</text><text x="560" y="390" text-anchor="middle" class="m">Report</text>
+  <text x="650" y="390" text-anchor="middle" class="m">Creation</text><text x="740" y="390" text-anchor="middle" class="m">Lifetime</text>
+  <text x="840" y="390" text-anchor="middle" class="m">Dictionary</text>
+  <rect x="40" y="402" width="860" h="20" fill="#F1E8FF" stroke="#2A1A2E"/>
+  <text x="470" y="416" text-anchor="middle" class="m">Payload block (application data) + optional security (RFC 9172)</text>
+  <text x="40" y="436" class="l">URI identifiers are not IP addresses -- they survive across heterogeneous convergence layers.</text>
+
+  <rect x="20" y="460" width="940" h="100" rx="8" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text x="40" y="482" class="h">LFN vs DTN -- two regimes, two transport semantics</text>
+  <g transform="translate(40,492)" class="m">
+    <text x="0" y="14" class="l">LFN: bandwidth * delay huge, but path always present -- TCP + RFC 1323 fixes</text>
+    <text x="0" y="32" class="l">DTN: path intermittent or absent -- store-carry-forward, custody transfer, Bundle Protocol</text>
+    <text x="0" y="50" class="a">Both carry bytes; the difference is the assumption about connectivity.</text>
+  </g>
+</svg>

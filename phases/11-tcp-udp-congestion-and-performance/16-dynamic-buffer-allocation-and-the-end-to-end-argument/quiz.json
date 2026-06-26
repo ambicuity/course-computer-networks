@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why does the sender's retransmission on line 9 of Figure 6-16 not consume a new credit, and why is this important?",
+    "options": [
+      "A. Because the retransmission is a different segment type and the protocol ignores it.",
+      "B. Because the retransmission is pre-paid against a reserved buffer, so the credit accounting survives the loss on line 5; otherwise, A would deadlock immediately on the first lost segment.",
+      "C. Because the receiver always grants 4 extra credits whenever a retransmission is observed.",
+      "D. Because the credits are reset to zero on every timeout."
+    ],
+    "answer": 1,
+    "explanation": "The retransmission consumes a *reserved* buffer slot that the sender has already paid for in its accounting. This is essential: if retransmissions required new credits, the sender would deadlock the first time a segment was lost -- it would have no credits to send the retransmission. The reservation is a small per-connection cost that buys the property 'the credit accounting survives loss'."
+  },
+  {
+    "question": "What is the deadlock hazard on line 16 of Figure 6-16, and how does TCP break it?",
+    "options": [
+      "A. The receiver's window has reached zero and the sender cannot tell whether the receiver has no buffer or the grant was lost. TCP breaks the tie with a persist timer that fires after K seconds and sends a 1-byte window probe.",
+      "B. The sender has no data to send and waits for the receiver to give it more. TCP uses the keepalive timer to close the connection.",
+      "C. Both sides have sent the maximum number of segments and wait for the connection to be reset. TCP closes the connection after the SYN_SENT timeout.",
+      "D. The receiver's user process has exited. TCP sends a RST to the sender."
+    ],
+    "answer": 0,
+    "explanation": "When the receiver's window reaches zero, the sender is blocked. If the next grant is lost in the network, the sender cannot distinguish 'no buffer' from 'grant lost' and will never send another segment. The fix is the persist timer (RFC 793): when the sender has been blocked for too long, it sends a 1-byte window probe. The receiver must ACK the probe with its current window, breaking the tie. Linux default is 5 s (tcp_persist_timeout)."
+  },
+  {
+    "question": "What does the end-to-end argument (Saltzer, Reed & Clark, 1984) say about link-layer checksums and end-to-end checksums?",
+    "options": [
+      "A. Link-layer checksums are sufficient and end-to-end checksums are not needed.",
+      "B. End-to-end checks are necessary for correctness; link-layer checks are a performance optimisation but cannot detect corruption that occurs inside a router.",
+      "C. Both link-layer and end-to-end checksums must be cryptographically strong to be safe.",
+      "D. The link-layer CRC is essential for security; the end-to-end check is redundant."
+    ],
+    "answer": 1,
+    "explanation": "The end-to-end argument states that a correctness property (data is delivered uncorrupted) can only be guaranteed end-to-end, because lower-layer checks are scoped to a single hop. A bit-flip inside a router escapes every link-layer CRC: the previous hop's CRC was computed before the corruption; the next hop's CRC is computed over the corrupted bytes and so cannot detect it. The end-to-end check is the only one that sees the original sender bytes and the original receiver bytes."
+  }
+]

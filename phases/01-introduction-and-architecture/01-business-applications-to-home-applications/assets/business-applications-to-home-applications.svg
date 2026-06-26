@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 540" width="860" height="540">
+  <rect width="860" height="540" fill="#FFF7EC"/>
+  <text x="430" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#2A1A2E">Two Interaction Models</text>
+  <text x="430" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#2A1A2E">Client-server request/reply (fixed roles) vs peer-to-peer mesh (symmetric)</text>
+
+  <!-- divider -->
+  <line x1="430" y1="80" x2="430" y2="500" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4 5" opacity="0.4"/>
+
+  <!-- ===================== LEFT: CLIENT-SERVER ===================== -->
+  <text x="210" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#E2557A">CLIENT-SERVER</text>
+
+  <!-- lifelines -->
+  <text x="110" y="128" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#2A1A2E">Client</text>
+  <text x="320" y="128" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#2A1A2E">Server</text>
+  <rect x="80" y="135" width="60" height="26" rx="4" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/>
+  <rect x="290" y="135" width="60" height="26" rx="4" fill="#2A1A2E"/>
+  <text x="110" y="153" text-anchor="middle" font-family="monospace" font-size="11" fill="#2A1A2E">proc</text>
+  <text x="320" y="153" text-anchor="middle" font-family="monospace" font-size="11" fill="#FFF7EC">proc</text>
+  <line x1="110" y1="161" x2="110" y2="470" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="320" y1="161" x2="320" y2="470" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- arrowheads -->
+  <defs>
+    <marker id="arrowInk" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#2A1A2E"/>
+    </marker>
+    <marker id="arrowBerry" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <!-- request -->
+  <line x1="110" y1="195" x2="316" y2="195" stroke="#2A1A2E" stroke-width="2.5" marker-end="url(#arrowInk)"/>
+  <text x="213" y="188" text-anchor="middle" font-family="monospace" font-size="12" fill="#2A1A2E">Request  GET /inventory</text>
+
+  <!-- client blocked interval -->
+  <rect x="104" y="195" width="12" height="120" rx="2" fill="#E2557A" opacity="0.35"/>
+  <text x="60" y="258" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#E2557A" transform="rotate(-90 60 258)">client BLOCKED</text>
+
+  <!-- server work -->
+  <rect x="314" y="210" width="12" height="80" rx="2" fill="#2A1A2E"/>
+  <text x="375" y="252" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" transform="rotate(90 375 252)">lookup / work</text>
+
+  <!-- reply -->
+  <line x1="320" y1="315" x2="114" y2="315" stroke="#E2557A" stroke-width="2.5" marker-end="url(#arrowBerry)"/>
+  <text x="213" y="333" text-anchor="middle" font-family="monospace" font-size="12" fill="#E2557A">Reply  200 OK + data</text>
+
+  <text x="210" y="380" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">Client always initiates; server only responds.</text>
+  <text x="210" y="398" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">One server answers many clients.</text>
+  <rect x="55" y="415" width="310" height="60" rx="6" fill="#FFFFFF" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="210" y="436" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#E2557A">Failure mode</text>
+  <text x="210" y="455" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">Server = bottleneck + single point of failure.</text>
+  <text x="210" y="470" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">Server down -&gt; every client down.</text>
+
+  <!-- ===================== RIGHT: PEER-TO-PEER ===================== -->
+  <text x="650" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#E2557A">PEER-TO-PEER</text>
+
+  <!-- mesh nodes: pentagon -->
+  <!-- coords -->
+  <!-- A top, B upper-right, C lower-right, D lower-left, E upper-left -->
+  <g font-family="monospace" font-size="12" fill="#2A1A2E">
+    <!-- edges (complete-ish mesh) -->
+    <line x1="650" y1="165" x2="745" y2="235" stroke="#2A1A2E" stroke-width="1.5" opacity="0.7"/>
+    <line x1="650" y1="165" x2="555" y2="235" stroke="#2A1A2E" stroke-width="1.5" opacity="0.7"/>
+    <line x1="650" y1="165" x2="710" y2="335" stroke="#2A1A2E" stroke-width="1.5" opacity="0.5"/>
+    <line x1="650" y1="165" x2="590" y2="335" stroke="#2A1A2E" stroke-width="1.5" opacity="0.5"/>
+    <line x1="745" y1="235" x2="710" y2="335" stroke="#2A1A2E" stroke-width="1.5" opacity="0.7"/>
+    <line x1="745" y1="235" x2="555" y2="235" stroke="#2A1A2E" stroke-width="1.5" opacity="0.4"/>
+    <line x1="710" y1="335" x2="590" y2="335" stroke="#2A1A2E" stroke-width="1.5" opacity="0.7"/>
+    <line x1="590" y1="335" x2="555" y2="235" stroke="#2A1A2E" stroke-width="1.5" opacity="0.7"/>
+    <line x1="555" y1="235" x2="710" y2="335" stroke="#2A1A2E" stroke-width="1.5" opacity="0.4"/>
+    <line x1="745" y1="235" x2="590" y2="335" stroke="#2A1A2E" stroke-width="1.5" opacity="0.4"/>
+
+    <!-- highlight bootstrap walk: E(seed) -> A -> B -->
+    <line x1="555" y1="235" x2="650" y2="165" stroke="#E2557A" stroke-width="3"/>
+    <line x1="650" y1="165" x2="745" y2="235" stroke="#E2557A" stroke-width="3"/>
+
+    <!-- nodes -->
+    <circle cx="650" cy="165" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2.5"/>
+    <text x="650" y="170" text-anchor="middle">A</text>
+    <circle cx="745" cy="235" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2.5"/>
+    <text x="745" y="240" text-anchor="middle">B</text>
+    <circle cx="710" cy="335" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2.5"/>
+    <text x="710" y="340" text-anchor="middle">C</text>
+    <circle cx="590" cy="335" r="22" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2.5"/>
+    <text x="590" y="340" text-anchor="middle">D</text>
+    <circle cx="555" cy="235" r="24" fill="#E2557A" stroke="#2A1A2E" stroke-width="2.5"/>
+    <text x="555" y="240" text-anchor="middle" fill="#FFF7EC" font-weight="700">E</text>
+  </g>
+  <text x="555" y="290" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#E2557A" font-weight="700">seed peer</text>
+
+  <text x="650" y="388" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">No fixed roles; every node requests and responds.</text>
+  <text x="650" y="406" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#2A1A2E">Bootstrap walk (pink): E -&gt; A -&gt; B builds local index.</text>
+  <rect x="495" y="415" width="310" height="60" rx="6" fill="#FFFFFF" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="650" y="436" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#E2557A">Failure mode</text>
+  <text x="650" y="455" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">No central index -&gt; discovery / cold-start cost.</text>
+  <text x="650" y="470" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E">Free-riders shift load onto the generous few.</text>
+
+  <!-- footer: Metcalfe -->
+  <text x="430" y="522" text-anchor="middle" font-family="monospace" font-size="13" fill="#2A1A2E">Metcalfe's law: value ~ n(n-1)/2 distinct pairs  (10 users = 45 links, 20 users = 190 links, ~4x)</text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect x="0" y="0" width="760" height="560" fill="#FFF7EC"/>
+  <text x="30" y="40" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#2A1A2E">Static Channel Allocation: one link, N fixed slices</text>
+  <text x="30" y="62" font-family="Inter, sans-serif" font-size="13" fill="#2A1A2E">Capacity C = 100 Mbps split among N = 4 users. Idle slices cannot be lent to busy users.</text>
+
+  <!-- FDM panel -->
+  <text x="30" y="100" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#E2557A">FDM — divide the spectrum</text>
+  <text x="30" y="118" font-family="monospace" font-size="11" fill="#2A1A2E">each user owns a private 25 MHz band, always</text>
+  <rect x="30" y="130" width="330" height="150" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="30" y1="167" x2="360" y2="167" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="30" y1="204" x2="360" y2="204" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="30" y1="241" x2="360" y2="241" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="30" y="130" width="330" height="37" fill="#E2557A" opacity="0.85"/>
+  <rect x="30" y="204" width="330" height="37" fill="#E2557A" opacity="0.55"/>
+  <text x="195" y="153" font-family="monospace" font-size="12" fill="#FFF7EC" text-anchor="middle">band 1 — user A busy</text>
+  <text x="195" y="190" font-family="monospace" font-size="12" fill="#2A1A2E" text-anchor="middle">band 2 — user B IDLE (wasted)</text>
+  <text x="195" y="227" font-family="monospace" font-size="12" fill="#FFF7EC" text-anchor="middle">band 3 — user C busy</text>
+  <text x="195" y="264" font-family="monospace" font-size="12" fill="#2A1A2E" text-anchor="middle">band 4 — user D IDLE (wasted)</text>
+  <text x="20" y="210" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" transform="rotate(-90 20 210)" text-anchor="middle">frequency</text>
+  <text x="195" y="298" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">time &#8594;</text>
+
+  <!-- TDM panel -->
+  <text x="410" y="100" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#E2557A">TDM — divide the time</text>
+  <text x="410" y="118" font-family="monospace" font-size="11" fill="#2A1A2E">each user owns every Nth slot; empty slots run idle</text>
+  <rect x="410" y="130" width="320" height="110" fill="none" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="490" y1="130" x2="490" y2="240" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="570" y1="130" x2="570" y2="240" stroke="#2A1A2E" stroke-width="1"/>
+  <line x1="650" y1="130" x2="650" y2="240" stroke="#2A1A2E" stroke-width="1"/>
+  <rect x="410" y="130" width="80" height="110" fill="#E2557A" opacity="0.85"/>
+  <rect x="570" y="130" width="80" height="110" fill="#E2557A" opacity="0.55"/>
+  <text x="450" y="190" font-family="monospace" font-size="13" fill="#FFF7EC" text-anchor="middle">A</text>
+  <text x="530" y="190" font-family="monospace" font-size="13" fill="#2A1A2E" text-anchor="middle">B idle</text>
+  <text x="610" y="190" font-family="monospace" font-size="13" fill="#FFF7EC" text-anchor="middle">C</text>
+  <text x="690" y="190" font-family="monospace" font-size="13" fill="#2A1A2E" text-anchor="middle">D idle</text>
+  <text x="570" y="262" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">slot 1 &#8594; slot 2 &#8594; slot 3 &#8594; slot 4 (repeat)</text>
+
+  <!-- Delay vs N -->
+  <text x="30" y="350" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#E2557A">Mean delay  T = 1 / (&#956;C &#8722; &#955;)   grows as  N&#183;T   (eq. 4-1)</text>
+  <line x1="80" y1="510" x2="80" y2="375" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="80" y1="510" x2="700" y2="510" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="55" y="440" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" transform="rotate(-90 55 440)" text-anchor="middle">mean delay T</text>
+  <text x="390" y="540" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">number of static subchannels N</text>
+
+  <!-- linear delay line: N=1..20 -->
+  <line x1="80" y1="503" x2="690" y2="380" stroke="#E2557A" stroke-width="2.5"/>
+  <circle cx="80" cy="503" r="4" fill="#2A1A2E"/>
+  <text x="92" y="500" font-family="monospace" font-size="11" fill="#2A1A2E">N=1: 200 &#181;s</text>
+  <circle cx="385" cy="441" r="4" fill="#2A1A2E"/>
+  <text x="395" y="438" font-family="monospace" font-size="11" fill="#2A1A2E">N=10: 2.0 ms</text>
+  <circle cx="690" cy="380" r="4" fill="#2A1A2E"/>
+  <text x="615" y="372" font-family="monospace" font-size="11" fill="#2A1A2E">N=20: 4.0 ms</text>
+
+  <text x="80" y="528" font-family="monospace" font-size="10" fill="#2A1A2E">C=100Mbps, frame=10,000 bits, &#955;=5000 f/s  &#8594; &#956;C=10,000 f/s. Splitting trades sharing for N&#215; latency.</text>
+</svg>

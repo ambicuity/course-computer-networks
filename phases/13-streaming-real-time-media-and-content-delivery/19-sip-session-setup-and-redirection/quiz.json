@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the primary purpose of SIP?",
+      "options": [
+        "To transport media packets",
+        "To locate users, negotiate session parameters, and manage the call lifecycle (signaling)",
+        "To encrypt voice data",
+        "To compress audio"
+      ],
+      "correct": 1,
+      "explanation": "SIP is a signaling protocol. It finds the callee, rings them, negotiates codecs via SDP, and manages the session. Media flows over RTP after SIP sets up the session."
+    },
+    {
+      "stage": "post",
+      "question": "What does the SIP REGISTER method do?",
+      "options": [
+        "It starts a call",
+        "It tells the registrar the user's current location (IP and port) so INVITEs can be routed to them",
+        "It ends a session",
+        "It queries server capabilities"
+      ],
+      "correct": 1,
+      "explanation": "REGISTER maps a user's SIP URI to their current contact address. The registrar stores this so proxies can route incoming INVITEs to the right place."
+    },
+    {
+      "stage": "post",
+      "question": "What is a SIP 302 Moved Temporarily response?",
+      "options": [
+        "An error indicating the server is down",
+        "A redirection telling the caller to try a different URI for the callee",
+        "A request to encrypt the call",
+        "A confirmation that the call is established"
+      ],
+      "correct": 1,
+      "explanation": "A 302 response includes a Contact header with a new URI. The caller sends a new INVITE to that URI. This enables mobility: the callee can be at a different location than their home registrar."
+    },
+    {
+      "stage": "post",
+      "question": "Why does SIP use a 3-way handshake (INVITE / 200 OK / ACK)?",
+      "options": [
+        "Because UDP is unreliable and the ACK confirms the 200 OK was received",
+        "Because SIP requires three servers",
+        "To encrypt the session",
+        "To negotiate the codec"
+      ],
+      "correct": 0,
+      "explanation": "SIP runs over UDP, which is unreliable. The caller sends INVITE, the callee responds 200 OK, and the caller confirms with ACK. Without ACK, the callee would not know if the caller received the 200 OK."
+    }
+  ]
+}

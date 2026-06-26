@@ -1,0 +1,48 @@
+{
+  "questions": [
+    {
+      "question": "Why must all packets of one client request be sent to the same server in a server farm?",
+      "options": [
+        "To reduce total bandwidth on the front-end switch",
+        "Because TCP connection state lives on one server, and splitting packets breaks it",
+        "So the back-end database only sees one query per request",
+        "To keep DNS cache entries consistent across resolvers"
+      ],
+      "answer": 1,
+      "explanation": "A Web request is a TCP connection. If the front end splits packets of one connection across servers, no single server holds the TCP state, and the connection breaks."
+    },
+    {
+      "question": "A front end uses IP-hash with 16 servers, selecting a server by the last 4 bits of the source IP. An entire company NATs all its users to one public IP. What is the observable failure?",
+      "options": [
+        "All users are load balanced evenly across the 16 servers",
+        "Every user from that company lands on the same single server, causing a hot spot",
+        "The front end rejects the packets because the source IP is not unique",
+        "DNS returns a rotating list that fixes the imbalance"
+      ],
+      "answer": 1,
+      "explanation": "IP-hash maps one source IP to exactly one server. When a whole organization is NATed to one public IP, all its users hash to the same server, collapsing the farm into a hot spot while the other 15 servers sit idle."
+    },
+    {
+      "question": "What makes a server farm more reliable than a single server, and what front-end behavior is required for that reliability?",
+      "options": [
+        "Faster CPUs; the front end must cache HTTP responses",
+        "Redundant power supplies; the front end must use DNS rotation",
+        "Health checks that detect failed servers and drain traffic away from them",
+        "A larger back-end database; the front end must broadcast every request"
+      ],
+      "answer": 2,
+      "explanation": "Reliability comes from redundancy plus active health checks: the front end notices when a server has failed and stops sending it requests, so the remaining servers absorb the load instead of failing with the dead one."
+    },
+    {
+      "question": "The source calls the front end a 'middlebox' that violates layering. What does this mean, and what is the practical risk?",
+      "options": [
+        "It routes packets, so it is an IP router and nothing more",
+        "It inspects transport and application headers (TCP, HTTP cookies) to make decisions, which breaks if higher layers change",
+        "It encrypts traffic, so it must terminate TLS for every connection",
+        "It is physically in the middle of the rack, so cabling limits its speed"
+      ],
+      "answer": 1,
+      "explanation": "A middlebox inspects headers of layers it does not belong to (e.g., a switch reading TCP/HTTP fields). This is useful but fragile: a higher-layer change, such as HTTP/3 over QUIC, can break a front end that relied on TCP headers."
+    }
+  ]
+}

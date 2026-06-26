@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" width="720" height="520">
+  <rect width="720" height="520" fill="#FFF7EC"/>
+  <text x="360" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="bold" fill="#2A1A2E">Firewall, DMZ, and VPN Tunnel Topology</text>
+
+  <!-- Internet cloud -->
+  <ellipse cx="360" cy="110" rx="120" ry="40" fill="#E8DCC8" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="360" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="bold" fill="#2A1A2E">Internet</text>
+
+  <!-- Firewall -->
+  <rect x="320" y="170" width="80" height="36" rx="4" fill="#E2557A" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="360" y="193" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#FFF7EC">Firewall</text>
+
+  <!-- Lines from internet to firewall -->
+  <line x1="300" y1="148" x2="340" y2="170" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="420" y1="148" x2="380" y2="170" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- DMZ -->
+  <rect x="180" y="230" width="140" height="90" rx="4" fill="#D4C5A9" stroke="#2A1A2E" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="250" y="248" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="bold" fill="#2A1A2E">DMZ</text>
+  <rect x="195" y="258" width="50" height="24" rx="2" fill="#E8DCC8" stroke="#2A1A2E"/>
+  <text x="220" y="274" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Web :80</text>
+  <rect x="255" y="258" width="50" height="24" rx="2" fill="#E8DCC8" stroke="#2A1A2E"/>
+  <text x="280" y="274" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Mail:25</text>
+  <text x="250" y="305" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">outside security perimeter</text>
+
+  <!-- Internal LAN -->
+  <rect x="400" y="230" width="140" height="90" rx="4" fill="#D4C5A9" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="470" y="248" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="bold" fill="#2A1A2E">Internal LAN</text>
+  <rect x="415" y="258" width="50" height="24" rx="2" fill="#E8DCC8" stroke="#2A1A2E"/>
+  <text x="440" y="274" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Host A</text>
+  <rect x="475" y="258" width="50" height="24" rx="2" fill="#E8DCC8" stroke="#2A1A2E"/>
+  <text x="500" y="274" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">Host B</text>
+  <text x="470" y="305" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">inbound :80 blocked</text>
+
+  <!-- Lines from firewall to DMZ and LAN -->
+  <line x1="340" y1="206" x2="250" y2="230" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="380" y1="206" x2="470" y2="230" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- VPN section -->
+  <text x="360" y="350" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="bold" fill="#2A1A2E">VPN: IPsec ESP Tunnel Mode</text>
+
+  <!-- Office A -->
+  <rect x="60" y="370" width="120" height="50" rx="4" fill="#E8DCC8" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="120" y="390" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="bold" fill="#2A1A2E">London FW</text>
+  <text x="120" y="406" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">SPI 0xC0FF0001</text>
+
+  <!-- Office B -->
+  <rect x="300" y="370" width="120" height="50" rx="4" fill="#E8DCC8" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="360" y="390" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="bold" fill="#2A1A2E">Paris FW</text>
+  <text x="360" y="406" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">SPI 0xC0FF0002</text>
+
+  <!-- Office C -->
+  <rect x="540" y="370" width="120" height="50" rx="4" fill="#E8DCC8" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="600" y="390" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="bold" fill="#2A1A2E">Tokyo FW</text>
+  <text x="600" y="406" text-anchor="middle" font-family="monospace" font-size="9" fill="#2A1A2E">SPI 0xC0FF0003</text>
+
+  <!-- Tunnel lines -->
+  <line x1="180" y1="395" x2="300" y2="395" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <line x1="420" y1="395" x2="540" y2="395" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <line x1="180" y1="415" x2="540" y2="415" stroke="#E2557A" stroke-width="2" stroke-dasharray="6,4" opacity="0.5"/>
+  <text x="240" y="386" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">ESP tunnel</text>
+  <text x="480" y="386" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">ESP tunnel</text>
+  <text x="360" y="432" text-anchor="middle" font-family="monospace" font-size="9" fill="#E2557A">ESP tunnel (London-Tokyo)</text>
+
+  <!-- Legend -->
+  <text x="60" y="465" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#2A1A2E">Firewall generations:</text>
+  <text x="60" y="482" font-family="monospace" font-size="10" fill="#2A1A2E">1. Stateless: per-packet IP/port rules</text>
+  <text x="60" y="496" font-family="monospace" font-size="10" fill="#2A1A2E">2. Stateful: tracks connections, return traffic only if initiated internally</text>
+  <text x="60" y="510" font-family="monospace" font-size="10" fill="#2A1A2E">3. App-gateway: inspects payload beyond TCP; defeated by encryption</text>
+
+  <text x="440" y="465" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#2A1A2E">VPN:</text>
+  <text x="440" y="482" font-family="monospace" font-size="10" fill="#2A1A2E">Transparent to user software</text>
+  <text x="440" y="496" font-family="monospace" font-size="10" fill="#2A1A2E">Full mesh: N*(N-1) SAs</text>
+  <text x="440" y="510" font-family="monospace" font-size="10" fill="#2A1A2E">MPLS alternative: ISP-managed</text>
+</svg>

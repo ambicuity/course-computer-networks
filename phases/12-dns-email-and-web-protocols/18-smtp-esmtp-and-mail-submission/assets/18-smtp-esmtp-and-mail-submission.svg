@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 13px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 11px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 11px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">SMTP, ESMTP Extensions, and Mail Submission</text>
+  <text x="40" y="68" class="sub">ASCII request/response on TCP; ESMTP unlocks STARTTLS, AUTH, SIZE, 8BITMIME; ports 25 / 587 / 465</text>
+
+  <!-- Transcript panel -->
+  <rect x="40" y="100" width="540" height="320" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="124" class="node">SMTP transcript (RFC 5321 §4)</text>
+  <text x="60" y="148" class="mono">S: 220 mail.example.com ESMTP ready</text>
+  <text x="60" y="168" class="mono">C: EHLO client.example.org</text>
+  <text x="60" y="184" class="mono">S: 250-mail.example.com Hello</text>
+  <text x="60" y="200" class="mono">S: 250-SIZE 10485760</text>
+  <text x="60" y="216" class="mono accent">S: 250-STARTTLS / 250-8BITMIME / 250-AUTH PLAIN</text>
+  <text x="60" y="232" class="mono">S: 250 HELP</text>
+  <text x="60" y="252" class="mono">C: STARTTLS</text>
+  <text x="60" y="268" class="mono">S: 220 2.0.0 Ready to start TLS</text>
+  <text x="60" y="284" class="mono">... TLS handshake (RFC 3207) ...</text>
+  <text x="60" y="304" class="mono accent">C: AUTH PLAIN dGVzdAB0ZXN0AHRlc3RwYXNz</text>
+  <text x="60" y="320" class="mono">S: 235 2.7.0 Authentication successful</text>
+  <text x="60" y="340" class="mono">C: MAIL FROM:&lt;alice@example.com&gt;</text>
+  <text x="60" y="356" class="mono">S: 250 2.1.0 Sender OK</text>
+  <text x="60" y="372" class="mono">C: RCPT TO:&lt;bob@example.org&gt;</text>
+  <text x="60" y="388" class="mono">S: 250 2.1.5 Recipient OK</text>
+  <text x="60" y="404" class="mono">C: DATA</text>
+  <text x="60" y="420" class="mono">S: 354 Send message; end with . on its own line</text>
+
+  <!-- Reply code panel -->
+  <rect x="600" y="100" width="280" height="320" rx="10" fill="#fff" stroke="#E2557A" stroke-width="1.5"/>
+  <text x="620" y="124" class="node accent">Reply code classes (RFC 5321 §4.2)</text>
+  <text x="620" y="150" class="mono">2xx  success</text>
+  <text x="620" y="170" class="mono">3xx  more input needed</text>
+  <text x="620" y="190" class="mono">4xx  transient (retry)</text>
+  <text x="620" y="210" class="mono">5xx  permanent (bounce)</text>
+  <text x="620" y="240" class="mono">Examples:</text>
+  <text x="620" y="260" class="mono">  250  OK</text>
+  <text x="620" y="280" class="mono">  354  send DATA</text>
+  <text x="620" y="300" class="mono">  421  try later</text>
+  <text x="620" y="320" class="mono">  450  mailbox busy</text>
+  <text x="620" y="340" class="mono">  550  mailbox not found</text>
+  <text x="620" y="360" class="mono">  554  transaction failed</text>
+  <text x="620" y="386" class="label">Enhanced codes (RFC 3463):</text>
+  <text x="620" y="402" class="mono">  5.7.1  security / sender auth</text>
+
+  <!-- Ports -->
+  <rect x="40" y="440" width="840" height="100" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="464" class="node">Ports and roles (RFC 6409)</text>
+  <text x="60" y="486" class="mono">port 25    SMTP     -- MTA to MTA relay        (no AUTH; STARTTLS recommended)</text>
+  <text x="60" y="504" class="mono">port 587   submission -- MUA to MSA (user agent to submission agent); AUTH required</text>
+  <text x="60" y="522" class="mono">port 465   SMTPS      -- legacy implicit TLS     (TLS on connect; rarely used now)</text>
+</svg>

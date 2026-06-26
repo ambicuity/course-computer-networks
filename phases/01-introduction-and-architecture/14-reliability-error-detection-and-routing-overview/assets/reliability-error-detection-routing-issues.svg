@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620">
+  <rect width="880" height="620" fill="#FFF7EC"/>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 12px; fill: #5a4a55; }
+    .h { font-size: 13px; font-weight: 700; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 11px; }
+    .acc { fill: #E2557A; }
+    .muted { fill: #9a8a93; }
+  </style>
+
+  <text x="40" y="38" class="title">Reliability recurs at every layer</text>
+  <text x="40" y="58" class="sub">Same idea — add redundancy, then recover — at three granularities: frame, stream, network.</text>
+
+  <!-- Layer stack -->
+  <g transform="translate(40,80)">
+    <text x="0" y="0" class="h">Where each mechanism lives</text>
+    <rect x="0" y="14" width="240" height="34" fill="#f3e6da" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="12" y="36" class="mono">Application  TLS HMAC (RFC 8446)</text>
+    <rect x="0" y="50" width="240" height="34" fill="#f3e6da" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="12" y="72" class="mono">Transport    TCP seq+ACK+RTO (9293)</text>
+    <rect x="0" y="86" width="240" height="34" fill="#f3e6da" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="12" y="108" class="mono">Network      IPv4 header checksum (1071)</text>
+    <rect x="0" y="122" width="240" height="34" fill="#E2557A" stroke="#2A1A2E" stroke-width="1"/>
+    <text x="12" y="144" class="mono" fill="#FFF7EC">Link          CRC-32 FCS (IEEE 802.3)</text>
+    <text x="0" y="178" class="sub">Stronger + cheaper detection lives</text>
+    <text x="0" y="193" class="sub">lower; end-to-end recovery lives higher.</text>
+  </g>
+
+  <!-- Frame layout: detection -->
+  <g transform="translate(320,80)">
+    <text x="0" y="0" class="h">Ethernet frame — error detection</text>
+    <rect x="0" y="14" width="60"  height="26" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="30" y="31" class="mono" text-anchor="middle">Preamble</text>
+    <rect x="60" y="14" width="50"  height="26" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="85" y="31" class="mono" text-anchor="middle">dst MAC</text>
+    <rect x="110" y="14" width="50" height="26" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="135" y="31" class="mono" text-anchor="middle">src MAC</text>
+    <rect x="160" y="14" width="60" height="26" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="190" y="31" class="mono" text-anchor="middle">Type/Len</text>
+    <rect x="220" y="14" width="160" height="26" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="300" y="31" class="mono" text-anchor="middle">Payload (46–1500 B)</text>
+    <rect x="380" y="14" width="70" height="26" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="415" y="31" class="mono" fill="#FFF7EC" text-anchor="middle">FCS CRC-32</text>
+    <text x="415" y="58" class="sub" text-anchor="middle">4-byte polynomial remainder — any burst ≤32 bits is caught</text>
+
+    <!-- IPv4 header -->
+    <text x="0" y="90" class="h">IPv4 header — header-only checksum</text>
+    <rect x="0" y="104" width="40" height="24" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="20" y="120" class="mono" text-anchor="middle">Ver/IHL</text>
+    <rect x="40" y="104" width="40" height="24" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="60" y="120" class="mono" text-anchor="middle">TOS</text>
+    <rect x="80" y="104" width="60" height="24" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="110" y="120" class="mono" text-anchor="middle">Total Len</text>
+    <rect x="140" y="104" width="60" height="24" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="170" y="120" class="mono" text-anchor="middle">Ident</text>
+    <rect x="200" y="104" width="60" height="24" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="230" y="120" class="mono" text-anchor="middle">Flags/FO</text>
+    <rect x="260" y="104" width="40" height="24" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="280" y="120" class="mono" text-anchor="middle">TTL</text>
+    <rect x="300" y="104" width="40" height="24" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="320" y="120" class="mono" text-anchor="middle">Proto</text>
+    <rect x="340" y="104" width="60" height="24" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="370" y="120" class="mono" fill="#FFF7EC" text-anchor="middle">Checksum</text>
+    <rect x="400" y="104" width="80" height="24" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="440" y="120" class="mono" text-anchor="middle">src IP</text>
+    <rect x="480" y="104" width="80" height="24" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="520" y="120" class="mono" text-anchor="middle">dst IP</text>
+    <text x="280" y="146" class="sub" text-anchor="middle">covers header only; payload damage is the host's problem</text>
+  </g>
+
+  <!-- Routing topology -->
+  <g transform="translate(40,360)">
+    <text x="0" y="0" class="h">Routing — Dijkstra reroutes around a dead node</text>
+
+    <!-- normal edges -->
+    <line x1="80" y1="60" x2="240" y2="40" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="80" y1="60" x2="220" y2="140" stroke="#9a8a93" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <line x1="240" y1="40" x2="220" y2="140" stroke="#2A1A2E" stroke-width="1.5"/>
+    <line x1="240" y1="40" x2="420" y2="120" stroke="#9a8a93" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <line x1="220" y1="140" x2="420" y2="120" stroke="#2A1A2E" stroke-width="1.5"/>
+
+    <!-- failed node -->
+    <circle cx="220" cy="140" r="22" fill="#e9d6da" stroke="#E2557A" stroke-width="2"/>
+    <line x1="206" y1="126" x2="234" y2="154" stroke="#E2557A" stroke-width="2"/>
+    <line x1="234" y1="126" x2="206" y2="154" stroke="#E2557A" stroke-width="2"/>
+    <text x="220" y="178" class="mono" text-anchor="middle" fill="#E2557A">Frankfurt (down)</text>
+
+    <!-- good nodes -->
+    <circle cx="80" cy="60" r="20" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="80" y="64" class="mono" text-anchor="middle">London</text>
+
+    <circle cx="240" cy="40" r="20" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="240" y="44" class="mono" text-anchor="middle">Paris</text>
+
+    <circle cx="420" cy="120" r="20" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="420" y="124" class="mono" text-anchor="middle">Rome</text>
+
+    <!-- surviving path highlight -->
+    <circle cx="80" cy="60" r="26" fill="none" stroke="#E2557A" stroke-width="2"/>
+    <circle cx="240" cy="40" r="26" fill="none" stroke="#E2557A" stroke-width="2"/>
+    <circle cx="420" cy="120" r="26" fill="none" stroke="#E2557A" stroke-width="2"/>
+    <text x="80" y="100" class="sub" text-anchor="middle">src</text>
+    <text x="420" y="160" class="sub" text-anchor="middle">dst</text>
+
+    <text x="0" y="210" class="mono">normal:   London -> Frankfurt -> Rome   cost 8</text>
+    <text x="0" y="228" class="mono acc">reroute:  London -> Paris -> Rome        cost 14</text>
+    <text x="0" y="246" class="sub">solid path survives; dashed edges bypassed. Routing recomputes automatically.</text>
+  </g>
+
+  <!-- ARQ state machine -->
+  <g transform="translate(560,360)">
+    <text x="0" y="0" class="h">ARQ sender state (stop-and-wait)</text>
+
+    <rect x="0" y="20" width="90" height="40" rx="6" fill="#f3e6da" stroke="#2A1A2E"/>
+    <text x="45" y="44" class="mono" text-anchor="middle">Idle</text>
+
+    <rect x="180" y="20" width="90" height="40" rx="6" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="225" y="44" class="mono" fill="#FFF7EC" text-anchor="middle">Wait</text>
+
+    <line x1="90" y1="40" x2="180" y2="40" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#a)"/>
+    <text x="135" y="34" class="sub" text-anchor="middle">send(N), start RTO</text>
+
+    <line x1="180" y1="48" x2="90" y2="48" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#a)"/>
+    <text x="135" y="62" class="sub" text-anchor="middle">ACK(N)</text>
+
+    <path d="M225,60 q40,40 0,40" fill="none" stroke="#2A1A2E" stroke-width="1.5" marker-end="url(#a)"/>
+    <text x="300" y="92" class="sub">RTO expires</text>
+    <text x="300" y="106" class="sub">-> retransmit N</text>
+
+    <text x="0" y="140" class="sub">Sliding window keeps W frames in flight;</text>
+    <text x="0" y="155" class="sub">Go-Back-N rewinds to base on timeout.</text>
+
+    <text x="0" y="190" class="h">Detection vs correction</text>
+    <text x="0" y="210" class="mono">detect: flag damage, drop or retransmit</text>
+    <text x="0" y="226" class="mono">  CRC-32, IPv4 checksum   (cheap, needs round trip)</text>
+    <text x="0" y="246" class="mono">correct: recover in place, no round trip</text>
+    <text x="0" y="262" class="mono">  Hamming, Reed-Solomon   (bandwidth for latency)</text>
+  </g>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+</svg>

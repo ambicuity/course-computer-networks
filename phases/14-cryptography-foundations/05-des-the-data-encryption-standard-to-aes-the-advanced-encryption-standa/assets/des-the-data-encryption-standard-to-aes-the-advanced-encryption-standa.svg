@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <rect width="800" height="560" fill="#FFF7EC"/>
+  <style>
+    text{font-family:Inter,Helvetica,Arial,sans-serif;fill:#2A1A2E}
+    .m{font-family:'SF Mono',Consolas,monospace}
+    .s{font-size:11px}.md{font-size:13px}.bg{font-size:15px;font-weight:600}
+    .tt{font-size:17px;font-weight:700}
+    .ln{stroke:#2A1A2E;stroke-width:1;fill:none}
+    .bl{stroke:#E2557A;stroke-width:1.5;fill:none}
+    .b{fill:#E2557A}
+  </style>
+  <text x="400" y="26" text-anchor="middle" class="tt">DES (Feistel) vs AES (SPN) Structure</text>
+
+  <!-- DES column -->
+  <text x="200" y="54" text-anchor="middle" class="bg">DES: 16-Round Feistel (64-bit block)</text>
+  <rect x="60" y="70" width="280" height="30" rx="4" class="ln"/>
+  <text x="200" y="89" text-anchor="middle" class="s">Initial Transposition (64-bit)</text>
+  <rect x="80" y="115" width="100" height="30" rx="4" class="ln"/>
+  <text x="130" y="134" text-anchor="middle" class="s">L_0 (32 bits)</text>
+  <rect x="200" y="115" width="100" height="30" rx="4" class="ln"/>
+  <text x="250" y="134" text-anchor="middle" class="s">R_0 (32 bits)</text>
+
+  <!-- Round -->
+  <rect x="60" y="160" width="280" height="80" rx="6" fill="#E2557A" opacity="0.1"/>
+  <text x="200" y="178" text-anchor="middle" class="md">Round i (x16)</text>
+  <text x="200" y="198" text-anchor="middle" class="m s">L_i = R_{i-1}</text>
+  <text x="200" y="216" text-anchor="middle" class="m s">R_i = L_{i-1} XOR f(R_{i-1}, K_i)</text>
+  <text x="200" y="234" text-anchor="middle" class="s">f: expand 32->48, XOR K_i, 8 S-boxes, P-box</text>
+
+  <rect x="60" y="250" width="280" height="24" rx="4" class="ln"/>
+  <text x="200" y="266" text-anchor="middle" class="s">32-bit swap</text>
+  <rect x="60" y="280" width="280" height="24" rx="4" class="ln"/>
+  <text x="200" y="296" text-anchor="middle" class="s">Inverse transposition -> 64-bit CT</text>
+
+  <rect x="60" y="315" width="280" height="30" rx="4" fill="#E2557A"/>
+  <text x="200" y="334" text-anchor="middle" class="s" fill="#FFF7EC">56-bit key: 2^56 ~ 20 hrs (broken)</text>
+
+  <!-- AES column -->
+  <text x="600" y="54" text-anchor="middle" class="bg">AES: 10-Round SPN (128-bit block)</text>
+  <rect x="460" y="70" width="280" height="30" rx="4" class="ln"/>
+  <text x="600" y="89" text-anchor="middle" class="s">AddRoundKey (rk[0])</text>
+
+  <rect x="460" y="110" width="280" height="120" rx="6" fill="#E2557A" opacity="0.1"/>
+  <text x="600" y="128" text-anchor="middle" class="md">Round i (x10 for AES-128)</text>
+  <text x="600" y="148" text-anchor="middle" class="m s">1. SubBytes (1 S-box, 8->8)</text>
+  <text x="600" y="166" text-anchor="middle" class="m s">2. ShiftRows (rotate row i by i)</text>
+  <text x="600" y="184" text-anchor="middle" class="m s">3. MixColumns (GF(2^8) multiply)</text>
+  <text x="600" y="202" text-anchor="middle" class="m s">   skipped in final round</text>
+  <text x="600" y="220" text-anchor="middle" class="m s">4. AddRoundKey (XOR rk[i])</text>
+
+  <rect x="460" y="240" width="280" height="24" rx="4" class="ln"/>
+  <text x="600" y="256" text-anchor="middle" class="s">Final round (no MixColumns)</text>
+  <rect x="460" y="270" width="280" height="24" rx="4" class="ln"/>
+  <text x="600" y="286" text-anchor="middle" class="s">AddRoundKey (rk[10]) -> 128-bit CT</text>
+
+  <rect x="460" y="315" width="280" height="30" rx="4" fill="#E2557A"/>
+  <text x="600" y="334" text-anchor="middle" class="s" fill="#FFF7EC">128-bit key: 2^128 ~ 10^22 years</text>
+
+  <!-- Comparison table -->
+  <text x="400" y="380" text-anchor="middle" class="bg">DES vs AES Comparison</text>
+  <g class="m s">
+    <text x="50" y="408">Property</text><text x="250" y="408">DES</text><text x="500" y="408">AES</text>
+    <text x="50" y="430">Block size</text><text x="250" y="430">64 bits</text><text x="500" y="430">128 bits</text>
+    <text x="50" y="452">Key length</text><text x="250" y="452">56 bits</text><text x="500" y="452">128/192/256 bits</text>
+    <text x="50" y="474">Rounds</text><text x="250" y="474">16</text><text x="500" y="474">10/12/14</text>
+    <text x="50" y="496">Structure</text><text x="250" y="496">Feistel</text><text x="500" y="496">SPN</text>
+    <text x="50" y="518">S-boxes</text><text x="250" y="518">8 (6->4)</text><text x="500" y="518">1 (8->8)</text>
+    <text x="50" y="540">Status</text><text x="250" y="540" class="b">Broken</text><text x="500" y="540" class="b">Standard</text>
+  </g>
+  <line x1="40" y1="414" x2="760" y2="414" class="ln"/>
+</svg>

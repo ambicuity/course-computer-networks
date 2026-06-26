@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <title>Streaming Stored Media to Streaming Live Media — client buffer and timeline</title>
+  <desc>Stored streaming pre-fetches into a playout buffer; live streaming has near-zero buffer and a hard latency budget. UDP/RTP with RTCP feedback vs TCP over HTTPS.</desc>
+
+  <rect width="800" height="480" fill="#FFF7EC"/>
+
+  <text x="400" y="34" text-anchor="middle" fill="#2A1A2E" font-size="18" font-weight="700">Streaming Stored vs Live Media</text>
+  <text x="400" y="54" text-anchor="middle" fill="#2A1A2E" font-size="12" opacity="0.7">playout buffer absorbs jitter · live trades buffer for latency</text>
+
+  <!-- Two timelines -->
+  <g font-size="12" fill="#2A1A2E">
+    <text x="40" y="100" font-weight="700">Stored (VoD)</text>
+    <text x="40" y="280" font-weight="700">Live (broadcast)</text>
+  </g>
+
+  <!-- Stored timeline -->
+  <g>
+    <line x1="40" y1="140" x2="760" y2="140" stroke="#2A1A2E" stroke-width="1.5"/>
+    <!-- server segment -->
+    <rect x="60" y="128" width="180" height="24" fill="#7B6CA8" opacity="0.25" stroke="#7B6CA8" stroke-width="1.2"/>
+    <text x="150" y="144" text-anchor="middle" fill="#2A1A2E" font-size="10">server sends ahead</text>
+    <!-- buffer fill -->
+    <rect x="240" y="128" width="120" height="24" fill="#3D8B8B" opacity="0.3" stroke="#3D8B8B" stroke-width="1.2"/>
+    <text x="300" y="144" text-anchor="middle" fill="#2A1A2E" font-size="10">buffer 10s</text>
+    <!-- playout -->
+    <rect x="360" y="128" width="360" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="540" y="144" text-anchor="middle" fill="#2A1A2E" font-size="10">playout (consumer watches here)</text>
+    <text x="60" y="170" fill="#2A1A2E" font-size="10" opacity="0.7">t=0</text>
+    <text x="240" y="170" fill="#2A1A2E" font-size="10" opacity="0.7">t=10s (play starts)</text>
+    <text x="720" y="170" fill="#2A1A2E" font-size="10" opacity="0.7">t=N</text>
+  </g>
+
+  <!-- Live timeline -->
+  <g>
+    <line x1="40" y1="320" x2="760" y2="320" stroke="#2A1A2E" stroke-width="1.5"/>
+    <rect x="60" y="308" width="40" height="24" fill="#7B6CA8" opacity="0.25" stroke="#7B6CA8" stroke-width="1.2"/>
+    <text x="80" y="324" text-anchor="middle" fill="#2A1A2E" font-size="9">capture</text>
+    <rect x="100" y="308" width="30" height="24" fill="#3D8B8B" opacity="0.3" stroke="#3D8B8B" stroke-width="1.2"/>
+    <text x="115" y="324" text-anchor="middle" fill="#2A1A2E" font-size="9">buf 2s</text>
+    <rect x="130" y="308" width="590" height="24" fill="#E2557A" opacity="0.2" stroke="#E2557A" stroke-width="1.2"/>
+    <text x="425" y="324" text-anchor="middle" fill="#2A1A2E" font-size="10">playout tracks capture with ~2s lag (no seeking ahead)</text>
+    <text x="60" y="350" fill="#2A1A2E" font-size="10" opacity="0.7">t=0 (live)</text>
+    <text x="130" y="350" fill="#2A1A2E" font-size="10" opacity="0.7">t=2s</text>
+    <text x="720" y="350" fill="#2A1A2E" font-size="10" opacity="0.7">t=now</text>
+  </g>
+
+  <!-- Protocol comparison panel -->
+  <g>
+    <rect x="40" y="384" width="350" height="80" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="215" y="402" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">Stored: TCP/HTTPS, DASH/HLS segments</text>
+    <text x="50" y="420" fill="#2A1A2E" font-size="10">• large buffer → retransmit is fine</text>
+    <text x="50" y="436" fill="#2A1A2E" font-size="10">• adaptive bitrate (ABR) switches renditions</text>
+    <text x="50" y="452" fill="#2A1A2E" font-size="10">• client controls playout speed / seek</text>
+
+    <rect x="410" y="384" width="350" height="80" rx="6" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+    <text x="585" y="402" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">Live: UDP/RTP + RTCP, or WebRTC</text>
+    <text x="420" y="420" fill="#2A1A2E" font-size="10">• small buffer → loss hides, no retransmit</text>
+    <text x="420" y="436" fill="#2A1A2E" font-size="10">• RTCP reports loss/jitter to sender</text>
+    <text x="420" y="452" fill="#2A1A2E" font-size="10">• cannot seek ahead of the live edge</text>
+  </g>
+</svg>

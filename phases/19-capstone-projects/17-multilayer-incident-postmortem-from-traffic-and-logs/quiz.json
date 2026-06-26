@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Why is a single evidence source insufficient for diagnosing a multilayer outage?",
+      "options": [
+        "One source is always enough",
+        "Each source shows only one layer's perspective; you need packets (L3/L4), syslog (L2/L3), app logs (L7), and routing updates to see the full causal chain",
+        "Multiple sources create confusion",
+        "Only the application log matters"
+      ],
+      "correct": 1,
+      "explanation": "A packet capture shows TCP resets but not why. Syslog shows BGP withdrawal but not user impact. App logs show timeouts but not the network cause. Correlating all sources reveals the full causal chain."
+    },
+    {
+      "stage": "post",
+      "question": "What is the root cause in incident analysis, and how does it differ from contributing factors?",
+      "options": [
+        "The root cause is the last event before recovery",
+        "The root cause is the earliest event in the causal chain that is not itself caused by a prior event; contributing factors amplified the outage but did not cause it",
+        "The root cause is always a human error",
+        "Root cause and contributing factors are the same"
+      ],
+      "correct": 1,
+      "explanation": "The root cause is the first domino - the earliest event with no preceding causal predecessor. Contributing factors (like missing monitoring or aggressive retries) made the outage worse but did not initiate it."
+    },
+    {
+      "stage": "post",
+      "question": "In the payment service outage, what was the causal chain from BGP withdrawal to application failure?",
+      "options": [
+        "App error -> BGP withdrawal -> TCP reset",
+        "BGP route withdrawal -> route black hole -> TCP resets -> database connection failures -> application errors -> retry storm",
+        "TCP reset -> BGP withdrawal -> app error",
+        "Retry storm -> BGP withdrawal -> black hole"
+      ],
+      "correct": 1,
+      "explanation": "The causal chain flows from bottom to top: BGP withdrawal removed the route, traffic was black-holed, TCP connections reset, the database became unreachable, the application returned errors, and aggressive retries created a storm."
+    },
+    {
+      "stage": "post",
+      "question": "What is a retry storm and why is it a contributing factor rather than the root cause?",
+      "options": [
+        "A retry storm is the root cause of every outage",
+        "A retry storm is an aggressive retry pattern (e.g., 100ms timer) that amplifies an outage by generating thousands of failed requests per second, but it is a symptom, not the initiating cause",
+        "Retry storms only happen with TCP",
+        "Retry storms are harmless"
+      ],
+      "correct": 1,
+      "explanation": "A retry storm with a 100ms retry timer generates 10,000 retries/second, all failing. This amplifies the outage by adding load to already-failing systems, but the root cause is whatever made the service fail in the first place."
+    },
+    {
+      "stage": "post",
+      "question": "What sections should a production-grade postmortem document include?",
+      "options": [
+        "Just a summary and who to blame",
+        "Summary, Impact, Root Cause, Causal Chain, Contributing Factors, Timeline, Action Items, and Lessons Learned",
+        "Only the timeline",
+        "Only the root cause"
+      ],
+      "correct": 1,
+      "explanation": "A complete postmortem includes: Summary (what happened), Impact (who/what affected), Root Cause (first domino), Causal Chain (how it cascaded), Contributing Factors (what made it worse), Timeline (when), Action Items (what to fix), and Lessons Learned (what to remember)."
+    }
+  ]
+}

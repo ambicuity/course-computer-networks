@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 540" width="760" height="540" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="760" height="540" fill="#FFF7EC"/>
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#2A1A2E">Line Codes: same bits, five waveforms</text>
+  <text x="380" y="54" text-anchor="middle" font-size="12" fill="#2A1A2E">bit stream  1 0 0 0 0 1 0 1 1 1 1   (one bit per column)</text>
+
+  <!-- bit column guides -->
+  <g stroke="#2A1A2E" stroke-opacity="0.12" stroke-width="1">
+    <line x1="120" y1="70" x2="120" y2="500"/>
+    <line x1="172" y1="70" x2="172" y2="500"/>
+    <line x1="224" y1="70" x2="224" y2="500"/>
+    <line x1="276" y1="70" x2="276" y2="500"/>
+    <line x1="328" y1="70" x2="328" y2="500"/>
+    <line x1="380" y1="70" x2="380" y2="500"/>
+    <line x1="432" y1="70" x2="432" y2="500"/>
+    <line x1="484" y1="70" x2="484" y2="500"/>
+    <line x1="536" y1="70" x2="536" y2="500"/>
+    <line x1="588" y1="70" x2="588" y2="500"/>
+    <line x1="640" y1="70" x2="640" y2="500"/>
+  </g>
+
+  <!-- bit labels -->
+  <g font-size="12" fill="#2A1A2E" text-anchor="middle">
+    <text x="146" y="86">1</text><text x="198" y="86">0</text><text x="250" y="86">0</text>
+    <text x="302" y="86">0</text><text x="354" y="86">0</text><text x="406" y="86">1</text>
+    <text x="458" y="86">0</text><text x="510" y="86">1</text><text x="562" y="86">1</text>
+    <text x="614" y="86">1</text><text x="666" y="86">1</text>
+  </g>
+
+  <!-- axis -->
+  <line x1="68" y1="500" x2="692" y2="500" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="60" y="504" text-anchor="end" font-size="10" fill="#2A1A2E">0V</text>
+
+  <!-- NRZ: +V for 1, -V for 0 -->
+  <text x="60" y="128" text-anchor="end" font-size="12" font-weight="600" fill="#2A1A2E">NRZ</text>
+  <text x="692" y="128" font-size="10" fill="#E2557A">max run 5  ·  DC drifts</text>
+  <polyline points="120,118 172,118 172,162 224,162 276,162 328,162 380,162 380,118 432,118 432,162 484,162 484,118 536,118 588,118 640,118 692,118"
+    fill="none" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- NRZI: transition on 1 -->
+  <text x="60" y="208" text-anchor="end" font-size="12" font-weight="600" fill="#2A1A2E">NRZI</text>
+  <text x="692" y="208" font-size="10" fill="#E2557A">1 = transition  ·  long 0-run bad</text>
+  <polyline points="120,198 172,198 172,242 276,242 328,242 380,242 380,198 432,198 432,242 484,242 484,198 536,198 588,198 640,198 692,198"
+    fill="none" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- Manchester: transition every cell -->
+  <text x="60" y="288" text-anchor="end" font-size="12" font-weight="600" fill="#2A1A2E">Manchester</text>
+  <text x="692" y="288" font-size="10" fill="#E2557A">1 transition/bit  ·  2× BW</text>
+  <polyline points="120,278 146,278 146,322 172,322 172,278 198,278 198,322 250,322 250,278 276,278 276,322 302,322 302,278 328,278 328,322 354,322 354,278 380,278 380,322 406,322 406,278 432,278 432,322 458,322 458,278 484,278 484,322 510,322 510,278 536,278 536,322 562,322 562,278 588,278 588,322 614,322 614,278 640,278 640,322 666,322 666,278 692,278"
+    fill="none" stroke="#2A1A2E" stroke-width="2"/>
+
+  <!-- 4B/5B row label (codewords, not waveform) -->
+  <text x="60" y="368" text-anchor="end" font-size="12" font-weight="600" fill="#2A1A2E">4B/5B</text>
+  <text x="692" y="368" font-size="10" fill="#E2557A">+25%  ·  ≤3 zeros  ·  not DC</text>
+  <text x="380" y="372" text-anchor="middle" font-size="11" fill="#2A1A2E" font-family="ui-monospace, monospace">10000 → 11110 01001 10100 10111  (4 data nibbles → 5B each)</text>
+
+  <!-- 8B/10B row with disparity -->
+  <text x="60" y="418" text-anchor="end" font-size="12" font-weight="600" fill="#2A1A2E">8B/10B</text>
+  <text x="692" y="418" font-size="10" fill="#E2557A">+25%  ·  runs ≤5  ·  DC ±2</text>
+  <g font-size="11" fill="#2A1A2E" font-family="ui-monospace, monospace" text-anchor="middle">
+    <text x="200" y="422">byte 0x00 → 1001110100  (RD −1 → +1)</text>
+    <text x="200" y="438">byte 0xFF → 0101001011  (RD +1 → −1)</text>
+  </g>
+
+  <!-- disparity bar -->
+  <text x="60" y="478" text-anchor="end" font-size="12" font-weight="600" fill="#2A1A2E">disparity</text>
+  <line x1="120" y1="478" x2="380" y2="478" stroke="#E2557A" stroke-width="3"/>
+  <line x1="380" y1="466" x2="380" y2="490" stroke="#E2557A" stroke-width="2"/>
+  <line x1="380" y1="478" x2="640" y2="478" stroke="#2A1A2E" stroke-width="3"/>
+  <text x="250" y="496" text-anchor="middle" font-size="10" fill="#E2557A">RD −1</text>
+  <text x="510" y="496" text-anchor="middle" font-size="10" fill="#2A1A2E">RD +1</text>
+  <text x="380" y="516" text-anchor="middle" font-size="10" fill="#2A1A2E">running disparity oscillates around zero — never escapes {−1,+1}</text>
+
+  <text x="380" y="534" text-anchor="middle" font-size="10" fill="#2A1A2E" opacity="0.7">clock recovery needs transitions · DC balance needs zero mean · bandwidth efficiency needs few levels</text>
+</svg>

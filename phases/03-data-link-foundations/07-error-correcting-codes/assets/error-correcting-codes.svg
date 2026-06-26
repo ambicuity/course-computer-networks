@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+
+  <text x="440" y="42" text-anchor="middle" font-size="22" font-weight="700" fill="#2A1A2E">Hamming (11,7) Encode → Channel → Syndrome Decode</text>
+  <text x="440" y="66" text-anchor="middle" font-size="13" fill="#2A1A2E" opacity="0.7">message 1000001 (ASCII 'A')  ·  single error at position 5 self-heals</text>
+
+  <!-- ===== ENCODE ROW ===== -->
+  <text x="40" y="110" font-size="13" font-weight="600" fill="#2A1A2E">1. ENCODE — check bits at powers of 2 (positions 1,2,4,8)</text>
+
+  <g font-size="11" fill="#2A1A2E" text-anchor="middle">
+    <text x="120" y="132">p1</text><text x="150" y="132">p2</text><text x="180" y="132">d3</text>
+    <text x="210" y="132">p4</text><text x="240" y="132">d5</text><text x="270" y="132">d6</text>
+    <text x="300" y="132">d7</text><text x="330" y="132">p8</text><text x="360" y="132">d9</text>
+    <text x="390" y="132">d10</text><text x="420" y="132">d11</text>
+  </g>
+  <g font-size="13" text-anchor="middle">
+    <rect x="106" y="140" width="28" height="28" fill="#E2557A" opacity="0.18" stroke="#2A1A2E"/><text x="120" y="159" fill="#2A1A2E">0</text>
+    <rect x="136" y="140" width="28" height="28" fill="#E2557A" opacity="0.18" stroke="#2A1A2E"/><text x="150" y="159" fill="#2A1A2E">0</text>
+    <rect x="166" y="140" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="180" y="159" fill="#2A1A2E">1</text>
+    <rect x="196" y="140" width="28" height="28" fill="#E2557A" opacity="0.18" stroke="#2A1A2E"/><text x="210" y="159" fill="#2A1A2E">0</text>
+    <rect x="226" y="140" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="240" y="159" fill="#2A1A2E">0</text>
+    <rect x="256" y="140" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="270" y="159" fill="#2A1A2E">0</text>
+    <rect x="286" y="140" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="300" y="159" fill="#2A1A2E">0</text>
+    <rect x="316" y="140" width="28" height="28" fill="#E2557A" opacity="0.18" stroke="#2A1A2E"/><text x="330" y="159" fill="#2A1A2E">1</text>
+    <rect x="346" y="140" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="360" y="159" fill="#2A1A2E">0</text>
+    <rect x="376" y="140" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="390" y="159" fill="#2A1A2E">0</text>
+    <rect x="406" y="140" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="420" y="159" fill="#2A1A2E">1</text>
+  </g>
+  <text x="540" y="159" font-size="12" fill="#2A1A2E">pink = check bit · white = data bit</text>
+
+  <!-- ===== CHANNEL ===== -->
+  <text x="40" y="210" font-size="13" font-weight="600" fill="#2A1A2E">2. CHANNEL — a single bit flips (position 5: 0→1)</text>
+  <g font-size="13" text-anchor="middle">
+    <rect x="106" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="120" y="237" fill="#2A1A2E">0</text>
+    <rect x="136" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="150" y="237" fill="#2A1A2E">0</text>
+    <rect x="166" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="180" y="237" fill="#2A1A2E">1</text>
+    <rect x="196" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="210" y="237" fill="#2A1A2E">0</text>
+    <rect x="226" y="218" width="28" height="28" fill="#E2557A" stroke="#E2557A" stroke-width="2"/><text x="240" y="237" fill="#2A1A2E" font-weight="700">1</text>
+    <rect x="256" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="270" y="237" fill="#2A1A2E">0</text>
+    <rect x="286" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="300" y="237" fill="#2A1A2E">0</text>
+    <rect x="316" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="330" y="237" fill="#2A1A2E">1</text>
+    <rect x="346" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="360" y="237" fill="#2A1A2E">0</text>
+    <rect x="376" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="390" y="237" fill="#2A1A2E">0</text>
+    <rect x="406" y="218" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="420" y="237" fill="#2A1A2E">1</text>
+  </g>
+
+  <!-- ===== SYNDROME ===== -->
+  <text x="40" y="296" font-size="13" font-weight="600" fill="#2A1A2E">3. SYNDROME — re-XOR each parity; failed checks give the error address</text>
+  <g font-size="12" fill="#2A1A2E">
+    <text x="60" y="324">p1 covers 1,3,5,7,9,11 → XOR = 1  (fail)</text>
+    <text x="60" y="344">p2 covers 2,3,6,7,10,11 → XOR = 0  (pass)</text>
+    <text x="60" y="364">p4 covers 4,5,6,7 → XOR = 1  (fail)</text>
+    <text x="60" y="384">p8 covers 8,9,10,11 → XOR = 0  (pass)</text>
+  </g>
+  <g font-size="13" text-anchor="middle">
+    <rect x="430" y="352" width="34" height="34" fill="#E2557A" opacity="0.22" stroke="#2A1A2E"/><text x="447" y="374" fill="#2A1A2E" font-weight="700">1</text>
+    <rect x="464" y="352" width="34" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="481" y="374" fill="#2A1A2E">0</text>
+    <rect x="498" y="352" width="34" height="34" fill="#E2557A" opacity="0.22" stroke="#2A1A2E"/><text x="515" y="374" fill="#2A1A2E" font-weight="700">1</text>
+    <rect x="532" y="352" width="34" height="34" fill="#FFF7EC" stroke="#2A1A2E"/><text x="549" y="374" fill="#2A1A2E">0</text>
+  </g>
+  <text x="430" y="406" font-size="11" fill="#2A1A2E">p1</text><text x="464" y="406" font-size="11" fill="#2A1A2E">p2</text>
+  <text x="498" y="406" font-size="11" fill="#2A1A2E">p4</text><text x="532" y="406" font-size="11" fill="#2A1A2E">p8</text>
+  <text x="585" y="378" font-size="15" font-weight="700" fill="#2A1A2E">syndrome = 0101₂ = 5</text>
+  <path d="M566 369 L600 369" stroke="#E2557A" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- ===== CORRECT ===== -->
+  <text x="40" y="452" font-size="13" font-weight="600" fill="#2A1A2E">4. CORRECT — flip position 5, strip checks → original message</text>
+  <g font-size="13" text-anchor="middle">
+    <rect x="106" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="120" y="481" fill="#2A1A2E">0</text>
+    <rect x="136" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="150" y="481" fill="#2A1A2E">0</text>
+    <rect x="166" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="180" y="481" fill="#2A1A2E">1</text>
+    <rect x="196" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="210" y="481" fill="#2A1A2E">0</text>
+    <rect x="226" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="2"/><text x="240" y="481" fill="#2A1A2E" font-weight="700">0</text>
+    <rect x="256" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="270" y="481" fill="#2A1A2E">0</text>
+    <rect x="286" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="300" y="481" fill="#2A1A2E">0</text>
+    <rect x="316" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="330" y="481" fill="#2A1A2E">1</text>
+    <rect x="346" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="360" y="481" fill="#2A1A2E">0</text>
+    <rect x="376" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="390" y="481" fill="#2A1A2E">0</text>
+    <rect x="406" y="462" width="28" height="28" fill="#FFF7EC" stroke="#2A1A2E"/><text x="420" y="481" fill="#2A1A2E">1</text>
+  </g>
+  <path d="M434 476 L470 476" stroke="#E2557A" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="480" y="480" font-size="14" font-weight="700" fill="#2A1A2E">data = 1 0 0 0 0 0 1  =  ASCII 'A'</text>
+
+  <text x="40" y="528" font-size="11" fill="#2A1A2E" opacity="0.75">distance 3 → corrects 1 error or detects 2; add overall parity → distance 4 SEC-DED (ECC DRAM (72,64))</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+</svg>

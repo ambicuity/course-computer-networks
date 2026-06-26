@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="760" height="520">
+  <rect width="760" height="520" fill="#FFF7EC"/>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 18px; font-weight: 700; }
+    .sub { font-size: 12px; fill: #6a4a5e; }
+    .lbl { font-size: 12px; font-weight: 600; }
+    .sm { font-size: 10.5px; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 10.5px; }
+    .acc { fill: #E2557A; }
+    .node { fill: #FFF7EC; stroke: #2A1A2E; stroke-width: 1.4; }
+    .edge { stroke: #2A1A2E; stroke-width: 1; fill: none; }
+    .surv { stroke: #E2557A; stroke-width: 2.4; fill: none; }
+  </style>
+
+  <text x="20" y="30" class="title">Viterbi decoding — NASA K=7 code, shown as a K=3 trellis</text>
+  <text x="20" y="50" class="sub">Generators G0=171, G1=133 (octal). Each step: 1 input bit → 2 output bits. State = shift-register contents.</text>
+
+  <!-- Encoder box -->
+  <rect x="20" y="70" width="270" height="86" rx="6" fill="none" stroke="#2A1A2E" stroke-width="1.2"/>
+  <text x="30" y="88" class="lbl">Encoder (rate 1/2)</text>
+  <text x="30" y="106" class="mono">input b ─► [s1 s2 s3 s4 s5 s6] ─► out0 = b⊕s1⊕s2⊕s3⊕s6</text>
+  <text x="30" y="122" class="mono">                              ─► out1 = b⊕s2⊕s3⊕s5⊕s6</text>
+  <text x="30" y="142" class="sm">K=7 → 2^(K−1) = 64 states; trellis below uses K=3 (4 states) for clarity.</text>
+
+  <!-- Trellis -->
+  <text x="470" y="88" class="lbl">Trellis — 4 time steps, states 00/01/10/11</text>
+
+  <!-- column headers -->
+  <text x="335" y="108" class="sm" text-anchor="middle">t=0</text>
+  <text x="410" y="108" class="sm" text-anchor="middle">t=1</text>
+  <text x="485" y="108" class="sm" text-anchor="middle">t=2</text>
+  <text x="560" y="108" class="sm" text-anchor="middle">t=3</text>
+  <text x="635" y="108" class="sm" text-anchor="middle">t=4</text>
+
+  <!-- state row labels -->
+  <text x="300" y="143" class="mono" text-anchor="end">00</text>
+  <text x="300" y="213" class="mono" text-anchor="end">10</text>
+  <text x="300" y="283" class="mono" text-anchor="end">01</text>
+  <text x="300" y="353" class="mono" text-anchor="end">11</text>
+
+  <!-- nodes: columns t0..t4, rows s=00,10,01,11 -->
+  <!-- t0 only state 00 -->
+  <circle cx="335" cy="140" r="9" class="node"/>
+  <!-- t1 -->
+  <circle cx="410" cy="140" r="9" class="node"/>
+  <circle cx="410" cy="210" r="9" class="node"/>
+  <!-- t2 -->
+  <circle cx="485" cy="140" r="9" class="node"/>
+  <circle cx="485" cy="210" r="9" class="node"/>
+  <circle cx="485" cy="280" r="9" class="node"/>
+  <circle cx="485" cy="350" r="9" class="node"/>
+  <!-- t3 -->
+  <circle cx="560" cy="140" r="9" class="node"/>
+  <circle cx="560" cy="210" r="9" class="node"/>
+  <circle cx="560" cy="280" r="9" class="node"/>
+  <circle cx="560" cy="350" r="9" class="node"/>
+  <!-- t4 -->
+  <circle cx="635" cy="140" r="9" class="node"/>
+  <circle cx="635" cy="210" r="9" class="node"/>
+  <circle cx="635" cy="280" r="9" class="node"/>
+  <circle cx="635" cy="350" r="9" class="node"/>
+
+  <!-- branches t0->t1 : from 00 -->
+  <!-- in=0 -> 00, out 00 -->
+  <line x1="335" y1="140" x2="410" y2="140" class="edge"/>
+  <text x="365" y="132" class="sm">0/00</text>
+  <!-- in=1 -> 10, out 11 -->
+  <line x1="335" y1="140" x2="410" y2="210" class="surv"/>
+  <text x="358" y="182" class="sm acc">1/11</text>
+
+  <!-- branches t1->t2 : from 00 and 10 -->
+  <!-- 00 in=0->00 out00 ; in=1->10 out11 -->
+  <line x1="410" y1="140" x2="485" y2="140" class="edge"/>
+  <line x1="410" y1="140" x2="485" y2="210" class="edge"/>
+  <!-- 10 in=0->01 out10 ; in=1->11 out01 -->
+  <line x1="410" y1="210" x2="485" y2="280" class="surv"/>
+  <line x1="410" y1="210" x2="485" y2="350" class="edge"/>
+  <text x="438" y="252" class="sm acc">0/10</text>
+
+  <!-- branches t2->t3 : from each -->
+  <!-- 00 -> 00 (0/00), 10 (1/11) -->
+  <line x1="485" y1="140" x2="560" y2="140" class="edge"/>
+  <line x1="485" y1="140" x2="560" y2="210" class="edge"/>
+  <!-- 10 -> 01 (0/10), 11 (1/01) -->
+  <line x1="485" y1="210" x2="560" y2="280" class="edge"/>
+  <line x1="485" y1="210" x2="560" y2="350" class="edge"/>
+  <!-- 01 -> 00 (0/11), 10 (1/00) -->
+  <line x1="485" y1="280" x2="560" y2="140" class="edge"/>
+  <line x1="485" y1="280" x2="560" y2="210" class="edge"/>
+  <!-- 11 -> 01 (0/01), 11 (1/10) -->
+  <line x1="485" y1="350" x2="560" y2="280" class="surv"/>
+  <line x1="485" y1="350" x2="560" y2="350" class="edge"/>
+  <text x="513" y="322" class="sm acc">0/01</text>
+
+  <!-- branches t3->t4 -->
+  <line x1="560" y1="140" x2="635" y2="140" class="edge"/>
+  <line x1="560" y1="140" x2="635" y2="210" class="edge"/>
+  <line x1="560" y1="210" x2="635" y2="280" class="edge"/>
+  <line x1="560" y1="210" x2="635" y2="350" class="edge"/>
+  <line x1="560" y1="280" x2="635" y2="140" class="edge"/>
+  <line x1="560" y1="280" x2="635" y2="210" class="edge"/>
+  <line x1="560" y1="350" x2="635" y2="280" class="surv"/>
+  <line x1="560" y1="350" x2="635" y2="350" class="edge"/>
+  <text x="588" y="322" class="sm acc">0/10</text>
+
+  <!-- legend -->
+  <g transform="translate(20,400)">
+    <text x="0" y="0" class="lbl">How to read it</text>
+    <line x1="0" y1="18" x2="40" y2="18" class="surv"/>
+    <text x="48" y="22" class="sm">survivor path (lowest metric kept at each state)</text>
+    <line x1="0" y1="38" x2="40" y2="38" class="edge"/>
+    <text x="48" y="42" class="sm">discarded branch (can never catch up)</text>
+    <text x="0" y="64" class="sm">Edge label <tspan class="mono acc">in/out</tspan> = input bit / 2 output bits emitted.</text>
+    <text x="0" y="80" class="sm">Decoder walks left→right, then backtracks the berry path to read input 1,1,0,…</text>
+    <text x="0" y="100" class="sm">Hard-decision branch metric = Hamming distance between edge <tspan class="mono">out</tspan> and received pair.</text>
+  </g>
+</svg>

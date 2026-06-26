@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560">
+  <rect width="880" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #2A1A2E; }
+    .ink { stroke: #2A1A2E; stroke-width: 1.5; fill: none; }
+    .accent { stroke: #E2557A; stroke-width: 1.8; fill: none; }
+    .accfill { fill: #E2557A; }
+    .box { fill: #FFF7EC; stroke: #2A1A2E; stroke-width: 1.5; }
+    .lost { fill: #FFF7EC; stroke: #E2557A; stroke-dasharray: 4 3; stroke-width: 1.5; }
+    .lbl { font-size: 13px; }
+    .sm { font-size: 11px; }
+    .hdr { font-size: 16px; font-weight: 600; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 11px; }
+  </style>
+
+  <text x="40" y="38" class="hdr">Stop-and-Wait ARQ: timer, 1-bit sequence number, retransmission</text>
+
+  <!-- Sender / Receiver columns -->
+  <text x="70" y="78" class="lbl" text-anchor="middle">Sender</text>
+  <text x="800" y="78" class="lbl" text-anchor="middle">Receiver</text>
+  <line x1="70" y1="90" x2="70" y2="510" class="ink"/>
+  <line x1="800" y1="90" x2="800" y2="510" class="ink"/>
+
+  <!-- time axis -->
+  <text x="40" y="120" class="sm">t=1</text>
+  <text x="40" y="200" class="sm">t=2</text>
+  <text x="40" y="280" class="sm">t=3</text>
+  <text x="40" y="360" class="sm">t=4</text>
+  <text x="40" y="440" class="sm">t=5</text>
+
+  <!-- 1. DATA seq=0 sent -->
+  <line x1="80" y1="120" x2="790" y2="170" class="ink"/>
+  <polygon points="790,170 782,165 782,175" class="accfill"/>
+  <text x="430" y="138" class="mono" text-anchor="middle">DATA seq=0 "GET /"</text>
+
+  <!-- ACK0 returns -->
+  <line x1="790" y1="200" x2="80" y2="250" class="ink"/>
+  <polygon points="80,250 88,245 88,255" class="accfill"/>
+  <text x="430" y="220" class="mono" text-anchor="middle">ACK ack=0</text>
+  <text x="70" y="270" class="sm" text-anchor="middle">seq flips 0→1</text>
+
+  <!-- 2. DATA seq=1 LOST -->
+  <line x1="80" y1="290" x2="430" y2="320" class="accent" stroke-dasharray="5 4"/>
+  <text x="250" y="312" class="mono" text-anchor="middle" fill="#E2557A">DATA seq=1  (LOST)</text>
+  <text x="445" y="324" class="sm" fill="#E2557A">✕</text>
+
+  <!-- timer fires -->
+  <rect x="55" y="350" width="120" height="30" rx="4" class="lost"/>
+  <text x="115" y="370" class="sm" text-anchor="middle" fill="#E2557A">timer expires</text>
+
+  <!-- 3. retransmit DATA seq=1 -->
+  <line x1="80" y1="400" x2="790" y2="430" class="ink"/>
+  <polygon points="790,430 782,425 782,435" class="accfill"/>
+  <text x="430" y="420" class="mono" text-anchor="middle">DATA seq=1 (retransmit)</text>
+
+  <!-- ACK1 -->
+  <line x1="790" y1="455" x2="80" y2="485" class="ink"/>
+  <polygon points="80,485 88,480 88,490" class="accfill"/>
+  <text x="430" y="475" class="mono" text-anchor="middle">ACK ack=1</text>
+
+  <!-- Legend / state note -->
+  <rect x="40" y="500" width="800" height="48" rx="6" fill="#FFFFFF" stroke="#2A1A2E" stroke-width="1"/>
+  <text x="56" y="520" class="sm">Sender state: (next_seq, frame_in_flight, timer). Receiver state: expected_seq.</text>
+  <text x="56" y="538" class="sm">Duplicate suppression: a retransmitted DATA(seq=0) arriving after seq=0 was accepted is re-ACKed, not delivered again — the 1-bit seq is the dedup key.</text>
+</svg>

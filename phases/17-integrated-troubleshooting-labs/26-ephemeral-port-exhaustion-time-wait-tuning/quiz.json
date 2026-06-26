@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "question": "A service that makes 1,000 outbound connections per second fails at peak load with EADDRNOTAVAIL. The default ip_local_port_range is 32768-60999. What is the cause?",
+      "options": [
+        "A. The DNS is wrong",
+        "B. Each closed connection enters TIME_WAIT for 60s; 1000/s * 60s = 60,000 ports needed; only 28,232 are available. The kernel cannot find an unused port.",
+        "C. The TCP MSS is wrong",
+        "D. The application is using too much CPU"
+      ],
+      "answer": 1,
+      "explanation": "Each closed connection enters TIME_WAIT for 2*MSL (60s on Linux). 1000 connections/s * 60s = 60,000 ports in TIME_WAIT at any moment. The default ip_local_port_range 32768-60999 only provides 28,232 ports. The fix is to expand the range, enable tcp_tw_reuse, and reduce tcp_fin_timeout."
+    },
+    {
+      "question": "What does tcp_tw_reuse=1 do, and what is the safety constraint?",
+      "options": [
+        "A. It skips TIME_WAIT entirely",
+        "B. It allows the kernel to recycle a TIME_WAIT socket for a new outgoing connection to the SAME destination IP:port; the safety constraint is that the peer has already moved on, so straggling packets are ignored",
+        "C. It disables TCP congestion control",
+        "D. It removes the MSS"
+      ],
+      "answer": 1,
+      "explanation": "tcp_tw_reuse=1 allows the kernel to assign a TIME_WAIT socket to a new outgoing connection if the destination is the same IP:port. The constraint (same destination) is safe because the peer has already moved on, so any straggling packets from the old connection are ignored."
+    },
+    {
+      "question": "Why was tcp_tw_recycle=1 removed in Linux 4.12?",
+      "options": [
+        "A. It was too slow",
+        "B. It caused widespread breakage for NATed clients; the TIME_WAIT shortcut applied to incoming connections, but NATs make many internal hosts look like the same IP, breaking their flows",
+        "C. It was a security vulnerability",
+        "D. It was not portable"
+      ],
+      "answer": 1,
+      "explanation": "tcp_tw_recycle=1 would skip TIME_WAIT for incoming connections from the same IP within a recent window. NATs make many internal hosts look like the same external IP, so the shortcut would break the flows of many clients sharing a NAT. The option was removed in Linux 4.12 (commit 5d2ed0527c)."
+    }
+  ]
+}

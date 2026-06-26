@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Which IPsec protocol provides confidentiality (encryption) in addition to integrity and anti-replay?",
+      "options": [
+        "AH (Authentication Header, protocol 51)",
+        "ESP (Encapsulating Security Payload, protocol 50)",
+        "IKEv2 (Internet Key Exchange version 2)",
+        "Both AH and ESP provide encryption"
+      ],
+      "correct": 1,
+      "explanation": "ESP (RFC 4303) encrypts the payload and provides integrity and anti-replay. AH (RFC 4302) provides only integrity and anti-replay — no encryption."
+    },
+    {
+      "stage": "pre",
+      "question": "In AH transport mode, which IP header fields are zeroed before computing the ICV?",
+      "options": [
+        "Source address and destination address, because NAT rewrites them",
+        "TTL, DSCP, IP checksum, and Flags — fields that routers legitimately modify in transit",
+        "All IP header fields are zeroed except the SPI",
+        "No fields are zeroed; AH authenticates the entire IP header as-is"
+      ],
+      "correct": 1,
+      "explanation": "AH zeros mutable fields (TTL, DSCP, IP checksum, Flags) before ICV computation so routers can modify them without breaking authentication. Source and destination addresses are included and authenticated, which is why AH fails through NAT."
+    },
+    {
+      "stage": "post",
+      "question": "Why does AH fail through NAT but ESP does not?",
+      "options": [
+        "AH uses a different key size than ESP",
+        "AH's ICV covers the source IP address; a NAT device rewrites it, making the ICV check fail on arrival",
+        "NAT blocks protocol 50 but allows protocol 51",
+        "ESP uses UDP encapsulation by default, which NAT handles transparently"
+      ],
+      "correct": 1,
+      "explanation": "AH authenticates the outer IP source address as part of its ICV. A NAT device rewrites this address; the receiver recomputes the ICV over the translated address and the two values differ. ESP's ICV covers only SPI, Sequence Number, IV, and ciphertext — not the outer IP header — so NAT address rewrites do not affect it."
+    },
+    {
+      "stage": "post",
+      "question": "In ESP tunnel mode, what exactly does the ICV protect?",
+      "options": [
+        "The outer IP header, ESP header, IV, ciphertext, and ESP trailer",
+        "The SPI, Sequence Number, IV, and the entire ciphertext block (which includes the inner IP header, TCP header, payload, padding, pad length, and next header)",
+        "Only the inner IP header and TCP header",
+        "The outer IP header and the ESP header only"
+      ],
+      "correct": 1,
+      "explanation": "Per RFC 4303, ESP's ICV is computed over: SPI || Sequence Number || IV || ciphertext. The ciphertext itself contains the encrypted inner IP header, TCP header, payload, padding, Pad Length, and Next Header. The outer IP header is not covered by the ESP ICV."
+    },
+    {
+      "stage": "post",
+      "question": "A packet is captured on the wire with IP protocol field = 50 and the outer IP source and destination addresses are both firewall addresses, not host addresses. Which IPsec mode and protocol is in use?",
+      "options": [
+        "AH transport mode",
+        "ESP transport mode",
+        "AH tunnel mode",
+        "ESP tunnel mode"
+      ],
+      "correct": 3,
+      "explanation": "Protocol 50 = ESP. Gateway-to-gateway addresses in the outer IP header (not host addresses) indicates tunnel mode — the original host addresses are encrypted inside the ciphertext. Together: ESP tunnel mode."
+    },
+    {
+      "stage": "post",
+      "question": "The AH header Payload Length field for an HMAC-SHA-1 AH header reads 4. What does this value encode?",
+      "options": [
+        "The payload is 4 bytes long",
+        "The AH header is 4 × 4 = 16 bytes total",
+        "The AH header is (4 + 2) × 4 = 24 bytes total, per the formula: 32-bit words minus 2",
+        "There are 4 padding bytes appended to the ICV"
+      ],
+      "correct": 2,
+      "explanation": "RFC 4302 defines Payload Length as the number of 32-bit words in the AH header minus 2. With HMAC-SHA-1 (12-byte ICV), the AH header is 12 bytes fixed + 12 bytes ICV = 24 bytes = 6 words. 6 − 2 = 4. So Payload Length = 4 encodes a 24-byte AH header."
+    }
+  ]
+}

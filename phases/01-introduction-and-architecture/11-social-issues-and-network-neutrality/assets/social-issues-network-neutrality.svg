@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 590" width="900" height="590">
+  <rect width="900" height="590" fill="#FFF7EC"/>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 19px; font-weight: 700; }
+    .sub { font-size: 12px; fill: #5b4655; }
+    .lbl { font-size: 12px; font-weight: 600; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 11px; }
+    .monoSm { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 10px; }
+    .box { fill: #FFF7EC; stroke: #2A1A2E; stroke-width: 1.4; }
+    .blk { fill: #f6d8df; stroke: #E2557A; stroke-width: 1.6; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E2557A"/></marker>
+  </defs>
+  <text x="40" y="40" class="title">Net-neutrality violation: token-bucket shaping (L / R gap)</text>
+  <text x="40" y="60" class="sub">Ingress packets arrive back-to-back; the discriminating bucket delays the disfavored flow. DSCP stays intact -- only timing changes.</text>
+  <text x="40" y="92" class="lbl">A. Token buckets feeding one egress</text>
+  <rect x="50" y="110" width="150" height="150" rx="8" class="box"/>
+  <text x="125" y="132" class="lbl" text-anchor="middle">Favored flow</text>
+  <text x="125" y="150" class="mono" text-anchor="middle">R = 10 MB/s</text>
+  <rect x="70" y="166" width="110" height="70" rx="4" fill="#eee3d6" stroke="#2A1A2E"/>
+  <rect x="70" y="216" width="110" height="20" fill="#E2557A" opacity="0.35"/>
+  <text x="125" y="202" class="monoSm" text-anchor="middle">tokens</text>
+  <text x="125" y="258" class="mono" text-anchor="middle">gap = L/R = 150 us</text>
+  <rect x="230" y="110" width="150" height="150" rx="8" class="box"/>
+  <text x="305" y="132" class="lbl" text-anchor="middle" fill="#E2557A">Shaped flow</text>
+  <text x="305" y="150" class="mono" text-anchor="middle">R = 1 MB/s</text>
+  <rect x="250" y="166" width="110" height="70" rx="4" fill="#eee3d6" stroke="#2A1A2E"/>
+  <rect x="250" y="186" width="110" height="50" fill="#E2557A" opacity="0.6"/>
+  <text x="305" y="202" class="monoSm" text-anchor="middle">drained</text>
+  <text x="305" y="258" class="mono" text-anchor="middle">gap = L/R = 1500 us</text>
+  <rect x="445" y="150" width="90" height="70" rx="8" class="box"/>
+  <text x="490" y="178" class="lbl" text-anchor="middle">Egress</text>
+  <text x="490" y="196" class="monoSm" text-anchor="middle">1 queue</text>
+  <line x1="200" y1="185" x2="445" y2="172" stroke="#2A1A2E" stroke-width="1.4" marker-end="url(#a)"/>
+  <line x1="380" y1="212" x2="445" y2="200" stroke="#E2557A" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#b)"/>
+  <text x="580" y="100" class="lbl">B. Egress inter-packet gap</text>
+  <line x1="590" y1="130" x2="850" y2="130" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#a)"/>
+  <rect x="600" y="124" width="4" height="12" fill="#2A1A2E"/>
+  <rect x="650" y="124" width="4" height="12" fill="#2A1A2E"/>
+  <rect x="700" y="124" width="4" height="12" fill="#2A1A2E"/>
+  <text x="600" y="150" class="monoSm">150us  150us  150us</text>
+  <text x="600" y="166" class="monoSm" fill="#5b4655">favored cadence</text>
+  <line x1="590" y1="200" x2="850" y2="200" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#a)"/>
+  <rect x="600" y="194" width="4" height="12" fill="#E2557A"/>
+  <rect x="750" y="194" width="4" height="12" fill="#E2557A"/>
+  <rect x="800" y="194" width="4" height="12" fill="#E2557A"/>
+  <text x="600" y="220" class="monoSm">1500us   1500us  ...</text>
+  <text x="600" y="236" class="monoSm" fill="#5b4655">shaped cadence</text>
+  <text x="40" y="320" class="lbl">C. DNS poisoning race (16-bit TxID, RFC 5452)</text>
+  <rect x="55" y="340" width="80" height="50" rx="6" class="box"/>
+  <text x="95" y="362" class="lbl" text-anchor="middle">Resolver</text>
+  <text x="95" y="380" class="monoSm" text-anchor="middle">TxID 0x4A2B</text>
+  <rect x="230" y="335" width="430" height="60" rx="6" class="box"/>
+  <text x="445" y="356" class="lbl" text-anchor="middle">Wire (first matching answer wins &amp; is cached)</text>
+  <rect x="770" y="318" width="110" height="40" rx="6" class="blk"/>
+  <text x="825" y="343" class="lbl" text-anchor="middle" fill="#E2557A">On-path censor</text>
+  <line x1="135" y1="358" x2="230" y2="365" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#a)"/>
+  <text x="160" y="350" class="monoSm">query</text>
+  <line x1="660" y1="335" x2="135" y2="358" stroke="#2A1A2E" stroke-width="1.2" stroke-dasharray="6 3" marker-end="url(#a)"/>
+  <text x="320" y="314" class="monoSm" fill="#5b4655">legit answer (RTT 80ms)</text>
+  <line x1="770" y1="338" x2="135" y2="358" stroke="#E2557A" stroke-width="1.8" marker-end="url(#b)"/>
+  <text x="280" y="394" class="monoSm" fill="#E2557A">forged A=0.0.0.0, TTL=60s (RTT 20ms  WINS)</text>
+  <text x="40" y="440" class="lbl">D. TCP RST -- RFC 793 section 3.4 window check</text>
+  <rect x="50" y="460" width="800" height="50" rx="6" fill="#eee3d6" stroke="#2A1A2E"/>
+  <rect x="50" y="460" width="2" height="50" fill="#2A1A2E"/>
+  <text x="56" y="478" class="monoSm">RCV.NXT = 1,000,000</text>
+  <text x="56" y="496" class="monoSm">accepted: [RCV.NXT, RCV.NXT + RCV.WND)</text>
+  <rect x="180" y="500" width="525" height="6" fill="#E2557A" opacity="0.6"/>
+  <text x="180" y="524" class="monoSm">1,000,000</text>
+  <text x="640" y="524" class="monoSm">1,065,535</text>
+  <text x="690" y="524" class="monoSm" fill="#5b4655">RCV.WND = 65,535</text>
+  <rect x="180" y="455" width="3" height="14" fill="#2A1A2E"/>
+  <text x="186" y="446" class="monoSm" fill="#2A1A2E">seq=1,000,000 ACCEPTED</text>
+  <rect x="300" y="455" width="3" height="14" fill="#2A1A2E"/>
+  <text x="306" y="446" class="monoSm" fill="#2A1A2E">seq=1,000,001 ACCEPTED</text>
+  <rect x="715" y="455" width="3" height="14" fill="#E2557A"/>
+  <text x="720" y="446" class="monoSm" fill="#E2557A">seq=1,200,000 discarded</text>
+  <rect x="150" y="455" width="3" height="14" fill="#E2557A"/>
+  <text x="40" y="446" class="monoSm" fill="#E2557A">seq=999,999 discarded</text>
+  <text x="40" y="572" class="sub">Each mechanism is detectable: shaping gives gap = L/R; DPI mutates the DSCP byte; RST needs an in-window seq; DNS poison is a short-TTL lie cached before the legit answer.</text>
+</svg>

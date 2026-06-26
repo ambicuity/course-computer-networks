@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "What is the key advantage of P-frames over I-frames?",
+      "options": [
+        "P-frames have higher quality",
+        "P-frames encode only the difference from a reference frame, so they are much smaller",
+        "P-frames decode faster",
+        "P-frames do not need any reference"
+      ],
+      "correct": 1,
+      "explanation": "P-frames use motion-compensated prediction to encode only the residual difference from a past reference frame, drastically reducing bitrate."
+    },
+    {
+      "stage": "post",
+      "question": "Why does the decode order differ from the display order in MPEG?",
+      "options": [
+        "Because the encoder sorts frames by size",
+        "Because B-frames need both a past and future reference, so references must be decoded first",
+        "Because I-frames are always last",
+        "Because the network reorders packets"
+      ],
+      "correct": 1,
+      "explanation": "B-frames depend on both past and future reference frames. The encoder must buffer and send reference frames before the B-frames that reference them, so decode order diverges from display order."
+    },
+    {
+      "stage": "post",
+      "question": "What does a motion vector represent?",
+      "options": [
+        "The speed of the camera",
+        "A (dx, dy) offset pointing to the best matching block in the reference frame",
+        "The color of the macroblock",
+        "The quantization step size"
+      ],
+      "correct": 1,
+      "explanation": "A motion vector is a displacement that tells the decoder where to find the matching block in the reference frame, avoiding the need to encode the full block."
+    },
+    {
+      "stage": "post",
+      "question": "What happens when a P-frame is lost during transmission?",
+      "options": [
+        "Only that frame is affected",
+        "All subsequent frames that depend on it (directly or indirectly) are corrupted",
+        "The video stops entirely",
+        "The I-frame is re-encoded"
+      ],
+      "correct": 1,
+      "explanation": "P-frames and B-frames that reference the lost P-frame cannot decode correctly. This error propagates until the next I-frame resets the prediction chain."
+    }
+  ]
+}

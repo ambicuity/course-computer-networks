@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Why does Jacobson's RTO formula include a 4 * RTTVAR term rather than just SRTT?",
+    "options": [
+      "A. Because RFC 6298 requires it for compatibility with BSD",
+      "B. Because the variance term prevents spurious retransmits when queueing delay spikes under load",
+      "C. Because TCP must always send data at line rate",
+      "D. Because the 4x factor matches the standard deviation for a Gaussian RTT distribution"
+    ],
+    "answer": 1,
+    "explanation": "On real networks, RTT is not constant -- it spikes when queues build up under load. A fixed 2xRTT timeout (the original 1981 rule) fires too early during queueing spikes, producing spurious retransmits that worsen congestion. Jacobson's insight was that the RTO must also track variance: 4 x RTTVAR (chosen so that ~99% of samples fall within RTO under an approximately Gaussian model)."
+  },
+  {
+    "question": "Why does Karn's algorithm forbid RTT sampling from retransmitted segments?",
+    "options": [
+      "A. Because retransmitted segments carry a different IP identification field",
+      "B. Because the ack might be for the original or the retransmission, and the kernel cannot tell which -- using either would corrupt SRTT/RTTVAR",
+      "C. Because the checksum is different on retransmitted segments",
+      "D. Because retransmitted segments always have RTT less than 1 ms"
+    ],
+    "answer": 1,
+    "explanation": "When the retransmission timer fires, the sender sends a second copy of the segment. When an ack arrives, the kernel cannot tell whether the ack acknowledges the first copy or the second -- the ACK number alone is the same in both cases. Sampling that RTT into SRTT/RTTVAR would mix the original RTT (good) with the retransmission RTT (which already includes the timeout, very bad). Karn's fix: skip RTT sampling for any retransmitted segment, and double the RTO on each timeout until a fresh (non-retransmitted) sample arrives."
+  },
+  {
+    "question": "Why does TCP Reno prefer fast retransmit (after 3 duplicate acks) over waiting for the retransmission timer?",
+    "options": [
+      "A. Because duplicate acks are encrypted and timers are not",
+      "B. Because the timer is at least 1 second long and that delay hurts throughput; three duplicate acks strongly imply single-packet loss, so the sender can retransmit immediately",
+      "C. Because the receiver demands it",
+      "D. Because fast retransmit uses less CPU than timers"
+    ],
+    "answer": 1,
+    "explanation": "A retransmission timer is at least 1 second (RFC 6298 minimum RTO). If the sender can detect loss from three duplicate acks -- which arrives within a few milliseconds of the original transmission -- it can retransmit without waiting for the timer. This is the difference between TCP Tahoe (drops to slow start on any loss) and TCP Reno (fast retransmit + fast recovery). Reno's saw-tooth cwnd pattern achieves much higher throughput on links with occasional single-packet loss."
+  }
+]

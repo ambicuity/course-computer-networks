@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <rect width="920" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5560; }
+    .node { font-size: 15px; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .accent { fill: #E2557A; }
+    .label { font-size: 12px; fill: #6b5560; }
+  </style>
+
+  <text x="40" y="46" class="title">DNSSEC DS / DNSKEY Chain Rollover Break</text>
+  <text x="40" y="68" class="sub">Child rolled the KSK; parent has not yet published the new DS; chain goes bogus</text>
+
+  <rect x="40" y="120" width="120" height="80" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="100" y="148" text-anchor="middle" class="node">Root</text>
+  <text x="100" y="170" text-anchor="middle" class="mono">trust anchor</text>
+
+  <rect x="200" y="120" width="120" height="80" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="260" y="148" text-anchor="middle" class="node">.com (TLD)</text>
+  <text x="260" y="170" text-anchor="middle" class="mono">ZSK signs DS</text>
+
+  <rect x="360" y="80" width="180" height="160" rx="10" fill="#fff" stroke="#E2557A" stroke-width="2.5"/>
+  <text x="450" y="108" text-anchor="middle" class="node accent">parent DS</text>
+  <text x="450" y="128" text-anchor="middle" class="mono accent">key_tag=12345</text>
+  <text x="450" y="148" text-anchor="middle" class="mono accent">algo=8 (RSASHA256)</text>
+  <text x="450" y="168" text-anchor="middle" class="label">OLD KSK only</text>
+  <text x="450" y="190" text-anchor="middle" class="label accent">no DS for new KSK</text>
+  <text x="450" y="216" text-anchor="middle" class="label">child DNSKEY has KSK 12345 (old) and 67890 (new)</text>
+
+  <rect x="600" y="120" width="200" height="80" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="2"/>
+  <text x="700" y="148" text-anchor="middle" class="node">example.com</text>
+  <text x="700" y="170" text-anchor="middle" class="mono">KSK old 12345 + new 67890</text>
+  <text x="700" y="190" text-anchor="middle" class="label">ZSK 33555, A api 1.2.3.4</text>
+
+  <line x1="160" y1="160" x2="200" y2="160" stroke="#2A1A2E" stroke-width="2.5"/>
+  <line x1="320" y1="160" x2="360" y2="140" stroke="#2A1A2E" stroke-width="2.5"/>
+  <line x1="540" y1="160" x2="600" y2="160" stroke="#2A1A2E" stroke-width="2.5"/>
+  <line x1="450" y1="240" x2="450" y2="280" stroke="#E2557A" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <text x="540" y="262" class="label accent">chain broken here</text>
+
+  <rect x="40" y="320" width="840" height="220" rx="10" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="60" y="348" class="node">dig +dnssec diagnosis</text>
+  <text x="60" y="372" class="mono">dig +dnssec +multi @127.0.0.1 api.example.com A</text>
+  <text x="60" y="392" class="mono accent">status: SERVFAIL (bogus chain)</text>
+  <text x="60" y="412" class="mono">dig +dnssec DS example.com @gtld-servers</text>
+  <text x="60" y="432" class="mono">  example.com.  86400  IN  DS  12345 8 2 4ab1...</text>
+  <text x="60" y="456" class="mono">dig +dnssec DNSKEY example.com @authoritative-ns</text>
+  <text x="60" y="476" class="mono">  example.com.  3600  IN  DNSKEY  256 3 8 ... ; ZSK 33555</text>
+  <text x="60" y="496" class="mono accent">  example.com.  3600  IN  DNSKEY  257 3 8 ... ; KSK 67890 (new, no DS in parent)</text>
+  <text x="60" y="520" class="mono">Fix: publish DS for key_tag 67890 in parent; wait for parent TTL 86400s; retire old DS only after the new one is visible globally.</text>
+</svg>

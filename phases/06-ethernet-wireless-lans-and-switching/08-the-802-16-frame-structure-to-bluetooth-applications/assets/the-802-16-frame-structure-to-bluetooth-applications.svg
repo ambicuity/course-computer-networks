@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 600" width="860" height="600">
+  <rect width="860" height="600" fill="#FFF7EC"/>
+  <style>
+    .t { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .m { font-family: monospace; fill: #2A1A2E; }
+    .title { font-size: 21px; font-weight: 700; }
+    .sub { font-size: 13px; font-weight: 700; }
+    .lbl { font-size: 11px; }
+    .bits { font-size: 10px; fill: #E2557A; font-family: monospace; }
+    .note { font-size: 11px; fill: #6b5560; font-style: italic; }
+    .cell { fill: none; stroke: #2A1A2E; stroke-width: 1.4; }
+    .acc { fill: #E2557A; fill-opacity: 0.16; stroke: #E2557A; stroke-width: 1.4; }
+  </style>
+
+  <text x="30" y="38" class="t title">802.16 MAC headers and the Bluetooth baseband frame</text>
+
+  <!-- 802.16 generic header -->
+  <text x="30" y="72" class="t sub">802.16 generic MAC header  (6 bytes / 48 bits)</text>
+  <text x="30" y="90" class="t note">HT = 0 marks a generic frame; headers are never encrypted</text>
+
+  <!-- cells: widths roughly proportional to bit counts, scaled -->
+  <g transform="translate(30,100)">
+    <rect class="acc"  x="0"   y="0" width="22"  height="46"/>
+    <rect class="cell" x="22"  y="0" width="22"  height="46"/>
+    <rect class="cell" x="44"  y="0" width="120" height="46"/>
+    <rect class="cell" x="164" y="0" width="22"  height="46"/>
+    <rect class="cell" x="186" y="0" width="40"  height="46"/>
+    <rect class="cell" x="226" y="0" width="150" height="46"/>
+    <rect class="cell" x="376" y="0" width="230" height="46"/>
+    <rect class="acc"  x="606" y="0" width="150" height="46"/>
+
+    <text x="11"  y="22" class="m bits" text-anchor="middle">1</text>
+    <text x="33"  y="22" class="m bits" text-anchor="middle">1</text>
+    <text x="104" y="22" class="m bits" text-anchor="middle">6</text>
+    <text x="175" y="22" class="m bits" text-anchor="middle">1</text>
+    <text x="206" y="22" class="m bits" text-anchor="middle">2</text>
+    <text x="301" y="22" class="m bits" text-anchor="middle">11</text>
+    <text x="491" y="22" class="m bits" text-anchor="middle">16</text>
+    <text x="681" y="22" class="m bits" text-anchor="middle">8</text>
+
+    <text x="11"  y="38" class="t lbl" text-anchor="middle">HT</text>
+    <text x="33"  y="38" class="t lbl" text-anchor="middle">EC</text>
+    <text x="104" y="38" class="t lbl" text-anchor="middle">Type</text>
+    <text x="175" y="38" class="t lbl" text-anchor="middle">CI</text>
+    <text x="206" y="38" class="t lbl" text-anchor="middle">EK</text>
+    <text x="301" y="38" class="t lbl" text-anchor="middle">Length</text>
+    <text x="491" y="38" class="t lbl" text-anchor="middle">Connection ID</text>
+    <text x="681" y="38" class="t lbl" text-anchor="middle">Header CRC</text>
+  </g>
+  <text x="636" y="166" class="t note">x^8 + x^2 + x + 1</text>
+
+  <!-- 802.16 bandwidth-request header -->
+  <text x="30" y="206" class="t sub">802.16 bandwidth-request header  (HT = 1, no payload, no full-frame CRC)</text>
+  <g transform="translate(30,218)">
+    <rect class="acc"  x="0"   y="0" width="22"  height="46"/>
+    <rect class="cell" x="22"  y="0" width="22"  height="46"/>
+    <rect class="cell" x="44"  y="0" width="120" height="46"/>
+    <rect class="acc"  x="164" y="0" width="212" height="46"/>
+    <rect class="cell" x="376" y="0" width="230" height="46"/>
+    <rect class="acc"  x="606" y="0" width="150" height="46"/>
+
+    <text x="11"  y="22" class="m bits" text-anchor="middle">1</text>
+    <text x="33"  y="22" class="m bits" text-anchor="middle">1</text>
+    <text x="104" y="22" class="m bits" text-anchor="middle">6</text>
+    <text x="270" y="22" class="m bits" text-anchor="middle">16</text>
+    <text x="491" y="22" class="m bits" text-anchor="middle">16</text>
+    <text x="681" y="22" class="m bits" text-anchor="middle">8</text>
+
+    <text x="11"  y="38" class="t lbl" text-anchor="middle">HT=1</text>
+    <text x="33"  y="38" class="t lbl" text-anchor="middle">EC</text>
+    <text x="104" y="38" class="t lbl" text-anchor="middle">Type</text>
+    <text x="270" y="38" class="t lbl" text-anchor="middle">Bytes needed</text>
+    <text x="491" y="38" class="t lbl" text-anchor="middle">Connection ID</text>
+    <text x="681" y="38" class="t lbl" text-anchor="middle">Header CRC</text>
+  </g>
+
+  <line x1="30" y1="300" x2="830" y2="300" stroke="#2A1A2E" stroke-width="0.8" stroke-dasharray="4 4"/>
+
+  <!-- Bluetooth frame -->
+  <text x="30" y="334" class="t sub">Bluetooth basic-rate data frame</text>
+  <g transform="translate(30,346)">
+    <rect class="cell" x="0"   y="0" width="150" height="46"/>
+    <rect class="acc"  x="150" y="0" width="180" height="46"/>
+    <rect class="cell" x="330" y="0" width="476" height="46"/>
+
+    <text x="75"  y="22" class="m bits" text-anchor="middle">72</text>
+    <text x="240" y="22" class="m bits" text-anchor="middle">54</text>
+    <text x="568" y="22" class="m bits" text-anchor="middle">0 - 2744</text>
+
+    <text x="75"  y="38" class="t lbl" text-anchor="middle">Access code</text>
+    <text x="240" y="38" class="t lbl" text-anchor="middle">Header (18 bits x 3)</text>
+    <text x="568" y="38" class="t lbl" text-anchor="middle">Data (1X rate)</text>
+  </g>
+
+  <!-- Bluetooth 18-bit header expansion -->
+  <text x="30" y="424" class="t note">The 54-bit header carries 18 logical bits sent 3 times; receiver takes per-bit majority vote</text>
+  <g transform="translate(30,436)">
+    <rect class="cell" x="0"   y="0" width="90"  height="44"/>
+    <rect class="cell" x="90"  y="0" width="120" height="44"/>
+    <rect class="cell" x="210" y="0" width="60"  height="44"/>
+    <rect class="cell" x="270" y="0" width="60"  height="44"/>
+    <rect class="cell" x="330" y="0" width="60"  height="44"/>
+    <rect class="acc"  x="390" y="0" width="160" height="44"/>
+
+    <text x="45"  y="21" class="m bits" text-anchor="middle">3</text>
+    <text x="150" y="21" class="m bits" text-anchor="middle">4</text>
+    <text x="240" y="21" class="m bits" text-anchor="middle">1</text>
+    <text x="300" y="21" class="m bits" text-anchor="middle">1</text>
+    <text x="360" y="21" class="m bits" text-anchor="middle">1</text>
+    <text x="470" y="21" class="m bits" text-anchor="middle">8</text>
+
+    <text x="45"  y="37" class="t lbl" text-anchor="middle">Addr</text>
+    <text x="150" y="37" class="t lbl" text-anchor="middle">Type</text>
+    <text x="240" y="37" class="t lbl" text-anchor="middle">Flow</text>
+    <text x="300" y="37" class="t lbl" text-anchor="middle">ARQN</text>
+    <text x="360" y="37" class="t lbl" text-anchor="middle">SEQN</text>
+    <text x="470" y="37" class="t lbl" text-anchor="middle">Checksum</text>
+  </g>
+
+  <!-- piconet sketch -->
+  <text x="600" y="436" class="t sub">Piconet (TDM)</text>
+  <g transform="translate(680,500)">
+    <circle cx="0" cy="0" r="20" class="acc"/>
+    <text x="0" y="4" class="t lbl" text-anchor="middle" font-weight="700">M</text>
+    <circle cx="-70" cy="-30" r="14" class="cell"/>
+    <circle cx="-70" cy="40"  r="14" class="cell"/>
+    <circle cx="70"  cy="-30" r="14" class="cell"/>
+    <circle cx="70"  cy="40"  r="14" class="cell"/>
+    <line x1="-18" y1="-8"  x2="-58" y2="-26" stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="-18" y1="10"  x2="-58" y2="36"  stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="18"  y1="-8"  x2="58"  y2="-26" stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="18"  y1="10"  x2="58"  y2="36"  stroke="#2A1A2E" stroke-width="1.2"/>
+    <text x="-70" y="-26" class="t lbl" text-anchor="middle">S</text>
+    <text x="-70" y="44"  class="t lbl" text-anchor="middle">S</text>
+    <text x="70"  y="-26" class="t lbl" text-anchor="middle">S</text>
+    <text x="70"  y="44"  class="t lbl" text-anchor="middle">S</text>
+  </g>
+  <text x="540" y="470" class="t note">1 master,</text>
+  <text x="540" y="486" class="t note">&#8804;7 active,</text>
+  <text x="540" y="502" class="t note">255 parked;</text>
+  <text x="540" y="518" class="t note">625 us slots</text>
+</svg>

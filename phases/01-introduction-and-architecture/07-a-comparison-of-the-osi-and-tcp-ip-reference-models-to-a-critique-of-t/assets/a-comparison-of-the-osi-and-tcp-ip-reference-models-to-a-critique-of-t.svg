@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5a6e; }
+    .hdr { font-size: 15px; font-weight: 700; }
+    .lyr { font-size: 13px; }
+    .mono { font-family: monospace; font-size: 11px; }
+    .note { font-size: 11px; fill: #6b5a6e; }
+    .acc { font-size: 12px; font-weight: 700; fill: #E2557A; }
+  </style>
+
+  <text class="title" x="32" y="42">OSI (7) vs TCP/IP (4): overlay and critique</text>
+  <text class="sub" x="32" y="62">Same end-to-end goal, different layer boundaries — and each model's flaw</text>
+
+  <!-- Column headers -->
+  <text class="hdr" x="120" y="100">OSI model</text>
+  <text class="hdr" x="430" y="100">TCP/IP model</text>
+
+  <!-- OSI stack: 7 boxes -->
+  <!-- Application 7 -->
+  <rect x="60" y="115" width="220" height="34" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="lyr" x="72" y="137">7  Application</text>
+  <!-- Presentation 6 -->
+  <rect x="60" y="153" width="220" height="34" rx="5" fill="#fff" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text class="lyr" x="72" y="175">6  Presentation</text>
+  <!-- Session 5 -->
+  <rect x="60" y="191" width="220" height="34" rx="5" fill="#fff" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text class="lyr" x="72" y="213">5  Session</text>
+  <!-- Transport 4 -->
+  <rect x="60" y="229" width="220" height="34" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="lyr" x="72" y="251">4  Transport</text>
+  <!-- Network 3 -->
+  <rect x="60" y="267" width="220" height="34" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="lyr" x="72" y="289">3  Network</text>
+  <!-- Data Link 2 -->
+  <rect x="60" y="305" width="220" height="34" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="lyr" x="72" y="327">2  Data Link</text>
+  <!-- Physical 1 -->
+  <rect x="60" y="343" width="220" height="34" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="lyr" x="72" y="365">1  Physical</text>
+
+  <!-- TCP/IP stack: 4 boxes aligned to overlay -->
+  <!-- Application (folds 5-7) -->
+  <rect x="430" y="115" width="220" height="110" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="lyr" x="442" y="166">Application</text>
+  <text class="note" x="442" y="184">folds OSI 5,6,7</text>
+  <!-- Transport -->
+  <rect x="430" y="229" width="220" height="34" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="lyr" x="442" y="251">Transport (TCP / UDP)</text>
+  <!-- Internet -->
+  <rect x="430" y="267" width="220" height="34" rx="5" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="lyr" x="442" y="289">Internet (IP, connectionless)</text>
+  <!-- Host-to-Network (merges 1+2) -->
+  <rect x="430" y="305" width="220" height="72" rx="5" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text class="lyr" x="442" y="334">Host-to-Network</text>
+  <text class="acc" x="442" y="352">merges Physical + Data Link</text>
+  <text class="note" x="442" y="368">(really an interface, not a layer)</text>
+
+  <!-- connecting arrows for the clean correspondences -->
+  <line x1="280" y1="246" x2="430" y2="246" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="284" x2="430" y2="284" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="132" x2="430" y2="160" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- legend -->
+  <rect x="60" y="398" width="14" height="14" rx="3" fill="#fff" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text class="note" x="82" y="410">nearly-empty OSI layers (session, presentation)</text>
+  <rect x="430" y="398" width="14" height="14" rx="3" fill="#fff" stroke="#E2557A" stroke-width="2"/>
+  <text class="note" x="452" y="410">TCP/IP critique: merged + mislabeled</text>
+
+  <!-- critique strip -->
+  <rect x="32" y="432" width="696" height="104" rx="8" fill="#fff" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text class="hdr" x="48" y="456">Where each model is criticized</text>
+  <text class="mono" x="48" y="480">OSI:  model-first -> general but mismatched reality (convergence sublayers);</text>
+  <text class="mono" x="48" y="498">      7 layers "more political than technical"; bad timing crushed it.</text>
+  <text class="mono" x="48" y="516">TCP/IP: no service/interface/protocol split; host-to-net is an interface;</text>
+  <text class="mono" x="48" y="534">      no physical/data-link split; cannot describe non-IP stacks (Bluetooth).</text>
+</svg>

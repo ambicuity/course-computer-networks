@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <rect width="880" height="520" fill="#FFF7EC"/>
+  <!-- Title -->
+  <text x="440" y="36" text-anchor="middle" fill="#2A1A2E" font-size="20" font-weight="700">IP Fragmentation: 1500-byte packet → 3 fragments (MTU 576)</text>
+  <text x="440" y="58" text-anchor="middle" fill="#2A1A2E" font-size="12" opacity="0.7">20-byte IP header shown separately; payload split on 8-byte boundaries</text>
+
+  <!-- Original packet -->
+  <text x="60" y="98" fill="#2A1A2E" font-size="13" font-weight="600">Original datagram (id=0x1A2B, DF=0, MF=0)</text>
+  <rect x="60" y="106" width="120" height="56" fill="#E2557A" rx="3"/>
+  <text x="120" y="138" text-anchor="middle" fill="#FFF7EC" font-size="12" font-weight="700">IP hdr</text>
+  <text x="120" y="152" text-anchor="middle" fill="#FFF7EC" font-size="10">20 B</text>
+  <rect x="180" y="106" width="640" height="56" fill="#2A1A2E" rx="3"/>
+  <text x="500" y="138" text-anchor="middle" fill="#FFF7EC" font-size="14" font-weight="700">Payload: 1480 bytes</text>
+  <line x1="240" y1="166" x2="240" y2="186" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="792" y1="166" x2="792" y2="186" stroke="#E2557A" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="120" y="180" text-anchor="middle" fill="#2A1A2E" font-size="10">0</text>
+  <text x="500" y="180" text-anchor="middle" fill="#2A1A2E" font-size="10">byte offset →</text>
+  <text x="800" y="180" text-anchor="middle" fill="#2A1A2E" font-size="10">1480</text>
+
+  <!-- Arrow -->
+  <text x="440" y="214" text-anchor="middle" fill="#E2557A" font-size="13" font-weight="700">↓ router fragments at MTU 576 (max payload 556 → 552, multiple of 8)</text>
+
+  <!-- Fragment 1 -->
+  <text x="60" y="252" fill="#2A1A2E" font-size="12" font-weight="600">Frag 1: off=0, offset_f=0, MF=1</text>
+  <rect x="60" y="258" width="56" height="44" fill="#E2557A" rx="3"/>
+  <text x="88" y="284" text-anchor="middle" fill="#FFF7EC" font-size="11" font-weight="700">hdr</text>
+  <rect x="116" y="258" width="300" height="44" fill="#2A1A2E" rx="3"/>
+  <text x="266" y="284" text-anchor="middle" fill="#FFF7EC" font-size="12">payload 552 B</text>
+  <text x="420" y="284" fill="#2A1A2E" font-size="11">→ offset 0</text>
+
+  <!-- Fragment 2 -->
+  <text x="60" y="322" fill="#2A1A2E" font-size="12" font-weight="600">Frag 2: off=552, offset_f=69, MF=1</text>
+  <rect x="60" y="328" width="56" height="44" fill="#E2557A" rx="3"/>
+  <text x="88" y="354" text-anchor="middle" fill="#FFF7EC" font-size="11" font-weight="700">hdr</text>
+  <rect x="116" y="328" width="300" height="44" fill="#2A1A2E" rx="3"/>
+  <text x="266" y="354" text-anchor="middle" fill="#FFF7EC" font-size="12">payload 552 B</text>
+  <text x="420" y="354" fill="#2A1A2E" font-size="11">→ offset 552</text>
+
+  <!-- Fragment 3 -->
+  <text x="60" y="392" fill="#2A1A2E" font-size="12" font-weight="600">Frag 3: off=1104, offset_f=138, MF=0 (last)</text>
+  <rect x="60" y="398" width="56" height="44" fill="#E2557A" rx="3"/>
+  <text x="88" y="424" text-anchor="middle" fill="#FFF7EC" font-size="11" font-weight="700">hdr</text>
+  <rect x="116" y="398" width="204" height="44" fill="#2A1A2E" rx="3"/>
+  <text x="218" y="424" text-anchor="middle" fill="#FFF7EC" font-size="12">payload 376 B</text>
+  <text x="420" y="424" fill="#2A1A2E" font-size="11">→ offset 1104</text>
+
+  <!-- Legend -->
+  <rect x="540" y="398" width="16" height="16" fill="#E2557A" rx="2"/>
+  <text x="562" y="411" fill="#2A1A2E" font-size="11">IP header (20 B)</text>
+  <rect x="540" y="420" width="16" height="16" fill="#2A1A2E" rx="2"/>
+  <text x="562" y="433" fill="#2A1A2E" font-size="11">Payload</text>
+
+  <!-- Checksum -->
+  <text x="440" y="482" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">552 + 552 + 376 = 1480 ✓ · offset field = byte_offset ÷ 8 · MF=0 only on last</text>
+  <text x="440" y="500" text-anchor="middle" fill="#E2557A" font-size="11" font-weight="600">RFC 791 (IPv4) · RFC 8201 (PMTUD IPv6) · RFC 8200 (IPv6 Frag header)</text>
+</svg>

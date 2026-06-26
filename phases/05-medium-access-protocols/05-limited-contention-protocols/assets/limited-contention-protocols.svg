@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <style>
+    text { font-family: Inter, system-ui, sans-serif; fill: #2A1A2E; }
+    .title { font-size: 20px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #6b5566; }
+    .lbl { font-size: 13px; }
+    .mono { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+    .node { fill: #FFF7EC; stroke: #2A1A2E; stroke-width: 2; }
+    .ready { fill: #E2557A; }
+    .edge { stroke: #2A1A2E; stroke-width: 1.6; fill: none; }
+    .accent { fill: #E2557A; }
+    .accentstroke { stroke: #E2557A; stroke-width: 2.4; fill: none; }
+  </style>
+
+  <text class="title" x="32" y="40">Adaptive Tree Walk Protocol</text>
+  <text class="sub" x="32" y="60">Collision at the root triggers a depth-first probe; ready = {C, E}</text>
+
+  <!-- edges (drawn first so nodes sit on top) -->
+  <!-- root 1 -->
+  <line class="edge" x1="380" y1="118" x2="240" y2="190"/>
+  <line class="edge" x1="380" y1="118" x2="520" y2="190"/>
+  <!-- node 2 -->
+  <line class="edge" x1="240" y1="210" x2="150" y2="280"/>
+  <line class="edge" x1="240" y1="210" x2="330" y2="280"/>
+  <!-- node 3 -->
+  <line class="edge" x1="520" y1="210" x2="430" y2="280"/>
+  <line class="edge" x1="520" y1="210" x2="610" y2="280"/>
+  <!-- node 4 -->
+  <line class="edge" x1="150" y1="300" x2="110" y2="368"/>
+  <line class="edge" x1="150" y1="300" x2="190" y2="368"/>
+  <!-- node 5 -->
+  <line class="edge" x1="330" y1="300" x2="290" y2="368"/>
+  <line class="edge" x1="330" y1="300" x2="370" y2="368"/>
+  <!-- node 6 -->
+  <line class="edge" x1="430" y1="300" x2="390" y2="368"/>
+  <line class="edge" x1="430" y1="300" x2="470" y2="368"/>
+  <!-- node 7 -->
+  <line class="edge" x1="610" y1="300" x2="570" y2="368"/>
+  <line class="edge" x1="610" y1="300" x2="650" y2="368"/>
+
+  <!-- internal nodes -->
+  <g class="lbl">
+    <circle class="node" cx="380" cy="108" r="20"/><text x="380" y="113" text-anchor="middle">1</text>
+    <circle class="node" cx="240" cy="200" r="18"/><text x="240" y="205" text-anchor="middle">2</text>
+    <circle class="node" cx="520" cy="200" r="18"/><text x="520" y="205" text-anchor="middle">3</text>
+    <circle class="node" cx="150" cy="290" r="16"/><text x="150" y="295" text-anchor="middle">4</text>
+    <circle class="node" cx="330" cy="290" r="16"/><text x="330" y="295" text-anchor="middle">5</text>
+    <circle class="node" cx="430" cy="290" r="16"/><text x="430" y="295" text-anchor="middle">6</text>
+    <circle class="node" cx="610" cy="290" r="16"/><text x="610" y="295" text-anchor="middle">7</text>
+  </g>
+
+  <!-- leaves A-H -->
+  <g class="lbl">
+    <rect class="node" x="92"  y="368" width="36" height="30" rx="5"/><text x="110" y="388" text-anchor="middle">A</text>
+    <rect class="node" x="172" y="368" width="36" height="30" rx="5"/><text x="190" y="388" text-anchor="middle">B</text>
+    <rect class="node ready" x="272" y="368" width="36" height="30" rx="5"/><text x="290" y="388" text-anchor="middle" fill="#FFF7EC">C</text>
+    <rect class="node" x="352" y="368" width="36" height="30" rx="5"/><text x="370" y="388" text-anchor="middle">D</text>
+    <rect class="node ready" x="372" y="368" width="36" height="30" rx="5"/><text x="390" y="388" text-anchor="middle" fill="#FFF7EC">E</text>
+    <rect class="node" x="452" y="368" width="36" height="30" rx="5"/><text x="470" y="388" text-anchor="middle">F</text>
+    <rect class="node" x="552" y="368" width="36" height="30" rx="5"/><text x="570" y="388" text-anchor="middle">G</text>
+    <rect class="node" x="632" y="368" width="36" height="30" rx="5"/><text x="650" y="388" text-anchor="middle">H</text>
+  </g>
+
+  <!-- slot annotations on the walk path -->
+  <text class="mono accent" x="402" y="100">slot 0: collision</text>
+  <text class="mono accent" x="160" y="195">slot 1: C ok</text>
+  <text class="mono accent" x="540" y="195">slot 2: E ok</text>
+
+  <!-- legend -->
+  <rect class="node ready" x="32" y="430" width="20" height="20" rx="4"/>
+  <text class="lbl" x="60" y="445">ready station (has a frame)</text>
+  <line class="accentstroke" x1="32" y1="468" x2="52" y2="468"/>
+  <text class="lbl" x="60" y="473">node owning a contention slot</text>
+
+  <!-- acquisition curve note -->
+  <rect x="430" y="424" width="298" height="108" rx="8" fill="none" stroke="#2A1A2E" stroke-width="1.4"/>
+  <text class="lbl" x="446" y="448" font-weight="700">Why grouping helps</text>
+  <text class="mono" x="446" y="470">Pr[success] = k·p·(1−p)^(k−1)</text>
+  <text class="mono" x="446" y="488">optimal p = 1/k  →  1/e ≈ 0.368</text>
+  <text class="sub" x="446" y="510">Smaller contention group k</text>
+  <text class="sub" x="446" y="526">moves each slot left of the 1/e cliff.</text>
+
+  <!-- start-level hint -->
+  <text class="sub" x="32" y="510">Under load q, start at level i = ⌊log₂ q⌋</text>
+  <text class="sub" x="32" y="528">so expected 2⁻ⁱ·q ≈ 1 contender per slot.</text>
+</svg>

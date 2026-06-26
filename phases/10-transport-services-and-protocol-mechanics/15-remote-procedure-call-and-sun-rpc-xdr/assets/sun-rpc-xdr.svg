@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-label="Sun RPC record and XDR encoding">
+  <defs>
+    <style>
+      .bg { fill: #FFF7EC; }
+      .ink { fill: #2A1A2E; }
+      .accent { fill: #E2557A; }
+      .stroke-ink { stroke: #2A1A2E; fill: none; stroke-width: 1.6; }
+      .stroke-accent { stroke: #E2557A; fill: none; stroke-width: 2.0; }
+      .stroke-dash { stroke: #2A1A2E; fill: none; stroke-width: 1.2; stroke-dasharray: 4 3; }
+      .label { font: 600 12px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+      .label-accent { font: 700 12px ui-sans-serif, system-ui, sans-serif; fill: #E2557A; }
+      .title { font: 700 22px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+      .sub { font: 500 11px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+      .mono { font: 500 11px ui-monospace, Menlo, monospace; fill: #2A1A2E; }
+      .small { font: 500 10px ui-sans-serif, system-ui, sans-serif; fill: #2A1A2E; }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="960" height="620"/>
+
+  <text class="title" x="36" y="44">Sun RPC (RFC 5531) + XDR (RFC 4506)</text>
+  <text class="sub" x="36" y="64">Big-endian, 4-byte aligned; client chooses XID, server uses (program, version, procedure)</text>
+
+  <!-- Top half: RPC record header -->
+  <g transform="translate(36, 92)">
+    <text class="label" x="0" y="0">ONC RPC CALL/REPLY RECORD (EVERY FIELD = 32 BITS, BIG-ENDIAN)</text>
+    <g transform="translate(0, 16)">
+      <rect class="stroke-ink" x="0"   y="0" width="80" height="40"/>
+      <text class="label" x="40"  y="18" text-anchor="middle">XID</text>
+      <text class="small" x="40"  y="32" text-anchor="middle">txn id</text>
+      <rect class="stroke-ink" x="80"  y="0" width="80" height="40"/>
+      <text class="label" x="120" y="18" text-anchor="middle">Type</text>
+      <text class="small" x="120" y="32" text-anchor="middle">CALL/REPLY</text>
+      <rect class="stroke-ink" x="160" y="0" width="80" height="40"/>
+      <text class="label" x="200" y="18" text-anchor="middle">RPC v</text>
+      <text class="small" x="200" y="32" text-anchor="middle">= 2</text>
+      <rect class="stroke-accent" x="240" y="0" width="80" height="40"/>
+      <text class="label-accent" x="280" y="18" text-anchor="middle">Prog</text>
+      <text class="small" x="280" y="32" text-anchor="middle">100003 NFS</text>
+      <rect class="stroke-accent" x="320" y="0" width="80" height="40"/>
+      <text class="label-accent" x="360" y="18" text-anchor="middle">Vers</text>
+      <text class="small" x="360" y="32" text-anchor="middle">v3, v4</text>
+      <rect class="stroke-accent" x="400" y="0" width="80" height="40"/>
+      <text class="label-accent" x="440" y="18" text-anchor="middle">Proc</text>
+      <text class="small" x="440" y="32" text-anchor="middle">GETATTR...</text>
+      <rect class="stroke-ink" x="480" y="0" width="120" height="40"/>
+      <text class="label" x="540" y="18" text-anchor="middle">Cred</text>
+      <text class="small" x="540" y="32" text-anchor="middle">flavor+body</text>
+      <rect class="stroke-ink" x="600" y="0" width="120" height="40"/>
+      <text class="label" x="660" y="18" text-anchor="middle">Verf</text>
+      <text class="small" x="660" y="32" text-anchor="middle">flavor+body</text>
+      <rect class="stroke-dash" x="0" y="40" width="720" height="36"/>
+      <text class="label" x="360" y="62" text-anchor="middle">Call body / reply body (XDR-encoded args)</text>
+    </g>
+
+    <!-- Record marking for TCP -->
+    <g transform="translate(0, 116)">
+      <text class="label" x="0" y="0">RECORD MARKING (RPC OVER TCP, RFC 5531 sec 8)</text>
+      <g transform="translate(0, 12)">
+        <rect class="stroke-accent" x="0" y="0" width="40" height="32"/>
+        <text class="label-accent" x="20" y="20" text-anchor="middle">1</text>
+        <text class="small" x="20" y="42" text-anchor="middle">MSB = last</text>
+        <rect class="stroke-ink" x="40" y="0" width="120" height="32"/>
+        <text class="label" x="100" y="20" text-anchor="middle">length (31 bits)</text>
+        <rect class="stroke-dash" x="160" y="0" width="200" height="32"/>
+        <text class="label" x="260" y="20" text-anchor="middle">fragment bytes</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom half: XDR type table -->
+  <g transform="translate(36, 280)">
+    <text class="label" x="0" y="0">XDR TYPE ENCODING (RFC 4506)</text>
+    <rect class="stroke-ink" x="0" y="10" width="888" height="280"/>
+    <line class="stroke-ink" x1="0"   y1="40" x2="888" y2="40"/>
+    <line class="stroke-ink" x1="180" y1="10" x2="180" y2="290"/>
+    <line class="stroke-ink" x1="320" y1="10" x2="320" y2="290"/>
+    <line class="stroke-ink" x1="500" y1="10" x2="500" y2="290"/>
+
+    <text class="label" x="90"  y="30" text-anchor="middle">Type</text>
+    <text class="label" x="250" y="30" text-anchor="middle">Size</text>
+    <text class="label" x="410" y="30" text-anchor="middle">Encoding</text>
+    <text class="label" x="694" y="30" text-anchor="middle">Example</text>
+
+    <text class="mono" x="14"  y="64">int</text>
+    <text class="mono" x="14"  y="84">unsigned int</text>
+    <text class="mono" x="14"  y="104">hyper</text>
+    <text class="mono" x="14"  y="124">bool</text>
+    <text class="mono" x="14"  y="144">float</text>
+    <text class="mono" x="14"  y="164">double</text>
+    <text class="mono" x="14"  y="184">string</text>
+    <text class="mono" x="14"  y="204">opaque (var)</text>
+    <text class="mono" x="14"  y="224">array</text>
+    <text class="mono" x="14"  y="244">enum</text>
+    <text class="mono" x="14"  y="264">discrim union</text>
+
+    <text class="mono" x="190" y="64">4 B</text>
+    <text class="mono" x="190" y="84">4 B</text>
+    <text class="mono" x="190" y="104">8 B</text>
+    <text class="mono" x="190" y="124">4 B</text>
+    <text class="mono" x="190" y="144">4 B</text>
+    <text class="mono" x="190" y="164">8 B</text>
+    <text class="mono" x="190" y="184">4 + N</text>
+    <text class="mono" x="190" y="204">4 + N</text>
+    <text class="mono" x="190" y="224">4 + N*E</text>
+    <text class="mono" x="190" y="244">4 B</text>
+    <text class="mono" x="190" y="264">4 + B</text>
+
+    <text class="mono" x="330" y="64">big-endian 2's complement</text>
+    <text class="mono" x="330" y="84">big-endian unsigned</text>
+    <text class="mono" x="330" y="104">big-endian 64-bit</text>
+    <text class="mono" x="330" y="124">0x00000000 / 0x00000001</text>
+    <text class="mono" x="330" y="144">IEEE 754 single, big-endian</text>
+    <text class="mono" x="330" y="164">IEEE 754 double, big-endian</text>
+    <text class="mono" x="330" y="184">length + UTF-8 + 0-pad to 4</text>
+    <text class="mono" x="330" y="204">length + bytes + 0-pad to 4</text>
+    <text class="mono" x="330" y="224">count + elements (each 4-aligned)</text>
+    <text class="mono" x="330" y="244">encoded as int</text>
+    <text class="mono" x="330" y="264">discriminant + branch encoding</text>
+
+    <text class="mono" x="510" y="64">42 -&gt; 00 00 00 2A</text>
+    <text class="mono" x="510" y="84">7  -&gt; 00 00 00 07</text>
+    <text class="mono" x="510" y="104">2^40 -&gt; 00 00 01 00 00 00 00 00 00 00</text>
+    <text class="mono" x="510" y="124">true -&gt; 00 00 00 01</text>
+    <text class="mono" x="510" y="144">3.5 -&gt; 40 60 00 00</text>
+    <text class="mono" x="510" y="164">2.718 -&gt; 40 05 BF 09 95 AA F6 6C</text>
+    <text class="mono" x="510" y="184">"hi" -&gt; 00 00 00 02 68 69 00 00</text>
+    <text class="mono" x="510" y="204">"\x01\x02" -&gt; 00 00 00 02 01 02 00 00</text>
+    <text class="mono" x="510" y="224">[1,2] -&gt; 00 00 00 02 00 00 00 01 00 00 00 02</text>
+    <text class="mono" x="510" y="244">color=RED(1) -&gt; 00 00 00 01</text>
+    <text class="mono" x="510" y="264">{0:OK(7)} -&gt; 00 00 00 00 00 00 00 07</text>
+  </g>
+</svg>

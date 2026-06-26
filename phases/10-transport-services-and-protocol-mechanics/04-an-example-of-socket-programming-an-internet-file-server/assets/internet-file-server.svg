@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <rect width="800" height="560" fill="#FFF7EC"/>
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="40" font-size="22" font-weight="700">Internet File Server — client and server call flow</text>
+    <text x="32" y="62" font-size="13" fill="#7A5478">Tanenbaum 6.1.4, Fig. 6-6 — port 12345, BUF_SIZE = 4096, QUEUE_SIZE = 10</text>
+  </g>
+
+  <!-- Server column -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="60" y="100" font-size="12" font-weight="700" fill="#7A5478">SERVER (passive open)</text>
+    <rect x="60" y="110" width="280" height="28" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="70" y="129" font-size="12">socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)</text>
+    <rect x="60" y="142" width="280" height="28" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="70" y="161" font-size="12">setsockopt(SO_REUSEADDR, on=1)</text>
+    <rect x="60" y="174" width="280" height="28" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="70" y="193" font-size="12">bind(0.0.0.0:12345)  [INADDR_ANY, htons]</text>
+    <rect x="60" y="206" width="280" height="28" rx="4" fill="#FFD2C2" stroke="#E2557A"/>
+    <text x="70" y="225" font-size="12">listen(QUEUE_SIZE=10)</text>
+
+    <!-- main loop -->
+    <rect x="60" y="246" width="280" height="200" rx="6" fill="#FFCFB8" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="70" y="266" font-size="12" font-weight="700">while(1) { /* forever */</text>
+    <text x="80" y="286" font-size="12">sa = accept(s, 0, 0);   /* blocks */</text>
+    <text x="80" y="306" font-size="12">read(sa, buf, 4096);    /* filename + NUL */</text>
+    <text x="80" y="326" font-size="12">fd = open(buf, O_RDONLY);</text>
+    <text x="80" y="346" font-size="12">while ((bytes = read(fd, buf, 4096)) &gt; 0)</text>
+    <text x="90" y="366" font-size="12">write(sa, buf, bytes);</text>
+    <text x="80" y="386" font-size="12">close(fd); close(sa); /* FIN */</text>
+    <text x="70" y="406" font-size="12">}</text>
+    <text x="70" y="430" font-size="11" fill="#7A5478">limitation: sequential — one connection at a time</text>
+  </g>
+
+  <!-- Client column -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="460" y="100" font-size="12" font-weight="700" fill="#7A5478">CLIENT (active open)</text>
+    <rect x="460" y="110" width="280" height="28" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="470" y="129" font-size="12">h = gethostbyname(argv[1])  /* DNS */</text>
+    <rect x="460" y="142" width="280" height="28" rx="4" fill="#FFE0D2" stroke="#E2557A"/>
+    <text x="470" y="161" font-size="12">socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)</text>
+    <rect x="460" y="174" width="280" height="28" rx="4" fill="#FFD2C2" stroke="#E2557A"/>
+    <text x="470" y="193" font-size="12">connect(10.0.1.5:12345)  /* 3-way handshake */</text>
+
+    <rect x="460" y="220" width="280" height="80" rx="6" fill="#FFCFB8" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="470" y="240" font-size="12" font-weight="700">write(s, argv[2], len+1)  /* filename + NUL */</text>
+    <text x="470" y="260" font-size="12" font-weight="700">while (1) {</text>
+    <text x="480" y="280" font-size="12">bytes = read(s, buf, 4096);</text>
+    <text x="480" y="293" font-size="12">if (bytes &lt;= 0) exit(0);   /* FIN */</text>
+
+    <rect x="460" y="310" width="280" height="80" rx="6" fill="#FFCFB8" stroke="#E2557A" stroke-width="1.5"/>
+    <text x="470" y="330" font-size="12" font-weight="700">write(1, buf, bytes)  /* stdout */</text>
+    <text x="470" y="350" font-size="12">… loops until server FIN</text>
+    <text x="470" y="372" font-size="11" fill="#7A5478">limitation: framing not length-prefixed</text>
+  </g>
+
+  <!-- Wire timeline -->
+  <g font-family="Menlo, Consolas, monospace" fill="#2A1A2E">
+    <text x="32" y="478" font-size="14" font-weight="700">Wire timeline (one file transfer)</text>
+    <line x1="120" y1="500" x2="120" y2="548" stroke="#2A1A2E" stroke-width="1.2"/>
+    <line x1="650" y1="500" x2="650" y2="548" stroke="#2A1A2E" stroke-width="1.2"/>
+    <text x="60" y="496" font-size="11" font-weight="700">client</text>
+    <text x="610" y="496" font-size="11" font-weight="700">server</text>
+
+    <line x1="120" y1="510" x2="650" y2="510" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="650,510 640,506 640,514" fill="#E2557A"/>
+    <text x="350" y="506" font-size="10">filename + NUL  →  3-way handshake establishes conn</text>
+
+    <line x1="650" y1="528" x2="120" y2="528" stroke="#E2557A" stroke-width="2" stroke-dasharray="3,3"/>
+    <polygon points="120,528 130,524 130,532" fill="#E2557A"/>
+    <text x="350" y="524" font-size="10">data[0..4095], data[4096..8191], …   (loop)</text>
+
+    <line x1="120" y1="546" x2="650" y2="546" stroke="#E2557A" stroke-width="2"/>
+    <polygon points="650,546 640,542 640,550" fill="#E2557A"/>
+    <text x="350" y="542" font-size="10">FIN, FIN+ACK, ACK  (close)</text>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Which RFC publishes the standard 1536-, 2048-, 3072-, and 4096-bit MODP Diffie-Hellman groups?",
+    "options": [
+      "A. RFC 5246 (TLS 1.2)",
+      "B. RFC 3526 (More MODP Diffie-Hellman groups for IKE)",
+      "C. RFC 7919 (Negotiated Finite Field DH Ephemeral Parameters for TLS)",
+      "D. RFC 6090 (Fundamental Elliptic Curve Cryptography Algorithms)"
+    ],
+    "answer": 1,
+    "explanation": "RFC 3526 defines the 1536-bit Group 5, 2048-bit Group 14, 3072-bit Group 15, and 4096-bit Group 16 MODP groups that IKE, SSH, and many other protocols use. RFC 7919 redefines the ffdhe2048/3072/4096/6144/8192 groups for TLS 1.3 with different generators. RFC 6090 covers ECDH, not MODP DH. RFC 5246 is TLS 1.2 itself."
+  },
+  {
+    "question": "Why does Diffie-Hellman require a safe prime p, where (p-1)/2 is also prime?",
+    "options": [
+      "A. It makes modular exponentiation faster on modern CPUs",
+      "B. It prevents the Pohlig-Hellman attack that splits the discrete log problem into small factors via p-1 factorization",
+      "C. It is required for the generator g to exist",
+      "D. It ensures that the shared secret is always exactly the same length"
+    ],
+    "answer": 1,
+    "explanation": "If p-1 has small prime factors, an attacker can use Pohlig-Hellman to solve g^x mod p by reducing it to discrete logs in each small subgroup, then combining with the Chinese Remainder Theorem. A safe prime forces p-1 = 2q (where q is also prime), leaving only two subgroups to attack."
+  },
+  {
+    "question": "What does the man-in-the-middle attacker achieve against an unauthenticated Diffie-Hellman exchange?",
+    "options": [
+      "A. Recovers one party's private exponent by solving the discrete log",
+      "B. Establishes two independent shared secrets, one with each party, and can read or rewrite every encrypted message between them",
+      "C. Forges the generator g so that the shared secret becomes predictable",
+      "D. Forces both parties to negotiate a weak safe prime"
+    ],
+    "answer": 1,
+    "explanation": "Trudy picks her own exponent z, runs one DH with Alice (using her z) and one with Bob (using her z again). Alice computes g^(xz), Bob computes g^(zy), and Trudy holds both. She can decrypt any message and re-encrypt under the other key. The fix is to authenticate the exponentials with signatures or pre-shared keys."
+  }
+]

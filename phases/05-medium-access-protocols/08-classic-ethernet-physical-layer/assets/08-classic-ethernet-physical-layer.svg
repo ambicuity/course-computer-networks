@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 420" width="780" height="420">
+  <rect width="780" height="420" fill="#FFF7EC"/>
+
+  <!-- Title -->
+  <text x="390" y="32" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#2A1A2E" text-anchor="middle">Manchester Encoding — Classic Ethernet (IEEE 802.3)</text>
+  <text x="390" y="50" font-family="Inter, sans-serif" font-size="11" fill="#2A1A2E" text-anchor="middle">8-bit example stream: 1  0  1  1  0  0  1  0</text>
+
+  <!-- Bit period grid lines and labels -->
+  <!-- Each bit occupies 80px wide, starting at x=120, 8 bits = 640px, ending at x=760 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2A1A2E"/>
+    </marker>
+  </defs>
+
+  <!-- Bit boundary vertical dashed lines -->
+  <!-- x positions: 120, 200, 280, 360, 440, 520, 600, 680, 760 -->
+  <g stroke="#2A1A2E" stroke-width="0.6" stroke-dasharray="3,4" opacity="0.35">
+    <line x1="120" y1="65" x2="120" y2="390"/>
+    <line x1="200" y1="65" x2="200" y2="390"/>
+    <line x1="280" y1="65" x2="280" y2="390"/>
+    <line x1="360" y1="65" x2="360" y2="390"/>
+    <line x1="440" y1="65" x2="440" y2="390"/>
+    <line x1="520" y1="65" x2="520" y2="390"/>
+    <line x1="600" y1="65" x2="600" y2="390"/>
+    <line x1="680" y1="65" x2="680" y2="390"/>
+    <line x1="760" y1="65" x2="760" y2="390"/>
+  </g>
+
+  <!-- Mid-bit markers (accent color) at x = 160,240,320,400,480,560,640,720 -->
+  <g stroke="#E2557A" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.6">
+    <line x1="160" y1="65" x2="160" y2="390"/>
+    <line x1="240" y1="65" x2="240" y2="390"/>
+    <line x1="320" y1="65" x2="320" y2="390"/>
+    <line x1="400" y1="65" x2="400" y2="390"/>
+    <line x1="480" y1="65" x2="480" y2="390"/>
+    <line x1="560" y1="65" x2="560" y2="390"/>
+    <line x1="640" y1="65" x2="640" y2="390"/>
+    <line x1="720" y1="65" x2="720" y2="390"/>
+  </g>
+
+  <!-- Bit labels row -->
+  <g font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#E2557A" text-anchor="middle">
+    <text x="160" y="80">1</text>
+    <text x="240" y="80">0</text>
+    <text x="320" y="80">1</text>
+    <text x="400" y="80">1</text>
+    <text x="480" y="80">0</text>
+    <text x="560" y="80">0</text>
+    <text x="640" y="80">1</text>
+    <text x="720" y="80">0</text>
+  </g>
+
+  <!-- ======================== ROW 1: NRZ ======================== -->
+  <text x="10" y="125" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#2A1A2E">NRZ</text>
+  <!-- NRZ: 1=high(95), 0=low(135), step function per bit -->
+  <!-- Bits: 1 0 1 1 0 0 1 0 -->
+  <!-- y-high=95, y-low=135 -->
+  <polyline points="
+    120,95
+    200,95
+    200,135
+    280,135
+    280,95
+    360,95
+    360,95
+    440,95
+    440,135
+    520,135
+    520,135
+    600,135
+    600,95
+    680,95
+    680,135
+    760,135
+  " fill="none" stroke="#2A1A2E" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- NRZ axis -->
+  <line x1="120" y1="115" x2="760" y2="115" stroke="#2A1A2E" stroke-width="0.4" opacity="0.2"/>
+  <text x="765" y="119" font-family="Inter, sans-serif" font-size="9" fill="#2A1A2E" opacity="0.6">0V</text>
+  <text x="85" y="99" font-family="Inter, sans-serif" font-size="9" fill="#2A1A2E">+V</text>
+  <text x="85" y="139" font-family="Inter, sans-serif" font-size="9" fill="#2A1A2E">-V</text>
+
+  <!-- ======================== ROW 2: Clock ======================== -->
+  <text x="10" y="195" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#2A1A2E">Clock</text>
+  <text x="10" y="207" font-family="Inter, sans-serif" font-size="9" fill="#2A1A2E" opacity="0.7">(2× rate)</text>
+  <!-- Clock: transitions every half-bit (every 40px). High first half, low second half of each half-period -->
+  <!-- High=165, Low=205 -->
+  <!-- Ticks at: 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600, 640, 680, 720, 760 -->
+  <polyline points="
+    120,165 160,165 160,205 200,205 200,165 240,165 240,205 280,205
+    280,165 320,165 320,205 360,205 360,165 400,165 400,205 440,205
+    440,165 480,165 480,205 520,205 520,165 560,165 560,205 600,205
+    600,165 640,165 640,205 680,205 680,165 720,165 720,205 760,205
+  " fill="none" stroke="#2A1A2E" stroke-width="1.6" stroke-linejoin="round"/>
+  <text x="85" y="169" font-family="Inter, sans-serif" font-size="9" fill="#2A1A2E">+V</text>
+  <text x="85" y="209" font-family="Inter, sans-serif" font-size="9" fill="#2A1A2E">-V</text>
+
+  <!-- ======================== ROW 3: Manchester ======================== -->
+  <text x="10" y="265" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#E2557A">Manchester</text>
+  <text x="10" y="277" font-family="Inter, sans-serif" font-size="9" fill="#2A1A2E" opacity="0.7">(NRZ XOR clk)</text>
+
+  <!-- Manchester: bit=1 -> first-half LOW, second-half HIGH (falling edge per our convention here shown as: high first half = -1, low second => high=235, low=275) -->
+  <!-- Let's use: high=235, low=275 -->
+  <!-- Bit 1: first half high(235), second half low(275) -- high-to-low at mid-bit -->
+  <!-- Bit 0: first half low(275),  second half high(235) -- low-to-high at mid-bit -->
+  <!-- Bits: 1  0  1  1  0  0  1  0 -->
+  <!-- x range per bit: 80px, mid at +40 -->
+  <!-- Bit 1 (x=120-200): 120,235 -> 160,235 | 160,275 -> 200,275 -->
+  <!-- Bit 0 (x=200-280): 200,275 -> 240,275 | 240,235 -> 280,235 -->
+  <!-- Bit 1 (x=280-360): 280,235 -> 320,235 | 320,275 -> 360,275 -->
+  <!-- Bit 1 (x=360-440): 360,235 -> 400,235 | 400,275 -> 440,275 -->
+  <!-- Bit 0 (x=440-520): 440,235 -> wait -- need continuity from previous -->
+  <!-- After bit1 ends at 440,275; bit0 starts: goes up to 235 then drops? -->
+  <!-- Actually each bit is independent, transitions happen at bit boundaries and mid-bit -->
+  <!-- Let's trace carefully: -->
+  <!-- Bit 1: x=120 start high(235), mid x=160 drop to low(275), end x=200 -->
+  <!-- Bit 0: x=200 start low(275)... but previous ended at 275, so no edge at boundary. mid x=240 rise to high(235), end x=280 -->
+  <!-- Bit 1: x=280 start high(235)... previous ended high(235), no edge at boundary. mid x=320 drop to low(275), end x=360 -->
+  <!-- Bit 1: x=360 start high(235)... previous ended low(275)! So edge at x=360 rising to 235. mid x=400 drop to 275, end x=440 -->
+  <!-- Bit 0: x=440 start low(275)... previous ended 275, no edge. mid x=480 rise to 235, end x=520 -->
+  <!-- Bit 0: x=520 start low(275)... previous ended 235! Edge at x=520 drop to 275. mid x=560 rise to 235, end x=600 -->
+  <!-- Bit 1: x=600 start high(235)... previous ended 235, no edge. mid x=640 drop to 275, end x=680 -->
+  <!-- Bit 0: x=680 start low(275)... previous ended 275, no edge. mid x=720 rise to 235, end x=760 -->
+  <polyline points="
+    120,235 160,235 160,275 200,275
+    200,275 240,275 240,235 280,235
+    280,235 320,235 320,275 360,275
+    360,235 400,235 400,275 440,275
+    440,275 480,275 480,235 520,235
+    520,275 560,275 560,235 600,235
+    600,235 640,235 640,275 680,275
+    680,275 720,275 720,235 760,235
+  " fill="none" stroke="#E2557A" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="85" y="239" font-family="Inter, sans-serif" font-size="9" fill="#2A1A2E">+V</text>
+  <text x="85" y="279" font-family="Inter, sans-serif" font-size="9" fill="#2A1A2E">-V</text>
+
+  <!-- Mid-bit transition arrows (accent, pointing down or up at mid-bit x positions) -->
+  <!-- Just small triangles to highlight the key transitions -->
+  <!-- Bit1 at x=160: downward -->
+  <polygon points="160,290 155,300 165,300" fill="#E2557A" opacity="0.7"/>
+  <!-- Bit0 at x=240: upward -->
+  <polygon points="240,220 235,212 245,212" fill="#E2557A" opacity="0.7"/>
+  <!-- Bit1 at x=320: downward -->
+  <polygon points="320,290 315,300 325,300" fill="#E2557A" opacity="0.7"/>
+  <!-- Bit1 at x=400: downward -->
+  <polygon points="400,290 395,300 405,300" fill="#E2557A" opacity="0.7"/>
+  <!-- Bit0 at x=480: upward -->
+  <polygon points="480,220 475,212 485,212" fill="#E2557A" opacity="0.7"/>
+  <!-- Bit0 at x=560: upward -->
+  <polygon points="560,220 555,212 565,212" fill="#E2557A" opacity="0.7"/>
+  <!-- Bit1 at x=640: downward -->
+  <polygon points="640,290 635,300 645,300" fill="#E2557A" opacity="0.7"/>
+  <!-- Bit0 at x=720: upward -->
+  <polygon points="720,220 715,212 725,212" fill="#E2557A" opacity="0.7"/>
+
+  <!-- Legend for transition direction -->
+  <text x="120" y="320" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">
+    Key:
+  </text>
+  <polygon points="180,315 175,307 185,307" fill="#E2557A"/>
+  <text x="190" y="319" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">= logic 0 (rising mid-bit)</text>
+  <polygon points="320,319 315,327 325,327" fill="#E2557A"/>
+  <text x="330" y="319" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E">= logic 1 (falling mid-bit)</text>
+
+  <!-- ======================== ROW 4: Preamble byte annotation ======================== -->
+  <!-- Show a label bar below indicating "Preamble byte: 0xAA = 10101010" pattern context -->
+  <rect x="120" y="335" width="640" height="22" rx="4" fill="none" stroke="#2A1A2E" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+  <text x="440" y="350" font-family="Inter, monospace, sans-serif" font-size="10" fill="#2A1A2E" text-anchor="middle" opacity="0.7">← One preamble byte (0xAA = 10101010) spans 8 bit-periods — repeated 7× before SFD →</text>
+
+  <!-- Time axis at bottom -->
+  <line x1="120" y1="378" x2="762" y2="378" stroke="#2A1A2E" stroke-width="1.2" marker-end="url(#arrowhead)"/>
+  <text x="390" y="395" font-family="Inter, sans-serif" font-size="10" fill="#2A1A2E" text-anchor="middle">time →   (each division = 1 bit period = 100 ns @ 10 Mbps)</text>
+
+  <!-- Label: guaranteed mid-bit transition -->
+  <line x1="160" y1="305" x2="160" y2="312" stroke="#E2557A" stroke-width="1"/>
+  <text x="10" y="360" font-family="Inter, sans-serif" font-size="9" fill="#E2557A" opacity="0.85">mid-bit</text>
+  <text x="10" y="371" font-family="Inter, sans-serif" font-size="9" fill="#E2557A" opacity="0.85">transitions</text>
+
+</svg>

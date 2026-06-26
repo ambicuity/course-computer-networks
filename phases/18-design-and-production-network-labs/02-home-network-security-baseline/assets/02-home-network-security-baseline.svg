@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700" font-family="ui-sans-serif, system-ui, sans-serif">
+  <rect width="1000" height="700" fill="#FFF7EC"/>
+  <rect x="20" y="20" width="960" height="660" fill="none" stroke="#2A1A2E" stroke-width="2" rx="12"/>
+
+  <text x="40" y="58" font-size="22" font-weight="700" fill="#2A1A2E">Home Network Security Baseline — Two-VLAN Topology</text>
+  <text x="40" y="82" font-size="13" fill="#2A1A2E">Trusted (PCs, NAS, phones) ↔ IoT (cameras, bulbs, smart speakers) — inter-VLAN rules deny IoT → Trusted</text>
+
+  <!-- Internet -->
+  <rect x="400" y="100" width="200" height="48" fill="#FFE9D6" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="500" y="129" text-anchor="middle" font-size="13" font-weight="600" fill="#2A1A2E">Internet (ISP)</text>
+
+  <!-- Edge router -->
+  <rect x="380" y="170" width="240" height="60" fill="#FFD6BC" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="500" y="195" text-anchor="middle" font-size="13" font-weight="700" fill="#2A1A2E">Edge Router (OpenWrt)</text>
+  <text x="500" y="213" text-anchor="middle" font-size="10" fill="#2A1A2E">WPA3-SAE · DoT 9.9.9.9 · SPI FW · MFA admin</text>
+
+  <line x1="500" y1="148" x2="500" y2="170" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- Managed switch -->
+  <rect x="200" y="270" width="280" height="60" fill="#FCD3D8" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="340" y="295" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Managed Switch (VLAN-aware)</text>
+  <text x="340" y="313" text-anchor="middle" font-size="10" fill="#2A1A2E">Port 1-8: VLAN 10 Trusted · Port 9-16: VLAN 20 IoT</text>
+
+  <rect x="520" y="270" width="280" height="60" fill="#FCD3D8" stroke="#2A1A2E" stroke-width="1.5" rx="6"/>
+  <text x="660" y="295" text-anchor="middle" font-size="12" font-weight="700" fill="#2A1A2E">Raspberry Pi (syslog + Pi-hole)</text>
+  <text x="660" y="313" text-anchor="middle" font-size="10" fill="#2A1A2E">Logs 90d · DNS sinkhole · remote alerts</text>
+
+  <line x1="450" y1="230" x2="340" y2="270" stroke="#2A1A2E" stroke-width="1.5"/>
+  <line x1="550" y1="230" x2="660" y2="270" stroke="#2A1A2E" stroke-width="1.5"/>
+
+  <!-- Trusted VLAN -->
+  <rect x="60" y="380" width="380" height="200" fill="#F7F0E1" stroke="#E2557A" stroke-width="2" stroke-dasharray="6 3" rx="8"/>
+  <text x="80" y="405" font-size="13" font-weight="700" fill="#2A1A2E">VLAN 10 — Trusted (192.168.10.0/24)</text>
+
+  <g>
+    <rect x="80" y="430" width="80" height="50" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="120" y="453" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Laptop 1</text>
+    <text x="120" y="468" text-anchor="middle" font-size="9" fill="#2A1A2E">.10</text>
+
+    <rect x="180" y="430" width="80" height="50" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="220" y="453" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Laptop 2</text>
+    <text x="220" y="468" text-anchor="middle" font-size="9" fill="#2A1A2E">.11</text>
+
+    <rect x="280" y="430" width="80" height="50" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="320" y="453" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Phone</text>
+    <text x="320" y="468" text-anchor="middle" font-size="9" fill="#2A1A2E">.20</text>
+
+    <rect x="80" y="500" width="120" height="50" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="140" y="523" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Synology NAS</text>
+    <text x="140" y="538" text-anchor="middle" font-size="9" fill="#2A1A2E">.50 (encrypted)</text>
+
+    <rect x="220" y="500" width="120" height="50" fill="#F7F0E1" stroke="#2A1A2E" rx="4"/>
+    <text x="280" y="523" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Workstation</text>
+    <text x="280" y="538" text-anchor="middle" font-size="9" fill="#2A1A2E">.30 (MFA)</text>
+  </g>
+
+  <!-- IoT VLAN -->
+  <rect x="560" y="380" width="380" height="200" fill="#FFE9D6" stroke="#E2557A" stroke-width="2" stroke-dasharray="6 3" rx="8"/>
+  <text x="580" y="405" font-size="13" font-weight="700" fill="#2A1A2E">VLAN 20 — IoT (192.168.20.0/24)</text>
+  <text x="580" y="420" font-size="9" fill="#E2557A">No outbound to VLAN 10 · DNS via Pi-hole</text>
+
+  <g>
+    <rect x="580" y="430" width="80" height="50" fill="#FFE9D6" stroke="#2A1A2E" rx="4"/>
+    <text x="620" y="453" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Echo</text>
+    <text x="620" y="468" text-anchor="middle" font-size="9" fill="#2A1A2E">.101</text>
+
+    <rect x="680" y="430" width="80" height="50" fill="#FFE9D6" stroke="#2A1A2E" rx="4"/>
+    <text x="720" y="453" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Hue</text>
+    <text x="720" y="468" text-anchor="middle" font-size="9" fill="#2A1A2E">.102</text>
+
+    <rect x="780" y="430" width="80" height="50" fill="#FFE9D6" stroke="#2A1A2E" rx="4"/>
+    <text x="820" y="453" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Roku</text>
+    <text x="820" y="468" text-anchor="middle" font-size="9" fill="#2A1A2E">.103</text>
+
+    <rect x="580" y="500" width="120" height="50" fill="#FFE9D6" stroke="#2A1A2E" rx="4"/>
+    <text x="640" y="523" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Ring Doorbell</text>
+    <text x="640" y="538" text-anchor="middle" font-size="9" fill="#2A1A2E">.80</text>
+
+    <rect x="720" y="500" width="120" height="50" fill="#FFE9D6" stroke="#2A1A2E" rx="4"/>
+    <text x="780" y="523" text-anchor="middle" font-size="10" font-weight="700" fill="#2A1A2E">Schlage Lock</text>
+    <text x="780" y="538" text-anchor="middle" font-size="9" fill="#2A1A2E">.110</text>
+  </g>
+
+  <!-- Inter-VLAN rules -->
+  <text x="500" y="610" text-anchor="middle" font-size="11" font-weight="700" fill="#E2557A">Firewall rules on the router:</text>
+  <text x="500" y="626" text-anchor="middle" font-size="10" fill="#2A1A2E">VLAN 20 → VLAN 10: DENY (stateful new-conn) · VLAN 10 → VLAN 20: ALLOW mgmt only · VLAN 10/20 → Internet: ALLOW</text>
+  <text x="500" y="642" text-anchor="middle" font-size="10" fill="#2A1A2E">WAN → router admin: DENY · DNS: 9.9.9.9 + DoT · NTP: 9.9.9.9 (Quad9 also runs NTS-secured time)</text>
+  <text x="500" y="660" text-anchor="middle" font-size="9" fill="#2A1A2E">Baseline scored against CIS Controls v8 IG1 + NIST CSF 2.0 + NIST IR 8425</text>
+</svg>

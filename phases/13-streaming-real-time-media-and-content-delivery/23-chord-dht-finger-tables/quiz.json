@@ -1,0 +1,48 @@
+{
+  "questions": [
+    {
+      "question": "In Chord, what does successor(k) return?",
+      "options": [
+        "The node that hashed to k",
+        "The first actual node at or after identifier k, going clockwise around the ring",
+        "The node immediately before k on the ring",
+        "The node that originally stored the key k"
+      ],
+      "answer": 1,
+      "explanation": "successor(k) is the first live node at or following k clockwise. With nodes {1,4,7,12,15,20,27}, successor(6)=7 and successor(8)=12. This is the function that assigns each key to the node responsible for storing it."
+    },
+    {
+      "question": "What does finger-table entry i of a node with identifier k contain, and why does this give O(log n) lookups?",
+      "options": [
+        "The IP of node k+i; each hop moves one step around the ring",
+        "start = (k + 2^i) mod 2^m and successor(start); each successive entry doubles the distance, so each hop at least halves the remaining distance to the target",
+        "A random node identifier; randomness ensures load balancing",
+        "The predecessor of k; lookups walk backward to the key"
+      ],
+      "answer": 1,
+      "explanation": "Entry i points to successor(k + 2^i). The starts double each step, so the finger table gives a node exponentially spaced long-distance pointers. A lookup forwards to the closest preceding finger, which halves the remaining distance, giving O(log n) average hops."
+    },
+    {
+      "question": "Compare linear successor-walk lookup with finger-table lookup for a ring of n nodes. Which statement is correct?",
+      "options": [
+        "Both take O(log n) hops on average",
+        "Linear walk takes O(n) and finger lookup takes O(log n), so finger lookup is exponentially faster for large n",
+        "Linear walk takes O(1) and finger lookup takes O(n)",
+        "Both take O(n) hops but finger lookup uses less bandwidth"
+      ],
+      "answer": 1,
+      "explanation": "A linear walk follows the immediate successor chain and averages n/2 hops. The finger table routes through exponentially spaced pointers, so the average number of hops is log n. For a million nodes this is the difference between 500,000 and 20 hops."
+    },
+    {
+      "question": "Why does Chord hash both node IP addresses and content names into the same identifier space?",
+      "options": [
+        "So that nodes and keys can be compared for equality",
+        "So that a key can be mapped to a responsible node by the same successor() function that maps node identifiers, distributing keys uniformly at random over the nodes",
+        "To encrypt the content so only the responsible node can read it",
+        "To reduce the number of bits needed for addresses"
+      ],
+      "answer": 1,
+      "explanation": "By hashing both nodes and keys with the same function into the same m-bit ring, successor(key) deterministically identifies the node responsible for a key. The uniformity of the hash spreads keys evenly across nodes, and no central assignment is needed."
+    }
+  ]
+}

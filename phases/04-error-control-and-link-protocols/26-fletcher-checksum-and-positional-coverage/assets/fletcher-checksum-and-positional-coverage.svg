@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" height="560">
+  <rect width="760" height="560" fill="#FFF7EC"/>
+  <text x="380" y="40" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="20" font-weight="700" fill="#2A1A2E">Fletcher vs Internet Checksum: the position weight</text>
+  <text x="380" y="62" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" fill="#2A1A2E">Two accumulators fold in position so byte i is weighted by (n − i + 1)</text>
+
+  <!-- Byte stream -->
+  <text x="60" y="100" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">byte stream</text>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#2A1A2E" text-anchor="middle">
+    <rect x="60"  y="108" width="50" height="28" fill="#fff" stroke="#2A1A2E"/>
+    <text x="85"  y="126">b1</text>
+    <rect x="110" y="108" width="50" height="28" fill="#fff" stroke="#2A1A2E"/>
+    <text x="135" y="126">b2</text>
+    <rect x="160" y="108" width="50" height="28" fill="#fff" stroke="#2A1A2E"/>
+    <text x="185" y="126">b3</text>
+    <rect x="210" y="108" width="50" height="28" fill="#fff" stroke="#2A1A2E"/>
+    <text x="235" y="126">…</text>
+    <rect x="260" y="108" width="50" height="28" fill="#fff" stroke="#2A1A2E"/>
+    <text x="285" y="126">bn</text>
+  </g>
+
+  <!-- s1 row: plain running sum -->
+  <text x="60" y="170" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">s1 = (s1 + b) mod M   — plain sum, order-blind</text>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2A1A2E" text-anchor="middle">
+    <rect x="60"  y="178" width="50" height="24" fill="#fff" stroke="#2A1A2E"/>
+    <text x="85"  y="194">b1</text>
+    <rect x="110" y="178" width="50" height="24" fill="#fff" stroke="#2A1A2E"/>
+    <text x="135" y="194">b1+b2</text>
+    <rect x="160" y="178" width="50" height="24" fill="#fff" stroke="#2A1A2E"/>
+    <text x="185" y="194">+b3</text>
+    <rect x="210" y="178" width="50" height="24" fill="#fff" stroke="#2A1A2E"/>
+    <text x="235" y="194">…</text>
+    <rect x="260" y="178" width="50" height="24" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="285" y="194">Σ</text>
+  </g>
+
+  <!-- s2 row: position-weighted -->
+  <text x="60" y="232" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="600" fill="#E2557A">s2 = (s2 + s1) mod M   — folds in s1 every step (position)</text>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#2A1A2E" text-anchor="middle">
+    <rect x="60"  y="240" width="50" height="24" fill="#fff" stroke="#2A1A2E"/>
+    <text x="85"  y="256">b1</text>
+    <rect x="110" y="240" width="50" height="24" fill="#fff" stroke="#2A1A2E"/>
+    <text x="135" y="256">2b1+b2</text>
+    <rect x="160" y="240" width="50" height="24" fill="#fff" stroke="#2A1A2E"/>
+    <text x="185" y="256">3b1+2b2+b3</text>
+    <rect x="210" y="240" width="50" height="24" fill="#fff" stroke="#2A1A2E"/>
+    <text x="235" y="256">…</text>
+    <rect x="260" y="240" width="50" height="24" fill="#E2557A" stroke="#2A1A2E"/>
+    <text x="285" y="256">Σwᵢbᵢ</text>
+  </g>
+
+  <!-- arrows from s1 up to s2 -->
+  <g stroke="#E2557A" stroke-width="1.4" fill="none" marker-end="url(#arr)">
+    <line x1="85"  y1="178" x2="85"  y2="239"/>
+    <line x1="135" y1="178" x2="135" y2="239"/>
+    <line x1="185" y1="178" x2="185" y2="239"/>
+    <line x1="235" y1="178" x2="235" y2="239"/>
+    <line x1="285" y1="178" x2="285" y2="239"/>
+  </g>
+  <defs>
+    <marker id="arr" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 z" fill="#E2557A"/>
+    </marker>
+  </defs>
+
+  <!-- Output field -->
+  <text x="60" y="296" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="600" fill="#2A1A2E">checksum = (s2 &lt;&lt; k) | s1</text>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2A1A2E" text-anchor="middle">
+    <rect x="60"  y="304" width="120" height="26" fill="#fff" stroke="#2A1A2E"/>
+    <text x="120" y="321">s2  (position)</text>
+    <rect x="180" y="304" width="120" height="26" fill="#fff" stroke="#2A1A2E"/>
+    <text x="240" y="321">s1  (flat sum)</text>
+  </g>
+
+  <!-- Comparison table -->
+  <text x="420" y="100" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="#2A1A2E">What each catches</text>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#2A1A2E">
+    <rect x="420" y="112" width="300" height="22" fill="#2A1A2E"/>
+    <text x="430" y="127" fill="#FFF7EC" font-weight="600">Error class</text>
+    <text x="560" y="127" fill="#FFF7EC" font-weight="600">Internet</text>
+    <text x="640" y="127" fill="#FFF7EC" font-weight="600">Fletcher</text>
+
+    <rect x="420" y="134" width="300" height="22" fill="#fff" stroke="#2A1A2E"/>
+    <text x="430" y="149">single-bit flip</text>
+    <text x="560" y="149" fill="#2A1A2E">yes</text>
+    <text x="640" y="149" fill="#E2557A" font-weight="600">yes</text>
+
+    <rect x="420" y="156" width="300" height="22" fill="#fff" stroke="#2A1A2E"/>
+    <text x="430" y="171">compensating 2-bit</text>
+    <text x="560" y="171" fill="#E2557A" font-weight="600">no</text>
+    <text x="640" y="171" fill="#E2557A" font-weight="600">yes</text>
+
+    <rect x="420" y="178" width="300" height="22" fill="#fff" stroke="#2A1A2E"/>
+    <text x="430" y="193">word swap</text>
+    <text x="560" y="193" fill="#E2557A" font-weight="600">no</text>
+    <text x="640" y="193" fill="#E2557A" font-weight="600">yes</text>
+
+    <rect x="420" y="200" width="300" height="22" fill="#fff" stroke="#2A1A2E"/>
+    <text x="430" y="215">zero word insert</text>
+    <text x="560" y="215" fill="#E2557A" font-weight="600">no</text>
+    <text x="640" y="215" fill="#E2557A" font-weight="600">yes</text>
+
+    <rect x="420" y="222" width="300" height="22" fill="#fff" stroke="#2A1A2E"/>
+    <text x="430" y="237">16-bit burst</text>
+    <text x="560" y="237">~1−2⁻¹⁶</text>
+    <text x="640" y="237" fill="#E2557A" font-weight="600">yes (F-32)</text>
+  </g>
+
+  <!-- Worked example -->
+  <text x="60" y="372" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="#2A1A2E">Worked example — Fletcher-16 on {01,02,03} (M = 255)</text>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#2A1A2E">
+    <text x="60"  y="396" font-weight="600">step  byte   s1        s2</text>
+    <text x="60"  y="414">  0    01    1         1</text>
+    <text x="60"  y="432">  1    02    3         4</text>
+    <text x="60"  y="450">  2    03    6        10</text>
+    <text x="60"  y="472" fill="#E2557A" font-weight="600">checksum = (10 &lt;&lt; 8) | 6 = 0x0A06</text>
+  </g>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#2A1A2E">
+    <text x="300" y="414">swap to {03,02,01}: s2 = 14  → 0x0E06</text>
+    <text x="300" y="432" fill="#E2557A">Internet sum = 0x06 in BOTH orders (blind)</text>
+    <text x="300" y="450">s1 unchanged (6); only s2 sees the move</text>
+  </g>
+
+  <text x="60" y="520" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#2A1A2E">Fletcher, 1982 · RFC 1071 (Internet) · RFC 3309 (Adler-32, zlib) · CRC-32 still wins on links (IEEE 802.3, RFC 1662)</text>
+  <text x="60" y="540" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#2A1A2E">See code/main.py for the detection matrix that produced these verdicts.</text>
+</svg>

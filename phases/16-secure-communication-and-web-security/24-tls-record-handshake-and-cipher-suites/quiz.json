@@ -1,0 +1,35 @@
+[
+  {
+    "question": "What is the purpose of the supported_versions extension (type 43) in TLS 1.3?",
+    "options": [
+      "A. It is a backwards-incompatible wire format change; TLS 1.3 uses a new record header",
+      "B. It advertises the actual TLS version (0x0304 for 1.3, 0x0303 for 1.2) while keeping the legacy record-layer version field at 0x0303 for middlebox compatibility",
+      "C. It specifies the cipher suite list",
+      "D. It is used for session resumption only"
+    ],
+    "answer": 1,
+    "explanation": "TLS 1.3 keeps the legacy version field at 0x0303 in the record layer to avoid breaking middleboxes that classify by version. The real version list lives in the supported_versions extension (type 43), advertised as 0x0304 for TLS 1.3 and 0x0303 for TLS 1.2. A server that does not understand the extension falls back to TLS 1.2."
+  },
+  {
+    "question": "What is the role of the Finished message in a TLS 1.3 handshake?",
+    "options": [
+      "A. It terminates the connection",
+      "B. It is a MAC over the entire handshake transcript, computed with the finished_key derived from the handshake_secret; both sides verify to detect tampering or downgrade attempts",
+      "C. It is sent in plaintext and contains the master secret",
+      "D. It is the first message encrypted under the application traffic secret"
+    ],
+    "answer": 1,
+    "explanation": "Finished is HMAC(finished_key, transcript_hash) where finished_key is derived from the handshake_secret and transcript_hash covers every byte of every handshake message. Each side verifies the other's Finished MAC; a mismatch means a byte of the handshake was rewritten and the connection is aborted. Finished is the integrity check that makes TLS 1.3 self-consistent."
+  },
+  {
+    "question": "Which TLS 1.3 cipher suite ID corresponds to TLS_AES_128_GCM_SHA256?",
+    "options": [
+      "A. 0x002F",
+      "B. 0x1301",
+      "C. 0xC02F",
+      "D. 0xCCA9"
+    ],
+    "answer": 1,
+    "explanation": "0x1301 is the IANA cipher suite ID for TLS_AES_128_GCM_SHA256 in TLS 1.3. IDs 0x1302-0x1305 are the other four TLS 1.3 suites; 0xC02F and 0xCCA9 are TLS 1.2 suites (ECDHE-RSA-AES128-GCM-SHA256 and ECDHE-ECDSA-CHACHA20-POLY1305-SHA256 respectively). 0x002F is the legacy TLS_RSA_WITH_AES_128_CBC_SHA from TLS 1.0/1.1."
+  }
+]

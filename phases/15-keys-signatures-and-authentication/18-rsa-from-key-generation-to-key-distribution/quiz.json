@@ -1,0 +1,35 @@
+[
+  {
+    "question": "What mathematical problem is the security of RSA based on?",
+    "options": [
+      "A. The discrete logarithm problem in Z_p",
+      "B. The difficulty of factoring the product of two large primes (chapter §8.3.1)",
+      "C. The difficulty of computing elliptic-curve discrete logs",
+      "D. The difficulty of inverting AES"
+    ],
+    "answer": 1,
+    "explanation": "Given n = p * q where p and q are large primes, RSA's security rests on the difficulty of factoring n to recover p and q. From there, phi(n) and d are easy to compute. The chapter notes that 'mathematicians have been trying to factor large numbers for at least 300 years' without a polynomial-time algorithm. The 2020 factorization of RSA-250 (829 bits) took ~2700 CPU-years but is still far from breaking 2048-bit RSA."
+  },
+  {
+    "question": "In the chapter's SUZANNE example with p=3, q=11, e=3, what is the ciphertext for the letter 'S' (P=19)?",
+    "options": [
+      "A. 19",
+      "B. 6859",
+      "C. 28",
+      "D. 3"
+    ],
+    "answer": 2,
+    "explanation": "C = P^e mod n = 19^3 mod 33 = 6859 mod 33 = 28. The chapter's Fig. 8-17 reproduces this exact row. Decryption recovers 19 by computing 28^7 mod 33."
+  },
+  {
+    "question": "Why is textbook RSA (`C = P^e mod n`) not used directly in modern protocols?",
+    "options": [
+      "A. It is too slow for message encryption",
+      "B. It is deterministic and malleable: encrypting the same P gives the same C, and an attacker can compute (2P)^e mod n from C = P^e mod n without knowing P",
+      "C. It requires the receiver to have the sender's private key",
+      "D. It cannot encrypt messages longer than 256 bytes"
+    ],
+    "answer": 1,
+    "explanation": "Textbook RSA is deterministic (same plaintext -> same ciphertext, breaking IND-CPA) and multiplicatively homomorphic (C * r^e mod n = (P*r)^e mod n). Production protocols use RSAES-OAEP (RFC 8017 §7.1), which adds a randomized padding that destroys both properties."
+  }
+]

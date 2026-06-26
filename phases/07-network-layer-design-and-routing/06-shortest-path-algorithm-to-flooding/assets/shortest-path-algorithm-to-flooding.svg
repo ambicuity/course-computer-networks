@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="760" height="520">
+  <rect width="760" height="520" fill="#FFF7EC"/>
+  <style>
+    .title { font-family: Inter, sans-serif; font-size: 20px; font-weight: 700; fill: #2A1A2E; }
+    .sub   { font-family: Inter, sans-serif; font-size: 13px; fill: #2A1A2E; }
+    .lbl   { font-family: monospace; font-size: 13px; fill: #2A1A2E; }
+    .node  { fill: #FFF7EC; stroke: #2A1A2E; stroke-width: 2; }
+    .perm  { fill: #E2557A; stroke: #2A1A2E; stroke-width: 2; }
+    .nlbl  { font-family: Inter, sans-serif; font-size: 15px; font-weight: 700; fill: #2A1A2E; }
+    .nlblP { font-family: Inter, sans-serif; font-size: 15px; font-weight: 700; fill: #FFF7EC; }
+    .edge  { stroke: #2A1A2E; stroke-width: 1.5; }
+    .tree  { stroke: #E2557A; stroke-width: 4; }
+    .w     { font-family: monospace; font-size: 12px; fill: #2A1A2E; }
+    .wb    { font-family: monospace; font-size: 12px; fill: #FFF7EC; }
+  </style>
+
+  <text x="30" y="36" class="title">Shortest path (Dijkstra) and the flood it rides on</text>
+  <text x="30" y="58" class="sub">Pink nodes are permanent; the thick berry path is the shortest A to D route (cost 8).</text>
+
+  <!-- ===================== GRAPH ===================== -->
+  <!-- Edge weight backgrounds for tree edges -->
+  <!-- A(60,140) B(220,110) C(380,90) D(560,150) E(230,240) F(400,250) G(120,330) H(330,360) -->
+
+  <!-- non-tree edges -->
+  <line x1="220" y1="110" x2="380" y2="90"  class="edge"/>
+  <line x1="60"  y1="140" x2="120" y2="330" class="edge"/>
+  <line x1="120" y1="330" x2="330" y2="360" class="edge"/>
+  <line x1="230" y1="240" x2="120" y2="330" class="edge"/>
+  <line x1="380" y1="90"  x2="560" y2="150" class="edge"/>
+
+  <!-- shortest-path-tree edges (berry, thick): A-B, B-E, E-F, F-D, F-H, E-G -->
+  <line x1="60"  y1="140" x2="220" y2="110" class="tree"/>
+  <line x1="220" y1="110" x2="230" y2="240" class="tree"/>
+  <line x1="230" y1="240" x2="400" y2="250" class="tree"/>
+  <line x1="400" y1="250" x2="560" y2="150" class="tree"/>
+  <line x1="400" y1="250" x2="330" y2="360" class="tree"/>
+  <line x1="230" y1="240" x2="120" y2="330" class="tree"/>
+
+  <!-- edge weight labels -->
+  <text x="135" y="118" class="w">2</text>
+  <text x="300" y="92"  class="w">7</text>
+  <text x="470" y="112" class="w">3</text>
+  <text x="218" y="180" class="w">2</text>
+  <text x="315" y="252" class="w">2</text>
+  <text x="485" y="208" class="w">2</text>
+  <text x="370" y="315" class="w">2</text>
+  <text x="85"  y="240" class="w">6</text>
+  <text x="168" y="295" class="w">1</text>
+  <text x="225" y="350" class="w">4</text>
+
+  <!-- nodes: permanent ones filled berry -->
+  <circle cx="60"  cy="140" r="20" class="perm"/><text x="60"  y="146" text-anchor="middle" class="nlblP">A</text>
+  <circle cx="220" cy="110" r="20" class="perm"/><text x="220" y="116" text-anchor="middle" class="nlblP">B</text>
+  <circle cx="380" cy="90"  r="20" class="perm"/><text x="380" y="96"  text-anchor="middle" class="nlblP">C</text>
+  <circle cx="560" cy="150" r="20" class="perm"/><text x="560" y="156" text-anchor="middle" class="nlblP">D</text>
+  <circle cx="230" cy="240" r="20" class="perm"/><text x="230" y="246" text-anchor="middle" class="nlblP">E</text>
+  <circle cx="400" cy="250" r="20" class="perm"/><text x="400" y="256" text-anchor="middle" class="nlblP">F</text>
+  <circle cx="120" cy="330" r="20" class="perm"/><text x="120" y="336" text-anchor="middle" class="nlblP">G</text>
+  <circle cx="330" cy="360" r="20" class="perm"/><text x="330" y="366" text-anchor="middle" class="nlblP">H</text>
+
+  <!-- final (length,pred) labels next to nodes -->
+  <text x="35"  y="178" class="lbl">(0,-)</text>
+  <text x="195" y="92"  class="lbl">(2,A)</text>
+  <text x="358" y="58"  class="lbl">(9,B)</text>
+  <text x="538" y="188" class="lbl">(8,F)</text>
+  <text x="248" y="232" class="lbl">(4,B)</text>
+  <text x="418" y="248" class="lbl">(6,E)</text>
+  <text x="95"  y="372" class="lbl">(5,E)</text>
+  <text x="350" y="396" class="lbl">(8,F)</text>
+
+  <!-- ===================== SIDE PANEL: promotion order ===================== -->
+  <text x="600" y="232" class="sub" font-weight="700">Promotion order</text>
+  <text x="600" y="254" class="lbl">A &#8594; B &#8594; E</text>
+  <text x="600" y="274" class="lbl">&#8594; G &#8594; F &#8594; D</text>
+  <text x="600" y="294" class="lbl">&#8594; H &#8594; C</text>
+  <text x="600" y="320" class="sub">G relabels</text>
+  <text x="600" y="338" class="lbl">(6,A)&#8594;(5,E)</text>
+
+  <!-- ===================== FLOODING PANEL ===================== -->
+  <rect x="30" y="420" width="700" height="80" rx="8" fill="#FFF7EC" stroke="#2A1A2E" stroke-width="1.5"/>
+  <text x="46" y="444" class="sub" font-weight="700">Flooding the same topology (one packet from A, seq=5)</text>
+  <text x="46" y="468" class="lbl">no suppression: 144 forwards  (hop counter / TTL bounds it, duplicates still explode)</text>
+  <text x="46" y="488" class="lbl">seq-number k :  13 forwards  &#8212; each router drops anything seq &#8804; k  &#8594; 91% of the storm removed</text>
+
+  <rect x="556" y="455" width="18" height="18" class="tree" fill="#E2557A"/>
+  <text x="640" y="412" text-anchor="end" class="w">weights = link cost</text>
+</svg>

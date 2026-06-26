@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+ <rect width="880" height="560" fill="#FFF7EC"/>
+ <defs>
+ <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+ <path d="M0,0 L10,5 L0,10 z" fill="#2A1A2E"/>
+ </marker>
+ </defs>
+ <text x="440" y="32" text-anchor="middle" fill="#2A1A2E" font-size="20" font-weight="700">(11,7) Hamming code — layout &amp; syndrome decoding</text>
+ <text x="440" y="50" text-anchor="middle" fill="#2A1A2E" font-size="11" opacity="0.7">check bits at powers of two; syndrome = flipped bit index</text>
+ <text x="40" y="82" fill="#2A1A2E" font-size="13" font-weight="700">Codeword positions (ASCII 'A' = 1000001)</text>
+ <g font-size="12" fill="#2A1A2E" text-anchor="middle">
+ <rect x="40" y="92" width="60" height="22" fill="#FBE3EA" stroke="#E2557A"/><text x="70" y="108">1</text>
+ <rect x="100" y="92" width="60" height="22" fill="#FBE3EA" stroke="#E2557A"/><text x="130" y="108">2</text>
+ <rect x="160" y="92" width="60" height="22" fill="#FBF1DD" stroke="#2A1A2E"/><text x="190" y="108">3</text>
+ <rect x="220" y="92" width="60" height="22" fill="#FBE3EA" stroke="#E2557A"/><text x="250" y="108">4</text>
+ <rect x="280" y="92" width="60" height="22" fill="#FBF1DD" stroke="#2A1A2E"/><text x="310" y="108">5</text>
+ <rect x="340" y="92" width="60" height="22" fill="#FBF1DD" stroke="#2A1A2E"/><text x="370" y="108">6</text>
+ <rect x="400" y="92" width="60" height="22" fill="#FBF1DD" stroke="#2A1A2E"/><text x="430" y="108">7</text>
+ <rect x="460" y="92" width="60" height="22" fill="#FBE3EA" stroke="#E2557A"/><text x="490" y="108">8</text>
+ <rect x="520" y="92" width="60" height="22" fill="#FBF1DD" stroke="#2A1A2E"/><text x="550" y="108">9</text>
+ <rect x="580" y="92" width="60" height="22" fill="#FBF1DD" stroke="#2A1A2E"/><text x="610" y="108">10</text>
+ <rect x="640" y="92" width="60" height="22" fill="#FBF1DD" stroke="#2A1A2E"/><text x="670" y="108">11</text>
+ </g>
+ <g font-size="12" text-anchor="middle" font-weight="700">
+ <text x="70" y="130" fill="#E2557A">p1</text><text x="130" y="130" fill="#E2557A">p2</text>
+ <text x="190" y="130" fill="#2A1A2E">m1</text><text x="250" y="130" fill="#E2557A">p4</text>
+ <text x="310" y="130" fill="#2A1A2E">m2</text><text x="370" y="130" fill="#2A1A2E">m3</text>
+ <text x="430" y="130" fill="#2A1A2E">m4</text><text x="490" y="130" fill="#E2557A">p8</text>
+ <text x="550" y="130" fill="#2A1A2E">m5</text><text x="610" y="130" fill="#2A1A2E">m6</text>
+ <text x="670" y="130" fill="#2A1A2E">m7</text>
+ </g>
+ <g font-size="13" text-anchor="middle" fill="#2A1A2E">
+ <text x="70" y="152">0</text><text x="130" y="152">0</text><text x="190" y="152">1</text>
+ <text x="250" y="152">0</text><text x="310" y="152" fill="#E2557A" font-weight="700">0→1</text>
+ <text x="370" y="152">0</text><text x="430" y="152">0</text><text x="490" y="152">1</text>
+ <text x="550" y="152">0</text><text x="610" y="152">0</text><text x="670" y="152">1</text>
+ </g>
+ <text x="310" y="72" text-anchor="middle" fill="#E2557A" font-size="11" font-weight="700">↓ bit 5 flipped on channel</text>
+ <text x="40" y="184" fill="#2A1A2E" font-size="13" font-weight="700">Coverage (even parity)</text>
+ <g font-size="12" fill="#2A1A2E">
+ <text x="50" y="206">p1→1,3,5,7,9,11 p2→2,3,6,7,10,11</text>
+ <text x="50" y="226">p4→4,5,6,7 p8→8,9,10,11</text>
+ </g>
+ <text x="50" y="246" fill="#2A1A2E" font-size="11" opacity="0.75">k's binary expansion names its check bits (11=1+2+8 → p1,p2,p8).</text>
+ <text x="40" y="278" fill="#2A1A2E" font-size="13" font-weight="700">Syndrome decode flow</text>
+ <rect x="40" y="290" width="180" height="56" rx="6" fill="#FBF1DD" stroke="#2A1A2E"/>
+ <text x="130" y="312" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">Received word</text>
+ <text x="130" y="332" text-anchor="middle" fill="#2A1A2E" font-size="11">001010001 01</text>
+ <line x1="222" y1="318" x2="262" y2="318" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+ <rect x="266" y="290" width="210" height="56" rx="6" fill="#FFF7EC" stroke="#2A1A2E"/>
+ <text x="371" y="312" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">Recompute 4 parity checks</text>
+ <text x="371" y="332" text-anchor="middle" fill="#2A1A2E" font-size="11">c1=1 c2=0 c4=1 c8=0</text>
+ <line x1="478" y1="318" x2="518" y2="318" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+ <rect x="522" y="290" width="150" height="56" rx="6" fill="#FBE3EA" stroke="#E2557A" stroke-width="2"/>
+ <text x="597" y="310" text-anchor="middle" fill="#E2557A" font-size="12" font-weight="700">Syndrome</text>
+ <text x="597" y="332" text-anchor="middle" fill="#2A1A2E" font-size="15" font-weight="700">0101₂ = 5</text>
+ <line x1="597" y1="348" x2="597" y2="378" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+ <polygon points="597,382 680,418 597,454 514,418" fill="#FBF1DD" stroke="#2A1A2E"/>
+ <text x="597" y="414" text-anchor="middle" fill="#2A1A2E" font-size="11" font-weight="700">syndrome 0?</text>
+ <text x="597" y="430" text-anchor="middle" fill="#2A1A2E" font-size="10">yes→accept · no→flip bit</text>
+ <line x1="597" y1="454" x2="597" y2="480" stroke="#2A1A2E" stroke-width="2" marker-end="url(#arrow)"/>
+ <rect x="477" y="484" width="240" height="48" rx="6" fill="#FBF1DD" stroke="#2A1A2E"/>
+ <text x="597" y="504" text-anchor="middle" fill="#2A1A2E" font-size="12" font-weight="700">Flip position 5, extract data bits</text>
+ <text x="597" y="522" text-anchor="middle" fill="#2A1A2E" font-size="12">1000001 → 'A' ✓</text>
+ <text x="40" y="410" fill="#E2557A" font-size="11" font-weight="700">Hamming bound: (m+r+1) ≤ 2^r  ·  12≤16 ✓</text>
+ <text x="40" y="432" fill="#2A1A2E" font-size="11" opacity="0.75">distance 3 → correct 1 error, or detect 2</text>
+</svg>
